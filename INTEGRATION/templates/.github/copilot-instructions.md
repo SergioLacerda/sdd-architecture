@@ -26,7 +26,7 @@ Use that to understand:
 - Where to find rules
 
 ### 3. Begin PHASE 1
-Read rules: `{spec_path}/EXECUTION/docs/ia/CANONICAL/rules/`
+Read rules: `{spec_path}/EXECUTION/spec/CANONICAL/rules/`
 - constitution.md
 - ia-rules.md
 
@@ -39,8 +39,8 @@ Read rules: `{spec_path}/EXECUTION/docs/ia/CANONICAL/rules/`
 
 **Framework location:** (from .spec.config)
 **Framework entry:** `.../EXECUTION/_START_HERE.md`
-**Rules:** `.../EXECUTION/docs/ia/CANONICAL/rules/`
-**Guides:** `.../EXECUTION/docs/ia/guides/`
+**Rules:** `.../EXECUTION/spec/CANONICAL/rules/`
+**Guides:** `.../EXECUTION/spec/guides/`
 
 ---
 
@@ -65,4 +65,4 @@ cp {framework}/INTEGRATION/templates/.github/copilot-instructions.md .github/
 
 ---
 
-**Questions?** See the framework's FAQ at: `{spec_path}/EXECUTION/docs/ia/guides/reference/FAQ.md`
+**Questions?** See the framework's FAQ at: `{spec_path}/EXECUTION/spec/guides/reference/FAQ.md`

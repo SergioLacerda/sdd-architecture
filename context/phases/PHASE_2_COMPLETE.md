@@ -57,7 +57,7 @@ sdd-archtecture/
 ### EXECUTION/ Flow (Complete)
 - ✅ Created `EXECUTION/` directory
 - ✅ Moved guides: README, INDEX, _START_HERE, NAVIGATION
-- ✅ Moved `docs/ia/` → `EXECUTION/docs/ia/` (complete SDD docs)
+- ✅ Moved `docs/ia/` → `EXECUTION/spec/` (complete SDD docs)
 - ✅ Moved `tests/` → `EXECUTION/tests/` (validation tests)
 - ✅ Ready: Developers/agents can use 7-phase AGENT_HARNESS
 

@@ -29,7 +29,7 @@ A documented record of work completed, decisions made, risks identified, and cur
 15 immutable principles that define SDD's core philosophy. The highest authority - never changes.
 
 ### Custom Layer
-Project-specific documentation and specializations. Located in `EXECUTION/docs/ia/custom/[PROJECT]/`.
+Project-specific documentation and specializations. Located in `EXECUTION/spec/custom/[PROJECT]/`.
 
 ---
 
@@ -59,7 +59,7 @@ Record of who is currently working on what, tracked in `.ai/context-aware/execut
 Rules + automation that enforces quality standards. Includes pre-commit hooks, tests, and checkpoints.
 
 ### Guides Layer
-Step-by-step instructions for specific tasks. Located in `EXECUTION/docs/ia/guides/`.
+Step-by-step instructions for specific tasks. Located in `EXECUTION/spec/guides/`.
 
 ---
 

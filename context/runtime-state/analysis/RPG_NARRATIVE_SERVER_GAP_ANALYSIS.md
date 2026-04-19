@@ -246,17 +246,17 @@ rpg-narrative-server correctly uses sdd-archtecture as authority source, not the
 ### Phase 1: CRITICAL (Do Today)
 
 1. **Create ENFORCEMENT_RULES.md** (2 hours)
-   - File: `EXECUTION/docs/ia/CANONICAL/rules/ENFORCEMENT_RULES.md`
+   - File: `EXECUTION/spec/CANONICAL/rules/ENFORCEMENT_RULES.md`
    - Content: Pre-commit, CI/CD, manual review, penalties
    - Reference in: ia-rules.md
 
 2. **Create ARCHITECTURE_VALIDATION.md** (2 hours)
-   - File: `EXECUTION/docs/ia/guides/operational/ARCHITECTURE_VALIDATION.md`
+   - File: `EXECUTION/spec/guides/operational/ARCHITECTURE_VALIDATION.md`
    - Content: How to write compliance tests, templates, examples
    - Reference in: AGENT_HARNESS, testing.md
 
 3. **Create RUNTIME_INDICES_SPECIFICATION.md** (1 hour)
-   - File: `EXECUTION/docs/ia/guides/runtime/RUNTIME_INDICES_SPECIFICATION.md`
+   - File: `EXECUTION/spec/guides/runtime/RUNTIME_INDICES_SPECIFICATION.md`
    - Content: What are runtime indices, when created, purpose
    - Reference in: PHASE-0-AGENT-ONBOARDING.md
 

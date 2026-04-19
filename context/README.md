@@ -221,9 +221,9 @@ Understand automation framework and agent onboarding system
 - `INTEGRATION/templates/` — Files to copy to new projects
 
 ### EXECUTION Flow (Development Workflow)
-- `EXECUTION/docs/ia/CANONICAL/` — Immutable authority (rules, ADRs, specs)
-- `EXECUTION/docs/ia/guides/` — Operational guides and onboarding
-- `EXECUTION/docs/ia/SCRIPTS/` — Automation scripts
+- `EXECUTION/spec/CANONICAL/` — Immutable authority (rules, ADRs, specs)
+- `EXECUTION/spec/guides/` — Operational guides and onboarding
+- `EXECUTION/spec/SCRIPTS/` — Automation scripts
 - `EXECUTION/tests/` — Validation test suite
 
 ### Documentation Archive
@@ -275,11 +275,11 @@ Before using this framework, verify:
 ### If you're **developing with AGENT_HARNESS:**
 1. Review: [PHASE 1](phases/PHASE_1_ENTRY_POINTS.md) EXECUTION flow overview
 2. Prepare: Read [PHASE 7](phases/PHASE_7_DELIVERY.md) agent onboarding
-3. Execute: Follow AGENT_HARNESS (7 phases) from EXECUTION/docs/ia/
+3. Execute: Follow AGENT_HARNESS (7 phases) from EXECUTION/spec/
 
 ### If you're **troubleshooting:**
 1. Check: [PHASE 3-4](phases/PHASE_3_4_VALIDATION_TESTING.md) validation results
-2. Reference: Emergency procedures in EXECUTION/docs/ia/guides/emergency/
+2. Reference: Emergency procedures in EXECUTION/spec/guides/emergency/
 3. Escalate: Contact team if needed
 
 ---
@@ -297,7 +297,7 @@ Before using this framework, verify:
 - See [PHASE 7](phases/PHASE_7_DELIVERY.md) — Complete automation system
 
 **For emergencies:**
-- See `EXECUTION/docs/ia/guides/emergency/` directory
+- See `EXECUTION/spec/guides/emergency/` directory
 
 ---
 

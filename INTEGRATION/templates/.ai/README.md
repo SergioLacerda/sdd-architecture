@@ -111,8 +111,8 @@ python $(grep spec_path ../.spec.config | cut -d' ' -f3)/docs/ia/SCRIPTS/phase-0
 
 **Full framework:** Read `.spec.config` for path, then:
 - Entry: `{path}/EXECUTION/_START_HERE.md`
-- Guides: `{path}/EXECUTION/docs/ia/guides/`
-- Rules: `{path}/EXECUTION/docs/ia/CANONICAL/rules/`
+- Guides: `{path}/EXECUTION/spec/guides/`
+- Rules: `{path}/EXECUTION/spec/CANONICAL/rules/`
 
 ---
 
@@ -134,4 +134,4 @@ grep -r "Rule" .ai/runtime/spec-canonical-index.md
 
 ---
 
-**Need help?** Framework: `{spec_path}/EXECUTION/docs/ia/guides/reference/FAQ.md`
+**Need help?** Framework: `{spec_path}/EXECUTION/spec/guides/reference/FAQ.md`

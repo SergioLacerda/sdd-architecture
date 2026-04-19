@@ -8,7 +8,7 @@
 
 1. Check `.spec.config` for framework location
 2. Go to: `.../EXECUTION/_START_HERE.md`
-3. Read rules: `.../EXECUTION/docs/ia/CANONICAL/rules/ia-rules.md`
+3. Read rules: `.../EXECUTION/spec/CANONICAL/rules/ia-rules.md`
 
 ---
 
@@ -33,14 +33,14 @@
 - File: `.ai/context-aware/execution-state/`
 
 ### Rule 5: 45+ Definition of Done Criteria
-- Before PR: Check `.../EXECUTION/docs/ia/CANONICAL/specifications/definition_of_done.md`
+- Before PR: Check `.../EXECUTION/spec/CANONICAL/specifications/definition_of_done.md`
 - Verify all criteria met
 
 ---
 
 ## 🔗 Full Rules
 
-All 16 mandatory rules: `.../EXECUTION/docs/ia/CANONICAL/rules/ia-rules.md`
+All 16 mandatory rules: `.../EXECUTION/spec/CANONICAL/rules/ia-rules.md`
 
 ---
 
@@ -54,14 +54,14 @@ All 16 mandatory rules: `.../EXECUTION/docs/ia/CANONICAL/rules/ia-rules.md`
 6. **PHASE 6:** Validate (tests + definition of done)
 7. **PHASE 7:** Checkpoint (document + PR)
 
-See: `.../EXECUTION/docs/ia/guides/onboarding/AGENT_HARNESS.md`
+See: `.../EXECUTION/spec/guides/onboarding/AGENT_HARNESS.md`
 
 ---
 
 ## 🆘 Emergency Help
 
-- Framework broken? → `.../EXECUTION/docs/ia/guides/emergency/`
-- Questions? → `.../EXECUTION/docs/ia/guides/reference/FAQ.md`
+- Framework broken? → `.../EXECUTION/spec/guides/emergency/`
+- Questions? → `.../EXECUTION/spec/guides/reference/FAQ.md`
 - Need help? → Read `.../README.md` for support
 
 ---

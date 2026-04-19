@@ -378,7 +378,7 @@ All context README.md must include:
 
 ## 📞 Questions?
 
-See: `EXECUTION/docs/ia/guides/runtime/CONTEXT_AWARE_USAGE.md`
+See: `EXECUTION/spec/guides/runtime/CONTEXT_AWARE_USAGE.md`
 
 For deep guidance on:
 - How to structure specific context types

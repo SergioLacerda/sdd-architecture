@@ -38,12 +38,12 @@ sdd-archtecture/
 | `README.md` | `README_NEW.md` (replace old) | Decision tree for INTEGRATION vs EXECUTION |
 | `INTEGRATION.md` | Moved/archived | Old standalone doc, replaced by INTEGRATION/ |
 | `templates/` | `INTEGRATION/templates/` | Belongs to integration flow |
-| `docs/ia/` | `EXECUTION/docs/ia/` | Used during execution workflow |
-| `docs/ia/CANONICAL/` | `EXECUTION/docs/ia/CANONICAL/` | Specs used during EXECUTION |
-| `docs/ia/guides/` | `EXECUTION/docs/ia/guides/` | Guides used during EXECUTION |
-| `docs/ia/custom/` | `EXECUTION/docs/ia/custom/` | Project-specific during EXECUTION |
-| `docs/ia/SCRIPTS/` | `EXECUTION/docs/ia/SCRIPTS/` | Tools used during EXECUTION |
-| `docs/ia/runtime/` | `EXECUTION/docs/ia/runtime/` | Search indices for EXECUTION |
+| `docs/ia/` | `EXECUTION/spec/` | Used during execution workflow |
+| `docs/ia/CANONICAL/` | `EXECUTION/spec/CANONICAL/` | Specs used during EXECUTION |
+| `docs/ia/guides/` | `EXECUTION/spec/guides/` | Guides used during EXECUTION |
+| `docs/ia/custom/` | `EXECUTION/spec/custom/` | Project-specific during EXECUTION |
+| `docs/ia/SCRIPTS/` | `EXECUTION/spec/SCRIPTS/` | Tools used during EXECUTION |
+| `docs/ia/runtime/` | `EXECUTION/spec/runtime/` | Search indices for EXECUTION |
 | `tests/spec_validation/` | `EXECUTION/tests/` | Validation tests for framework |
 | `PHASE-7-DELIVERY-SUMMARY.md` | `docs/audit/` | Audit document (not flow-critical) |
 | `docs/ia/_INDEX.md` | Removed | Replaced by local EXECUTION/INDEX.md |
@@ -135,7 +135,7 @@ sdd-archtecture/
 ### To Move (Files)
 
 - [ ] `templates/` → `INTEGRATION/templates/`
-- [ ] `docs/ia/` → `EXECUTION/docs/ia/`
+- [ ] `docs/ia/` → `EXECUTION/spec/`
 - [ ] `tests/spec_validation/` → `EXECUTION/tests/`
 
 ### To Archive (Audit)
@@ -172,7 +172,7 @@ sdd-archtecture/
 
 ### Phase 3: Move Directories (PENDING)
 - [ ] Create `EXECUTION/docs/` directory
-- [ ] Move `docs/ia/` → `EXECUTION/docs/ia/`
+- [ ] Move `docs/ia/` → `EXECUTION/spec/`
 - [ ] Move `templates/` → `INTEGRATION/templates/`
 - [ ] Move `tests/spec_validation/` → `EXECUTION/tests/spec_validation/`
 

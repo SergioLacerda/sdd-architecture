@@ -390,7 +390,7 @@ cat EXECUTION/_START_HERE.md
 # Verify you can navigate to key docs
 
 # Test search keywords
-grep "PHASE" EXECUTION/docs/ia/runtime/search-keywords.md
+grep "PHASE" EXECUTION/spec/runtime/search-keywords.md
 ```
 
 ---

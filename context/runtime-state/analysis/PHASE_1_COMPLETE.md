@@ -117,7 +117,7 @@ sdd-archtecture/
 ├── INTEGRATION/  ← (folder created, content to be linked)
 ├── EXECUTION/    ← (folder created, content to be linked)
 │
-├── docs/ia/ (OLD - to be moved to EXECUTION/docs/ia/)
+├── docs/ia/ (OLD - to be moved to EXECUTION/spec/)
 ├── templates/ (OLD - to be moved to INTEGRATION/templates/)
 ├── tests/spec_validation/ (OLD - to be moved to EXECUTION/tests/)
 │
@@ -155,7 +155,7 @@ mkdir -p docs/audit
 ```bash
 # Move existing content to new locations
 mv templates/* INTEGRATION/templates/
-mv docs/ia/* EXECUTION/docs/ia/
+mv docs/ia/* EXECUTION/spec/
 mv tests/spec_validation/* EXECUTION/tests/
 ```
 

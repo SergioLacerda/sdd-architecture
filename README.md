@@ -54,9 +54,9 @@ Yes → **[.github/copilot-instructions.md](./.github/copilot-instructions.md)**
 
 ### Constitutional Layer
 
-- **15 immutable principles** ([constitution.md](./EXECUTION/docs/ia/CANONICAL/rules/constitution.md))
-- **16 mandatory rules** ([ia-rules.md](./EXECUTION/docs/ia/CANONICAL/rules/ia-rules.md))
-- **6 Architecture Decision Records** ([ADR-*](./EXECUTION/docs/ia/CANONICAL/decisions/))
+- **15 immutable principles** ([constitution.md](./EXECUTION/spec/CANONICAL/rules/constitution.md))
+- **16 mandatory rules** ([ia-rules.md](./EXECUTION/spec/CANONICAL/rules/ia-rules.md))
+- **6 Architecture Decision Records** ([ADR-*](./EXECUTION/spec/CANONICAL/decisions/))
 
 ### Technology-Agnostic
 
@@ -134,7 +134,7 @@ sdd-archtecture/
 - Scalable governance (works at 5 people → 500)
 - Measurable quality metrics
 
-→ **Start:** [EXECUTION/docs/ia/guides/operational/](./EXECUTION/docs/ia/guides/operational/)
+→ **Start:** [EXECUTION/spec/guides/operational/](./EXECUTION/spec/guides/operational/)
 
 ### 👨‍💻 Individual Developers
 - Clear rules to follow
@@ -158,7 +158,7 @@ sdd-archtecture/
 - Scaling strategies
 - Team workflow validation
 
-→ **Start:** [EXECUTION/docs/ia/CANONICAL/decisions/](./EXECUTION/docs/ia/CANONICAL/decisions/)
+→ **Start:** [EXECUTION/spec/CANONICAL/decisions/](./EXECUTION/spec/CANONICAL/decisions/)
 
 ---
 
@@ -184,12 +184,12 @@ sdd-archtecture/
 | **AI governance rules** | [.github/copilot-instructions.md](./.github/copilot-instructions.md) |
 | **New project integration** | [INTEGRATION/README.md](./INTEGRATION/README.md) |
 | **Start developing** | [EXECUTION/_START_HERE.md](./EXECUTION/_START_HERE.md) |
-| **Rules to follow** | [EXECUTION/docs/ia/CANONICAL/rules/](./EXECUTION/docs/ia/CANONICAL/rules/) |
-| **Architecture patterns** | [EXECUTION/docs/ia/CANONICAL/decisions/](./EXECUTION/docs/ia/CANONICAL/decisions/) |
-| **How-to guides** | [EXECUTION/docs/ia/guides/](./EXECUTION/docs/ia/guides/) |
+| **Rules to follow** | [EXECUTION/spec/CANONICAL/rules/](./EXECUTION/spec/CANONICAL/rules/) |
+| **Architecture patterns** | [EXECUTION/spec/CANONICAL/decisions/](./EXECUTION/spec/CANONICAL/decisions/) |
+| **How-to guides** | [EXECUTION/spec/guides/](./EXECUTION/spec/guides/) |
 | **Search documentation** | [EXECUTION/NAVIGATION.md](./EXECUTION/NAVIGATION.md) |
-| **Having problems?** | [EXECUTION/docs/ia/guides/emergency/](./EXECUTION/docs/ia/guides/emergency/) |
-| **Questions?** | [EXECUTION/docs/ia/guides/reference/FAQ.md](./EXECUTION/docs/ia/guides/reference/FAQ.md) |
+| **Having problems?** | [EXECUTION/spec/guides/emergency/](./EXECUTION/spec/guides/emergency/) |
+| **Questions?** | [EXECUTION/spec/guides/reference/FAQ.md](./EXECUTION/spec/guides/reference/FAQ.md) |
 
 ---
 
@@ -233,16 +233,16 @@ This is a mature framework. Contributions should:
 - Document all decisions
 - Pass 45+ quality criteria
 
-For details: [EXECUTION/docs/ia/CANONICAL/specifications/definition-of-done.md](./EXECUTION/docs/ia/CANONICAL/specifications/definition-of-done.md)
+For details: [EXECUTION/spec/CANONICAL/specifications/definition-of-done.md](./EXECUTION/spec/CANONICAL/specifications/definition-of-done.md)
 
 ---
 
 ## 📞 Support
 
 **Questions?**
-- Read: [EXECUTION/docs/ia/guides/reference/FAQ.md](./EXECUTION/docs/ia/guides/reference/FAQ.md)
+- Read: [EXECUTION/spec/guides/reference/FAQ.md](./EXECUTION/spec/guides/reference/FAQ.md)
 - Search: [EXECUTION/NAVIGATION.md](./EXECUTION/NAVIGATION.md)
-- Emergency: [EXECUTION/docs/ia/guides/emergency/](./EXECUTION/docs/ia/guides/emergency/)
+- Emergency: [EXECUTION/spec/guides/emergency/](./EXECUTION/spec/guides/emergency/)
 
 ---
 

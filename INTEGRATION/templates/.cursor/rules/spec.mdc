@@ -29,7 +29,7 @@
 
 ### 5. Definition of Done
 - Before PR: Check 45+ criteria in:
-  - `.../EXECUTION/docs/ia/CANONICAL/specifications/definition_of_done.md`
+  - `.../EXECUTION/spec/CANONICAL/specifications/definition_of_done.md`
 - Verify all apply to your feature
 
 ---
@@ -40,9 +40,9 @@
 
 **Entry point:** `.../EXECUTION/_START_HERE.md`
 
-**Rules:** `.../EXECUTION/docs/ia/CANONICAL/rules/ia-rules.md`
+**Rules:** `.../EXECUTION/spec/CANONICAL/rules/ia-rules.md`
 
-**Workflow:** `.../EXECUTION/docs/ia/guides/onboarding/AGENT_HARNESS.md`
+**Workflow:** `.../EXECUTION/spec/guides/onboarding/AGENT_HARNESS.md`
 
 ---
 
@@ -51,7 +51,7 @@
 1. Open `.spec.config`
 2. Find `spec_path =`
 3. Go to that path
-4. Read: `/EXECUTION/docs/ia/guides/onboarding/ENTRY_POINTS_BY_TOOL.md`
+4. Read: `/EXECUTION/spec/guides/onboarding/ENTRY_POINTS_BY_TOOL.md`
 5. Section: "Cursor IDE"
 
 ---
@@ -67,8 +67,8 @@
 
 ## Support
 
-- Questions? → `.../EXECUTION/docs/ia/guides/reference/FAQ.md`
-- Emergency? → `.../EXECUTION/docs/ia/guides/emergency/`
-- Rules? → `.../EXECUTION/docs/ia/CANONICAL/rules/`
+- Questions? → `.../EXECUTION/spec/guides/reference/FAQ.md`
+- Emergency? → `.../EXECUTION/spec/guides/emergency/`
+- Rules? → `.../EXECUTION/spec/CANONICAL/rules/`
 
 See `.spec.config` for framework path.

@@ -152,13 +152,13 @@
 ## 🔍 Files Changed in Phase 3-4
 
 ### Created (New Files)
-- EXECUTION/docs/ia/CANONICAL/specifications/communication.md (380 lines)
-- EXECUTION/docs/ia/guides/reference/FAQ.md (120 lines)
-- EXECUTION/docs/ia/guides/reference/GLOSSARY.md (250 lines)
-- EXECUTION/docs/ia/guides/reference/HOW_EACH_LAYER_WORKS.md (320 lines)
-- EXECUTION/docs/ia/runtime/search-keywords.md (680 lines)
-- EXECUTION/docs/ia/runtime/spec-canonical-index.md (380 lines)
-- EXECUTION/docs/ia/runtime/spec-guides-index.md (420 lines)
+- EXECUTION/spec/CANONICAL/specifications/communication.md (380 lines)
+- EXECUTION/spec/guides/reference/FAQ.md (120 lines)
+- EXECUTION/spec/guides/reference/GLOSSARY.md (250 lines)
+- EXECUTION/spec/guides/reference/HOW_EACH_LAYER_WORKS.md (320 lines)
+- EXECUTION/spec/runtime/search-keywords.md (680 lines)
+- EXECUTION/spec/runtime/spec-canonical-index.md (380 lines)
+- EXECUTION/spec/runtime/spec-guides-index.md (420 lines)
 - INTEGRATION/templates/.spec.config (8 lines)
 - INTEGRATION/templates/.github/copilot-instructions.md (80 lines)
 - INTEGRATION/templates/.vscode/ai-rules.md (95 lines)
@@ -256,7 +256,7 @@
 
 **For Developers:** [EXECUTION/_START_HERE.md](../EXECUTION/_START_HERE.md)
 
-**For Quick Search:** [EXECUTION/docs/ia/runtime/search-keywords.md](../EXECUTION/docs/ia/runtime/search-keywords.md)
+**For Quick Search:** [EXECUTION/spec/runtime/search-keywords.md](../EXECUTION/spec/runtime/search-keywords.md)
 
 ---
 

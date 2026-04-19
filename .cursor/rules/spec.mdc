@@ -30,7 +30,7 @@ Go to `.ai-index.md` and read these sections:
 
 ## 🔑 Key Rules
 
-**16 mandatory rules:** [EXECUTION/docs/ia/CANONICAL/rules/ia-rules.md](../../EXECUTION/docs/ia/CANONICAL/rules/ia-rules.md)
+**16 mandatory rules:** [EXECUTION/spec/CANONICAL/rules/ia-rules.md](../../EXECUTION/spec/CANONICAL/rules/ia-rules.md)
 
 **Top 5 critical:**
 
@@ -57,18 +57,18 @@ Go to `.ai-index.md` and read these sections:
 ## 📍 Find What You Need
 
 - **Getting started?** → `EXECUTION/_START_HERE.md`
-- **Implementing?** → `EXECUTION/docs/ia/guides/onboarding/AGENT_HARNESS.md`
-- **Stuck?** → `EXECUTION/docs/ia/guides/emergency/README.md`
+- **Implementing?** → `EXECUTION/spec/guides/onboarding/AGENT_HARNESS.md`
+- **Stuck?** → `EXECUTION/spec/guides/emergency/README.md`
 - **Search for docs?** → `EXECUTION/NAVIGATION.md`
 
 ---
 
 ## 📚 Reference
 
-- **Rules:** `EXECUTION/docs/ia/CANONICAL/rules/ia-rules.md`
-- **Architecture:** `EXECUTION/docs/ia/CANONICAL/decisions/`
-- **Specs:** `EXECUTION/docs/ia/CANONICAL/specifications/`
-- **How-to Guides:** `EXECUTION/docs/ia/guides/`
+- **Rules:** `EXECUTION/spec/CANONICAL/rules/ia-rules.md`
+- **Architecture:** `EXECUTION/spec/CANONICAL/decisions/`
+- **Specs:** `EXECUTION/spec/CANONICAL/specifications/`
+- **How-to Guides:** `EXECUTION/spec/guides/`
 
 ---
 

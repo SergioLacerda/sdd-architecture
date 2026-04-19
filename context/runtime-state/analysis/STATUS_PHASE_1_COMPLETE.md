@@ -110,7 +110,7 @@ mkdir -p INTEGRATION/templates EXECUTION/docs EXECUTION/tests docs/audit
 
 # 2. Move files
 mv templates/* INTEGRATION/templates/
-mv docs/ia/* EXECUTION/docs/ia/
+mv docs/ia/* EXECUTION/spec/
 mv tests/spec_validation/* EXECUTION/tests/
 # (etc.)
 

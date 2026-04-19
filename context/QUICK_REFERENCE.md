@@ -19,22 +19,22 @@
 ## 🔗 Essential Links (Copy These)
 
 **Framework Core:**
-- Rules: `EXECUTION/docs/ia/CANONICAL/rules/`
-- ADRs: `EXECUTION/docs/ia/CANONICAL/decisions/`
-- Specs: `EXECUTION/docs/ia/CANONICAL/specifications/`
+- Rules: `EXECUTION/spec/CANONICAL/rules/`
+- ADRs: `EXECUTION/spec/CANONICAL/decisions/`
+- Specs: `EXECUTION/spec/CANONICAL/specifications/`
 
 **Onboarding:**
 - Integration: `INTEGRATION/README.md` (30 min)
 - Execution: `EXECUTION/_START_HERE.md` (ongoing)
-- Agent Setup: `EXECUTION/docs/ia/guides/onboarding/PHASE-0-AGENT-ONBOARDING.md`
+- Agent Setup: `EXECUTION/spec/guides/onboarding/PHASE-0-AGENT-ONBOARDING.md`
 
 **Testing:**
 - Phase 5 Tests: `/tests/phase_5_testing/`
 - Architecture Tests: `EXECUTION/tests/architecture/`
 
 **Automation:**
-- Scripts: `EXECUTION/docs/ia/SCRIPTS/`
-- Setup: `EXECUTION/docs/ia/SCRIPTS/phase-0-agent-onboarding.py`
+- Scripts: `EXECUTION/spec/SCRIPTS/`
+- Setup: `EXECUTION/spec/SCRIPTS/phase-0-agent-onboarding.py`
 
 ---
 

@@ -46,10 +46,10 @@ This is your AI learning seed. It contains:
 → Read [EXECUTION/_START_HERE.md](./EXECUTION/_START_HERE.md)
 
 **Have a bug to fix?**
-→ Read [EXECUTION/docs/ia/guides/onboarding/AGENT_HARNESS.md](./EXECUTION/docs/ia/guides/onboarding/AGENT_HARNESS.md)
+→ Read [EXECUTION/spec/guides/onboarding/AGENT_HARNESS.md](./EXECUTION/spec/guides/onboarding/AGENT_HARNESS.md)
 
 **Stuck or confused?**
-→ Read [EXECUTION/docs/ia/guides/emergency/README.md](./EXECUTION/docs/ia/guides/emergency/README.md)
+→ Read [EXECUTION/spec/guides/emergency/README.md](./EXECUTION/spec/guides/emergency/README.md)
 
 **Need to find something?**
 → Read [EXECUTION/NAVIGATION.md](./EXECUTION/NAVIGATION.md)
@@ -58,7 +58,7 @@ This is your AI learning seed. It contains:
 
 ## 📝 Mandatory Rules (16 Total)
 
-Full list: [EXECUTION/docs/ia/CANONICAL/rules/ia-rules.md](./EXECUTION/docs/ia/CANONICAL/rules/ia-rules.md)
+Full list: [EXECUTION/spec/CANONICAL/rules/ia-rules.md](./EXECUTION/spec/CANONICAL/rules/ia-rules.md)
 
 **Most critical 5:**
 
@@ -82,9 +82,9 @@ Full list: [EXECUTION/docs/ia/CANONICAL/rules/ia-rules.md](./EXECUTION/docs/ia/C
 
 ## 🆘 Emergency Resources
 
-- **Tests failing?** → `EXECUTION/docs/ia/guides/emergency/`
-- **Rules violated?** → `EXECUTION/docs/ia/CANONICAL/rules/ia-rules.md`
-- **Stuck on architecture?** → `EXECUTION/docs/ia/CANONICAL/decisions/`
+- **Tests failing?** → `EXECUTION/spec/guides/emergency/`
+- **Rules violated?** → `EXECUTION/spec/CANONICAL/rules/ia-rules.md`
+- **Stuck on architecture?** → `EXECUTION/spec/CANONICAL/decisions/`
 
 ---
 

@@ -68,30 +68,30 @@ End: Feature complete, ready for review
 |-------|----------|----------|------|
 | **Intro** | [_START_HERE.md](./_START_HERE.md) | 5 min | First time |
 | **Search** | [NAVIGATION.md](./NAVIGATION.md) | 2 min | Finding specific doc |
-| **Phase 1** | docs/ia/CANONICAL/rules/ | 15 min | First thing |
-| **Phase 2** | docs/ia/custom/[YOUR_PROJECT]/ | 5 min | Check state |
-| **Phase 3** | docs/ia/guides/AGENT_HARNESS.md | 5 min | Choose path |
-| **Phase 4** | docs/ia/runtime/search-keywords.md | 5 min | Load context |
-| **Phase 5** | docs/ia/CANONICAL/specifications/ | 20 min | Implement |
-| **Phase 6** | docs/ia/CANONICAL/specifications/definition-of-done.md | 10 min | Validate |
-| **Phase 7** | docs/ia/custom/[YOUR_PROJECT]/execution-state/ | 5 min | Checkpoint |
+| **Phase 1** | spec/CANONICAL/rules/ | 15 min | First thing |
+| **Phase 2** | spec/custom/[YOUR_PROJECT]/ | 5 min | Check state |
+| **Phase 3** | spec/guides/AGENT_HARNESS.md | 5 min | Choose path |
+| **Phase 4** | spec/runtime/search-keywords.md | 5 min | Load context |
+| **Phase 5** | spec/CANONICAL/specifications/ | 20 min | Implement |
+| **Phase 6** | spec/CANONICAL/specifications/definition-of-done.md | 10 min | Validate |
+| **Phase 7** | spec/custom/[YOUR_PROJECT]/execution-state/ | 5 min | Checkpoint |
 
 ---
 
 ## 🔗 Key Resources
 
 **Mandatory Reading:**
-- [docs/ia/CANONICAL/rules/constitution.md](./docs/ia/CANONICAL/rules/constitution.md) — 15 immutable principles
-- [docs/ia/CANONICAL/rules/ia-rules.md](./docs/ia/CANONICAL/rules/ia-rules.md) — 16 mandatory rules
-- [docs/ia/guides/onboarding/AGENT_HARNESS.md](./docs/ia/guides/onboarding/AGENT_HARNESS.md) — 7-phase workflow
+- [spec/CANONICAL/rules/constitution.md](./spec/CANONICAL/rules/constitution.md) — 15 immutable principles
+- [spec/CANONICAL/rules/ia-rules.md](./spec/CANONICAL/rules/ia-rules.md) — 16 mandatory rules
+- [spec/guides/onboarding/AGENT_HARNESS.md](./spec/guides/onboarding/AGENT_HARNESS.md) — 7-phase workflow
 
 **Emergency Help:**
-- [docs/ia/guides/emergency/README.md](./docs/ia/guides/emergency/) — 5 crisis procedures
-- [docs/ia/guides/operational/README.md](./docs/ia/guides/operational/) — 7 operational guides
+- [spec/guides/emergency/README.md](./spec/guides/emergency/) — 5 crisis procedures
+- [spec/guides/operational/README.md](./spec/guides/operational/) — 7 operational guides
 
 **Reference:**
-- [docs/ia/guides/reference/FAQ.md](./docs/ia/guides/reference/FAQ.md) — Common questions
-- [docs/ia/guides/reference/GLOSSARY.md](./docs/ia/guides/reference/GLOSSARY.md) — Terminology
+- [spec/guides/reference/FAQ.md](./spec/guides/reference/FAQ.md) — Common questions
+- [spec/guides/reference/GLOSSARY.md](./spec/guides/reference/GLOSSARY.md) — Terminology
 
 ---
 
@@ -115,7 +115,7 @@ After completing all 7 phases:
 
 **Looking for specific help?** → [NAVIGATION.md](./NAVIGATION.md)
 
-**Ready to implement?** → [docs/ia/guides/onboarding/AGENT_HARNESS.md](./docs/ia/guides/onboarding/AGENT_HARNESS.md)
+**Ready to implement?** → [spec/guides/onboarding/AGENT_HARNESS.md](./spec/guides/onboarding/AGENT_HARNESS.md)
 
 ---
 
