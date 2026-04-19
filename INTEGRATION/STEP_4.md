@@ -260,7 +260,7 @@ git reset
 
 Once validation passes, proceed to:
 
-**→ [STEP_5_COMMIT.md](./STEP_5_COMMIT.md)**
+**→ [STEP_5.md](./STEP_5.md)**
 
 Commit all changes to git.
 

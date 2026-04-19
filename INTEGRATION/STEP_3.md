@@ -256,7 +256,7 @@ spec_path = ../sdd-archtecture
 
 Once `.spec.config` is configured, proceed to:
 
-**→ [STEP_4_VALIDATE.md](./STEP_4_VALIDATE.md)**
+**→ [STEP_4.md](./STEP_4.md)**
 
 Run validation script to verify everything works.
 

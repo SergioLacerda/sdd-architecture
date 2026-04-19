@@ -149,7 +149,7 @@ cd /path/to/correct/project
 
 Once all directories exist, proceed to:
 
-**→ [STEP_2_TEMPLATES.md](./STEP_2_TEMPLATES.md)**
+**→ [STEP_2.md](./STEP_2.md)**
 
 Copy template files from SDD framework to your project.
 

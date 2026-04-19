@@ -190,7 +190,7 @@ cp -r ../sdd-archtecture/INTEGRATION/templates/. .
 
 Once all files are copied, proceed to:
 
-**→ [STEP_3_CONFIG.md](./STEP_3_CONFIG.md)**
+**→ [STEP_3.md](./STEP_3.md)**
 
 Configure `.spec.config` to point to sdd-archtecture.
 
