@@ -6,45 +6,42 @@
 ```
 context/runtime-state/
 ├── analysis/
-│   └── RPG_NARRATIVE_SERVER_GAP_ANALYSIS.md (Framework gap findings)
+│   ├── RPG_NARRATIVE_SERVER_GAP_ANALYSIS.md (Gap analysis audit)
+│   ├── EXECUTIVE-SUMMARY.md (Framework completeness)
+│   ├── INTEGRATION.md (Integration flow findings)
+│   ├── MIGRATION_MAP.md (Phase migration audit)
+│   ├── PHASE_1_COMPLETE.md (Phase 1 audit)
+│   ├── PHASE-7-DELIVERY-SUMMARY.md (Phase 7 audit)
+│   └── STATUS_PHASE_1_COMPLETE.md (Completion status)
 ├── task-progress/
-│   └── [In-progress work]
+│   └── [In-progress framework work]
 └── metrics/
     └── [Quality metrics, trends]
 ```
 
 ## 📁 analysis/ — Discoveries & Audits
 
-**Purpose:** Store findings from audits, reverse-dependency checks, and pattern analysis
+**Purpose:** Store findings from audits, analysis, and pattern extraction
 
 **What goes here:**
-- Framework gap analysis reports
-- Pattern extraction from target projects
-- Reverse dependency verification
-- Architecture compliance trends
+- Framework gap analysis (rpg-narrative-server extraction)
+- Phase completion audits
+- Integration flow validation
+- Architecture migration findings
+- Completeness assessments
 
-**Example:**
-- `RPG_NARRATIVE_SERVER_GAP_ANALYSIS.md` - What patterns rpg-narrative-server uses that framework needs to document
-
-**When to create:**
-- Quarterly framework audits
-- When analyzing new target projects
-- When extracting patterns from implementations
+**Lifecycle:** Quarterly review, update as discoveries made
 
 ---
 
 ## 📋 task-progress/ — Active Work
 
-**Purpose:** Track current development tasks and blockers
+**Purpose:** Track current framework development tasks
 
 **What goes here:**
-- In-progress features/fixes
-- Blockers and dependencies
-- Weekly progress snapshots
-
-**When to create:**
-- When starting feature work
-- When tracking multi-session tasks
+- In-progress features/fixes for framework
+- Framework development blockers
+- Current sprint work
 
 ---
 
@@ -53,14 +50,9 @@ context/runtime-state/
 **Purpose:** Track framework quality trends over time
 
 **What goes here:**
-- Test coverage trends
-- Architecture violation rates
-- Compliance rates per project
-- Documentation completeness %
-
-**When to create:**
-- After each major release
-- Quarterly reviews
+- Completeness % trends
+- Rule compliance rates
+- Documentation coverage %
 
 ---
 
@@ -70,11 +62,11 @@ context/runtime-state/
 |--------|---------------------------|---------------------|
 | **Purpose** | Framework discovery | Project-specific runtime |
 | **Owner** | SDD framework team | Target project team |
-| **Content** | Audit findings, gaps | Task progress, analysis |
-| **Frequency** | Quarterly, ad-hoc | During development |
+| **Content** | Audit findings, gaps, phase status | Task progress, analysis |
+| **Frequency** | Quarterly + ad-hoc | During development |
 | **Lifespan** | Long-term (reference) | Session-based (ephemeral) |
 
 ---
 
-**Authority:** SPEC v2.1 Context Management Standards  
+**Authority:** CONTEXT_MANAGEMENT_STANDARDS.md  
 **Updated:** April 19, 2026
