@@ -361,8 +361,7 @@ Agent reads document:
 ## 🔗 References
 
 - [validate-ia-first.py](../SCRIPTS/validate-ia-first.py) — Automated validation
-- [World-Class Review](../CANONICAL/WORLD_CLASS_REVIEW.md) — Why this matters (#5)
-- [METRICS.md](../METRICS.md) — Tracking adoption
+- [Quality Audit](../../../../context/runtime-state/analysis/WORLD_CLASS_REVIEW.md) — Architecture review
 - [Example: ia-rules.md](../CANONICAL/rules/ia-rules.md) — Reference implementation
 - [Example: constitution.md](../CANONICAL/rules/constitution.md) — Reference implementation
 
