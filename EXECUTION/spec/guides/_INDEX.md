@@ -23,8 +23,8 @@
 → **Time:** 15 minutes reading  
 → **What to read:**
 1. [FIRST_SESSION_SETUP.md](onboarding/FIRST_SESSION_SETUP.md) §1-3 (5 min)
-2. `/docs/ia/custom/rpg-narrative-server/SPECIALIZATIONS/ia-rules-rpg-specific.md` (5 min)
-3. `/docs/ia/custom/rpg-narrative-server/reality/limitations/known_issues.md` (5 min)
+2. `/EXECUTION/spec/custom/rpg-narrative-server/SPECIALIZATIONS/ia-rules-rpg-specific.md` (5 min)
+3. `/EXECUTION/spec/custom/rpg-narrative-server/reality/limitations/known_issues.md` (5 min)
 
 **Outcome:** Understand bug, execute fix, avoid breaking other code
 
@@ -34,8 +34,8 @@
 → **Time:** 20 minutes reading  
 → **What to read:**
 1. [QUICK_START.md](onboarding/QUICK_START.md) (3 min)
-2. `/docs/ia/CANONICAL/rules/constitution.md` — sections 1-3 (10 min)
-3. `/docs/ia/CANONICAL/specifications/architecture.md` — Layer overview (7 min)
+2. `/EXECUTION/spec/CANONICAL/rules/constitution.md` — sections 1-3 (10 min)
+3. `/EXECUTION/spec/CANONICAL/specifications/architecture.md` — Layer overview (7 min)
 
 **Outcome:** Design feature, follow principles, make it testable
 
@@ -45,9 +45,9 @@
 → **Time:** 45 minutes reading  
 → **What to read:**
 1. [QUICK_START.md](onboarding/QUICK_START.md) (3 min)
-2. `/docs/ia/CANONICAL/rules/constitution.md` — ALL sections (20 min)
-3. `/docs/ia/CANONICAL/specifications/architecture.md` — ALL (15 min)
-4. `/docs/ia/CANONICAL/decisions/` — Relevant ADRs (7 min)
+2. `/EXECUTION/spec/CANONICAL/rules/constitution.md` — ALL sections (20 min)
+3. `/EXECUTION/spec/CANONICAL/specifications/architecture.md` — ALL (15 min)
+4. `/EXECUTION/spec/CANONICAL/decisions/` — Relevant ADRs (7 min)
 
 **Outcome:** Understand system deeply, design correctly, no rework
 
@@ -57,8 +57,8 @@
 → **Time:** 30 minutes reading  
 → **What to read:**
 1. [FIRST_SESSION_SETUP.md](onboarding/FIRST_SESSION_SETUP.md) (15 min)
-2. `/docs/ia/custom/rpg-narrative-server/SPECIALIZATIONS/ia-rules-rpg-specific.md#development-threads` (10 min)
-3. `/docs/ia/custom/rpg-narrative-server/development/execution-state/_current.md` (5 min)
+2. `/EXECUTION/spec/custom/rpg-narrative-server/SPECIALIZATIONS/ia-rules-rpg-specific.md#development-threads` (10 min)
+3. `/EXECUTION/spec/custom/rpg-narrative-server/development/execution-state/_current.md` (5 min)
 
 **Outcome:** Understand thread boundaries, avoid conflicts, coordinate changes
 
@@ -67,25 +67,25 @@
 ## 🔍 I'm stuck with...
 
 ### **"A commit hook failed"**
-→ **Read:** [COMPLIANCE_AUTOMATION_SETUP.md](/docs/ia/CANONICAL/rules/COMPLIANCE_AUTOMATION_SETUP.md#troubleshooting)  
+→ **Read:** [CI/CD validation guide](../operational/README.md)
 → **Time:** 10 minutes
 
 ### **"A test is failing"**
 → **Read:**  
 1. [IMPLEMENTATION_ROADMAP.md](implementation/IMPLEMENTATION_ROADMAP.md) (find similar feature)
-2. `/docs/ia/CANONICAL/specifications/testing.md` (understand test types)
+2. `/EXECUTION/spec/CANONICAL/specifications/testing.md` (understand test types)
 → **Time:** 15 minutes
 
 ### **"Performance is slow"**
 → **Read:**  
-1. `/docs/ia/CANONICAL/specifications/performance.md` (SLO targets)
-2. [PERFORMANCE_TESTING_GUIDE.md](/docs/ia/CANONICAL/specifications/PERFORMANCE_TESTING_GUIDE.md)
+1. `/EXECUTION/spec/CANONICAL/specifications/performance.md` (SLO targets)
+2. [Performance SLOs](/EXECUTION/spec/CANONICAL/specifications/performance.md)
 → **Time:** 20 minutes
 
 ### **"I don't understand an ADR decision"**
 → **Read:**  
-1. Relevant ADR in `/docs/ia/CANONICAL/decisions/`
-2. Project specialization in `/docs/ia/custom/rpg-narrative-server/SPECIALIZATIONS/`
+1. Relevant ADR in `/EXECUTION/spec/CANONICAL/decisions/`
+2. Project specialization in `/EXECUTION/spec/custom/rpg-narrative-server/SPECIALIZATIONS/`
 → **Time:** 15 minutes
 
 ---
@@ -94,40 +94,40 @@
 
 ### **Backend Developer**
 **Priority reading:**
-1. `/docs/ia/CANONICAL/rules/constitution.md` (principles)
-2. `/docs/ia/CANONICAL/specifications/architecture.md` (design)
-3. `/docs/ia/custom/rpg-narrative-server/SPECIALIZATIONS/` (project specifics)
+1. `/EXECUTION/spec/CANONICAL/rules/constitution.md` (principles)
+2. `/EXECUTION/spec/CANONICAL/specifications/architecture.md` (design)
+3. `/EXECUTION/spec/custom/rpg-narrative-server/SPECIALIZATIONS/` (project specifics)
 
 **Optional:**
-- `/docs/ia/CANONICAL/decisions/` (understand why)
-- `/docs/ia/CANONICAL/specifications/security-model.md` (implement auth)
+- `/EXECUTION/spec/CANONICAL/decisions/` (understand why)
+- `/EXECUTION/spec/CANONICAL/specifications/security-model.md` (implement auth)
 
 ### **DevOps / SRE**
 **Priority reading:**
-1. `/docs/ia/CANONICAL/specifications/observability.md` (logging/metrics)
-2. `/docs/ia/CANONICAL/specifications/performance.md` (SLOs)
-3. [COMPLIANCE_AUTOMATION_SETUP.md](/docs/ia/CANONICAL/rules/COMPLIANCE_AUTOMATION_SETUP.md) (CI/CD)
+1. `/EXECUTION/spec/CANONICAL/specifications/observability.md` (logging/metrics)
+2. `/EXECUTION/spec/CANONICAL/specifications/performance.md` (SLOs)
+3. [CI/CD validation guide](../operational/README.md)
 
 **Optional:**
-- `/docs/ia/CANONICAL/specifications/security-model.md` (hardening)
+- `/EXECUTION/spec/CANONICAL/specifications/security-model.md` (hardening)
 
 ### **Product Manager**
 **Priority reading:**
 1. [YOUR_VISION_IMPLEMENTED.md](context/YOUR_VISION_IMPLEMENTED.md) (overview)
-2. `/docs/ia/CANONICAL/rules/backward-compatibility-policy.md` (when breaking changes allowed)
-3. `/docs/ia/custom/rpg-narrative-server/README.md` (project status)
+2. `/EXECUTION/spec/CANONICAL/rules/backward-compatibility-policy.md` (when breaking changes allowed)
+3. `/EXECUTION/spec/custom/rpg-narrative-server/README.md` (project status)
 
 **Optional:**
-- `/docs/ia/CANONICAL/specifications/performance.md` (performance targets)
+- `/EXECUTION/spec/CANONICAL/specifications/performance.md` (performance targets)
 
 ### **Architect**
 **Priority reading:**
-1. `/docs/ia/CANONICAL/rules/constitution.md` (ALL)
-2. `/docs/ia/CANONICAL/specifications/architecture.md` (ALL)
-3. `/docs/ia/CANONICAL/decisions/` (ALL ADRs)
+1. `/EXECUTION/spec/CANONICAL/rules/constitution.md` (ALL)
+2. `/EXECUTION/spec/CANONICAL/specifications/architecture.md` (ALL)
+3. `/EXECUTION/spec/CANONICAL/decisions/` (ALL ADRs)
 
 **Optional:**
-- `/docs/ia/custom/rpg-narrative-server/reality/` (understand system)
+- `/EXECUTION/spec/custom/rpg-narrative-server/reality/` (understand system)
 
 ---
 
@@ -138,8 +138,8 @@
 - Specific ADR title or one section
 
 ### **15 minutes** (Quick decision)
-- One principle from `/docs/ia/CANONICAL/rules/constitution.md`
-- One specification from `/docs/ia/CANONICAL/specifications/`
+- One principle from `/EXECUTION/spec/CANONICAL/rules/constitution.md`
+- One specification from `/EXECUTION/spec/CANONICAL/specifications/`
 - Project specialization overview
 
 ### **30 minutes** (Daily work)
@@ -148,13 +148,13 @@
 - Project-specific guides
 
 ### **1 hour** (In-depth understanding)
-- Full `/docs/ia/CANONICAL/rules/constitution.md`
-- Full `/docs/ia/CANONICAL/specifications/architecture.md`
+- Full `/EXECUTION/spec/CANONICAL/rules/constitution.md`
+- Full `/EXECUTION/spec/CANONICAL/specifications/architecture.md`
 - Relevant ADRs (2-3)
 
 ### **2+ hours** (Deep learning)
-- Complete `/docs/ia/CANONICAL/` layer
-- Complete `/docs/ia/custom/rpg-narrative-server/` layer
+- Complete `/EXECUTION/spec/CANONICAL/` layer
+- Complete `/EXECUTION/spec/custom/rpg-narrative-server/` layer
 - Relevant guides for your role
 
 ---
@@ -220,14 +220,14 @@ guides/
    → Decide: PATH B or C?
 
 2. PRINCIPLES: Understand constraints
-   → /docs/ia/CANONICAL/rules/constitution.md § 1,3,6 (15 min)
+   → /EXECUTION/spec/CANONICAL/rules/constitution.md § 1,3,6 (15 min)
    (Clean Architecture, Ports&Adapters, Performance)
 
 3. ARCHITECTURE: Understand how search fits
-   → /docs/ia/CANONICAL/specifications/architecture.md (10 min)
+   → /EXECUTION/spec/CANONICAL/specifications/architecture.md (10 min)
 
 4. PROJECT: Understand campaign structure
-   → /docs/ia/custom/rpg-narrative-server/SPECIALIZATIONS/constitution-rpg-specific.md (10 min)
+   → /EXECUTION/spec/custom/rpg-narrative-server/SPECIALIZATIONS/constitution-rpg-specific.md (10 min)
 
 5. IMPLEMENTATION: Design search
    → Create feature, follow principles
@@ -250,10 +250,10 @@ Total: 50 minutes reading + implementation time
    → guides/onboarding/QUICK_START.md § PATH A (2 min)
 
 2. BUG: Understand the issue
-   → /docs/ia/custom/rpg-narrative-server/reality/limitations/known_issues.md (5 min)
+   → /EXECUTION/spec/custom/rpg-narrative-server/reality/limitations/known_issues.md (5 min)
 
 3. RULES: Know hard constraints
-   → /docs/ia/custom/rpg-narrative-server/SPECIALIZATIONS/ia-rules-rpg-specific.md § Campaign Isolation (10 min)
+   → /EXECUTION/spec/custom/rpg-narrative-server/SPECIALIZATIONS/ia-rules-rpg-specific.md § Campaign Isolation (10 min)
 
 4. FIX: Implement fix
    → Fix code (quick, focused)

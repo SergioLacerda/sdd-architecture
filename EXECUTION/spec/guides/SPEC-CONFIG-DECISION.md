@@ -98,7 +98,7 @@ spec_path = config.get("spec", "spec_path")
 spec_path = Path(spec_path).expanduser().resolve()
 
 # 4. Verify it exists
-assert (spec_path / "docs/ia/CANONICAL/rules/ia-rules.md").exists()
+assert (spec_path / "/EXECUTION/spec/CANONICAL/rules/ia-rules.md").exists()
 
 # 5. Run setup
 subprocess.run([sys.executable, spec_path / "docs/ia/SCRIPTS/setup-wizard.py"])
@@ -115,7 +115,7 @@ subprocess.run([sys.executable, spec_path / "docs/ia/SCRIPTS/setup-wizard.py"])
 
 | What | Where | Managed By |
 |------|-------|-----------|
-| SPEC rules | `spec-architecture/docs/ia/CANONICAL/` | spec-architecture |
+| SPEC rules | `spec-architecture/EXECUTION/spec/CANONICAL/` | spec-architecture |
 | Project onboarding | `your-project/.github/copilot-instructions.md` | Template |
 | Config | `your-project/.spec.config` | Template (edit spec_path) |
 | Project tests | `your-project/tests/specs-ia-units/` | Your team |

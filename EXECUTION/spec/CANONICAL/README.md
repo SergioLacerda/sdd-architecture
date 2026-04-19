@@ -41,7 +41,6 @@ Formal architectural decisions:
 - `ADR-004-vector-index-strategy.md` — Vector DB abstraction
 - `ADR-005-thread-isolation-mandatory.md` — Concurrency model
 - `ADR-006-append-only-storage.md` — Event sourcing
-- `DECISIONS_APRIL_2026.md` — Consolidated decision index
 
 ## When to Reference
 

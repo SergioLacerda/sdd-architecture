@@ -32,7 +32,7 @@ onboarding/
 
 ### 4️⃣  IF YOU FAILED:
 - ❌ Stop here
-- 📖 Re-read `/docs/ia/CANONICAL/rules/ia-rules.md` (10 min)
+- 📖 Re-read `/EXECUTION/spec/CANONICAL/rules/ia-rules.md` (10 min)
 - ⏰ Wait 30 minutes
 - 🔄 Retake quiz
 

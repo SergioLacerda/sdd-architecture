@@ -4,9 +4,9 @@ Para integrar este projeto com o framework SPEC, siga este checklist.
 
 ## Fase 1: Setup (30 min)
 
-- [ ] Copiar estrutura de `/docs/ia/custom/_TEMPLATE/` para `/docs/ia/custom/[PROJECT_NAME]/`
+- [ ] Copiar estrutura de `/EXECUTION/spec/custom/_TEMPLATE/` para `/EXECUTION/spec/custom/[PROJECT_NAME]/`
 - [ ] Atualizar `README.md` com nome e descrição do projeto
-- [ ] Atualizar `.github/copilot-instructions.md` com novo path `/docs/ia/custom/[PROJECT_NAME]/`
+- [ ] Atualizar `.github/copilot-instructions.md` com novo path `/EXECUTION/spec/custom/[PROJECT_NAME]/`
 - [ ] Criar `.vscode/ai-rules.json` com paths atualizados (copiar de outro projeto)
 
 ## Fase 2: Customização (2-3 horas)
@@ -25,7 +25,7 @@ Para integrar este projeto com o framework SPEC, siga este checklist.
 
 ## Fase 3: Validação (1 hora)
 
-- [ ] Verificar herança de `/docs/ia/CANONICAL/` (deve ser 100% igual)
+- [ ] Verificar herança de `/EXECUTION/spec/CANONICAL/` (deve ser 100% igual)
 - [ ] Validar paths em `CANONICAL/rules/ia-rules.md` apontam para novo projeto
 - [ ] Testar navegação usando `/docs/ia/_INDEX.md` (master index)
 - [ ] Confirmar compliance com enforcement rules

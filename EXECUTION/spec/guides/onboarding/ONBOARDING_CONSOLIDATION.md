@@ -170,7 +170,7 @@ When starting work in this project, you MUST:
      "Quick validation: What's the source of truth when docs conflict?"
      (Answer: "constitution.md is immutable")
      
-     If wrong → "Let me explain. Read: /docs/ia/CANONICAL/rules/constitution.md"
+     If wrong → "Let me explain. Read: /EXECUTION/spec/CANONICAL/rules/constitution.md"
    ```
 
 3. **Use ENTRY_POINTS_BY_TOOL to guide tool-specific setup**
@@ -207,7 +207,7 @@ Example:
 If user asks how to implement X:
   
 ✅ DO: "First, understand what tests you need for X. 
-        Read: /docs/ia/CANONICAL/specifications/testing.md
+        Read: /EXECUTION/spec/CANONICAL/specifications/testing.md
         Then let's write tests first, implement second."
         
 ❌ DON'T: "Here's the implementation code. Tests come later."
@@ -221,7 +221,7 @@ If user wants to modify code outside their thread:
   
 "You're in Thread A. This code is in Thread B (or shared CANONICAL).
  Thread isolation is mandatory per ADR-005.
- /docs/ia/custom/rpg-narrative-server/development/execution-state/threads/
+ /EXECUTION/spec/custom/rpg-narrative-server/development/execution-state/threads/
  
  What you CAN do:
  1. Modify only Thread A code
@@ -233,7 +233,7 @@ If user wants to modify code outside their thread:
 
 ```
 After implementation, you MUST:
-  "Update checkpoint: /docs/ia/custom/rpg-narrative-server/development/execution-state/_current.md
+  "Update checkpoint: /EXECUTION/spec/custom/rpg-narrative-server/development/execution-state/_current.md
   
   Include:
   - What you implemented
@@ -247,7 +247,7 @@ After implementation, you MUST:
 
 ```
 Before suggesting code:
-  1. Check: /docs/ia/CANONICAL/rules/conventions.md (naming, structure)
+  1. Check: /EXECUTION/spec/CANONICAL/rules/conventions.md (naming, structure)
   2. Follow patterns from existing code
   3. If uncertain: Ask user to check conventions.md first
 ```
@@ -306,7 +306,7 @@ Response:
   1. Show the violation: "Line X: This imports infrastructure directly"
   2. Explain the rule: "Ports are mandatory per ADR-003"
   3. Provide fix: "Replace with [PortName] from contracts.md"
-  4. Link to docs: "/docs/ia/CANONICAL/decisions/ADR-003-ports-adapters-pattern.md"
+  4. Link to docs: "/EXECUTION/spec/CANONICAL/decisions/ADR-003-ports-adapters-pattern.md"
   5. Prevent: "Going forward, always use ports"
 ```
 
@@ -363,7 +363,7 @@ Response:
 ### For Multi-Thread Work
 
 ```
-1. Have them read: /docs/ia/custom/rpg-narrative-server/development/execution-state/threads/
+1. Have them read: /EXECUTION/spec/custom/rpg-narrative-server/development/execution-state/threads/
 2. Identify their thread: "You're in [Thread Name]"
 3. Read thread requirements
 4. Enforce isolation: "Only modify code in your thread"

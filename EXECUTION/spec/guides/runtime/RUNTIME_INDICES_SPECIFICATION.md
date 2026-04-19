@@ -34,17 +34,17 @@ Specify the 3 runtime indices that agents create during PHASE 0 to enable effici
 ## 🔴 Core Documents (Read in This Order)
 
 ### 1. Constitution
-**File:** SPEC_PATH/docs/ia/CANONICAL/constitution.md
+**File:** SPEC_PATH/EXECUTION/spec/CANONICAL/constitution.md
 **What:** 15 immutable principles
 **When:** First time onboarding
 
 ### 2. Rules (IA-RULES)
-**File:** SPEC_PATH/docs/ia/CANONICAL/rules/ia-rules.md
+**File:** SPEC_PATH/EXECUTION/spec/CANONICAL/rules/ia-rules.md
 **What:** 16 mandatory execution protocols
 **When:** Before every implementation
 
 ### 3. Decisions (ADRs)
-**Directory:** SPEC_PATH/docs/ia/CANONICAL/decisions/
+**Directory:** SPEC_PATH/EXECUTION/spec/CANONICAL/decisions/
 **Count:** 6+ ADRs
 **When:** Understanding why architecture is this way
 
@@ -52,7 +52,7 @@ Specify the 3 runtime indices that agents create during PHASE 0 to enable effici
 ...
 
 ### 4. Specifications
-**Directory:** SPEC_PATH/docs/ia/CANONICAL/specifications/
+**Directory:** SPEC_PATH/EXECUTION/spec/CANONICAL/specifications/
 **Count:** 5+ comprehensive specs
 ...
 

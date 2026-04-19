@@ -340,7 +340,7 @@ Learn: under demand (efficient)
 ```
 Search: search-keywords.md for "thread"
 Found: concurrent | CANONICAL/decisions/ADR-004
-Read: spec-architecture/docs/ia/CANONICAL/decisions/ADR-004
+Read: spec-architecture/EXECUTION/spec/CANONICAL/decisions/ADR-004
 Learn: "Each thread owns its code" (20 min read)
 No wasted time on unrelated docs
 ```

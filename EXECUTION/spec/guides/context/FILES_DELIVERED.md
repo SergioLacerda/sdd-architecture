@@ -41,7 +41,7 @@
 
 ## Validation & Governance
 - ✅ **definition_of_done.md** (NEW)
-  - Location: `/docs/ia/CANONICAL/specifications/definition_of_done.md`
+  - Location: `/EXECUTION/spec/CANONICAL/specifications/definition_of_done.md`
   - Purpose: Merge validation checklist
   - Size: ~25KB
   - Why: Single source of truth for done criteria
@@ -102,18 +102,18 @@ These files remain correct and are referenced by new docs:
 
 ## Core Governance (Immutable)
 ```
-✅ /docs/ia/CANONICAL/rules/constitution.md
+✅ /EXECUTION/spec/CANONICAL/rules/constitution.md
 ✅ /docs/ia/ai-rules.md
-✅ /docs/ia/CANONICAL/specifications/architecture.md
+✅ /EXECUTION/spec/CANONICAL/specifications/architecture.md
 ✅ /docs/ia/specs/design-decisions.md
 ```
 
 ## Standards & Patterns
 ```
-✅ /docs/ia/CANONICAL/specifications/testing.md
+✅ /EXECUTION/spec/CANONICAL/specifications/testing.md
 ✅ /docs/ia/specs/_shared/testing_strategy_spec.md
-✅ /docs/ia/CANONICAL/rules/conventions.md
-✅ /docs/ia/CANONICAL/specifications/feature-checklist.md
+✅ /EXECUTION/spec/CANONICAL/rules/conventions.md
+✅ /EXECUTION/spec/CANONICAL/specifications/feature-checklist.md
 ```
 
 ## State & Runtime
@@ -134,7 +134,7 @@ These files remain correct and are referenced by new docs:
 ```
 🆕 /docs/ia/DELIVERY_SUMMARY.md
 🆕 /docs/ia/SYSTEM_ARCHITECTURE_VISUAL.md
-🆕 /docs/ia/CANONICAL/specifications/definition_of_done.md
+🆕 /EXECUTION/spec/CANONICAL/specifications/definition_of_done.md
 🆕 /docs/ia/TESTING_STRATEGY_CLARIFICATION.md
 🆕 /docs/ia/guides/context/YOUR_VISION_IMPLEMENTED.md (CONTEXT GUIDES)
 ```

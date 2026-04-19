@@ -226,15 +226,15 @@ BENEFIT: Execution Awareness prevents conflicts
 # 📚 DOCUMENT MAP
 
 ## Core Governance (Immutable)
-- ✅ `/docs/ia/CANONICAL/rules/constitution.md` (principles)
+- ✅ `/EXECUTION/spec/CANONICAL/rules/constitution.md` (principles)
 - ✅ `/docs/ia/ai-rules.md` (protocols)
-- ✅ `/docs/ia/CANONICAL/specifications/architecture.md` (patterns)
+- ✅ `/EXECUTION/spec/CANONICAL/specifications/architecture.md` (patterns)
 - ✅ `/docs/ia/specs/design-decisions.md` (decisions)
 
 ## Standards & Patterns
-- ✅ `/docs/ia/CANONICAL/specifications/testing.md` (test patterns)
-- ✅ `/docs/ia/CANONICAL/rules/conventions.md` (naming)
-- ✅ `/docs/ia/CANONICAL/specifications/feature-checklist.md` (8-layer guide)
+- ✅ `/EXECUTION/spec/CANONICAL/specifications/testing.md` (test patterns)
+- ✅ `/EXECUTION/spec/CANONICAL/rules/conventions.md` (naming)
+- ✅ `/EXECUTION/spec/CANONICAL/specifications/feature-checklist.md` (8-layer guide)
 
 ## State & Runtime
 - ✅ `/docs/ia/REALITY/current-system-state/` (IS/AS-IS with 9 specialized files)
@@ -257,7 +257,7 @@ BENEFIT: Execution Awareness prevents conflicts
 - 🆕 `/docs/ia/INDEX.md` (updated with new entry points)
 
 ## Validation & Delivery (NEW)
-- 🆕 `/docs/ia/CANONICAL/specifications/definition_of_done.md` (merge criteria)
+- 🆕 `/EXECUTION/spec/CANONICAL/specifications/definition_of_done.md` (merge criteria)
 - 🆕 `/docs/ia/TESTING_STRATEGY_CLARIFICATION.md` (testing guidance)
 - 🆕 `/docs/ia/guides/context/YOUR_VISION_IMPLEMENTED.md` (implementation summary)
 
@@ -269,24 +269,24 @@ BENEFIT: Execution Awareness prevents conflicts
 1. Read: `/docs/ia/QUICK_START.md` (3 min)
 2. Choose: Your PATH
 3. Load: Specified docs for your path
-4. Follow: `/docs/ia/CANONICAL/specifications/feature-checklist.md`
-5. Test: `/docs/ia/CANONICAL/specifications/testing.md` patterns
-6. Validate: `/docs/ia/CANONICAL/specifications/definition_of_done.md`
+4. Follow: `/EXECUTION/spec/CANONICAL/specifications/feature-checklist.md`
+5. Test: `/EXECUTION/spec/CANONICAL/specifications/testing.md` patterns
+6. Validate: `/EXECUTION/spec/CANONICAL/specifications/definition_of_done.md`
 
 ### If you're a **Code reviewer**:
-1. Read: `/docs/ia/CANONICAL/specifications/definition_of_done.md`
+1. Read: `/EXECUTION/spec/CANONICAL/specifications/definition_of_done.md`
 2. Check: All criteria for the feature's scope
 3. Approve: When all ✅
 
 ### If you're a **New team member**:
-1. Read: `/docs/ia/CANONICAL/rules/constitution.md`
+1. Read: `/EXECUTION/spec/CANONICAL/rules/constitution.md`
 2. Read: `./YOUR_VISION_IMPLEMENTED.md`
 3. Read: `/docs/ia/IMPLEMENTATION_ROADMAP.md`
 4. Ready: Implement first feature with QUICK_START.md
 
 ### If you're an **Architect**:
-1. Read: `/docs/ia/CANONICAL/rules/constitution.md`
-2. Read: `/docs/ia/CANONICAL/specifications/architecture.md`
+1. Read: `/EXECUTION/spec/CANONICAL/rules/constitution.md`
+2. Read: `/EXECUTION/spec/CANONICAL/specifications/architecture.md`
 3. Read: `/docs/ia/specs/design-decisions.md`
 4. Oversee: Using `/docs/ia/DEVELOPMENT/execution-state/_current.md`
 

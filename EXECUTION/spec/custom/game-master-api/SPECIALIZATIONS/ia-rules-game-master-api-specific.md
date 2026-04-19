@@ -3,7 +3,7 @@
 **Project:** game-master-api  
 **Version:** 1.0  
 **Generated:** 2026-04-19T12:55:46.101988  
-**Based on:** /docs/ia/CANONICAL/rules/ia-rules.md
+**Based on:** /EXECUTION/spec/CANONICAL/rules/ia-rules.md
 
 ---
 
@@ -26,9 +26,9 @@ This document specifies the 16 execution protocols from CANONICAL adapted for ga
 **game-master-api requirement:**
 ```
 Every agent session MUST:
-  1. Read: /docs/ia/CANONICAL/rules/ia-rules.md (5 min)
-  2. Read: /docs/ia/CANONICAL/rules/constitution.md (5 min)
-  3. Read: /docs/ia/custom/game-master-api/SPECIALIZATIONS/ia-rules-game-master-api-specific.md (3 min)
+  1. Read: /EXECUTION/spec/CANONICAL/rules/ia-rules.md (5 min)
+  2. Read: /EXECUTION/spec/CANONICAL/rules/constitution.md (5 min)
+  3. Read: /EXECUTION/spec/custom/game-master-api/SPECIALIZATIONS/ia-rules-game-master-api-specific.md (3 min)
   4. Choose task PATH: A/B/C/D from QUICK_START.md
 
 Result: Agent understands both generic and game-master-api-specific rules

@@ -190,7 +190,7 @@ git commit -m "✅ Task complete: [name]"
 ## 🎓 Key Files Outside This Folder
 
 **In spec-architecture:**
-- `docs/ia/CANONICAL/rules/ia-rules.md` — Framework rules (immutable)
+- `/EXECUTION/spec/CANONICAL/rules/ia-rules.md` — Framework rules (immutable)
 - `docs/ia/CUSTOM/[PROJECT]/SPECIALIZATIONS/` — Project patterns (static)
 
 **In each project:**

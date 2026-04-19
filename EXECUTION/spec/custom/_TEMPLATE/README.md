@@ -21,7 +21,7 @@ custom/[PROJECT_NAME]/
 
 ## 🚀 Quick Start
 
-1. **Leia primeiro:** `/docs/ia/CANONICAL/rules/ia-rules.md` (regras obrigatórias)
+1. **Leia primeiro:** `/EXECUTION/spec/CANONICAL/rules/ia-rules.md` (regras obrigatórias)
 2. **Entenda:** `/docs/ia/guides/navigation/REUSABILITY_GUIDE.md` (como usar SPEC em múltiplos projetos)
 3. **Customize:** Esta pasta com padrões específicos do projeto
 

@@ -16,11 +16,11 @@
 #### Step 1.1: Read Constitution & Rules
 ```
 READ NOW (in this order):
-  1. /docs/ia/CANONICAL/rules/constitution.md (3 min)
+  1. /EXECUTION/spec/CANONICAL/rules/constitution.md (3 min)
      └─ 15 immutable principles that NEVER change
      └─ If confused later: These are source of truth
      
-  2. /docs/ia/CANONICAL/rules/ia-rules.md (2 min)
+  2. /EXECUTION/spec/CANONICAL/rules/ia-rules.md (2 min)
      └─ 16 MANDATORY execution protocols
      └─ Violating these = system failures
 ```
@@ -60,7 +60,7 @@ Option B (AI Agents):
 
 ```
 READ IMMEDIATELY:
-  /docs/ia/custom/rpg-narrative-server/development/execution-state/_current.md
+  /EXECUTION/spec/custom/rpg-narrative-server/development/execution-state/_current.md
   
 Answers these questions:
   - Is there active work I should know about?
@@ -125,10 +125,10 @@ Is this a...?
 
 ```
 ✅ LOAD NOW (5 min):
-   1. /docs/ia/CANONICAL/rules/conventions.md
+   1. /EXECUTION/spec/CANONICAL/rules/conventions.md
       └─ Code naming, file structure, patterns
       
-   2. /docs/ia/custom/rpg-narrative-server/reality/current-system-state/_INDEX.md
+   2. /EXECUTION/spec/custom/rpg-narrative-server/reality/current-system-state/_INDEX.md
       └─ Master index of what exists
       └─ Which services? Which data models? Which contracts?
 ```
@@ -138,55 +138,55 @@ Is this a...?
 **IF PATH A (Bug Fix):**
 ```
 ✅ LOAD (5 min):
-   1. /docs/ia/CANONICAL/specifications/architecture.md
+   1. /EXECUTION/spec/CANONICAL/specifications/architecture.md
       └─ Section: Your affected layer only
       
-   2. /docs/ia/custom/rpg-narrative-server/reality/current-system-state/known_issues.md
+   2. /EXECUTION/spec/custom/rpg-narrative-server/reality/current-system-state/known_issues.md
       └─ Bug might already be there!
       └─ Or known workarounds
       
-   3. /docs/ia/CANONICAL/specifications/testing.md
+   3. /EXECUTION/spec/CANONICAL/specifications/testing.md
       └─ How to test the layer you're fixing
       
-   4. /docs/ia/custom/rpg-narrative-server/reality/current-system-state/services.md
+   4. /EXECUTION/spec/custom/rpg-narrative-server/reality/current-system-state/services.md
       └─ The service you're modifying
 ```
 
 **IF PATH B (Simple Feature):**
 ```
 ✅ LOAD (10 min):
-   1. /docs/ia/CANONICAL/specifications/architecture.md (full)
-   2. /docs/ia/CANONICAL/specifications/feature-checklist.md (layers 1-3 only)
-   3. /docs/ia/CANONICAL/specifications/testing.md (your layers)
-   4. /docs/ia/custom/rpg-narrative-server/reality/current-system-state/contracts.md
+   1. /EXECUTION/spec/CANONICAL/specifications/architecture.md (full)
+   2. /EXECUTION/spec/CANONICAL/specifications/feature-checklist.md (layers 1-3 only)
+   3. /EXECUTION/spec/CANONICAL/specifications/testing.md (your layers)
+   4. /EXECUTION/spec/custom/rpg-narrative-server/reality/current-system-state/contracts.md
       └─ Ports you'll use/implement
-   5. /docs/ia/custom/rpg-narrative-server/reality/current-system-state/data_models.md
+   5. /EXECUTION/spec/custom/rpg-narrative-server/reality/current-system-state/data_models.md
       └─ DTOs, request/response contracts
 ```
 
 **IF PATH C (Complex Feature):**
 ```
 ✅ LOAD (15 min):
-   1. /docs/ia/CANONICAL/specifications/architecture.md (full)
-   2. /docs/ia/CANONICAL/decisions/ADR-*.md (relevant ADRs only)
-   3. /docs/ia/CANONICAL/specifications/feature-checklist.md (full)
-   4. /docs/ia/CANONICAL/specifications/testing.md (full)
-   5. /docs/ia/custom/rpg-narrative-server/reality/current-system-state/ (all files)
-   6. /docs/ia/custom/rpg-narrative-server/reality/limitations/ (all files)
+   1. /EXECUTION/spec/CANONICAL/specifications/architecture.md (full)
+   2. /EXECUTION/spec/CANONICAL/decisions/ADR-*.md (relevant ADRs only)
+   3. /EXECUTION/spec/CANONICAL/specifications/feature-checklist.md (full)
+   4. /EXECUTION/spec/CANONICAL/specifications/testing.md (full)
+   5. /EXECUTION/spec/custom/rpg-narrative-server/reality/current-system-state/ (all files)
+   6. /EXECUTION/spec/custom/rpg-narrative-server/reality/limitations/ (all files)
       └─ Known constraints you'll hit
 ```
 
 **IF PATH D (Multi-Thread):**
 ```
 ✅ LOAD (10 min):
-   1. /docs/ia/custom/rpg-narrative-server/development/execution-state/threads/[YOUR_THREAD].md
+   1. /EXECUTION/spec/custom/rpg-narrative-server/development/execution-state/threads/[YOUR_THREAD].md
       └─ What's already decided in your thread?
       └─ What are next steps?
       
-   2. /docs/ia/CANONICAL/decisions/ADR-005-thread-isolation-mandatory.md
+   2. /EXECUTION/spec/CANONICAL/decisions/ADR-005-thread-isolation-mandatory.md
       └─ Thread rules
       
-   3. /docs/ia/custom/rpg-narrative-server/reality/limitations/threading_concurrency.md
+   3. /EXECUTION/spec/custom/rpg-narrative-server/reality/limitations/threading_concurrency.md
       └─ Concurrency constraints
 ```
 
@@ -197,7 +197,7 @@ Is this a...?
 #### Step 5.1: Follow Feature Checklist
 
 ```
-USE: /docs/ia/CANONICAL/specifications/feature-checklist.md
+USE: /EXECUTION/spec/CANONICAL/specifications/feature-checklist.md
 
 Your PATH has a specific checklist:
   PATH A: Domain layer? → Application layer? → Tests? ✅
@@ -211,7 +211,7 @@ Follow EXACTLY. Skip = failures.
 #### Step 5.2: Write Tests As You Go
 
 ```
-From /docs/ia/CANONICAL/specifications/testing.md:
+From /EXECUTION/spec/CANONICAL/specifications/testing.md:
 
   PATH A: Layer tests (unit) + integration
   PATH B: Port contract tests + use case tests
@@ -268,7 +268,7 @@ If you hit ANY confusion:
 #### Step 6.2: Update Checkpoint
 
 ```
-✅ EDIT: /docs/ia/custom/rpg-narrative-server/development/execution-state/_current.md
+✅ EDIT: /EXECUTION/spec/custom/rpg-narrative-server/development/execution-state/_current.md
 
 Add (or update if already exists):
   - What you implemented
@@ -328,7 +328,7 @@ DESCRIPTION:
 
 ```
 Add to PR description:
-  "Checkpoint: /docs/ia/custom/rpg-narrative-server/development/execution-state/_current.md"
+  "Checkpoint: /EXECUTION/spec/custom/rpg-narrative-server/development/execution-state/_current.md"
   
 Reviewers can then see:
   - What you decided
@@ -407,7 +407,7 @@ Before proceeding past Phase 1, verify:
 ## 🔗 YOUR NEXT ACTIONS (RIGHT NOW)
 
 ```
-1. Open: /docs/ia/CANONICAL/rules/constitution.md (start Phase 1)
+1. Open: /EXECUTION/spec/CANONICAL/rules/constitution.md (start Phase 1)
 2. Set timer: 5 minutes
 3. Read section 1-3 only (skim is OK)
 4. Then: Open ia-rules.md (2 min read)

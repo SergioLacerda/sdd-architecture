@@ -37,7 +37,7 @@ Follow this sequence. Don't skip steps.
 
 # 📖 STEP 1: LEARN THE IMMUTABLE PRINCIPLES (10 minutes)
 
-**Read:** `/docs/ia/CANONICAL/rules/constitution.md`
+**Read:** `/EXECUTION/spec/CANONICAL/rules/constitution.md`
 
 **Why:** 
 - Defines what CAN'T change
@@ -76,7 +76,7 @@ Follow this sequence. Don't skip steps.
 
 # 🏛️ STEP 3: UNDERSTAND ARCHITECTURE PATTERNS (20 minutes)
 
-**Read:** `/docs/ia/CANONICAL/specifications/architecture.md`
+**Read:** `/EXECUTION/spec/CANONICAL/specifications/architecture.md`
 
 **Why:**
 - Shows ACTUAL implementation patterns
@@ -97,7 +97,7 @@ Follow this sequence. Don't skip steps.
 
 # 📋 STEP 4: GET NAMING & STYLE CONVENTIONS (10 minutes)
 
-**Read:** `/docs/ia/CANONICAL/rules/conventions.md`
+**Read:** `/EXECUTION/spec/CANONICAL/rules/conventions.md`
 
 **Why:**
 - Ensures consistency across codebase
@@ -119,7 +119,7 @@ Follow this sequence. Don't skip steps.
 
 # 🎬 STEP 5: FOLLOW STEP-BY-STEP IMPLEMENTATION (60 minutes)
 
-**Read:** `/docs/ia/CANONICAL/specifications/feature-checklist.md`
+**Read:** `/EXECUTION/spec/CANONICAL/specifications/feature-checklist.md`
 
 **Why:**
 - Gives you the exact sequence of layers to implement
@@ -148,7 +148,7 @@ Follow this sequence. Don't skip steps.
 
 # 🧪 STEP 6: UNDERSTAND TESTING STRATEGY (30 minutes)
 
-**Read:** `/docs/ia/CANONICAL/specifications/testing.md`
+**Read:** `/EXECUTION/spec/CANONICAL/specifications/testing.md`
 
 **Why:**
 - Testing is 30% of implementation
@@ -170,7 +170,7 @@ Follow this sequence. Don't skip steps.
 
 # 🧪 STEP 7: IMPLEMENT TESTS (45 minutes)
 
-**Follow:** `/docs/ia/CANONICAL/specifications/testing.md` patterns
+**Follow:** `/EXECUTION/spec/CANONICAL/specifications/testing.md` patterns
 
 **For each layer:**
 - [ ] Create test file
@@ -186,7 +186,7 @@ Follow this sequence. Don't skip steps.
 
 # ✅ STEP 8: VALIDATE BEFORE MERGE (15 minutes)
 
-**Check:** `/docs/ia/CANONICAL/specifications/definition_of_done.md`
+**Check:** `/EXECUTION/spec/CANONICAL/specifications/definition_of_done.md`
 
 **You'll verify:**
 - [ ] Architecture checklist (layers, patterns)

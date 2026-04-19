@@ -203,19 +203,19 @@
 ### NEW Files (3):
 1. ✅ `docs/ia/guides/IMPLEMENTATION_ROADMAP.md` — Entry point and sequence
 2. ✅ `docs/ia/guides/TESTING_STRATEGY_CLARIFICATION.md` — Role resolution
-3. ✅ `docs/ia/CANONICAL/specifications/definition_of_done.md` — Validation checklist
+3. ✅ `/EXECUTION/spec/CANONICAL/specifications/definition_of_done.md` — Validation checklist
 
 ### ENHANCED Files (2):
 1. ✅ `docs/ia/guides/IMPLEMENTATION_FLOW_ANALYSIS.md` — Comprehensive audit
-2. ✅ `docs/ia/CANONICAL/specifications/feature-checklist.md` — v1.2 with error handling + links
+2. ✅ `/EXECUTION/spec/CANONICAL/specifications/feature-checklist.md` — v1.2 with error handling + links
 
 ### UNCHANGED Files (All Still Valid):
-- ✅ `docs/ia/CANONICAL/rules/constitution.md` — Clear and correct
+- ✅ `/EXECUTION/spec/CANONICAL/rules/constitution.md` — Clear and correct
 - ✅ `/ai-rules.md` — Clear and correct (now at root)
-- ✅ `docs/ia/CANONICAL/specifications/architecture.md` — Clear and correct
-- ✅ `docs/ia/CANONICAL/specifications/testing.md` — Patterns (enhanced by clarification doc)
+- ✅ `/EXECUTION/spec/CANONICAL/specifications/architecture.md` — Clear and correct
+- ✅ `/EXECUTION/spec/CANONICAL/specifications/testing.md` — Patterns (enhanced by clarification doc)
 - ✅ `docs/ia/specs/_shared/testing_strategy_spec.md` — Rules (enhanced by clarification doc)
-- ✅ `docs/ia/CANONICAL/rules/conventions.md` — Clear and correct
+- ✅ `/EXECUTION/spec/CANONICAL/rules/conventions.md` — Clear and correct
 
 ---
 

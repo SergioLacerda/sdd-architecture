@@ -95,7 +95,7 @@ gh pr checks <PR_NUMBER>
 ## 📊 Compliance Rules Enforced
 
 ### Rule 1: CANONICAL/ Paths Must Be Valid
-**Pattern:** Paths must start with `/docs/ia/CANONICAL/`
+**Pattern:** Paths must start with `/EXECUTION/spec/CANONICAL/`
 
 **Invalid:**
 - `/runtime/execution_state.md` ❌
@@ -103,8 +103,8 @@ gh pr checks <PR_NUMBER>
 - `specs/` ❌
 
 **Valid:**
-- `/docs/ia/CANONICAL/specifications/architecture.md` ✅
-- `/docs/ia/CANONICAL/rules/ia-rules.md` ✅
+- `/EXECUTION/spec/CANONICAL/specifications/architecture.md` ✅
+- `/EXECUTION/spec/CANONICAL/rules/ia-rules.md` ✅
 
 ### Rule 2: No Project-Specific Names in CANONICAL/
 **Reason:** CANONICAL/ must be reusable across all projects
@@ -139,7 +139,7 @@ custom/[PROJECT_NAME]/
 ```
 
 ### Rule 5: Enforcement Rules Must Be Documented
-**File:** `/docs/ia/CANONICAL/rules/ENFORCEMENT_RULES.md`
+**File:** `/EXECUTION/spec/CANONICAL/rules/ENFORCEMENT_RULES.md`
 
 **Required sections:**
 - Pre-commit Hook
@@ -159,7 +159,7 @@ custom/[PROJECT_NAME]/
 ### Pre-commit Hook Failure
 ```
 ❌ ERROR: Invalid paths in CANONICAL/
-   Should use: /docs/ia/CANONICAL/ paths
+   Should use: /EXECUTION/spec/CANONICAL/ paths
    Do not use: /docs/specs/, /runtime/, /REALITY/, /DEVELOPMENT/
 ```
 
@@ -172,7 +172,7 @@ custom/[PROJECT_NAME]/
 ```
 FAILED tests/architecture/test_spec_compliance.py::test_canonical_paths_valid
 ERROR: Invalid paths found in CANONICAL/:
-  /docs/ia/CANONICAL/rules/ia-rules.md:15 - Invalid path '/runtime/' 
+  /EXECUTION/spec/CANONICAL/rules/ia-rules.md:15 - Invalid path '/runtime/' 
     → Should be /docs/ia/custom/[PROJECT]/development/
 ```
 
@@ -198,14 +198,14 @@ ERROR: Invalid paths found in CANONICAL/:
 
 ### Scenario 1: Adding New Spec
 
-**Goal:** Add `/docs/ia/CANONICAL/specifications/observability.md`
+**Goal:** Add `/EXECUTION/spec/CANONICAL/specifications/observability.md`
 
 ```bash
 # 1. Create file
 touch docs/ia/CANONICAL/specifications/observability.md
 
 # 2. Add valid paths in file
-# Good: references /docs/ia/CANONICAL/...
+# Good: references /EXECUTION/spec/CANONICAL/...
 # Bad: references /specs/... or /runtime/...
 
 # 3. Stage changes
@@ -381,7 +381,7 @@ pytest tests/architecture/test_spec_compliance.py -v
 **Answer:** 
 1. Update enforcement logic in `tests/architecture/test_spec_compliance.py`
 2. Update `.github/workflows/spec-enforcement.yml`
-3. Document in `/docs/ia/CANONICAL/rules/ENFORCEMENT_RULES.md`
+3. Document in `/EXECUTION/spec/CANONICAL/rules/ENFORCEMENT_RULES.md`
 
 ---
 

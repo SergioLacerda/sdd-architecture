@@ -208,16 +208,16 @@ You:
 - **Bookmark:** `guides/onboarding/QUICK_START.md` (refresh on PATH)
 
 ### For Backend Developers
-- **Bookmark:** `/docs/ia/CANONICAL/rules/constitution.md` (15 principles)
+- **Bookmark:** `/EXECUTION/spec/CANONICAL/rules/constitution.md` (15 principles)
 - **Bookmark:** `custom/rpg-narrative-server/SPECIALIZATIONS/` (project specifics)
 
 ### For DevOps/SRE
-- **Bookmark:** `/docs/ia/CANONICAL/specifications/observability.md` (logging/metrics)
-- **Bookmark:** `/docs/ia/CANONICAL/rules/COMPLIANCE_AUTOMATION_SETUP.md` (CI/CD)
+- **Bookmark:** `/EXECUTION/spec/CANONICAL/specifications/observability.md` (logging/metrics)
+- **Bookmark:** `/EXECUTION/spec/CANONICAL/rules/COMPLIANCE_AUTOMATION_SETUP.md` (CI/CD)
 
 ### For Architects
-- **Bookmark:** `/docs/ia/CANONICAL/rules/constitution.md` (all principles)
-- **Bookmark:** `/docs/ia/CANONICAL/decisions/` (all ADRs)
+- **Bookmark:** `/EXECUTION/spec/CANONICAL/rules/constitution.md` (all principles)
+- **Bookmark:** `/EXECUTION/spec/CANONICAL/decisions/` (all ADRs)
 
 ---
 

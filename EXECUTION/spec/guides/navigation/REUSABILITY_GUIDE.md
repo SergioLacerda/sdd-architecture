@@ -15,7 +15,7 @@ Como usar o framework SPEC (Sistema de Princípios e Especificações) em múlti
 **Todos os projetos usam EXATAMENTE IGUAL**
 
 ```
-/docs/ia/CANONICAL/
+/EXECUTION/spec/CANONICAL/
 ├── rules/                 # Aplicável a TODOS projetos
 ├── specifications/        # Aplicável a TODOS projetos  
 └── decisions/            # Histórico de TODOS projetos
@@ -35,7 +35,7 @@ Como usar o framework SPEC (Sistema de Princípios e Especificações) em múlti
 **Cada projeto especializa conforme necessário**
 
 ```
-/docs/ia/custom/
+/EXECUTION/spec/custom/
 ├── _TEMPLATE/           # Modelo para novos projetos (100% reutilizável)
 └── [PROJECT_NAME]/      # Implementação específica
     ├── development/     # Estado de execução ativo (muda frequentemente)
@@ -150,29 +150,29 @@ cd /home/my-projects/game-master-api
 cp -r /home/rpg-narrative-server/docs/ia /docs/ia
 
 # Estruturar para reutilização
-mkdir -p /docs/ia/custom/game-master-api/{development,reality}
+mkdir -p /EXECUTION/spec/custom/game-master-api/{development,reality}
 ```
 
 #### 2. Herdar CANONICAL
 ```bash
 # CANONICAL é 100% compartilhado (não altere!)
-ls /docs/ia/CANONICAL/
+ls /EXECUTION/spec/CANONICAL/
 # rules/ specifications/ decisions/
 ```
 
 #### 3. Especializar custom/
 ```bash
 # Documentar estado específico
-echo "Game Master API - Serviços..." > /docs/ia/custom/game-master-api/reality/current-system-state/services.md
+echo "Game Master API - Serviços..." > /EXECUTION/spec/custom/game-master-api/reality/current-system-state/services.md
 
 # Documentar trabalho ativo
-echo "Thread 1: Implementar..." > /docs/ia/custom/game-master-api/development/execution-state/_current.md
+echo "Thread 1: Implementar..." > /EXECUTION/spec/custom/game-master-api/development/execution-state/_current.md
 ```
 
 #### 4. Validar
 ```bash
 # Verificar que CANONICAL é igual
-diff /docs/ia/CANONICAL/ /path/to/rpg-narrative-server/docs/ia/CANONICAL/
+diff /EXECUTION/spec/CANONICAL/ /path/to/rpg-narrative-server/EXECUTION/spec/CANONICAL/
 # Resultado: devem ser idênticos!
 ```
 

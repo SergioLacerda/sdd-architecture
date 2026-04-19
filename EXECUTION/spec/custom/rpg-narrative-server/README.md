@@ -37,38 +37,38 @@ Este projeto showcases:
 ### Globalizada (Compartilhada entre Projetos)
 
 **Todos os projetos herdam 100% de CANONICAL/**
-- `/docs/ia/CANONICAL/rules/` — Regras obrigatórias
-- `/docs/ia/CANONICAL/specifications/` — Arquitetura, testes, definição de done
-- `/docs/ia/CANONICAL/decisions/` — 6 ADRs sobre arquitetura
+- `/EXECUTION/spec/CANONICAL/rules/` — Regras obrigatórias
+- `/EXECUTION/spec/CANONICAL/specifications/` — Arquitetura, testes, definição de done
+- `/EXECUTION/spec/CANONICAL/decisions/` — 6 ADRs sobre arquitetura
 
 ### Especializada (Específica deste Projeto)
 
 **Documentação de rpg-narrative-server**
-- `/docs/ia/custom/rpg-narrative-server/reality/` — Estado observado do sistema
-- `/docs/ia/custom/rpg-narrative-server/development/` — Trabalho em progresso
-- `/docs/ia/custom/rpg-narrative-server/INTEGRATION_RESULTS.md` — Detalhes de integração
+- `/EXECUTION/spec/custom/rpg-narrative-server/reality/` — Estado observado do sistema
+- `/EXECUTION/spec/custom/rpg-narrative-server/development/` — Trabalho em progresso
+- `/EXECUTION/spec/custom/rpg-narrative-server/INTEGRATION_RESULTS.md` — Detalhes de integração
 
 ---
 
 ## 🚀 Como Navegar
 
 ### "Quero entender as REGRAS"
-→ `/docs/ia/CANONICAL/rules/ia-rules.md` (16 protocolos obrigatórios)
+→ `/EXECUTION/spec/CANONICAL/rules/ia-rules.md` (16 protocolos obrigatórios)
 
 ### "Quero entender a ARQUITETURA"
-→ `/docs/ia/CANONICAL/specifications/architecture.md` (8-layer blueprint)
+→ `/EXECUTION/spec/CANONICAL/specifications/architecture.md` (8-layer blueprint)
 
 ### "Qual é o estado atual do sistema?"
-→ `/docs/ia/custom/rpg-narrative-server/reality/current-system-state/`
+→ `/EXECUTION/spec/custom/rpg-narrative-server/reality/current-system-state/`
 
 ### "Qual é o trabalho em progresso?"
-→ `/docs/ia/custom/rpg-narrative-server/development/execution-state/_current.md`
+→ `/EXECUTION/spec/custom/rpg-narrative-server/development/execution-state/_current.md`
 
 ### "Como reutilizar SPEC em outro projeto?"
 → `/docs/ia/guides/navigation/REUSABILITY_GUIDE.md`
 
 ### "Quero start um novo projeto igual a este?"
-→ Copie `/docs/ia/custom/_TEMPLATE/` para `/docs/ia/custom/meu-projeto/`
+→ Copie `/EXECUTION/spec/custom/_TEMPLATE/` para `/EXECUTION/spec/custom/meu-projeto/`
 
 ---
 
@@ -173,8 +173,8 @@ Planejado para adicionar em CANONICAL/ (todos projetos herdam):
 
 1. **Leia primeiro:** `/docs/ia/.github/copilot-instructions.md` (10 min)
 2. **Escolha PATH:** Bug fix? Feature? Refactor?
-3. **Siga checklist:** `/docs/ia/CANONICAL/specifications/definition_of_done.md`
-4. **Test:** Siga patterns em `/docs/ia/CANONICAL/specifications/testing.md`
+3. **Siga checklist:** `/EXECUTION/spec/CANONICAL/specifications/definition_of_done.md`
+4. **Test:** Siga patterns em `/EXECUTION/spec/CANONICAL/specifications/testing.md`
 5. **Document:** ADR se decisão, ou update de REALITY/
 
 ---
@@ -182,9 +182,9 @@ Planejado para adicionar em CANONICAL/ (todos projetos herdam):
 ## 🔗 Referências Rápidas
 
 - **Master Index:** `/docs/ia/_INDEX.md`
-- **Architecture:** `/docs/ia/CANONICAL/specifications/architecture.md`
-- **Rules:** `/docs/ia/CANONICAL/rules/ia-rules.md`
-- **ADRs:** `/docs/ia/CANONICAL/decisions/`
+- **Architecture:** `/EXECUTION/spec/CANONICAL/specifications/architecture.md`
+- **Rules:** `/EXECUTION/spec/CANONICAL/rules/ia-rules.md`
+- **ADRs:** `/EXECUTION/spec/CANONICAL/decisions/`
 - **Reusability:** `/docs/ia/guides/navigation/REUSABILITY_GUIDE.md`
 - **Current State:** `custom/rpg-narrative-server/reality/`
 - **Active Work:** `custom/rpg-narrative-server/development/`
@@ -196,7 +196,7 @@ Planejado para adicionar em CANONICAL/ (todos projetos herdam):
 - **Dúvida sobre arquitetura?** → Veja CANONICAL/decisions/ (ADRs)
 - **Encontrou bug/limitation?** → Document em reality/limitations/
 - **Quer melhor observability?** → Contribute ao WIP em CANONICAL/specifications/observability.md
-- **Quer integrar SPEC em outro projeto?** → Siga `/docs/ia/custom/_TEMPLATE/INTEGRATION_CHECKLIST.md`
+- **Quer integrar SPEC em outro projeto?** → Siga `/EXECUTION/spec/custom/_TEMPLATE/INTEGRATION_CHECKLIST.md`
 
 ---
 

@@ -29,7 +29,7 @@
 ├─ Files got corrupted after auto-fix?
 │  └─ → Auto-Fix Corruption Recovery
 │
-├─ Merge conflicts in docs/ia/CANONICAL/?
+├─ Merge conflicts in /EXECUTION/spec/CANONICAL/?
 │  └─ → CANONICAL Corruption Recovery
 │
 ├─ All PRs failing in CI/CD?

@@ -187,7 +187,7 @@ pytest tests/architecture/test_adapter_implementation.py -v
 
 **THE PRINCIPLE**
 
-Security is not optional. Every system MUST implement the complete security model from `/docs/ia/CANONICAL/specifications/security-model.md`.
+Security is not optional. Every system MUST implement the complete security model from `/EXECUTION/spec/CANONICAL/specifications/security-model.md`.
 
 **MANDATORY SECURITY REQUIREMENTS**
 

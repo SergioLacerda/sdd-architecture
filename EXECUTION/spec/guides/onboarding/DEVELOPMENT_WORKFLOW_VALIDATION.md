@@ -48,12 +48,12 @@ Use this to verify CONFIDENCE in the workflow:
 **Expected Actions:**
 ```
 Developer opens:
-  1. /docs/ia/CANONICAL/rules/constitution.md
+  1. /EXECUTION/spec/CANONICAL/rules/constitution.md
      └─ Reads: 15 immutable principles
      └─ Time: 3 minutes
      └─ Understands: "These rules never change"
      
-  2. /docs/ia/CANONICAL/rules/ia-rules.md
+  2. /EXECUTION/spec/CANONICAL/rules/ia-rules.md
      └─ Reads: 16 execution protocols
      └─ Time: 2 minutes
      └─ Understands: "These are mandatory"
@@ -111,11 +111,11 @@ If ANY red flag:
 **Expected Actions:**
 ```
 Developer:
-  1. Reads: /docs/ia/CANONICAL/rules/conventions.md
+  1. Reads: /EXECUTION/spec/CANONICAL/rules/conventions.md
      └─ Time: 3 minutes
      └─ Knows: Naming, file structure, patterns
      
-  2. Reads: /docs/ia/custom/rpg-narrative-server/development/execution-state/_current.md
+  2. Reads: /EXECUTION/spec/custom/rpg-narrative-server/development/execution-state/_current.md
      └─ Time: 3 minutes
      └─ Knows: Active threads, conflicts, blockers
      └─ Verifies: No conflicts with planned work

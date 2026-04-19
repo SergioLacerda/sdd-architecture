@@ -14,7 +14,7 @@ $ python docs/ia/SCRIPTS/validate-ia-first.py --fix docs/ia
 ✅ Fixed 25 files
 
 # But then you notice:
-$ cat docs/ia/CANONICAL/ia-rules.md
+$ cat /EXECUTION/spec/CANONICAL/ia-rules.md
 
 ⚠️ File is corrupted:
   - Missing sections
@@ -39,7 +39,7 @@ git diff --stat HEAD
 git diff HEAD docs/ia/ | wc -l
 
 # See details:
-git diff HEAD docs/ia/CANONICAL/
+git diff HEAD /EXECUTION/spec/CANONICAL/
 ```
 
 ### Step 2: Identify Corrupted Files
@@ -48,8 +48,8 @@ git diff HEAD docs/ia/CANONICAL/
 git status
 
 # Review each one:
-git diff HEAD -- docs/ia/CANONICAL/ia-rules.md
-git diff HEAD -- docs/ia/CANONICAL/specifications/
+git diff HEAD -- /EXECUTION/spec/CANONICAL/ia-rules.md
+git diff HEAD -- /EXECUTION/spec/CANONICAL/specifications/
 # ... etc
 ```
 
@@ -221,8 +221,8 @@ git commit -m "EMERGENCY: Recovered from auto-fix corruption, reverted to HEAD"
 - [Identified cause]
 
 **Affected Files:**
-- docs/ia/CANONICAL/ia-rules.md
-- docs/ia/CANONICAL/specifications/architecture.md
+- /EXECUTION/spec/CANONICAL/ia-rules.md
+- /EXECUTION/spec/CANONICAL/specifications/architecture.md
 - ... [list all]
 
 **Resolution:**

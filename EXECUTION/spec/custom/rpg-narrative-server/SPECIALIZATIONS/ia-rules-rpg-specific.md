@@ -1,6 +1,6 @@
 # 🤖 AI RULES — RPG NARRATIVE SERVER SPECIALIZATION
 
-**Extends:** `/docs/ia/CANONICAL/rules/ia-rules.md`  
+**Extends:** `/EXECUTION/spec/CANONICAL/rules/ia-rules.md`  
 **Scope:** Project-specific paths and values for rpg-narrative-server  
 **Last Updated:** 2026-04-19
 
@@ -12,25 +12,25 @@
 
 ```
 1. CANONICAL/rules/ia-rules.md
-   └─ /docs/ia/CANONICAL/rules/ia-rules.md
+   └─ /EXECUTION/spec/CANONICAL/rules/ia-rules.md
 
 2. PROJECT STATE
-   └─ /docs/ia/custom/rpg-narrative-server/development/execution-state/_current.md
+   └─ /EXECUTION/spec/custom/rpg-narrative-server/development/execution-state/_current.md
 
 3. ACTIVE THREADS
-   └─ /docs/ia/custom/rpg-narrative-server/development/execution-state/threads/
+   └─ /EXECUTION/spec/custom/rpg-narrative-server/development/execution-state/threads/
       ├─ thread-*.md (each active thread)
       └─ Example: threads/feature-security-implementation.md
 
 4. CANONICAL SPECIFICATIONS
-   └─ /docs/ia/CANONICAL/specifications/
+   └─ /EXECUTION/spec/CANONICAL/specifications/
       ├─ architecture.md (8-layer, ports/adapters)
       ├─ performance.md (SLO budgets)
       ├─ security-model.md (auth/authz/encryption)
       └─ observability.md (logging/tracing/metrics)
 
 5. PROJECT REALITY
-   └─ /docs/ia/custom/rpg-narrative-server/reality/
+   └─ /EXECUTION/spec/custom/rpg-narrative-server/reality/
       ├─ current-system-state/ (what exists now)
       ├─ limitations/ (known issues, constraints)
       └─ observations/ (gaps, future state)
@@ -215,7 +215,7 @@ async def get_all_narratives(store: KeyValueStorePort):
 
 ### Thread Documentation Pattern
 
-Create `/docs/ia/custom/rpg-narrative-server/development/execution-state/threads/{THREAD_NAME}.md`:
+Create `/EXECUTION/spec/custom/rpg-narrative-server/development/execution-state/threads/{THREAD_NAME}.md`:
 
 ```markdown
 # THREAD: Feature Security Model Implementation
@@ -234,7 +234,7 @@ Implementing security model (ADR-XXX):
 - src/infrastructure/security/token_validator.py (new)
 - src/domain/models/permission.py (new)
 - src/infrastructure/ports/auth_port.py (modified)
-- docs/ia/CANONICAL/specifications/security-model.md (no modifications)
+- /EXECUTION/spec/CANONICAL/specifications/security-model.md (no modifications)
 
 ## Current Status
 [Details of what's done, what's in progress]
@@ -264,7 +264,7 @@ After making changes:
 
 ```
 1. Update thread file:
-   /docs/ia/custom/rpg-narrative-server/development/execution-state/threads/{THREAD}.md
+   /EXECUTION/spec/custom/rpg-narrative-server/development/execution-state/threads/{THREAD}.md
 
 2. Run compliance checks:
    pytest tests/architecture/test_spec_compliance.py -v
@@ -273,7 +273,7 @@ After making changes:
    git commit -m "CHECKPOINT: [thread-name] - [what was done]"
 
 4. When done, update status:
-   /docs/ia/custom/rpg-narrative-server/development/execution-state/_current.md
+   /EXECUTION/spec/custom/rpg-narrative-server/development/execution-state/_current.md
    Mark thread as COMPLETE
 ```
 
@@ -283,16 +283,16 @@ After making changes:
 
 ```
 [PROJECT_NAME] = rpg-narrative-server
-[PROJECT_PATH] = /docs/ia/custom/rpg-narrative-server
+[PROJECT_PATH] = /EXECUTION/spec/custom/rpg-narrative-server
 
 Key Paths:
-├─ Execution state: /docs/ia/custom/rpg-narrative-server/development/execution-state/
-├─ Active threads: /docs/ia/custom/rpg-narrative-server/development/execution-state/threads/
-├─ Current state: /docs/ia/custom/rpg-narrative-server/development/execution-state/_current.md
-├─ Project reality: /docs/ia/custom/rpg-narrative-server/reality/
-├─ System state: /docs/ia/custom/rpg-narrative-server/reality/current-system-state/
-├─ Limitations: /docs/ia/custom/rpg-narrative-server/reality/limitations/
-└─ Observations: /docs/ia/custom/rpg-narrative-server/reality/observations/
+├─ Execution state: /EXECUTION/spec/custom/rpg-narrative-server/development/execution-state/
+├─ Active threads: /EXECUTION/spec/custom/rpg-narrative-server/development/execution-state/threads/
+├─ Current state: /EXECUTION/spec/custom/rpg-narrative-server/development/execution-state/_current.md
+├─ Project reality: /EXECUTION/spec/custom/rpg-narrative-server/reality/
+├─ System state: /EXECUTION/spec/custom/rpg-narrative-server/reality/current-system-state/
+├─ Limitations: /EXECUTION/spec/custom/rpg-narrative-server/reality/limitations/
+└─ Observations: /EXECUTION/spec/custom/rpg-narrative-server/reality/observations/
 
 Key Services:
 ├─ Vector index: ChromaDB (src/infrastructure/adapters/chromadb_vector_adapter.py)

@@ -11,7 +11,7 @@
 
 | Step | Task | Time | Status |
 |------|------|------|--------|
-| **1** | Create project folder structure | 5 min | Create `/docs/ia/custom/PROJECT_NAME/` |
+| **1** | Create project folder structure | 5 min | Create `/EXECUTION/spec/custom/PROJECT_NAME/` |
 | **2** | Write SPECIALIZATIONS_CONFIG.md | 10 min | Define project parameters |
 | **3** | Run generate-specializations.py | 5 min | Auto-generate specializations |
 | **4** | Validate output files | 5 min | Review generated constitution + ia-rules |

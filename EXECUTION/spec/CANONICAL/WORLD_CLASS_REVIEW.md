@@ -315,12 +315,12 @@ World-class solution:
 **Problem B: Custom Folder Explosion**
 ```
 Current:
-/docs/ia/custom/
+/EXECUTION/spec/custom/
 ├─ rpg-narrative-server/
 ├─ _TEMPLATE/
 
 Projected (5 projects):
-/docs/ia/custom/
+/EXECUTION/spec/custom/
 ├─ rpg-narrative-server/
 ├─ game-master-api/
 ├─ story-generator-svc/
@@ -368,13 +368,13 @@ World-class approach:
 
 **Problem:**
 ```
-File A: /docs/ia/CANONICAL/rules/constitution.md
+File A: /EXECUTION/spec/CANONICAL/rules/constitution.md
 ┌─ Has explicit "IA-FIRST DESIGN NOTICE" section ✅
 ├─ Uses consistent emoji markers (✅, ❌, 🎯) ✅
 ├─ Lists are properly nested ✅
 └─ Cross-references are markdown links ✅
 
-File B: /docs/ia/CANONICAL/rules/ia-rules.md
+File B: /EXECUTION/spec/CANONICAL/rules/ia-rules.md
 ┌─ Has IA-FIRST DESIGN NOTICE ✅
 ├─ Uses emoji markers ✅
 ├─ BUT: Some sections use prose paragraphs instead of lists ⚠️
@@ -484,7 +484,7 @@ Automated process:
 **Current flow:**
 ```
 Step 1: Read /docs/ia/guides/onboarding/FIRST_SESSION_SETUP.md (15 min)
-Step 2: Read /docs/ia/CANONICAL/rules/ia-rules.md (10 min)
+Step 2: Read /EXECUTION/spec/CANONICAL/rules/ia-rules.md (10 min)
 Step 3: Take /docs/ia/guides/onboarding/VALIDATION_QUIZ.md (10 min)
 Step 4: Read /docs/ia/guides/onboarding/QUICK_START.md (3 min)
 Step 5: Choose PATH A/B/C/D (2 min)
@@ -547,9 +547,9 @@ Current: Claims without evidence ❌
 
 ### Debt Item 1: Path Duplication
 ```
-/docs/ia/REALITY/ is ALSO at /docs/ia/custom/rpg-narrative-server/reality/
-/docs/ia/DEVELOPMENT/ is ALSO at /docs/ia/custom/rpg-narrative-server/development/
-/docs/ia/ARCHIVE/ is ALSO at /docs/ia/custom/rpg-narrative-server/archive/
+/docs/ia/REALITY/ is ALSO at /EXECUTION/spec/custom/rpg-narrative-server/reality/
+/docs/ia/DEVELOPMENT/ is ALSO at /EXECUTION/spec/custom/rpg-narrative-server/development/
+/docs/ia/ARCHIVE/ is ALSO at /EXECUTION/spec/custom/rpg-narrative-server/archive/
 
 Which is source of truth? Both? Neither?
 This creates synchronization risk ❌
@@ -638,7 +638,7 @@ If pattern breaks at scale, refactoring will be painful ⚠️
 ### 🔴 **CRITICAL (Do this week)** — 3 items
 
 1. **Eliminate path duplication** (1h)
-   - Choose: /docs/ia/REALITY/ OR /docs/ia/custom/rpg-narrative-server/reality/
+   - Choose: /docs/ia/REALITY/ OR /EXECUTION/spec/custom/rpg-narrative-server/reality/
    - ONE should be the source, other deleted/symlinked
    - Add enforcement rule in CI/CD
 

@@ -7,7 +7,7 @@
 
 ## 📋 Overview
 
-Performance SLOs are defined in `/docs/ia/CANONICAL/specifications/performance.md` and enforced via pytest tests in `tests/quality/test_performance_slos.py`.
+Performance SLOs are defined in `/EXECUTION/spec/CANONICAL/specifications/performance.md` and enforced via pytest tests in `tests/quality/test_performance_slos.py`.
 
 This guide explains how to measure, validate, and improve performance.
 
@@ -163,7 +163,7 @@ def test_my_layer_latency(slo_validator):
 
 ### Registering New Layer
 
-Edit `/docs/ia/CANONICAL/specifications/performance.md` and `PerformanceSLOValidator` class:
+Edit `/EXECUTION/spec/CANONICAL/specifications/performance.md` and `PerformanceSLOValidator` class:
 
 ```python
 LAYER_BUDGETS = {
@@ -380,10 +380,10 @@ LAYER_BUDGETS = {
 
 ## 📚 References
 
-- [Performance Specification](/docs/ia/CANONICAL/specifications/performance.md)
-- [Architecture (with layer budgets)](/docs/ia/CANONICAL/specifications/architecture.md)
-- [Monitoring Guide](/docs/ia/CANONICAL/specifications/observability.md) (WIP)
-- [Test Strategy](/docs/ia/CANONICAL/specifications/testing.md)
+- [Performance Specification](/EXECUTION/spec/CANONICAL/specifications/performance.md)
+- [Architecture (with layer budgets)](/EXECUTION/spec/CANONICAL/specifications/architecture.md)
+- [Monitoring Guide](/EXECUTION/spec/CANONICAL/specifications/observability.md) (WIP)
+- [Test Strategy](/EXECUTION/spec/CANONICAL/specifications/testing.md)
 
 ---
 

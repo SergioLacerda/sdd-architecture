@@ -127,22 +127,22 @@ grep -i "rpg-narrative\|campaign\|project-specific" \
 Question: What type of document is this?
 
 RULES (mandatory enforcement)
-  → docs/ia/CANONICAL/rules/ia-rules.md (or update existing)
+  → /EXECUTION/spec/CANONICAL/rules/ia-rules.md (or update existing)
   
 DECISIONS (architectural choices)
-  → docs/ia/CANONICAL/decisions/ADR-*.md (new ADR)
+  → /EXECUTION/spec/CANONICAL/decisions/ADR-*.md (new ADR)
   
 SPECIFICATIONS (how to implement)
-  → docs/ia/CANONICAL/specifications/architecture.md (or relevant spec)
+  → /EXECUTION/spec/CANONICAL/specifications/architecture.md (or relevant spec)
   
 PROCEDURES (how to do something)
   → docs/ia/guides/operational/PROCEDURE_NAME.md
 
 SECURITY (security constraints)
-  → docs/ia/CANONICAL/specifications/security-model.md
+  → /EXECUTION/spec/CANONICAL/specifications/security-model.md
 
 ARCHITECTURE (layer definitions)
-  → docs/ia/CANONICAL/specifications/architecture.md
+  → /EXECUTION/spec/CANONICAL/specifications/architecture.md
 ```
 
 **Decision matrix:**
@@ -153,7 +153,7 @@ Document type: "Max concurrent entities constraints"
 Is it a rule? NO (informational)
 Is it a decision? YES (architectural choice for scalability)
   ↓
-Create: docs/ia/CANONICAL/decisions/ADR-007-concurrent-entity-constraints.md
+Create: /EXECUTION/spec/CANONICAL/decisions/ADR-007-concurrent-entity-constraints.md
 ```
 
 ### Step 4: Create CANONICAL Version (5 min)
@@ -218,7 +218,7 @@ Individual projects may specialize this rule:
 # See: docs/ia/custom/PROJECT_A/reality/concurrent-limits.md
 
 # AFTER:
-# See: docs/ia/CANONICAL/decisions/ADR-007-concurrent-entity-constraints.md
+# See: /EXECUTION/spec/CANONICAL/decisions/ADR-007-concurrent-entity-constraints.md
 # Project specialization: docs/ia/custom/PROJECT_A/SPECIALIZATIONS/constitution-*.md
 ```
 
@@ -285,7 +285,7 @@ If you create redirect:
 
 ```bash
 # Stage all changes
-git add docs/ia/CANONICAL/decisions/ADR-007-*.md
+git add /EXECUTION/spec/CANONICAL/decisions/ADR-007-*.md
 git add docs/ia/custom/*/reality/*.md          # Updated references
 git add docs/ia/custom/*/reality/concurrent-limits.md  # Redirect
 
@@ -294,7 +294,7 @@ git commit -m "docs: Migrate concurrent-limits to CANONICAL (ADR-007)
 
 MIGRATION DETAILS:
 - From: docs/ia/custom/rpg-narrative-server/reality/concurrent-limits.md
-- To: docs/ia/CANONICAL/decisions/ADR-007-concurrent-entity-constraints.md
+- To: /EXECUTION/spec/CANONICAL/decisions/ADR-007-concurrent-entity-constraints.md
 - Reason: Proven stable across rpg-narrative-server + game-master-api
 
 CHANGES:
@@ -337,7 +337,7 @@ python docs/ia/SCRIPTS/generate-specializations.py --project game-master-api --f
 
 ```
 Move: "rpg-narrative-server max 50 concurrent campaigns"
-From: docs/ia/CANONICAL/specifications/performance.md
+From: /EXECUTION/spec/CANONICAL/specifications/performance.md
 To: docs/ia/custom/rpg-narrative-server/SPECIALIZATIONS/constitution-rpg-specific.md
 
 In CANONICAL, update to:
@@ -396,7 +396,7 @@ Before migrating a doc:
 ## Migration: [Doc Title]
 
 **From:** docs/ia/custom/PROJECT/reality/document.md
-**To:** docs/ia/CANONICAL/decisions/ADR-007-*.md
+**To:** /EXECUTION/spec/CANONICAL/decisions/ADR-007-*.md
 
 **What changed for your project:**
 - Reference: Update from old path to ADR-007

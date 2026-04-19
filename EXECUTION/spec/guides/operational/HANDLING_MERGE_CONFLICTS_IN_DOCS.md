@@ -13,7 +13,7 @@
 
 ```bash
 # Git tells you:
-CONFLICT (content): Merge conflict in docs/ia/CANONICAL/rules/ia-rules.md
+CONFLICT (content): Merge conflict in /EXECUTION/spec/CANONICAL/rules/ia-rules.md
 
 # First question: WHERE is the conflict?
 ├─ In CANONICAL/      ← CRITICAL (affects all projects)
@@ -38,11 +38,11 @@ git merge --abort
 # Tell team: "Conflict in CANONICAL, need coordination"
 
 # OPTION 2: Keep YOUR changes (risky)
-git checkout --ours docs/ia/CANONICAL/rules/ia-rules.md
+git checkout --ours /EXECUTION/spec/CANONICAL/rules/ia-rules.md
 # Only if you're SURE your version is correct
 
 # OPTION 3: Keep THEIR changes (risky)
-git checkout --theirs docs/ia/CANONICAL/rules/ia-rules.md
+git checkout --theirs /EXECUTION/spec/CANONICAL/rules/ia-rules.md
 # Only if you're SURE their version is correct
 
 # Then:
@@ -79,7 +79,7 @@ Keeping THEIRS:
 **Read the conflict markers:**
 
 ```markdown
-# File: docs/ia/CANONICAL/rules/ia-rules.md
+# File: /EXECUTION/spec/CANONICAL/rules/ia-rules.md
 
 <<<<<<< HEAD (your version)
 ## Rule 5: Domain Layer Constraint
@@ -115,14 +115,14 @@ Conflict: Which version should be in CANONICAL?
 
 ```bash
 # Check git history to understand both versions
-git log --oneline docs/ia/CANONICAL/rules/ia-rules.md | head -10
+git log --oneline /EXECUTION/spec/CANONICAL/rules/ia-rules.md | head -10
 
 # See what each side changed
-git diff HEAD..feature/improve-rules -- docs/ia/CANONICAL/rules/ia-rules.md
+git diff HEAD..feature/improve-rules -- /EXECUTION/spec/CANONICAL/rules/ia-rules.md
 
 # Check if either side is "stale"
-git log --author="You" docs/ia/CANONICAL/rules/ia-rules.md | head -1
-git log --author="Them" docs/ia/CANONICAL/rules/ia-rules.md | head -1
+git log --author="You" /EXECUTION/spec/CANONICAL/rules/ia-rules.md | head -1
+git log --author="Them" /EXECUTION/spec/CANONICAL/rules/ia-rules.md | head -1
 ```
 
 ---
@@ -153,13 +153,13 @@ THEIR version (feature/...):
 
 ```bash
 # Keep your version
-git checkout --ours docs/ia/CANONICAL/rules/ia-rules.md
+git checkout --ours /EXECUTION/spec/CANONICAL/rules/ia-rules.md
 
 # Verify (should see YOUR content only)
-grep -A3 "## Rule 5" docs/ia/CANONICAL/rules/ia-rules.md
+grep -A3 "## Rule 5" /EXECUTION/spec/CANONICAL/rules/ia-rules.md
 
 # Stage and commit
-git add docs/ia/CANONICAL/rules/ia-rules.md
+git add /EXECUTION/spec/CANONICAL/rules/ia-rules.md
 git commit -m "Resolve: Keep HEAD version (complete vs. incomplete)"
 ```
 
@@ -185,7 +185,7 @@ Decision: Need to MERGE both improvements
 
 ```bash
 # Open file and manually merge
-cat docs/ia/CANONICAL/rules/ia-rules.md
+cat /EXECUTION/spec/CANONICAL/rules/ia-rules.md
 
 # Remove conflict markers
 # <<<<<<< HEAD
@@ -218,10 +218,10 @@ Port abstraction is mandatory.
 
 ```bash
 # Verify file is valid markdown
-python docs/ia/SCRIPTS/validate-ia-first.py --audit docs/ia/CANONICAL/
+python docs/ia/SCRIPTS/validate-ia-first.py --audit /EXECUTION/spec/CANONICAL/
 
 # Stage and commit
-git add docs/ia/CANONICAL/rules/ia-rules.md
+git add /EXECUTION/spec/CANONICAL/rules/ia-rules.md
 git commit -m "Resolve: Merge improvements (HEAD 1.2 + feature 1.1 → 1.3)"
 ```
 
@@ -296,7 +296,7 @@ For ANY conflict, verify after resolving:
 
 ### CANONICAL Conflicts (🔴 CRITICAL)
 
-**Location:** `docs/ia/CANONICAL/rules/ia-rules.md`, `ADR-*.md`, etc.
+**Location:** `/EXECUTION/spec/CANONICAL/rules/ia-rules.md`, `ADR-*.md`, etc.
 
 **Risk:** Affects ALL projects
 
@@ -361,7 +361,7 @@ For ANY conflict, verify after resolving:
 ```bash
 # Before starting work on ia-rules.md:
 1. Check if anyone else is editing it
-   → Look at recent commits: git log --oneline docs/ia/CANONICAL/rules/ia-rules.md
+   → Look at recent commits: git log --oneline /EXECUTION/spec/CANONICAL/rules/ia-rules.md
 
 2. If yes: Wait for their PR or coordinate timing
 

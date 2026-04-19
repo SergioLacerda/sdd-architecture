@@ -9,7 +9,7 @@
 **You see merge conflict markers in CANONICAL:**
 
 ```bash
-$ cat docs/ia/CANONICAL/rules/ia-rules.md
+$ cat /EXECUTION/spec/CANONICAL/rules/ia-rules.md
 
 <<<<<<< HEAD
 Rule #5: Always use ports for infrastructure
@@ -34,7 +34,7 @@ Rule #5: DELETED - no longer needed
 ```bash
 # Send to Slack/chat:
 "🚨 CANONICAL corrupted - merge conflict in ia-rules.md"
-"DO NOT COMMIT TO docs/ia/CANONICAL"
+"DO NOT COMMIT TO /EXECUTION/spec/CANONICAL"
 "Recovery in progress..."
 ```
 
@@ -45,8 +45,8 @@ Rule #5: DELETED - no longer needed
 git status | grep "both modified"
 
 # Example output:
-#   both modified:   docs/ia/CANONICAL/rules/ia-rules.md
-#   both modified:   docs/ia/CANONICAL/decisions/ADR-001-architecture.md
+#   both modified:   /EXECUTION/spec/CANONICAL/rules/ia-rules.md
+#   both modified:   /EXECUTION/spec/CANONICAL/decisions/ADR-001-architecture.md
 
 # How many conflicts?
 git diff --name-only --diff-filter=U | wc -l
@@ -57,7 +57,7 @@ git diff --name-only --diff-filter=U | wc -l
 **Strategy A: Revert to Last Known Good (Recommended)**
 ```bash
 # Find last clean CANONICAL commit
-git log --oneline docs/ia/CANONICAL/ | head -10
+git log --oneline /EXECUTION/spec/CANONICAL/ | head -10
 
 # Should show recent commit without conflicts
 # Example: abc123 "docs: Update ADR-005 for new rules"
@@ -88,7 +88,7 @@ git status
 
 ```bash
 # Open the conflicted file:
-vim docs/ia/CANONICAL/rules/ia-rules.md
+vim /EXECUTION/spec/CANONICAL/rules/ia-rules.md
 
 # See the conflict markers:
 # <<<<<<< HEAD
@@ -103,7 +103,7 @@ vim docs/ia/CANONICAL/rules/ia-rules.md
 # Option 3: MERGE both versions (keep best of both)
 
 # After editing, mark as resolved:
-git add docs/ia/CANONICAL/rules/ia-rules.md
+git add /EXECUTION/spec/CANONICAL/rules/ia-rules.md
 
 # Verify no other conflicts:
 git diff --name-only --diff-filter=U
@@ -142,9 +142,9 @@ This is ARCHITECTURAL DISAGREEMENT, not just merge conflict
 
 ```bash
 # 1. Check no merge markers remain
-grep -r "<<<<<<< HEAD" docs/ia/CANONICAL/
-grep -r "=======" docs/ia/CANONICAL/
-grep -r ">>>>>>> " docs/ia/CANONICAL/
+grep -r "<<<<<<< HEAD" /EXECUTION/spec/CANONICAL/
+grep -r "=======" /EXECUTION/spec/CANONICAL/
+grep -r ">>>>>>> " /EXECUTION/spec/CANONICAL/
 
 # Should return nothing (no matches)
 
@@ -159,7 +159,7 @@ python docs/ia/SCRIPTS/validate_adrs.py
 # Expected output: "✅ All ADRs valid"
 
 # 4. Full audit
-python docs/ia/SCRIPTS/validate-ia-first.py --audit docs/ia/CANONICAL/
+python docs/ia/SCRIPTS/validate-ia-first.py --audit /EXECUTION/spec/CANONICAL/
 
 # Expected: Passes or shows only pre-existing issues
 ```
@@ -201,10 +201,10 @@ python docs/ia/SCRIPTS/validate-ia-first.py --audit docs/ia/CANONICAL/
 
 ```bash
 # Last resort: Restore entire CANONICAL from backup
-git checkout main -- docs/ia/CANONICAL/
+git checkout main -- /EXECUTION/spec/CANONICAL/
 
 # Or from specific known-good commit:
-git show abc123:docs/ia/CANONICAL/ > /tmp/canonical-backup/
+git show abc123:/EXECUTION/spec/CANONICAL/ > /tmp/canonical-backup/
 # [manual review]
 # [restore if looks good]
 

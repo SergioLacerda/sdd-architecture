@@ -20,7 +20,7 @@ grep -r "CANONICAL/" docs/ia/CANONICAL/ | wc -l
 **Validação:**
 ```bash
 diff docs/ia/CANONICAL/rules/ia-rules.md \
-     /path/to/game-master-api/docs/ia/CANONICAL/rules/ia-rules.md
+     /path/to/game-master-api/EXECUTION/spec/CANONICAL/rules/ia-rules.md
 # Resultado: 0 diferenças (idênticos)
 ```
 

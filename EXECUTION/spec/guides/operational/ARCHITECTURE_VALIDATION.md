@@ -223,7 +223,7 @@ Before PR can merge:
 - Rules: `CANONICAL/rules/ia-rules.md`
 - Architecture: `CANONICAL/specifications/architecture.md`
 - Testing: `CANONICAL/specifications/testing.md`
-- Enforcement: `CANONICAL/rules/ENFORCEMENT_RULES.md`
+- Enforcement: Test compliance with `tests/specs-ia-units/`
 
 ---
 

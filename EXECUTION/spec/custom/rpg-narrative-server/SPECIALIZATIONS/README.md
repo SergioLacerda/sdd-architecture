@@ -26,7 +26,7 @@ SPECIALIZATIONS/constitution-rpg-specific.md:
 ## 📂 Specialization Files
 
 ### 1. [ia-rules-rpg-specific.md](ia-rules-rpg-specific.md)
-Extends: `/docs/ia/CANONICAL/rules/ia-rules.md`
+Extends: `/EXECUTION/spec/CANONICAL/rules/ia-rules.md`
 
 **What's here:**
 - Actual paths for rpg-narrative-server
@@ -40,7 +40,7 @@ Extends: `/docs/ia/CANONICAL/rules/ia-rules.md`
 - You're setting up development threads
 
 ### 2. [constitution-rpg-specific.md](constitution-rpg-specific.md)
-Extends: `/docs/ia/CANONICAL/rules/constitution.md`
+Extends: `/EXECUTION/spec/CANONICAL/rules/constitution.md`
 
 **What's here:**
 - Campaign concurrency model (50-200 campaigns)
@@ -54,7 +54,7 @@ Extends: `/docs/ia/CANONICAL/rules/constitution.md`
 - You're optimizing performance
 
 ### 3. [enforcement-rpg-specific.md](enforcement-rpg-specific.md)
-Extends: `/docs/ia/CANONICAL/rules/ENFORCEMENT_RULES.md`
+Extends: `/EXECUTION/spec/CANONICAL/rules/ENFORCEMENT_RULES.md`
 
 **What's here:**
 - Pre-commit hooks configuration
@@ -73,19 +73,19 @@ Extends: `/docs/ia/CANONICAL/rules/ENFORCEMENT_RULES.md`
 
 **Step 1: Read Generic Rule** (if new to topic)
 ```
-→ /docs/ia/CANONICAL/rules/constitution.md
+→ /EXECUTION/spec/CANONICAL/rules/constitution.md
   (understand the principle)
 ```
 
 **Step 2: Read Project Specialization** (to implement)
 ```
-→ /docs/ia/custom/rpg-narrative-server/SPECIALIZATIONS/constitution-rpg-specific.md
+→ /EXECUTION/spec/custom/rpg-narrative-server/SPECIALIZATIONS/constitution-rpg-specific.md
   (implement for rpg-narrative-server)
 ```
 
 **Step 3: Read Project Reality** (to debug)
 ```
-→ /docs/ia/custom/rpg-narrative-server/reality/
+→ /EXECUTION/spec/custom/rpg-narrative-server/reality/
   (understand current state)
 ```
 
@@ -128,7 +128,7 @@ Each project specializes independently. No cross-project specializations.
 When creating a new specialization:
 
 - [ ] File name follows pattern: `{template-name}-rpg-specific.md`
-- [ ] First line: "Extends: `/docs/ia/CANONICAL/{path}`"
+- [ ] First line: "Extends: `/EXECUTION/spec/CANONICAL/{path}`"
 - [ ] Sections map to CANONICAL sections (same headers)
 - [ ] Concrete examples with project-specific values
 - [ ] Links back to CANONICAL for principle details

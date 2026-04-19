@@ -29,10 +29,10 @@
 Before any action:
 
 1. Read:
-   - `/docs/ia/custom/[PROJECT_NAME]/development/execution-state/_current.md`
+   - `/EXECUTION/spec/custom/[PROJECT_NAME]/development/execution-state/_current.md`
 
 2. If applicable:
-   - Check active thread in `/docs/ia/custom/[PROJECT_NAME]/development/execution-state/threads/`
+   - Check active thread in `/EXECUTION/spec/custom/[PROJECT_NAME]/development/execution-state/threads/`
 
 3. Never assume implicit state
 
@@ -44,11 +44,11 @@ Before any action:
 
 Authority order:
 
-1. `/docs/ia/CANONICAL/rules/ia-rules.md` (execution rules)
-2. `/docs/ia/custom/[PROJECT_NAME]/development/execution-state/_current.md` (project state)
-3. `/docs/ia/custom/[PROJECT_NAME]/development/execution-state/threads/*` (active threads)
-4. `/docs/ia/CANONICAL/specifications/` (immutable architecture)
-5. `/docs/ia/custom/[PROJECT_NAME]/reality/` (observed state)
+1. `/EXECUTION/spec/CANONICAL/rules/ia-rules.md` (execution rules)
+2. `/EXECUTION/spec/custom/[PROJECT_NAME]/development/execution-state/_current.md` (project state)
+3. `/EXECUTION/spec/custom/[PROJECT_NAME]/development/execution-state/threads/*` (active threads)
+4. `/EXECUTION/spec/CANONICAL/specifications/` (immutable architecture)
+5. `/EXECUTION/spec/custom/[PROJECT_NAME]/reality/` (observed state)
 
 If conflict arises:
 → ALWAYS prioritize CANONICAL (immutable authority)
@@ -95,7 +95,7 @@ Communication only via explicit contracts
 
 All external services (search indexes, LLMs, databases) operate as BLACK BOX components.
 
-**Reference:** `/docs/ia/CANONICAL/specifications/architecture.md#external-services-black-box`
+**Reference:** `/EXECUTION/spec/CANONICAL/specifications/architecture.md#external-services-black-box`
 
 **Key Points:**
 - Access ONLY via Port abstractions (Ports & Adapters)
@@ -106,7 +106,7 @@ All external services (search indexes, LLMs, databases) operate as BLACK BOX com
 - Never assume behavior beyond contract
 
 For detailed rules, examples, and testing patterns:
-→ See [architecture.md](/docs/ia/CANONICAL/specifications/architecture.md#external-services-black-box)
+→ See [architecture.md](/EXECUTION/spec/CANONICAL/specifications/architecture.md#external-services-black-box)
 
 **Project-specific examples:**
 → See [rpg-narrative-server vector index rules](../../custom/rpg-narrative-server/SPECIALIZATIONS/ia-rules-rpg-specific.md#external-services)
@@ -123,10 +123,10 @@ If tests fail:
 
 **CRITICAL:** Never modify production code to satisfy tests.
 
-**Reference:** `/docs/ia/CANONICAL/specifications/testing.md`
+**Reference:** `/EXECUTION/spec/CANONICAL/specifications/testing.md`
 
 For comprehensive testing strategies:
-→ See [testing.md](/docs/ia/CANONICAL/specifications/testing.md)
+→ See [testing.md](/EXECUTION/spec/CANONICAL/specifications/testing.md)
 
 ---
 
@@ -147,10 +147,10 @@ After relevant changes:
 MANDATORY:
 
 1. Update:
-   - /docs/ia/custom/rpg-narrative-server/development/execution-state/_current.md
+   - /EXECUTION/spec/custom/rpg-narrative-server/development/execution-state/_current.md
 
 2. Create:
-   - new checkpoint in /docs/ia/custom/rpg-narrative-server/development/checkpoints/
+   - new checkpoint in /EXECUTION/spec/custom/rpg-narrative-server/development/checkpoints/
 
 ---
 

@@ -90,8 +90,8 @@ RESULT: Ready to implement ✓
 
 **Phase 1 - Always (non-negotiable)**
 ```
-✓ /docs/ia/CANONICAL/rules/ia-rules.md (16 rules)
-✓ /docs/ia/CANONICAL/rules/constitution.md (principles)
+✓ /EXECUTION/spec/CANONICAL/rules/ia-rules.md (16 rules)
+✓ /EXECUTION/spec/CANONICAL/rules/constitution.md (principles)
 ✓ /docs/ia/DEVELOPMENT/execution-state/_current.md (current state)
 ```
 
@@ -105,7 +105,7 @@ PATH D: runtime/threads/TEMPLATE.md (thread format)
 
 **Phase 3 - Before Merge (mandatory)**
 ```
-✓ /docs/ia/CANONICAL/specifications/definition_of_done.md
+✓ /EXECUTION/spec/CANONICAL/specifications/definition_of_done.md
 ✓ /docs/ia/DEVELOPMENT/execution-state/_current.md (update checkpoint)
 ```
 
@@ -246,7 +246,7 @@ Before finishing session:
 
 **One-stop shortcuts:**
 - Start: `/docs/ia/MASTER_INDEX.md`
-- Rules: `/docs/ia/CANONICAL/rules/ia-rules.md` ← LOCK HERE
+- Rules: `/EXECUTION/spec/CANONICAL/rules/ia-rules.md` ← LOCK HERE
 - Setup: `/docs/ia/guides/FIRST_SESSION_SETUP.md`
 - PathChoice: `/docs/ia/guides/QUICK_START.md`
 - State: `/docs/ia/DEVELOPMENT/execution-state/_current.md`

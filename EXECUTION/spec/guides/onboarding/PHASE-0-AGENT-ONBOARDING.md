@@ -48,13 +48,13 @@ min_version = 2.1
 cd $(grep spec_path .spec.config | cut -d' ' -f3)
 
 # Verify key directories exist
-ls docs/ia/CANONICAL/rules/ia-rules.md
+ls /EXECUTION/spec/CANONICAL/rules/ia-rules.md
 ls docs/ia/guides/runtime/
 ls templates/
 ```
 
 **Agent validates:**
-- ✅ `docs/ia/CANONICAL/` exists
+- ✅ `/EXECUTION/spec/CANONICAL/` exists
 - ✅ `docs/ia/guides/runtime/` exists (where to find instructions)
 - ✅ `templates/` exists (to copy from)
 
@@ -130,7 +130,7 @@ Before writing any code, understand the rules:
 SPEC_PATH=$(grep spec_path .spec.config | cut -d' ' -f3)
 
 # Read the rules
-cat $SPEC_PATH/docs/ia/CANONICAL/rules/ia-rules.md | head -100
+cat $SPEC_PATH/EXECUTION/spec/CANONICAL/rules/ia-rules.md | head -100
 ```
 
 **Key concepts to understand:**
@@ -198,7 +198,7 @@ echo "✅ QUIZ PASSED - Proceeding to workspace validation"
 ```bash
 echo "❌ QUIZ FAILED - Review ia-rules.md again and retry"
 # Re-read ia-rules.md
-cat $SPEC_PATH/docs/ia/CANONICAL/rules/ia-rules.md
+cat $SPEC_PATH/EXECUTION/spec/CANONICAL/rules/ia-rules.md
 # Wait 30 minutes
 # Retake quiz
 ```
@@ -278,7 +278,7 @@ grep spec_path .spec.config > /dev/null && echo "✅ .spec.config readable"
 
 # Verify SPEC framework accessible
 SPEC_PATH=$(grep spec_path .spec.config | cut -d' ' -f3)
-[ -f "$SPEC_PATH/docs/ia/CANONICAL/rules/ia-rules.md" ] && \
+[ -f "$SPEC_PATH/EXECUTION/spec/CANONICAL/rules/ia-rules.md" ] && \
   echo "✅ SPEC framework accessible"
 ```
 
@@ -338,7 +338,7 @@ cat .spec.config | grep spec_path
 ```bash
 # Re-read rules carefully
 SPEC_PATH=$(grep spec_path .spec.config | cut -d' ' -f3)
-cat $SPEC_PATH/docs/ia/CANONICAL/rules/ia-rules.md
+cat $SPEC_PATH/EXECUTION/spec/CANONICAL/rules/ia-rules.md
 
 # Wait 30 minutes
 # Retake quiz

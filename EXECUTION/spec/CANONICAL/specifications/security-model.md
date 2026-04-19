@@ -14,8 +14,8 @@ Complete security model defining threat protection, authentication, authorizatio
 **Security is MANDATORY** — Every project must implement all requirements in this document.
 
 **Framework compliance:** All security decisions must align with:
-- `/docs/ia/CANONICAL/rules/constitution.md` (Principles)
-- `/docs/ia/CANONICAL/specifications/performance.md` (SLOs apply to security operations)
+- `/EXECUTION/spec/CANONICAL/rules/constitution.md` (Principles)
+- `/EXECUTION/spec/CANONICAL/specifications/performance.md` (SLOs apply to security operations)
 - ADR-002: Async-First (all security operations must be non-blocking)
 
 ---
@@ -49,7 +49,7 @@ Complete security model defining threat protection, authentication, authorizatio
 
 **Primary Entry Points:**
 ```
-HTTP API → /docs/ia/CANONICAL/specifications/api-security.md
+HTTP API → /EXECUTION/spec/CANONICAL/specifications/api-security.md
 Discord Bot → interfaces/discord/
 CLI → interfaces/cli/
 ```

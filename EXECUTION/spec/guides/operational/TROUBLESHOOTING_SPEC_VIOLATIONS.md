@@ -59,7 +59,7 @@ ls docs/ia/custom/my-project/
 | Wrong Path | Correct Path | Why |
 |------------|--------------|-----|
 | `docs/ia/custom/proj/guides/...` | `docs/ia/guides/operational/...` | Operational guides go in main guides, not custom/ |
-| `docs/ia/custom/proj/rules.md` | `docs/ia/CANONICAL/rules/...` | Rules go in CANONICAL (immutable), not custom/ |
+| `docs/ia/custom/proj/rules.md` | `/EXECUTION/spec/CANONICAL/rules/...` | Rules go in CANONICAL (immutable), not custom/ |
 | `docs/ia/reality/some-file.md` | `docs/ia/custom/proj/reality/...` | Reality is project-specific (custom/) |
 | `docs/ia/threads/thread-a.md` | `docs/ia/custom/proj/development/threads/...` | Threads are development artifacts |
 

@@ -339,7 +339,7 @@ They're not duplicates. They're partners.
 
 # 📚 REFERENCES
 
-- `/docs/ia/CANONICAL/specifications/testing.md` → Patterns and examples
+- `/EXECUTION/spec/CANONICAL/specifications/testing.md` → Patterns and examples
 - `/docs/ia/specs/_shared/testing_strategy_spec.md` → Rules and validation
 - `/docs/ia/IMPLEMENTATION_ROADMAP.md` → When to read each (Step 6-7)
-- `/docs/ia/CANONICAL/specifications/definition_of_done.md` → Validation checklist
+- `/EXECUTION/spec/CANONICAL/specifications/definition_of_done.md` → Validation checklist

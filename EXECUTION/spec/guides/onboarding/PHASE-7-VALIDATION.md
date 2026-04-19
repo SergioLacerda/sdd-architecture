@@ -14,7 +14,7 @@
 
 **Verification:**
 ```bash
-✅ docs/ia/CANONICAL/
+✅ /EXECUTION/spec/CANONICAL/
    ├── constitution.md
    ├── rules/
    │   ├── ia-rules.md (16 mandatory rules)

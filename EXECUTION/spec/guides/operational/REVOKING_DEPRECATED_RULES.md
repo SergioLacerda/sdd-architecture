@@ -60,7 +60,7 @@ Result: Ready to revoke
 # Revocation Ticket: Rule X Name
 
 **Rule:** [Name of rule being revoked]
-**Location:** docs/ia/CANONICAL/rules/ia-rules.md
+**Location:** /EXECUTION/spec/CANONICAL/rules/ia-rules.md
 **Current version:** 1.5
 **Reason for revocation:** [Brief explanation]
 
@@ -90,7 +90,7 @@ Result: Ready to revoke
 
 **Step 1: Update rule in CANONICAL**
 
-**Location:** `docs/ia/CANONICAL/rules/ia-rules.md`
+**Location:** `/EXECUTION/spec/CANONICAL/rules/ia-rules.md`
 
 **Change status from "Active" to "Deprecated":**
 
@@ -243,7 +243,7 @@ grep -r "old_validation_function" src/
 
 **Step 2: Update rule to "Removed"**
 
-**Location:** `docs/ia/CANONICAL/rules/ia-rules.md`
+**Location:** `/EXECUTION/spec/CANONICAL/rules/ia-rules.md`
 
 ```markdown
 ## Rule 5: Manual Validation ❌ REMOVED

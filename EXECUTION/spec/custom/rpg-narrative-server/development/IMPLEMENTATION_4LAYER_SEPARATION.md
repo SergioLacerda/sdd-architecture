@@ -31,13 +31,13 @@ ARCHIVE/ (history)
 
 ```bash
 # Create the 4 layers
-mkdir -p docs/ia/CANONICAL/{rules,specifications,decisions}
+mkdir -p /EXECUTION/spec/CANONICAL/{rules,specifications,decisions}
 mkdir -p docs/ia/REALITY/{current-system-state,limitations,observations}
 mkdir -p docs/ia/DEVELOPMENT/{execution-state,checkpoints,decisions-in-progress,blockers-and-risks}
 mkdir -p docs/ia/ARCHIVE/{deprecated-decisions,working-sessions,legacy-documentation}
 
 # Create README for each layer
-touch docs/ia/CANONICAL/README.md
+touch /EXECUTION/spec/CANONICAL/README.md
 touch docs/ia/REALITY/README.md
 touch docs/ia/DEVELOPMENT/README.md
 touch docs/ia/ARCHIVE/README.md
@@ -49,19 +49,19 @@ touch docs/ia/ARCHIVE/README.md
 
 ```bash
 # Rules
-mv docs/ia/ia-rules.md → docs/ia/CANONICAL/rules/ia-rules.md
-mv docs/ia/specs/constitution.md → docs/ia/CANONICAL/rules/constitution.md
-mv docs/ia/specs/_shared/conventions.md → docs/ia/CANONICAL/rules/conventions.md
+mv docs/ia/ia-rules.md → /EXECUTION/spec/CANONICAL/rules/ia-rules.md
+mv docs/ia/specs/constitution.md → /EXECUTION/spec/CANONICAL/rules/constitution.md
+mv docs/ia/specs/_shared/conventions.md → /EXECUTION/spec/CANONICAL/rules/conventions.md
 
 # Specifications
-mv docs/ia/specs/_shared/architecture.md → docs/ia/CANONICAL/specifications/architecture.md
-mv docs/ia/specs/_shared/contracts.md → docs/ia/CANONICAL/specifications/contracts.md
-mv docs/ia/specs/_shared/feature-checklist.md → docs/ia/CANONICAL/specifications/feature-checklist.md
-mv docs/ia/specs/_shared/testing.md → docs/ia/CANONICAL/specifications/testing.md
-mv docs/ia/specs/_shared/definition_of_done.md → docs/ia/CANONICAL/specifications/definition_of_done.md
+mv docs/ia/specs/_shared/architecture.md → /EXECUTION/spec/CANONICAL/specifications/architecture.md
+mv docs/ia/specs/_shared/contracts.md → /EXECUTION/spec/CANONICAL/specifications/contracts.md
+mv docs/ia/specs/_shared/feature-checklist.md → /EXECUTION/spec/CANONICAL/specifications/feature-checklist.md
+mv docs/ia/specs/_shared/testing.md → /EXECUTION/spec/CANONICAL/specifications/testing.md
+mv docs/ia/specs/_shared/definition_of_done.md → /EXECUTION/spec/CANONICAL/specifications/definition_of_done.md
 
 # Decisions
-mv docs/ia/decisions/ADR-*.md → docs/ia/CANONICAL/decisions/
+mv docs/ia/decisions/ADR-*.md → /EXECUTION/spec/CANONICAL/decisions/
 ```
 
 **Add header to each file:**
@@ -205,7 +205,7 @@ mkdir -p docs/ia/ARCHIVE/deprecated-decisions
 
 ### Phase 6: Create Layer READMEs (20 min)
 
-**`/docs/ia/CANONICAL/README.md`:**
+**`/EXECUTION/spec/CANONICAL/README.md`:**
 
 ```markdown
 # CANONICAL Layer — Authority
@@ -332,9 +332,9 @@ Update all references throughout the codebase:
 
 ```bash
 # Update MASTER_INDEX.md
-grep -r "docs/ia/ia-rules" . → Update to "docs/ia/CANONICAL/rules/ia-rules"
-grep -r "specs/constitution" . → Update to "docs/ia/CANONICAL/rules/constitution"
-grep -r "specs/architecture" . → Update to "docs/ia/CANONICAL/specifications/architecture"
+grep -r "docs/ia/ia-rules" . → Update to "/EXECUTION/spec/CANONICAL/rules/ia-rules"
+grep -r "specs/constitution" . → Update to "/EXECUTION/spec/CANONICAL/rules/constitution"
+grep -r "specs/architecture" . → Update to "/EXECUTION/spec/CANONICAL/specifications/architecture"
 # ... (continue for all files)
 
 # Update copilot-instructions.md

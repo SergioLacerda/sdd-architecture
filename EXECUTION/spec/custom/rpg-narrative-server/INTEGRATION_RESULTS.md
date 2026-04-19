@@ -8,9 +8,9 @@
 ## 🎯 O Que Foi Realizado
 
 ### Phase 1: Reorganização de Diretórios ✅
-- ✅ Criado `/docs/ia/custom/` para abrigar especialização por projeto
-- ✅ Criado `/docs/ia/custom/_TEMPLATE/` como modelo para novos projetos
-- ✅ Criado `/docs/ia/custom/rpg-narrative-server/` como especialização deste projeto
+- ✅ Criado `/EXECUTION/spec/custom/` para abrigar especialização por projeto
+- ✅ Criado `/EXECUTION/spec/custom/_TEMPLATE/` como modelo para novos projetos
+- ✅ Criado `/EXECUTION/spec/custom/rpg-narrative-server/` como especialização deste projeto
 - ✅ Movido conteúdo de DEVELOPMENT/ → `custom/rpg-narrative-server/development/`
 - ✅ Movido conteúdo de REALITY/ → `custom/rpg-narrative-server/reality/`
 - ✅ Criado `/docs/ia/development/_SHARED/` para estado compartilhado entre projetos
@@ -27,16 +27,16 @@
 - ✅ Criado `/docs/ia/development/_SHARED/execution-state-matrix.md` para sincronização
 
 ### Phase 4: Enforcement Rules ✅
-- ✅ Criado `/docs/ia/CANONICAL/rules/ENFORCEMENT_RULES.md` com validação
+- ✅ Criado `/EXECUTION/spec/CANONICAL/rules/ENFORCEMENT_RULES.md` com validação
 - ✅ Adicionado pre-commit hook specification
 - ✅ Adicionado pytest architecture tests
 - ✅ Adicionado CI/CD gate specification
 
 ### Phase 5: World-Class Stubs (WIP) ✅
-- ✅ Criado `/docs/ia/CANONICAL/specifications/observability.md` (WIP)
-- ✅ Criado `/docs/ia/CANONICAL/specifications/security-model.md` (WIP)
-- ✅ Criado `/docs/ia/CANONICAL/specifications/performance.md` (WIP)
-- ✅ Criado `/docs/ia/CANONICAL/specifications/compliance.md` (WIP)
+- ✅ Criado `/EXECUTION/spec/CANONICAL/specifications/observability.md` (WIP)
+- ✅ Criado `/EXECUTION/spec/CANONICAL/specifications/security-model.md` (WIP)
+- ✅ Criado `/EXECUTION/spec/CANONICAL/specifications/performance.md` (WIP)
+- ✅ Criado `/EXECUTION/spec/CANONICAL/specifications/compliance.md` (WIP)
 
 ### Phase 6: Documentação ✅
 - ✅ Atualizado `/docs/ia/.github/copilot-instructions.md` com novos paths
@@ -124,12 +124,12 @@
 
 ```
 Week 1: Observabilidade + Segurança
-- /docs/ia/CANONICAL/specifications/observability.md (2h)
-- /docs/ia/CANONICAL/rules/security-model.md (3h)
+- /EXECUTION/spec/CANONICAL/specifications/observability.md (2h)
+- /EXECUTION/spec/CANONICAL/rules/security-model.md (3h)
 
 Week 2: Performance + Compliance
-- /docs/ia/CANONICAL/specifications/performance.md (2h)
-- /docs/ia/CANONICAL/specifications/compliance.md (2h)
+- /EXECUTION/spec/CANONICAL/specifications/performance.md (2h)
+- /EXECUTION/spec/CANONICAL/specifications/compliance.md (2h)
 
 Week 3: Enforcement + Testing
 - Implementar pre-commit hooks (1h)

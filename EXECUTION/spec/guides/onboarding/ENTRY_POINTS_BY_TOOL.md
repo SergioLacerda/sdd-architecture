@@ -75,11 +75,11 @@ When a user asks for work (bug fix, feature, etc.), respond:
 
 4. Implement with validation
    "Follow feature-checklist.md for PATH-X"
-   → Link: /docs/ia/CANONICAL/specifications/feature-checklist.md
+   → Link: /EXECUTION/spec/CANONICAL/specifications/feature-checklist.md
 
 5. Update checkpoint
    "Update execution-state/_current.md with your changes"
-   → Path: /docs/ia/custom/rpg-narrative-server/development/execution-state/_current.md
+   → Path: /EXECUTION/spec/custom/rpg-narrative-server/development/execution-state/_current.md
 ```
 
 ### Copilot Conversation Flow
@@ -155,8 +155,8 @@ Plus add:
 3. Gets suggestion: "Read AGENT_HARNESS for guided setup"
 4. Can access:
    - /docs/ia/guides/onboarding/AGENT_HARNESS.md
-   - /docs/ia/CANONICAL/rules/constitution.md
-   - /docs/ia/CANONICAL/rules/ia-rules.md
+   - /EXECUTION/spec/CANONICAL/rules/constitution.md
+   - /EXECUTION/spec/CANONICAL/rules/ia-rules.md
 5. Cursor context automatically includes these files
 ```
 
@@ -406,15 +406,15 @@ User:
 
 Bot:
   For PATH A (bug fix), you need:
-  1. /docs/ia/CANONICAL/rules/conventions.md (2 min)
-  2. /docs/ia/CANONICAL/specifications/architecture.md - Section: "Application Layer" (5 min)
-  3. /docs/ia/CANONICAL/specifications/testing.md - Section: "Unit Tests" (3 min)
-  4. /docs/ia/custom/rpg-narrative-server/reality/known_issues.md (3 min)
-  5. /docs/ia/custom/rpg-narrative-server/reality/services.md - "MemoryService" (3 min)
+  1. /EXECUTION/spec/CANONICAL/rules/conventions.md (2 min)
+  2. /EXECUTION/spec/CANONICAL/specifications/architecture.md - Section: "Application Layer" (5 min)
+  3. /EXECUTION/spec/CANONICAL/specifications/testing.md - Section: "Unit Tests" (3 min)
+  4. /EXECUTION/spec/custom/rpg-narrative-server/reality/known_issues.md (3 min)
+  5. /EXECUTION/spec/custom/rpg-narrative-server/reality/services.md - "MemoryService" (3 min)
   
   Total: ~16 min reading
   Then: Feature checklist for PATH A
-  Link: /docs/ia/CANONICAL/specifications/feature-checklist.md
+  Link: /EXECUTION/spec/CANONICAL/specifications/feature-checklist.md
 ```
 
 ---

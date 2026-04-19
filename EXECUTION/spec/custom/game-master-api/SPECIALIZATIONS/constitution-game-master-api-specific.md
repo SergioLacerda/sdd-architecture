@@ -3,7 +3,7 @@
 **Project:** game-master-api  
 **Version:** 1.0  
 **Generated:** 2026-04-19T12:55:46.101988  
-**Based on:** /docs/ia/CANONICAL/rules/constitution.md
+**Based on:** /EXECUTION/spec/CANONICAL/rules/constitution.md
 
 ---
 

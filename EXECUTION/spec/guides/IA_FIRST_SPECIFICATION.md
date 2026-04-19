@@ -64,7 +64,7 @@ See `[architecture documentation](../CANONICAL/specifications/architecture.md)`
 Use backticks for `code snippets`, NOT for links
 
 ❌ WRONG (absolute paths):
-See [architecture](/docs/ia/CANONICAL/specifications/architecture.md)
+See [architecture](/EXECUTION/spec/CANONICAL/specifications/architecture.md)
 Always use relative paths
 
 ❌ WRONG (non-markdown):

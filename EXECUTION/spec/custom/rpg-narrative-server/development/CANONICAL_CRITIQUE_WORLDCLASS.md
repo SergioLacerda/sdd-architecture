@@ -2,7 +2,7 @@
 
 **Date:** April 18, 2026  
 **Reviewer:** AI Architecture Audit  
-**Scope:** `/docs/ia/CANONICAL/` complete review  
+**Scope:** `/EXECUTION/spec/CANONICAL/` complete review  
 **Standard Applied:** World-class engineering practices (NASA/Netflix/Google level)
 
 ---
@@ -702,7 +702,7 @@ DON'T COPY VERBATIM (too specific):
 ### Step 1: Copy Structure
 ```
 mkdir -p docs/ia/{CANONICAL,REALITY,DEVELOPMENT,ARCHIVE}
-cp -r this_project/docs/ia/CANONICAL/* your_project/docs/ia/CANONICAL/
+cp -r this_project/EXECUTION/spec/CANONICAL/* your_project/EXECUTION/spec/CANONICAL/
 ```
 
 ### Step 2: Customize CANONICAL

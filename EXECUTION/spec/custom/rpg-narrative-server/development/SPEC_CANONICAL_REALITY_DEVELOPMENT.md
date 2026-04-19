@@ -66,7 +66,7 @@ Changed by: Architecture review board, high-bar decisions
 
 **Files:**
 ```
-/docs/ia/CANONICAL/
+/EXECUTION/spec/CANONICAL/
 ├─ rules/
 │  ├─ ia-rules.md (16 protocols - NEVER violated)
 │  ├─ constitution.md (principles)

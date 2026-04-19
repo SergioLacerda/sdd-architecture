@@ -135,7 +135,7 @@ If < 4 correct (< 80%):
 
 **If you FAILED (< 4 correct)**:
 1. ❌ Stop here
-2. 📖 Re-read `/docs/ia/CANONICAL/rules/ia-rules.md` (full, 10 min)
+2. 📖 Re-read `/EXECUTION/spec/CANONICAL/rules/ia-rules.md` (full, 10 min)
 3. Wait 30 minutes (memory consolidation)
 4. Retake this quiz
 5. After passing: continue with setup

@@ -1,6 +1,6 @@
 # 🏛️ CONSTITUTION — RPG NARRATIVE SERVER SPECIALIZATION
 
-**Extends:** `/docs/ia/CANONICAL/rules/constitution.md`  
+**Extends:** `/EXECUTION/spec/CANONICAL/rules/constitution.md`  
 **Scope:** Project-specific implementations for rpg-narrative-server  
 **Last Updated:** 2026-04-19
 

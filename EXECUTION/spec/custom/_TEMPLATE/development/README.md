@@ -26,7 +26,7 @@ Este diretório **MUDA FREQUENTEMENTE** durante desenvolvimento.
 ## 🔗 Referência
 
 - Leia: `/docs/ia/guides/onboarding/QUICK_START.md` antes de começar
-- Regras: `/docs/ia/CANONICAL/rules/ia-rules.md` (MANDATORY)
+- Regras: `/EXECUTION/spec/CANONICAL/rules/ia-rules.md` (MANDATORY)
 - Estado compartilhado: `/docs/ia/development/_SHARED/`
 
 ---

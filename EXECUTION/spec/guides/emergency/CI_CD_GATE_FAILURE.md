@@ -115,7 +115,7 @@
 4. Re-run job
 
 # Example:
-git mv docs/ia/custom/my-project/BAD_LOCATION.md docs/ia/CANONICAL/
+git mv docs/ia/custom/my-project/BAD_LOCATION.md /EXECUTION/spec/CANONICAL/
 git commit -m "fix: Move doc to allowed location"
 git push
 ```
@@ -129,7 +129,7 @@ git push
 cat .github/workflows/spec-enforcement.yml
 
 # Step 2: Check if exception documented
-grep -r "exception\|allow\|bypass" docs/ia/CANONICAL/rules/
+grep -r "exception\|allow\|bypass" /EXECUTION/spec/CANONICAL/rules/
 
 # Step 3: If valid exception exists:
 # Add flag to PR or request maintainer approval

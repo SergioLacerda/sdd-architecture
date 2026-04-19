@@ -50,7 +50,7 @@ reality/
 ## 🔗 Referência
 
 - Leia: `/docs/ia/REALITY/README.md` (layer overview)
-- Regras: `/docs/ia/CANONICAL/rules/ia-rules.md`
+- Regras: `/EXECUTION/spec/CANONICAL/rules/ia-rules.md`
 
 ---
 
