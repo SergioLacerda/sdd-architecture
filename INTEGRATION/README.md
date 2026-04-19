@@ -80,11 +80,11 @@ And:
 [→ INTEGRATION/CHECKLIST.md](./CHECKLIST.md) — Step-by-step with commands
 
 Or go directly to a specific step:
-- [STEP_1_SETUP.md](./STEP_1_SETUP.md)
-- [STEP_2_TEMPLATES.md](./STEP_2_TEMPLATES.md)
-- [STEP_3_CONFIG.md](./STEP_3_CONFIG.md)
-- [STEP_4_VALIDATE.md](./STEP_4_VALIDATE.md)
-- [STEP_5_COMMIT.md](./STEP_5_COMMIT.md)
+- [STEP_1.md](./STEP_1.md)
+- [STEP_2.md](./STEP_2.md)
+- [STEP_3.md](./STEP_3.md)
+- [STEP_4.md](./STEP_4.md)
+- [STEP_5.md](./STEP_5.md)
 
 ---
 
