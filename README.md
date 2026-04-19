@@ -22,24 +22,21 @@ A complete framework for building software where:
 
 ---
 
-## 🚀 Quick Start
+## 🚀 Quick Start — Choose Your Path
 
-**Are you:**
+**Decision Tree:**
 
-### 1️⃣ Starting a New Project?
-You want to add this framework to your project (30 minutes).
+### 🔷 **Are you adding a NEW project to SDD?**
+Yes → **[INTEGRATION/](./INTEGRATION/)** (30 minutes, 5 steps)
 
-→ **[INTEGRATION/](./INTEGRATION/)** — 5-step integration checklist
+### 🔷 **Are you developing a feature/bug/improvement?**
+Yes → **[EXECUTION/](./EXECUTION/)** (ongoing, 7-phase workflow)
 
-### 2️⃣ Developing a Feature?
-You have code to write and want to follow SDD rules.
+### 🔷 **Are you an AI agent?**
+Yes → **[.ai-index.md](./.ai-index.md)** (machine-readable entry point)
 
-→ **[EXECUTION/](./EXECUTION/)** — AGENT_HARNESS 7-phase workflow
-
-### 3️⃣ An AI Agent?
-You need to understand the framework and start working.
-
-→ **[.ai-index.md](./.ai-index.md)** — AI learning seed (structured for LLMs)
+### 🔷 **Need to understand agent governance rules?**
+Yes → **[.github/copilot-instructions.md](./.github/copilot-instructions.md)** (AI governance protocol)
 
 ---
 
@@ -184,6 +181,7 @@ sdd-archtecture/
 
 | Need | Link |
 |------|------|
+| **AI governance rules** | [.github/copilot-instructions.md](./.github/copilot-instructions.md) |
 | **New project integration** | [INTEGRATION/README.md](./INTEGRATION/README.md) |
 | **Start developing** | [EXECUTION/_START_HERE.md](./EXECUTION/_START_HERE.md) |
 | **Rules to follow** | [EXECUTION/docs/ia/CANONICAL/rules/](./EXECUTION/docs/ia/CANONICAL/rules/) |
