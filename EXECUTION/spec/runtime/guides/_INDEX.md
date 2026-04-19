@@ -1,6 +1,6 @@
 # 📚 Runtime Guides Index
 
-**Location:** `docs/ia/guides/runtime/`  
+**Location:** `EXECUTION/spec/runtime/guides/`  
 **Purpose:** Show how agents create and use dynamic context-aware  
 **Audience:** AI Agents, developers  
 
@@ -70,7 +70,7 @@
 
 3. **Read this guide's CONTEXT_AWARE_USAGE.md:**
    ```bash
-   cat docs/ia/guides/runtime/CONTEXT_AWARE_USAGE.md
+   cat EXECUTION/spec/runtime/guides/CONTEXT_AWARE_USAGE.md
    ```
 
 4. **Use the example templates** as you work
@@ -191,11 +191,11 @@ git commit -m "✅ Task complete: [name]"
 
 **In spec-architecture:**
 - `/EXECUTION/spec/CANONICAL/rules/ia-rules.md` — Framework rules (immutable)
-- `docs/ia/CUSTOM/[PROJECT]/SPECIALIZATIONS/` — Project patterns (static)
+- `EXECUTION/spec/custom/[PROJECT]/SPECIALIZATIONS/` — Project patterns (static)
 
 **In each project:**
 - `.ai/context-aware/` — Project discoveries (dynamic) ← YOU ARE HERE
-- `docs/ia/` or referenced via `.spec.config` — General architecture
+- `EXECUTION/spec/` or referenced via `.spec.config` — General architecture
 
 **Relationship:**
 ```

@@ -15,6 +15,28 @@ Specify the 3 runtime indices that agents create during PHASE 0 to enable effici
 
 ---
 
+## 📌 Two-Tier Index System
+
+**Framework Tier (EXECUTION/spec/runtime/):**
+- **Files:** `spec-canonical-index.md`, `spec-guides-index.md`, `search-keywords.md`
+- **Purpose:** Templates for projects to copy and customize
+- **Updated:** Quarterly (when framework changes)
+- **Audience:** Reference for all projects
+
+**Project Tier (.ai/runtime/):**
+- **Files:** Same names as framework tier, but project-specific
+- **Purpose:** Each project maintains its own runtime indices
+- **Updated:** Per-project basis (can diverge from framework)
+- **Audience:** Project-specific usage
+
+**How It Works:**
+1. SPEC framework provides template indices at `EXECUTION/spec/runtime/`
+2. During project initialization (PHASE 0), templates are copied to `.ai/runtime/`
+3. Projects customize their indices as needed
+4. Framework indices serve as reference defaults
+
+---
+
 ## 📇 Three Required Indices
 
 ### Index 1: spec-canonical-index.md

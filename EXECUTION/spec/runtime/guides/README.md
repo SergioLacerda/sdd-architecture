@@ -27,7 +27,7 @@ runtime/
 **"How we always build on this project"**
 
 ```
-Location: /docs/ia/CUSTOM/[PROJECT]/SPECIALIZATIONS/
+Location: EXECUTION/spec/custom/[PROJECT]/SPECIALIZATIONS/
 Format: Markdown or YAML
 Examples:
   - "Always use ThreadLocal for state"
