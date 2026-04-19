@@ -1,0 +1,104 @@
+# Quiz Tracking and Analytics
+
+This file tracks all quiz attempts and builds learning metrics.
+
+**Format**: JSON append-only (one entry per attempt)
+
+```json
+[
+  {
+    "session_id": "agent-session-001",
+    "timestamp": "2026-04-18T10:30:00Z",
+    "agent_type": "claude-haiku",
+    "score": 5,
+    "total": 5,
+    "percentage": 100,
+    "passed": true,
+    "attempt_number": 1,
+    "time_minutes": 4,
+    "questions_correct": [1, 2, 3, 4, 5],
+    "questions_incorrect": [],
+    "notes": "Perfect score on first attempt"
+  }
+]
+```
+
+## 📊 Running Analytics
+
+To see quiz performance:
+
+```bash
+# Show summary
+cat /docs/ia/current-system-state/_quiz_tracking.json | jq '[.[] | {attempt: .attempt_number, score: .percentage, passed: .passed}]'
+
+# Show failure patterns
+cat /docs/ia/current-system-state/_quiz_tracking.json | jq '[.[] | select(.passed == false) | {session: .session_id, incorrect: .questions_incorrect}]'
+
+# Show pass rate
+cat /docs/ia/current-system-state/_quiz_tracking.json | jq 'map(select(.attempt_number == 1)) | {total: length, passed: map(select(.passed == true)) | length, rate: ((map(select(.passed == true)) | length) / length * 100 | round)}'
+```
+
+## 🎯 Key Metrics
+
+Track these over time:
+
+- **Pass Rate (First Try)**: % agents scoring ≥80% attempt 1
+- **Average Score**: Mean % across all attempts
+- **Retry Rate**: % agents needing 2+ attempts
+- **Hardest Questions**: Most frequently wrong (by question number)
+- **Time to Pass**: Minutes from first attempt to passing
+
+## 🔍 Interpretation Guide
+
+| Metric | Target | Interpretation |
+|--------|--------|-----------------|
+| Pass Rate (1st) | ≥90% | If <80%: ia-rules.md needs clarification |
+| Avg Score | ≥85% | If <75%: quiz questions too hard or ambiguous |
+| Retry Rate | ≤20% | If >30%: agents struggle with rules |
+| Hardest Qs | Any Q | If Q5 hardest: "Gap documentation" concept unclear |
+
+## 📈 Improvement Loop
+
+1. Collect data for 2 weeks
+2. If Pass Rate (1st) < 90%:
+   - Identify hardest questions
+   - Re-read ia-rules.md section those Q's cover
+   - Add clarifying examples to ia-rules.md
+   - Update quiz explanation
+3. Re-run for 1 week
+4. If improved: good!
+   If not: escalate to human review
+
+## 🤖 For AI Agents: How to Log Your Attempt
+
+When taking the quiz:
+
+```python
+import json
+from datetime import datetime
+
+quiz_result = {
+    "session_id": "{{ SESSION_ID }}",  # Generate UUID
+    "timestamp": datetime.now().isoformat() + "Z",
+    "agent_type": "claude-haiku",  # or your model
+    "score": 5,  # Your score
+    "total": 5,
+    "percentage": (5/5)*100,
+    "passed": True,  # True if ≥80%
+    "attempt_number": 1,  # 1st, 2nd, etc
+    "time_minutes": 4,
+    "questions_correct": [1,2,3,4,5],  # Q numbers you got right
+    "questions_incorrect": [],
+    "notes": "Any observations about the quiz"
+}
+
+# Append to tracking file (don't overwrite!)
+with open("/docs/ia/current-system-state/_quiz_tracking.json", "a") as f:
+    f.write(json.dumps(quiz_result) + "\n")
+```
+
+---
+
+**Created**: 2026-04-18  
+**Last Updated**: 2026-04-18  
+**Format**: Line-delimited JSON (JSONL)
