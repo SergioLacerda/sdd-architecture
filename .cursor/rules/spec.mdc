@@ -1,0 +1,76 @@
+# SDD Framework Rules for Cursor IDE
+
+You are working in a project governed by **SDD Framework v2.1**.
+
+---
+
+## 🚀 Quick Start
+
+**Read this:** [.ai-index.md](../../.ai-index.md)
+
+This repository's main AI guidance is in `.ai-index.md`. It tells you:
+- What this project is
+- Your work scope (SDD framework only)
+- How your work is validated (4-layer enforcement)
+- What to work on (HIGH priority items)
+- How to develop (AGENT_HARNESS 7-phase workflow)
+
+---
+
+## 🎯 Essential Sections
+
+Go to `.ai-index.md` and read these sections:
+
+1. **⚠️ Project Boundary** → Framework-only work scope
+2. **🛡️ Rule Enforcement Mechanisms** → 4 validation layers
+3. **📊 Framework Status & Priorities** → Current HIGH priority work
+4. **Your Workflow: AGENT_HARNESS** → 7-phase development process
+
+---
+
+## 🔑 Key Rules
+
+**16 mandatory rules:** [EXECUTION/docs/ia/CANONICAL/rules/ia-rules.md](../../EXECUTION/docs/ia/CANONICAL/rules/ia-rules.md)
+
+**Top 5 critical:**
+
+1. Ports Mandatory — Use interfaces, not concrete implementations
+2. Thread Isolation — Check execution-state/ for conflicts
+3. Tests During Implementation — TDD, never test-after
+4. No Implicit State — Verify everything before acting
+5. Checkpoint After Work — Document what you implemented
+
+---
+
+## ✅ Before Pushing PR
+
+```
+[ ] Pre-commit hooks passed (local validation)
+[ ] All tests passing (100% coverage for new code)
+[ ] Checkpoint updated in execution-state/
+[ ] No rule violations
+[ ] Ready for review
+```
+
+---
+
+## 📍 Find What You Need
+
+- **Getting started?** → `EXECUTION/_START_HERE.md`
+- **Implementing?** → `EXECUTION/docs/ia/guides/onboarding/AGENT_HARNESS.md`
+- **Stuck?** → `EXECUTION/docs/ia/guides/emergency/README.md`
+- **Search for docs?** → `EXECUTION/NAVIGATION.md`
+
+---
+
+## 📚 Reference
+
+- **Rules:** `EXECUTION/docs/ia/CANONICAL/rules/ia-rules.md`
+- **Architecture:** `EXECUTION/docs/ia/CANONICAL/decisions/`
+- **Specs:** `EXECUTION/docs/ia/CANONICAL/specifications/`
+- **How-to Guides:** `EXECUTION/docs/ia/guides/`
+
+---
+
+**Version:** SDD Framework 2.1  
+**Updated:** April 19, 2026
