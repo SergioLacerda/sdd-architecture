@@ -1,9 +1,10 @@
-# 🚀 Phase 5: Functional Testing
+# 🚀 Phase 5: Functional Testing (Framework-Agnostic)
 
 **Purpose:** Validate both INTEGRATION and EXECUTION flows work end-to-end  
 **Location:** `/tests/phase_5_testing/`  
 **Type:** Fake/mock tests (don't modify framework)  
-**Duration:** 10-15 minutes
+**Duration:** 10-15 minutes  
+**Philosophy:** Specs define WHAT to test; implementations show HOW in any language
 
 ---
 
@@ -16,30 +17,186 @@ Phase 5 runs functional tests to ensure both flows are production-ready:
 
 Both tests are "fake" - they don't modify the actual framework, just verify it works.
 
+### Key Feature: Framework-Agnostic
+
+Tests are **not tied to a specific language or framework**:
+- Specifications define requirements (WHAT to test)
+- Implementations exist in Python, JavaScript, Bash, Go, etc.
+- Add implementations in your language by following the spec
+
 ---
 
 ## 🚀 Quick Start
 
-### Run all Phase 5 tests
+### Run Python Tests (Reference Implementation)
 
 ```bash
 cd /home/sergio/dev/sdd-archtecture
 
 # Run INTEGRATION flow test
-python tests/phase_5_testing/test_integration_flow.py
+python tests/phase_5_testing/examples/python/test_integration_flow.py
 
 # Run EXECUTION flow test  
-python tests/phase_5_testing/test_execution_flow.py
+python tests/phase_5_testing/examples/python/test_execution_flow.py
 
 # Or run both
-bash tests/phase_5_testing/run_all_tests.sh  # (if script exists)
+bash tests/phase_5_testing/run_all_tests.sh
 ```
+
+### Run JavaScript Tests
+
+```bash
+cd /home/sergio/dev/sdd-archtecture
+
+# Run INTEGRATION flow test
+node tests/phase_5_testing/examples/javascript/test-integration-flow.js
+
+# Run EXECUTION flow test
+node tests/phase_5_testing/examples/javascript/test-execution-flow.js
+```
+
+### Run Bash Tests
+
+```bash
+cd /home/sergio/dev/sdd-archtecture
+
+# Make scripts executable
+chmod +x tests/phase_5_testing/examples/bash/*.sh
+
+# Run INTEGRATION flow test
+bash tests/phase_5_testing/examples/bash/test-integration-flow.sh
+
+# Run EXECUTION flow test
+bash tests/phase_5_testing/examples/bash/test-execution-flow.sh
+```
+
+### Run Tests in Your Language
+
+See: [examples/README.md](./examples/README.md) for how to implement in Go, Rust, TypeScript, etc.
 
 ---
 
 ## 📊 Test Details
 
-### INTEGRATION Flow Test (`test_integration_flow.py`)
+### Directory Structure
+
+```
+/tests/phase_5_testing/
+  ├── README.md                          # This file
+  ├── SPEC_INTEGRATION_FLOW.md           # What to test (agnóstico)
+  ├── SPEC_EXECUTION_FLOW.md             # What to test (agnóstico)
+  ├── run_all_tests.sh                   # Master test runner (Python ref impl)
+  │
+  ├── examples/                          # Language-specific implementations
+  │   ├── README.md                      # How to implement in your language
+  │   ├── python/
+  │   │   ├── test_integration_flow.py   # Python implementation
+  │   │   └── test_execution_flow.py
+  │   ├── javascript/
+  │   │   ├── test-integration-flow.js   # Node.js implementation
+  │   │   └── test-execution-flow.js
+  │   ├── bash/
+  │   │   ├── test-integration-flow.sh   # Bash implementation
+  │   │   └── test-execution-flow.sh
+  │   └── go/                            # Planned
+  │       ├── test_integration_flow.go
+  │       └── test_execution_flow.go
+```
+
+### Understanding the Structure
+
+**Two Separate Concerns:**
+
+1. **SPECS** (Framework-Agnostic)
+   - `SPEC_INTEGRATION_FLOW.md` — What requirements each test must satisfy
+   - `SPEC_EXECUTION_FLOW.md` — What requirements each test must satisfy
+   - Language-independent: any language can implement these
+
+2. **IMPLEMENTATIONS** (Language-Specific)
+   - `examples/python/` — Python with unittest/pytest
+   - `examples/javascript/` — Node.js
+   - `examples/bash/` — Shell scripting
+   - `examples/go/` — Go testing
+   - Add your language here!
+
+---
+
+## 🌐 Framework-Agnostic Philosophy
+
+### Why Specs + Implementations?
+
+**Problem:** Every project uses different tech stacks.
+
+- Python project → pytest
+- Node project → Jest, Mocha, Vitest
+- Go project → go test
+- Rust project → Cargo test
+- etc.
+
+**Solution:** Separate WHAT from HOW
+
+```
+SPEC_INTEGRATION_FLOW.md
+├─ "Test must create 5 directories"  ← WHAT (language-agnostic)
+└─ (doesn't say how: mkdir, os.mkdir, fs.mkdirSync, etc.)
+
+examples/python/test_integration_flow.py
+└─ Uses os.makedirs() ← HOW (Python-specific)
+
+examples/javascript/test-integration-flow.js
+└─ Uses fs.mkdirSync() ← HOW (JavaScript-specific)
+
+examples/bash/test-integration-flow.sh
+└─ Uses mkdir -p ← HOW (Bash-specific)
+```
+
+### Rules
+
+1. **Specs are immutable** — They define the contract
+2. **Implementations vary** — Follow language idioms
+3. **Output must match** — All implementations show same format
+4. **Tests are equivalent** — All test the same requirements
+5. **Easy to add languages** — Copy spec, write implementation
+
+### Example
+
+**What all implementations do (from spec):**
+```
+✅ Created directory: .github/
+✅ Created directory: .vscode/
+✅ Created directory: .cursor/
+✅ Created directory: scripts/
+✅ Created directory: .ai/
+✅ STEP 1 PASSED: All directories created
+```
+
+**How Python does it:**
+```python
+for d in dirs:
+    os.makedirs(os.path.join(self.test_dir, d), exist_ok=True)
+```
+
+**How JavaScript does it:**
+```javascript
+for (const d of dirs) {
+    fs.mkdirSync(path.join(this.testDir, d), { recursive: true });
+}
+```
+
+**How Bash does it:**
+```bash
+for d in "${dirs[@]}"; do
+    mkdir -p "$TEST_DIR/$d"
+done
+```
+
+**Result:** Same test, 3 different implementations, all follow the spec.
+
+---
+
+## 🧪 Test Details
+
+### INTEGRATION Flow Test
 
 Tests the 5-step INTEGRATION onboarding process:
 
@@ -141,6 +298,54 @@ Optional component missing (not critical)
 # Optional warning
 ⚠️ FAQ.md (optional guide file)
 ```
+
+---
+
+## 🎯 Adding Your Language Implementation
+
+### Quick Process
+
+1. **Read the spec**
+   - [SPEC_INTEGRATION_FLOW.md](./SPEC_INTEGRATION_FLOW.md)
+   - [SPEC_EXECUTION_FLOW.md](./SPEC_EXECUTION_FLOW.md)
+
+2. **Create folder**
+   ```bash
+   mkdir -p tests/phase_5_testing/examples/go
+   ```
+
+3. **Implement in your language**
+   - Follow spec requirements exactly
+   - Use language idioms
+   - Match output format
+
+4. **Test it**
+   ```bash
+   go run tests/phase_5_testing/examples/go/test_integration_flow.go
+   ```
+
+5. **Submit PR**
+   - Include both test_integration_flow.* and test_execution_flow.*
+   - Update examples/README.md with your language status
+
+### Example: Adding Go
+
+```bash
+# Create files
+touch tests/phase_5_testing/examples/go/test_integration_flow.go
+touch tests/phase_5_testing/examples/go/test_execution_flow.go
+
+# Implement following SPEC_INTEGRATION_FLOW.md and SPEC_EXECUTION_FLOW.md
+
+# Test
+go run tests/phase_5_testing/examples/go/test_integration_flow.go
+
+# Commit
+git add tests/phase_5_testing/examples/go/
+git commit -m "feat: Add Phase 5 tests in Go"
+```
+
+See: [examples/README.md](./examples/README.md) for detailed instructions
 
 ---
 

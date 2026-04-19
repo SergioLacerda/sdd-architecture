@@ -2,7 +2,8 @@
 
 **Location:** `/tests/`  
 **Purpose:** Framework validation and functional testing  
-**Status:** Phase 5 testing suite - Production Ready
+**Status:** Phase 5 testing suite - Production Ready  
+**Philosophy:** Framework-agnostic (specs) + language-specific (implementations)
 
 ---
 
@@ -10,13 +11,28 @@
 
 ```
 /tests/
-  ├── phase_5_testing/        # Phase 5 Functional Tests
-  │   ├── test_integration_flow.py
-  │   ├── test_execution_flow.py
-  │   ├── run_all_tests.sh
-  │   └── README.md
+  ├── phase_5_testing/              # Phase 5 Functional Tests (Framework-Agnostic)
+  │   ├── README.md                 # Overview
+  │   ├── SPEC_INTEGRATION_FLOW.md  # What to test (agnóstico)
+  │   ├── SPEC_EXECUTION_FLOW.md    # What to test (agnóstico)
+  │   ├── run_all_tests.sh          # Master runner (Python reference)
+  │   └── examples/                 # Language-specific implementations
+  │       ├── README.md             # How to implement in your language
+  │       ├── python/
+  │       │   ├── test_integration_flow.py
+  │       │   ├── test_execution_flow.py
+  │       │   └── README.md
+  │       ├── javascript/
+  │       │   ├── test-integration-flow.js
+  │       │   ├── test-execution-flow.js
+  │       │   └── README.md
+  │       ├── bash/
+  │       │   ├── test-integration-flow.sh
+  │       │   ├── test-execution-flow.sh
+  │       │   └── README.md
+  │       └── go/                   # Planned
   │
-  ├── scripts/                # Framework Validation Scripts
+  ├── scripts/                      # Framework Validation Scripts
   │   ├── phase-0-agent-onboarding.py
   │   ├── setup-wizard.py
   │   ├── spec_validator.py
@@ -64,7 +80,18 @@ python tests/scripts/validate_adrs.py
 
 ## 📊 Test Types
 
-### Phase 5 Functional Tests
+### Phase 5 Functional Tests (Framework-Agnostic)
+
+**Architecture:**
+- **SPECS** (Language-independent)
+  - `SPEC_INTEGRATION_FLOW.md` — Define WHAT to test
+  - `SPEC_EXECUTION_FLOW.md` — Define WHAT to test
+  
+- **IMPLEMENTATIONS** (Language-specific)
+  - `examples/python/` — Python implementation
+  - `examples/javascript/` — JavaScript/Node.js implementation
+  - `examples/bash/` — Bash/Shell implementation
+  - `examples/go/` — Go implementation (planned)
 
 **What they test:**
 - INTEGRATION Flow (5-step new project setup)
@@ -74,6 +101,7 @@ python tests/scripts/validate_adrs.py
 - Before deploying framework
 - After major structural changes
 - As part of CI/CD pipeline
+- In your language of choice
 
 **Expected results:**
 - ✅ All 5 INTEGRATION steps pass
@@ -81,10 +109,19 @@ python tests/scripts/validate_adrs.py
 - ✅ All links valid
 - ✅ Framework production-ready
 
-**Typical output:**
+**Typical output (all languages):**
 ```
 ✅ INTEGRATION FLOW: READY FOR PRODUCTION
 ✅ EXECUTION FLOW: READY FOR PRODUCTION
+```
+
+**Language Support:**
+```
+Python     ✅ Complete
+JavaScript ✅ Complete
+Bash       ✅ Complete
+Go         📋 Planned
+[Your language]  👉 Add yours!
 ```
 
 ### Framework Validation Scripts

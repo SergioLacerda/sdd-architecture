@@ -17,7 +17,9 @@ class TestExecutionFlow:
     """Test EXECUTION flow: 7-phase AGENT_HARNESS workflow"""
 
     def __init__(self):
-        self.framework_root = Path(__file__).parent.parent.parent
+        # Resolve symlinks to get actual path
+        current_file = Path(__file__).resolve()
+        self.framework_root = current_file.parent.parent.parent
         self.execution_dir = self.framework_root / "EXECUTION"
         self.results = []
 
