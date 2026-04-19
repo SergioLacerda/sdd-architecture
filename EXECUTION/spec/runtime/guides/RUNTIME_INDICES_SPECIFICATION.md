@@ -56,7 +56,7 @@ Specify the 3 runtime indices that agents create during PHASE 0 to enable effici
 ## 🔴 Core Documents (Read in This Order)
 
 ### 1. Constitution
-**File:** SPEC_PATH/EXECUTION/spec/CANONICAL/constitution.md
+**File:** SPEC_PATH/EXECUTION/spec/CANONICAL/rules/constitution.md
 **What:** 15 immutable principles
 **When:** First time onboarding
 
@@ -127,23 +127,23 @@ Specify the 3 runtime indices that agents create during PHASE 0 to enable effici
 ## 🎯 Onboarding Guides
 
 ### PHASE 0: Agent-Driven Initialization
-**File:** SPEC_PATH/docs/ia/guides/onboarding/PHASE-0-AGENT-ONBOARDING.md
+**File:** SPEC_PATH/EXECUTION/spec/guides/onboarding/PHASE-0-AGENT-ONBOARDING.md
 **Time:** 30-40 minutes
 **What:** 6-step agent workspace initialization
 
 ### AGENT_HARNESS: 7-Phase Protocol
-**File:** SPEC_PATH/docs/ia/guides/onboarding/AGENT_HARNESS.md
+**File:** SPEC_PATH/EXECUTION/spec/guides/onboarding/AGENT_HARNESS.md
 **Time:** 40 minutes first read, 10 min reference
 **What:** Complete development workflow
 
 ## 🏃 Runtime Guides
 
 ### Context-Aware Usage
-**File:** SPEC_PATH/docs/ia/guides/runtime/CONTEXT_AWARE_USAGE.md
+**File:** SPEC_PATH/EXECUTION/spec/runtime/guides/CONTEXT_AWARE_USAGE.md
 **Time:** 20 minutes first read, 5 min reference
 
 ### Example: Task Progress
-**File:** SPEC_PATH/docs/ia/guides/runtime/example-task-progress.md
+**File:** SPEC_PATH/EXECUTION/spec/runtime/guides/example-task-progress.md
 **Time:** 15 minutes
 
 ## 🔧 Operational Guides (7 total)
@@ -391,7 +391,7 @@ Indices are working if:
 
 **Without indices:**
 - Agent searches for "where do I find rules?"
-- Agent digs through docs/ia folder
+- Agent digs through EXECUTION/spec/ folder
 - Agent reads 5 README files to navigate
 - 30+ minutes wasted
 

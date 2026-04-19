@@ -59,7 +59,7 @@ Owner: Agents + Team
 **"Who's working on what right now"**
 
 ```
-Location: /docs/ia/CUSTOM/[PROJECT]/development/execution-state/
+Location: EXECUTION/spec/custom/[PROJECT]/development/execution-state/
 Format: Markdown + structured
 Examples:
   - Thread isolation tracking
