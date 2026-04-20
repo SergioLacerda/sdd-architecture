@@ -31,7 +31,7 @@ Tests are **not tied to a specific language or framework**:
 ### Run Python Tests (Reference Implementation)
 
 ```bash
-cd /home/sergio/dev/sdd-archtecture
+cd /home/sergio/dev/sdd-architecture
 
 # Run INTEGRATION flow test
 python tests/phase_5_testing/examples/python/test_integration_flow.py
@@ -46,7 +46,7 @@ bash tests/phase_5_testing/run_all_tests.sh
 ### Run JavaScript Tests
 
 ```bash
-cd /home/sergio/dev/sdd-archtecture
+cd /home/sergio/dev/sdd-architecture
 
 # Run INTEGRATION flow test
 node tests/phase_5_testing/examples/javascript/test-integration-flow.js
@@ -58,7 +58,7 @@ node tests/phase_5_testing/examples/javascript/test-execution-flow.js
 ### Run Bash Tests
 
 ```bash
-cd /home/sergio/dev/sdd-archtecture
+cd /home/sergio/dev/sdd-architecture
 
 # Make scripts executable
 chmod +x tests/phase_5_testing/examples/bash/*.sh
@@ -449,7 +449,7 @@ ls INTEGRATION/templates/.spec.config
 **Solution:**
 ```bash
 # Make sure you're running from repo root
-cd /home/sergio/dev/sdd-archtecture
+cd /home/sergio/dev/sdd-architecture
 
 # Check Python version (need 3.8+)
 python3 --version

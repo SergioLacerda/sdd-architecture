@@ -71,7 +71,7 @@ Works with:
 ## 📖 Documentation Structure
 
 ```
-sdd-archtecture/
+sdd-architecture/
 │
 ├── README.md (you are here - public facing)
 ├── .ai-index.md (machine learning seed)

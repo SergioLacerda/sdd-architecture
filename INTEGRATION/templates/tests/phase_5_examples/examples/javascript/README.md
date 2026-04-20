@@ -20,7 +20,7 @@ node --version
 ### INTEGRATION Flow Test
 
 ```bash
-cd /home/sergio/dev/sdd-archtecture
+cd /home/sergio/dev/sdd-architecture
 
 node tests/phase_5_testing/examples/javascript/test-integration-flow.js
 ```

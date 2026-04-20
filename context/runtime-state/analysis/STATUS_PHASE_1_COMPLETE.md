@@ -59,7 +59,7 @@ MIGRATION_MAP.md contains:
 ## 📍 Current State
 
 ```
-sdd-archtecture/ (root)
+sdd-architecture/ (root)
 │
 ├─ 19 NEW documents ✅
 │   ├─ README_NEW.md (decision map)
@@ -96,7 +96,7 @@ sdd-archtecture/ (root)
 
 ### Option 1: Quick Verification (5 min)
 ```bash
-cd /home/sergio/dev/sdd-archtecture
+cd /home/sergio/dev/sdd-architecture
 # Check all files created
 ls -1 README_NEW.md INTEGRATION_*.md EXECUTION_*.md MIGRATION_MAP.md PHASE_1_COMPLETE.md
 # Should show 14 files

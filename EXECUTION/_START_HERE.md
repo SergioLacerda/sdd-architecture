@@ -123,7 +123,7 @@ PHASE 7: Checkpoint (10 min)
 Before continuing, confirm:
 
 - ✅ You have `.spec.config` in project root
-- ✅ It points to sdd-archtecture (check: `cat .spec.config`)
+- ✅ It points to sdd-architecture (check: `cat .spec.config`)
 - ✅ You have `.ai/runtime/` directory
 - ✅ PHASE 0 has been run (creates `.ai/` infrastructure)
 

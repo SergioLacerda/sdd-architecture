@@ -50,7 +50,7 @@
 
 ## 🗂️ Files Created (Location-by-Location)
 
-### In `/home/sergio/dev/sdd-archtecture/` Root
+### In `/home/sergio/dev/sdd-architecture/` Root
 
 ```
 README_NEW.md                    (520 lines) ✅ NEW - Replace old README.md later
@@ -108,7 +108,7 @@ MIGRATION_MAP.md                 (340 lines) ✅ NEW
 ## 📍 Current File Structure
 
 ```
-sdd-archtecture/
+sdd-architecture/
 ├── README_NEW.md ✅ (NEW - decision map)
 ├── INTEGRATION_*.md ✅ (9 files - new guides)
 ├── EXECUTION_*.md ✅ (6 files - new guides)

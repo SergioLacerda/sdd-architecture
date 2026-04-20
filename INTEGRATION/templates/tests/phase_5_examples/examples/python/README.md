@@ -11,7 +11,7 @@
 ### INTEGRATION Flow Test
 
 ```bash
-cd /home/sergio/dev/sdd-archtecture
+cd /home/sergio/dev/sdd-architecture
 
 python3 tests/phase_5_testing/examples/python/test_integration_flow.py
 ```
@@ -173,7 +173,7 @@ def test_step_3_config(self):
     # Create file
     with open(spec_config, "w") as f:
         f.write("[spec]\n")
-        f.write("spec_path = ../sdd-archtecture\n")
+        f.write("spec_path = ../sdd-architecture\n")
     
     # Verify contents
     with open(spec_config, "r") as f:
@@ -224,7 +224,7 @@ FileNotFoundError: [Errno 2] No such file or directory: 'INTEGRATION/templates/.
 
 **Solution:** Run from repo root:
 ```bash
-cd /home/sergio/dev/sdd-archtecture
+cd /home/sergio/dev/sdd-architecture
 python3 tests/...
 ```
 

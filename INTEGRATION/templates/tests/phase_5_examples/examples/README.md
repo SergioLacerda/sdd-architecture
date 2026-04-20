@@ -47,7 +47,7 @@ SPEC (framework-agnostic)
 ### Python (Reference Implementation)
 
 ```bash
-cd /home/sergio/dev/sdd-archtecture
+cd /home/sergio/dev/sdd-architecture
 
 # Run INTEGRATION test
 python3 tests/phase_5_testing/examples/python/test_integration_flow.py
@@ -59,7 +59,7 @@ python3 tests/phase_5_testing/examples/python/test_execution_flow.py
 ### JavaScript/Node.js
 
 ```bash
-cd /home/sergio/dev/sdd-archtecture
+cd /home/sergio/dev/sdd-architecture
 
 # Make sure Node.js 14+ is installed
 node --version
@@ -74,7 +74,7 @@ node tests/phase_5_testing/examples/javascript/test-execution-flow.js
 ### Bash/Shell
 
 ```bash
-cd /home/sergio/dev/sdd-archtecture
+cd /home/sergio/dev/sdd-architecture
 
 # Make scripts executable
 chmod +x tests/phase_5_testing/examples/bash/*.sh
@@ -89,7 +89,7 @@ bash tests/phase_5_testing/examples/bash/test-execution-flow.sh
 ### Go (Coming Soon)
 
 ```bash
-cd /home/sergio/dev/sdd-archtecture
+cd /home/sergio/dev/sdd-architecture
 
 # Run INTEGRATION test
 go run tests/phase_5_testing/examples/go/test_integration_flow.go

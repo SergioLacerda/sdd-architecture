@@ -9,7 +9,7 @@
 ### Current State (Before Reorganization)
 
 ```
-sdd-archtecture/
+sdd-architecture/
 ├── README.md                    ← OLD (monolithic)
 ├── INTEGRATION.md               ← OLD (standalone)
 ├── PHASE-7-DELIVERY-SUMMARY.md
@@ -54,7 +54,7 @@ sdd-archtecture/
 ## 🎯 Target Structure (After Reorganization)
 
 ```
-sdd-archtecture/
+sdd-architecture/
 │
 ├── README.md ✅ NEW                    ← Decision map (pick INTEGRATION or EXECUTION)
 ├── .spec.config

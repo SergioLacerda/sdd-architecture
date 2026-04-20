@@ -15,7 +15,7 @@
 The framework now has a clean, AI-first root:
 
 ```
-sdd-archtecture/
+sdd-architecture/
 ├── README.md               ← For users/GitHub (public-facing)
 ├── .ai-index.md            ← For AI agents (learning seed)
 ├── .spec.config            ← For framework discovery

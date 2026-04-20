@@ -27,7 +27,7 @@ Follow in order (20-30 minutes total):
 
 3. **[STEP_3.md](./STEP_3.md)**
    - Edit `.spec.config` (2 lines!)
-   - Verify path to sdd-archtecture
+   - Verify path to sdd-architecture
    - ~2 minutes
 
 4. **[STEP_4.md](./STEP_4.md)**
@@ -62,7 +62,7 @@ Follow in order (20-30 minutes total):
 After completing all 5 steps, verify:
 
 ```
-✅ .spec.config exists and points to ../sdd-archtecture
+✅ .spec.config exists and points to ../sdd-architecture
 ✅ .github/copilot-instructions.md copied
 ✅ .vscode/ai-rules.md copied
 ✅ .cursor/rules/spec.mdc copied
@@ -85,12 +85,12 @@ cp -r INTEGRATION/templates/* /path/to/your-project/
 
 **Edit .spec.config:**
 ```bash
-# Edit: spec_path = ../sdd-archtecture
+# Edit: spec_path = ../sdd-architecture
 ```
 
 **Run validation:**
 ```bash
-python ../sdd-archtecture/docs/ia/SCRIPTS/phase-0-agent-onboarding.py
+python ../sdd-architecture/docs/ia/SCRIPTS/phase-0-agent-onboarding.py
 ```
 
 **Commit:**

@@ -86,7 +86,7 @@ All 7 template files found and readable
 ### Requirements:
 - [ ] Create `.spec.config` file in test project
 - [ ] Write: `[spec]` section
-- [ ] Write: `spec_path = ../sdd-archtecture` (or appropriate path)
+- [ ] Write: `spec_path = ../sdd-architecture` (or appropriate path)
 - [ ] File is readable
 
 ### Success criteria:

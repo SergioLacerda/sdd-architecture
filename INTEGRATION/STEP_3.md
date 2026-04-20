@@ -1,18 +1,18 @@
 # ⚙️ STEP 3 — Configure .spec.config
 
-**Goal:** Point `.spec.config` to sdd-archtecture (just 2 lines!)  
+**Goal:** Point `.spec.config` to sdd-architecture (just 2 lines!)  
 **Duration:** 2 minutes  
 **Complexity:** Simple (edit 1 file)  
 **Prerequisites:** Step 2 complete (templates copied)
 
 ---
 
-## 📍 Where Are You?
+## 📅 Where Are You?
 
 You have:
 - ✅ Project directories created (Step 1)
 - ✅ Template files copied (Step 2)
-- ❓ Need to edit `.spec.config` to point to sdd-archtecture
+- ❓ Need to edit `.spec.config` to point to sdd-architecture
 
 You're about to:
 - Edit 1 file (`.spec.config`)
@@ -29,7 +29,7 @@ You're about to:
 
 ```ini
 [spec]
-spec_path = ../sdd-archtecture
+spec_path = ../sdd-architecture
 ```
 
 That's it! Just 2 lines.
@@ -51,7 +51,7 @@ Then edit:
 
 ```ini
 [spec]
-spec_path = ../sdd-archtecture
+spec_path = ../sdd-architecture
 ```
 
 Save: `Ctrl+O`, then `Enter`, then `Ctrl+X`
@@ -67,7 +67,7 @@ Edit the file to:
 
 ```ini
 [spec]
-spec_path = ../sdd-archtecture
+spec_path = ../sdd-architecture
 ```
 
 Save: `Ctrl+S` or `Cmd+S`
@@ -78,41 +78,41 @@ Open `.spec.config` in your favorite editor and edit to:
 
 ```ini
 [spec]
-spec_path = ../sdd-archtecture
+spec_path = ../sdd-architecture
 ```
 
 ---
 
 ## ⚙️ Choosing the Right spec_path
 
-### Case 1: sdd-archtecture is a Sibling Directory (Recommended)
+### Case 1: sdd-architecture is a Sibling Directory (Recommended)
 
 Your directory structure:
 
 ```
 home/
-├── sdd-archtecture/     ← SDD framework
+├── sdd-architecture/     ← SDD framework
 └── your-project/        ← Your project
     └── .spec.config
 ```
 
-**Use:** `spec_path = ../sdd-archtecture`
+**Use:** `spec_path = ../sdd-architecture`
 
-### Case 2: sdd-archtecture is Elsewhere
+### Case 2: sdd-architecture is Elsewhere
 
 Your directory structure:
 
 ```
 /home/username/
 ├── dev/
-│   ├── sdd-archtecture/
+│   ├── sdd-architecture/
 │   └── your-project/
 │       └── .spec.config
 ```
 
-**Use:** `spec_path = ../sdd-archtecture` (still works!)
+**Use:** `spec_path = ../sdd-architecture` (still works!)
 
-### Case 3: sdd-archtecture is Far Away
+### Case 3: sdd-architecture is Far Away
 
 Your directory structure:
 
@@ -120,23 +120,23 @@ Your directory structure:
 /home/username/work/projects/myapp/
 └── .spec.config
 
-/opt/frameworks/sdd-archtecture/
+/opt/frameworks/sdd-architecture/
 └── (SDD framework here)
 ```
 
-**Use:** `spec_path = /opt/frameworks/sdd-archtecture` (absolute path)
+**Use:** `spec_path = /opt/frameworks/sdd-architecture` (absolute path)
 
-### Case 4: sdd-archtecture is in a Different Location
+### Case 4: sdd-architecture is in a Different Location
 
 ```bash
-# Find where sdd-archtecture actually is
-find ~ -type d -name "sdd-archtecture" 2>/dev/null
-# Shows: /home/username/frameworks/sdd-archtecture
+# Find where sdd-architecture actually is
+find ~ -type d -name "sdd-architecture" 2>/dev/null
+# Shows: /home/username/frameworks/sdd-architecture
 
 # Then use relative path from your project
 # If your project is /home/username/my-project
-# and sdd-archtecture is /home/username/frameworks/sdd-archtecture
-# Use: spec_path = ../frameworks/sdd-archtecture
+# and sdd-architecture is /home/username/frameworks/sdd-architecture
+# Use: spec_path = ../frameworks/sdd-architecture
 ```
 
 ---
@@ -153,14 +153,14 @@ Should show:
 
 ```ini
 [spec]
-spec_path = ../sdd-archtecture
+spec_path = ../sdd-architecture
 ```
 
 Or if you used absolute path:
 
 ```ini
 [spec]
-spec_path = /path/to/sdd-archtecture
+spec_path = /path/to/sdd-architecture
 ```
 
 ### Test the Path
@@ -170,7 +170,7 @@ spec_path = /path/to/sdd-archtecture
 cat .spec.config | grep spec_path | cut -d' ' -f3
 
 # Should output:
-# ../sdd-archtecture
+# ../sdd-architecture
 # (or your absolute path)
 
 # Then verify the path actually exists
@@ -188,8 +188,8 @@ ls
 ```bash
 # The spec_path you entered doesn't exist
 
-# Solution 1: Find where sdd-archtecture really is
-find ~ -type d -name "sdd-archtecture" 2>/dev/null
+# Solution 1: Find where sdd-architecture really is
+find ~ -type d -name "sdd-architecture" 2>/dev/null
 
 # Solution 2: Update .spec.config with correct path
 nano .spec.config
@@ -205,7 +205,7 @@ nano .spec.config
 ls -la .spec.config
 
 # If not, copy it manually
-cp ../sdd-archtecture/INTEGRATION/templates/.spec.config .
+cp ../sdd-architecture/INTEGRATION/templates/.spec.config .
 
 # Then edit it
 nano .spec.config
@@ -231,23 +231,23 @@ nano .spec.config
 
 ```ini
 [spec]
-# Points to ../sdd-archtecture (one level up, then sdd-archtecture folder)
-spec_path = ../sdd-archtecture
+# Points to ../sdd-architecture (one level up, then sdd-architecture folder)
+spec_path = ../sdd-architecture
 
 # Alternative: absolute path
-# spec_path = /home/sergio/dev/sdd-archtecture
+# spec_path = /home/sergio/dev/sdd-architecture
 ```
 
 ### Example 2: With Comments
 
 ```ini
 [spec]
-# Framework source: https://github.com/user/sdd-archtecture
+# Framework source: https://github.com/user/sdd-architecture
 # This tells your project where to find PHASE 0, AGENT_HARNESS, etc.
-spec_path = ../sdd-archtecture
+spec_path = ../sdd-architecture
 
 # You can also use absolute path:
-# spec_path = /opt/sdd-archtecture
+# spec_path = /opt/sdd-architecture
 ```
 
 ---
@@ -266,7 +266,7 @@ Run validation script to verify everything works.
 
 In Step 4, the validation script will:
 1. Read `.spec.config`
-2. Find sdd-archtecture at the specified `spec_path`
+2. Find sdd-architecture at the specified `spec_path`
 3. Create `.ai/` infrastructure
 4. Run VALIDATION_QUIZ to verify knowledge
 

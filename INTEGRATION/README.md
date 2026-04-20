@@ -37,7 +37,7 @@ After integration:
 
 Make sure you have:
 - ✅ Your project repository (git init already done)
-- ✅ Access to this sdd-archtecture repo
+- ✅ Access to this sdd-architecture repo
 - ✅ Python 3.8+ installed (for validation script)
 - ✅ 30 minutes uninterrupted time
 
@@ -49,7 +49,7 @@ After completing these 5 steps, your project should have:
 
 ```
 your-project/
-├── .spec.config                    ← Points to ../sdd-archtecture
+├── .spec.config                    ← Points to ../sdd-architecture
 ├── .github/copilot-instructions.md ← From templates/
 ├── .vscode/ai-rules.md             ← From templates/
 ├── .pre-commit-config.yaml         ← From templates/
@@ -68,7 +68,7 @@ your-project/
 ```
 
 And:
-- ✅ `.spec.config` correctly points to sdd-archtecture
+- ✅ `.spec.config` correctly points to sdd-architecture
 - ✅ Validation script ran successfully
 - ✅ Git shows new files ready to commit
 - ✅ Developer can read docs in `.ai/runtime/`

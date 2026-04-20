@@ -10,7 +10,7 @@
 ### ✨ New Root Structure
 
 ```
-sdd-archtecture/
+sdd-architecture/
 │
 ├── README.md               ← For users/GitHub (public-facing)
 ├── .ai-index.md            ← For AI agents (learning seed)

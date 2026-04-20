@@ -20,7 +20,7 @@ bash --version
 ### INTEGRATION Flow Test
 
 ```bash
-cd /home/sergio/dev/sdd-archtecture
+cd /home/sergio/dev/sdd-architecture
 
 # Make script executable
 chmod +x tests/phase_5_testing/examples/bash/test-integration-flow.sh
@@ -155,7 +155,7 @@ mkdir -p "$TEST_DIR/$d"
 # Bash:
 cat > "$file_path" << 'EOF'
 [spec]
-spec_path = ../sdd-archtecture
+spec_path = ../sdd-architecture
 EOF
 ```
 

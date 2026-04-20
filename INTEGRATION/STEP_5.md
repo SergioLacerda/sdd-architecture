@@ -251,7 +251,7 @@ Your developers can now:
 |------|--------|--------|
 | 1 | Create directories | `.github/`, `.vscode/`, `.cursor/`, `scripts/`, `.ai/` |
 | 2 | Copy templates | 8 template files populated |
-| 3 | Configure `.spec.config` | Points to sdd-archtecture |
+| 3 | Configure `.spec.config` | Points to sdd-architecture |
 | 4 | Validate setup | Framework verified, `.ai/` infrastructure created |
 | 5 | Commit to git | All changes saved to version control |
 

@@ -65,8 +65,8 @@ ls -la | grep "^\."
 **Goal:** Copy SDD template files to your project
 
 ```bash
-# From sdd-archtecture root:
-cd /path/to/sdd-archtecture
+# From sdd-architecture root:
+cd /path/to/sdd-architecture
 
 # Copy all templates
 cp -r INTEGRATION/templates/* /path/to/your-project/
@@ -97,7 +97,7 @@ cat .spec.config | head -5
 
 ## ✅ Step 3: Configure .spec.config
 
-**Goal:** Point to sdd-archtecture (2 lines to edit!)
+**Goal:** Point to sdd-architecture (2 lines to edit!)
 
 ```bash
 cd /path/to/your-project
@@ -106,21 +106,21 @@ cd /path/to/your-project
 nano .spec.config  # or your favorite editor
 
 # Edit lines:
-# Line 2: spec_path = ../sdd-archtecture
+# Line 2: spec_path = ../sdd-architecture
 #         (or absolute path if not sibling directory)
 ```
 
 **Example .spec.config:**
 ```ini
 [spec]
-spec_path = ../sdd-archtecture
-# spec_path = /home/sergio/dev/sdd-archtecture  # alternative: absolute path
+spec_path = ../sdd-architecture
+# spec_path = /home/sergio/dev/sdd-architecture  # alternative: absolute path
 ```
 
 **Verify:**
 ```bash
 cat .spec.config | grep spec_path
-# Should show: spec_path = ../sdd-archtecture
+# Should show: spec_path = ../sdd-architecture
 ```
 
 **Stuck?** → See [STEP_3.md](./STEP_3.md)
@@ -202,7 +202,7 @@ git status
 
 After all 5 steps:
 
-- ✅ `.spec.config` points to sdd-archtecture
+- ✅ `.spec.config` points to sdd-architecture
 - ✅ All SDD templates are in place
 - ✅ `.ai/` infrastructure created
 - ✅ Changes committed to git

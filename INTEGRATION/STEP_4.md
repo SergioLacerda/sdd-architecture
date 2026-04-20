@@ -38,7 +38,7 @@ python $(grep spec_path .spec.config | cut -d' ' -f3)/docs/ia/SCRIPTS/phase-0-ag
 ```bash
 # Part 1: Get the spec_path from .spec.config
 $(grep spec_path .spec.config | cut -d' ' -f3)
-# Returns: ../sdd-archtecture (or your absolute path)
+# Returns: ../sdd-architecture (or your absolute path)
 
 # Part 2: Run the script
 python [path-from-part-1]/docs/ia/SCRIPTS/phase-0-agent-onboarding.py
@@ -50,11 +50,11 @@ python [path-from-part-1]/docs/ia/SCRIPTS/phase-0-agent-onboarding.py
 If the command above doesn't work:
 
 ```bash
-# If sdd-archtecture is in sibling directory
-python ../sdd-archtecture/docs/ia/SCRIPTS/phase-0-agent-onboarding.py
+# If sdd-architecture is in sibling directory
+python ../sdd-architecture/docs/ia/SCRIPTS/phase-0-agent-onboarding.py
 
 # Or if you know the full path
-python /path/to/sdd-archtecture/docs/ia/SCRIPTS/phase-0-agent-onboarding.py
+python /path/to/sdd-architecture/docs/ia/SCRIPTS/phase-0-agent-onboarding.py
 ```
 
 ---
@@ -65,7 +65,7 @@ The script will:
 
 1. **Verify Framework**
    ```
-   ✅ Found sdd-archtecture at: [path]
+   ✅ Found sdd-architecture at: [path]
    ✅ CANONICAL/ structure verified
    ✅ Framework integrity check: PASS
    ```
@@ -179,7 +179,7 @@ python3 $(grep spec_path .spec.config | cut -d' ' -f3)/docs/ia/SCRIPTS/phase-0-a
 ls -la .spec.config
 
 # If missing, copy it:
-cp ../sdd-archtecture/INTEGRATION/templates/.spec.config .
+cp ../sdd-architecture/INTEGRATION/templates/.spec.config .
 
 # Then re-run validation
 python $(grep spec_path .spec.config | cut -d' ' -f3)/docs/ia/SCRIPTS/phase-0-agent-onboarding.py
@@ -192,7 +192,7 @@ python $(grep spec_path .spec.config | cut -d' ' -f3)/docs/ia/SCRIPTS/phase-0-ag
 
 # Fix it:
 nano .spec.config
-# Edit: spec_path = ../sdd-archtecture
+# Edit: spec_path = ../sdd-architecture
 
 # Then re-run validation
 python $(grep spec_path .spec.config | cut -d' ' -f3)/docs/ia/SCRIPTS/phase-0-agent-onboarding.py
@@ -209,7 +209,7 @@ python $(grep spec_path .spec.config | cut -d' ' -f3)/docs/ia/SCRIPTS/phase-0-ag
 # 3. Answer best you can (doesn't block progress)
 
 # To try again later:
-python ../sdd-archtecture/docs/ia/SCRIPTS/phase-0-agent-onboarding.py
+python ../sdd-architecture/docs/ia/SCRIPTS/phase-0-agent-onboarding.py
 ```
 
 ### Issue: Script Hangs or Never Completes
@@ -226,7 +226,7 @@ python ../sdd-archtecture/docs/ia/SCRIPTS/phase-0-agent-onboarding.py
 3. Run validation again
 
 # If still stuck, check:
-ls ../sdd-archtecture/docs/ia/SCRIPTS/
+ls ../sdd-architecture/docs/ia/SCRIPTS/
 # Should show: phase-0-agent-onboarding.py
 ```
 

@@ -14,7 +14,7 @@ This file tells you:
 ### 1. Find the framework
 ```bash
 cat .spec.config | grep spec_path
-# Returns: spec_path = ../sdd-archtecture (or your path)
+# Returns: spec_path = ../sdd-architecture (or your path)
 ```
 
 ### 2. Read entry point

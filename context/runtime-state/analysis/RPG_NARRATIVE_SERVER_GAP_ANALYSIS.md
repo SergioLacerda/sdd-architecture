@@ -199,10 +199,10 @@ def test_concurrent_campaign_limit(self):
 
 ## ✅ REVERSE DEPENDENCY CHECK
 
-**Question:** Does rpg-narrative-server reference sdd-archtecture in ways that would make sdd-archtecture dependent on rpg?
+**Question:** Does rpg-narrative-server reference sdd-architecture in ways that would make sdd-architecture dependent on rpg?
 
 **Files Checked:**
-- `.spec.config` — GOOD: Points to sdd-archtecture, no reference back ✅
+- `.spec.config` — GOOD: Points to sdd-architecture, no reference back ✅
 - `README.md` — GOOD: Mentions "SPEC framework", generic ✅
 - `.vscode/ai-rules.md` — GOOD: Generic rules reference ✅
 - `.github/copilot-instructions.md` — References SPEC via `.spec.config`, clean ✅
@@ -210,7 +210,7 @@ def test_concurrent_campaign_limit(self):
 
 **Conclusion:** ✅ NO REVERSE DEPENDENCY FOUND
 
-rpg-narrative-server correctly uses sdd-archtecture as authority source, not the other way around.
+rpg-narrative-server correctly uses sdd-architecture as authority source, not the other way around.
 
 ---
 

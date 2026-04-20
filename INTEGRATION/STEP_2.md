@@ -15,7 +15,7 @@ You have:
 - ❓ Need to copy SDD template files
 
 You're about to:
-- Copy files from sdd-archtecture/INTEGRATION/templates/
+- Copy files from sdd-architecture/INTEGRATION/templates/
 - Populate your project with SDD configuration
 - Move to Step 3
 
@@ -25,26 +25,26 @@ You're about to:
 
 ### Option A: From Command Line (Recommended)
 
-**If sdd-archtecture is in a sibling directory** (recommended setup):
+**If sdd-architecture is in a sibling directory** (recommended setup):
 
 ```bash
 # From your project directory
 cd /path/to/your-project
 
 # Copy templates (note trailing /)
-cp -r ../sdd-archtecture/INTEGRATION/templates/* .
+cp -r ../sdd-architecture/INTEGRATION/templates/* .
 ```
 
-**If sdd-archtecture is elsewhere:**
+**If sdd-architecture is elsewhere:**
 
 ```bash
-# Adjust the path to sdd-archtecture
-cp -r /path/to/sdd-archtecture/INTEGRATION/templates/* /path/to/your-project/
+# Adjust the path to sdd-architecture
+cp -r /path/to/sdd-architecture/INTEGRATION/templates/* /path/to/your-project/
 ```
 
 ### Option B: Manual Copy (If CLI doesn't work)
 
-1. Open file browser to `sdd-archtecture/INTEGRATION/templates/`
+1. Open file browser to `sdd-architecture/INTEGRATION/templates/`
 2. Select all files: `Ctrl+A`
 3. Copy: `Ctrl+C`
 4. Navigate to your project root
@@ -143,13 +143,13 @@ done
 
 ```bash
 # Wrong: cp -r INTEGRATION/templates/* .
-# The path sdd-archtecture is not found
+# The path sdd-architecture is not found
 
-# Solution: Check where sdd-archtecture actually is
-find ~ -type d -name "sdd-archtecture" 2>/dev/null
+# Solution: Check where sdd-architecture actually is
+find ~ -type d -name "sdd-architecture" 2>/dev/null
 
 # Then use the full path
-cp -r /home/username/sdd-archtecture/INTEGRATION/templates/* .
+cp -r /home/username/sdd-architecture/INTEGRATION/templates/* .
 ```
 
 ### Issue: "Permission denied"
@@ -158,7 +158,7 @@ cp -r /home/username/sdd-archtecture/INTEGRATION/templates/* .
 # You don't have permission to copy
 
 # Solution: Use sudo (if needed)
-sudo cp -r ../sdd-archtecture/INTEGRATION/templates/* .
+sudo cp -r ../sdd-architecture/INTEGRATION/templates/* .
 
 # Or change to your user
 sudo chown -R $USER:$USER .
@@ -168,10 +168,10 @@ sudo chown -R $USER:$USER .
 
 ```bash
 # Verify templates directory has all files
-ls -la ../sdd-archtecture/INTEGRATION/templates/
+ls -la ../sdd-architecture/INTEGRATION/templates/
 
-# If templates/ is empty, something is wrong with sdd-archtecture
-# Check sdd-archtecture/INTEGRATION/templates/ exists
+# If templates/ is empty, something is wrong with sdd-architecture
+# Check sdd-architecture/INTEGRATION/templates/ exists
 ```
 
 ### Issue: Hidden files not showing
@@ -180,7 +180,7 @@ ls -la ../sdd-archtecture/INTEGRATION/templates/
 # Hidden files (starting with .) might not copy with *
 # Solution: Use this instead
 
-cp -r ../sdd-archtecture/INTEGRATION/templates/. .
+cp -r ../sdd-architecture/INTEGRATION/templates/. .
 # Note: dot at end of "templates/."
 ```
 
@@ -192,7 +192,7 @@ Once all files are copied, proceed to:
 
 **→ [STEP_3.md](./STEP_3.md)**
 
-Configure `.spec.config` to point to sdd-archtecture.
+Configure `.spec.config` to point to sdd-architecture.
 
 ---
 
