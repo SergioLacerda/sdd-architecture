@@ -23,6 +23,26 @@
 
 ---
 
+## ⚠️ IMPORTANT: Python/FastAPI Implementation
+
+**This Constitution v2.1 is built specifically for Python + FastAPI.**
+
+While the core principles are language-agnostic, the examples, validation commands, and specific requirements throughout this document are Python-focused. This is honest, not a limitation.
+
+**If you're adopting for a different language (Node.js, Go, Rust):**
+- ✅ LITE or ULTRA-LITE paths abstract most language specifics
+- ⚠️ FULL Constitution requires translation to your language
+- 📖 See [CONSTITUTION-CUSTOMIZATION.md](../guides/CONSTITUTION-CUSTOMIZATION.md) for guidance
+- 📋 See [HONEST-CRITIQUE-CONSTITUTION.md](../../HONEST-CRITIQUE-CONSTITUTION.md) for full transparency
+
+**For multi-language support:**
+- ⏳ v2.2 (Q2 2026): Universal principles + Python specialization
+- ⏳ v3.0 (Q4 2026): Node.js, Go, Rust specializations
+
+**Bottom line:** This Constitution works perfectly for Python. Other languages need translation (we're planning this for v3.0).
+
+---
+
 **PREAMBLE**
 
 This Constitution codifies the immutable architectural principles that govern all systems built on the SPEC framework. These principles are not guidelines, recommendations, or suggestions. They are binding requirements that apply to every implementation, every feature, and every architectural decision.

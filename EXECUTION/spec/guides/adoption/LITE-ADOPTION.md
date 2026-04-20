@@ -29,20 +29,38 @@ Minimal version of SDD with:
 
 ```bash
 # 1. Copy LITE constitution template (2 min)
-cp EXECUTION/spec/guides/adoption/lite-constitution.yaml .ai/constitution.yaml
+cp EXECUTION/spec/guides/adoption/templates/lite-constitution.yaml .ai/constitution.yaml
 
-# 2. Initialize pre-commit hooks (5 min)
-./scripts/setup-precommit-lite.sh
+# 2. Customize for your project (5 min)
+# Edit .ai/constitution.yaml with:
+# - project_name
+# - domain
+# - customize the 5 principles for your domain
+# - customize the 3 rules
 
-# 3. Run setup validation (3 min)
-pytest tests/lite/test_setup_complete.py
+# 3. Initialize basic tests (3 min)
+mkdir -p tests/
+cat > tests/test_constitution.py << 'EOF'
+import os
+def test_no_framework_in_domain():
+    """Your constitution says: no framework imports in domain"""
+    result = os.system('grep -r "import fastapi" src/domain/ 2>/dev/null')
+    assert result != 0, "Framework leaked into domain!"
+EOF
 
-# 4. Read quick reference (5 min)
-cat EXECUTION/spec/guides/adoption/LITE-QUICK-START.md
+# 4. Commit your constitution (2 min)
+git add .ai/constitution.yaml
+git commit -m "Add SDD LITE constitution"
+
+# 5. Verify setup (3 min)
+pytest tests/test_constitution.py -v
 
 # Total: 15 minutes
 echo "✅ LITE adoption complete!"
 ```
+
+**Need help customizing?**
+→ See [CONSTITUTION-CUSTOMIZATION.md](../guides/CONSTITUTION-CUSTOMIZATION.md)
 
 ---
 

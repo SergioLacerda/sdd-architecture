@@ -148,7 +148,7 @@ AFTER:  "Real metrics coming v2.2"
 0 stars, 0 forks, 0 contribuições
 Parece "projeto pessoal não polido"
 Typos no repo: "archtecture" (architecture)
-Descriptions: "engeneering" (engineering)
+Descriptions: "engineering" (engineering) ✅ CORRIGIDO
 ```
 
 ### Antes

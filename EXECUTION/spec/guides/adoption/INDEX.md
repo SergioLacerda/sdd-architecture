@@ -6,6 +6,21 @@
 
 ## 🚀 Choose Your Path
 
+### ⚡ [ULTRA-LITE Adoption](./ULTRA-LITE-ADOPTION.md) — 5 Minutes
+**For:** Solo developers, prototypes, MVPs, 2-person teams  
+**What You Get:**
+- 5 core principles
+- 3 essential rules
+- 5 DoD checkpoints
+- Single `.ai-constitution.md` file
+- Zero external setup
+
+**Best for:** Solo dev, rapid prototyping, learning core concepts
+
+→ **Ultra-minimal start:** [ULTRA-LITE-ADOPTION.md](./ULTRA-LITE-ADOPTION.md)
+
+---
+
 ### 🟢 [LITE Adoption](./LITE-ADOPTION.md) — 15 Minutes
 **For:** Experimenting, small teams, learning  
 **What You Get:**
@@ -86,46 +101,46 @@
 
 ---
 
-| Aspect | LITE | FULL |
-|--------|------|------|
-| **Setup Time** | 15 min | 40 min |
-| **Principles** | 10 | 15 |
-| **Rules** | 5 | 16 |
-| **DoD Criteria** | 10 | 45 |
-| **Phases** | 3 | 7 |
-| **Best For** | Learning | Production |
-| **Upgrade Path** | → FULL | — |
+| Aspect | ULTRA-LITE | LITE | FULL |
+|--------|-------------|------|------|
+| **Setup Time** | 5 min | 15 min | 40 min |
+| **Principles** | 5 | 10 | 15 |
+| **Rules** | 3 | 5 | 16 |
+| **DoD Criteria** | 5 | 10 | 45 |
+| **Phases** | — | 3 | 7 |
+| **Best For** | Solo/Prototype | Learning | Production |
+| **Upgrade Path** | → LITE | → FULL | — |
 
 ---
 
 ## 🎯 Decision Tree
 
 ```
-┌─────────────────────────────────────┐
-│ "I want to try SDD"                 │
-└──────────────┬──────────────────────┘
-               │
-        ┌──────┴──────┐
-        │             │
-    (LITE)        (FULL)
-      15 min       40 min
-        │             │
-    Learning      Production
-    Experiment     Mission-Critical
-    Small team     Regulated
-        │             │
-        └──────┬──────┘
-               │
-         [Start coding]
-               │
-        ┌──────┴──────┐
-        │             │
-   (Outgrow)     (Scale)
-   LITE→FULL      v3.0+
-   Migration    Multi-lang
-        │             │
-        └──────┬──────┘
-               │
+┌──────────────────────────────────────┐
+│ "I want to try SDD"                  │
+└───────────────┬──────────────────────┘
+                │
+        ┌───────┴─────┬──────────┐
+        │             │          │
+    (ULTRA-LITE) (LITE)      (FULL)
+      5 min      15 min      40 min
+        │             │          │
+     Solo/MVP   Learning    Production
+     Prototype  Experiment  Mission-Critical
+     2-person   Small team  Regulated
+        │             │          │
+        └───────┬─────┴──────────┘
+                │
+          [Start coding]
+                │
+        ┌───────┴──────┐
+        │              │
+    (Outgrow)    (Scale)
+    LITE→FULL    v3.0+
+    Migration  Multi-lang
+        │              │
+        └───────┬──────┘
+                │
         [v3.0+ Future]
 ```
 
