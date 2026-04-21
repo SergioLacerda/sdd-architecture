@@ -1,1 +1,0 @@
-"""SDD API FastAPI application"""

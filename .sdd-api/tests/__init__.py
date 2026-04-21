@@ -1,1 +1,0 @@
-"""SDD API test suite"""
