@@ -1,0 +1,48 @@
+{
+  "summary": {
+    "passed": 5,
+    "total": 5,
+    "success_rate": "100.0%"
+  },
+  "results": [
+    {
+      "check_name": "mandate_count",
+      "passed": true,
+      "message": "Correct mandate count: 2",
+      "details": {
+        "count": 2
+      }
+    },
+    {
+      "check_name": "empty_fields",
+      "passed": true,
+      "message": "No empty fields found",
+      "details": {}
+    },
+    {
+      "check_name": "sequential_ids",
+      "passed": true,
+      "message": "All IDs properly sequenced",
+      "details": {
+        "ids": [
+          "M001",
+          "M002"
+        ]
+      }
+    },
+    {
+      "check_name": "dsl_syntax",
+      "passed": true,
+      "message": "DSL syntax is valid",
+      "details": {}
+    },
+    {
+      "check_name": "guidelines_count",
+      "passed": true,
+      "message": "Found 150 guidelines",
+      "details": {
+        "count": 150
+      }
+    }
+  ]
+}

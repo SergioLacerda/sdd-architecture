@@ -1,0 +1,28 @@
+{
+  "timestamp": "2026-04-21T14:22:09.765871",
+  "mandates": {
+    "extracted": 2,
+    "categories": {
+      "architecture": 1,
+      "general": 1
+    }
+  },
+  "guidelines": {
+    "extracted": 150,
+    "categories": {
+      "general": 119,
+      "git": 18,
+      "documentation": 5,
+      "testing": 4,
+      "naming": 2,
+      "code-style": 1,
+      "performance": 1
+    }
+  },
+  "metadata": {
+    "source_version": "2.1",
+    "target_version": "3.0",
+    "migration_tool": "sdd-migration",
+    "migration_date": "2026-04-21T14:22:09.765913"
+  }
+}
