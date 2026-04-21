@@ -1,0 +1,35 @@
+============================= test session starts ==============================
+platform linux -- Python 3.10.14, pytest-9.0.3, pluggy-1.6.0 -- /home/sergio/.pyenv/versions/3.10.14/bin/python
+cachedir: .pytest_cache
+rootdir: /home/sergio/dev/sdd-architecture
+plugins: cov-7.1.0, anyio-4.13.0, asyncio-1.3.0
+asyncio: mode=strict, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+collecting ... collected 18 items
+
+.sdd-compiler/tests/test_msgpack.py::TestBinaryMetrics::test_create_metrics PASSED
+.sdd-compiler/tests/test_msgpack.py::TestBinaryMetrics::test_compression_ratio PASSED
+.sdd-compiler/tests/test_msgpack.py::TestBinaryMetrics::test_speedup_factor PASSED
+.sdd-compiler/tests/test_msgpack.py::TestMessagePackEncoder::test_encode_basic PASSED
+.sdd-compiler/tests/test_msgpack.py::TestMessagePackEncoder::test_encode_metrics PASSED
+.sdd-compiler/tests/test_msgpack.py::TestMessagePackEncoder::test_encode_compression_ratio PASSED
+.sdd-compiler/tests/test_msgpack.py::TestMessagePackEncoder::test_encode_file PASSED
+.sdd-compiler/tests/test_msgpack.py::TestMessagePackDecoder::test_decode_valid PASSED
+.sdd-compiler/tests/test_msgpack.py::TestMessagePackDecoder::test_decode_preserves_data PASSED
+.sdd-compiler/tests/test_msgpack.py::TestMessagePackDecoder::test_decode_invalid_magic PASSED
+.sdd-compiler/tests/test_msgpack.py::TestMessagePackDecoder::test_decode_corrupted_payload PASSED
+.sdd-compiler/tests/test_msgpack.py::TestMessagePackDecoder::test_decode_file PASSED
+.sdd-compiler/tests/test_msgpack.py::TestDereferencing::test_dereference_simple PASSED
+.sdd-compiler/tests/test_msgpack.py::TestDereferencing::test_dereference_with_arrays PASSED
+.sdd-compiler/tests/test_msgpack.py::TestCompressionAnalysis::test_compare_formats PASSED
+.sdd-compiler/tests/test_msgpack.py::TestCompressionAnalysis::test_speedup_estimate PASSED
+.sdd-compiler/tests/test_msgpack.py::TestBenchmarking::test_benchmark_basic PASSED
+.sdd-compiler/tests/test_msgpack.py::TestBenchmarking::test_benchmark_speedup_realistic FAILED
+
+=================================== FAILURES ===================================
+______________ TestBenchmarking.test_benchmark_speedup_realistic _______________
+.sdd-compiler/tests/test_msgpack.py:355: in test_benchmark_speedup_realistic
+    assert results["speedup_factor"] > 1.5
+E   assert 1.146628834438112 > 1.5
+=========================== short test summary info ============================
+FAILED .sdd-compiler/tests/test_msgpack.py::TestBenchmarking::test_benchmark_speedup_realistic
+========================= 1 failed, 17 passed in 0.08s =========================
