@@ -173,7 +173,7 @@ guideline G24 {
 guideline G25 {
   type: SOFT
   title: "Example test:"
-  description: "def test_no_framework_in_domain(): \"\"\"Validate customization: no framework imports in domain\"\"\" result = os.system('grep -r \"import fastapi\" src/domain/') assert result != 0, \"Framework leaked into..."
+  description: "def test_no_framework_in_domain(): validate customization no framework imports in domain"
   category: testing
 }
 
@@ -1088,6 +1088,6 @@ guideline G149 {
 guideline G150 {
   type: SOFT
   title: "✅ Loading Optimization Checklist"
-  description: "When reading docs: - [ ] Know your time budget (5, 15, 30, 60+ minutes) - [ ] Know your role (backend, devops, PM, architect) - [ ] Know your task (bug fix, feature, learning) - [ ] Read ONLY what's..."
+  description: "When reading docs: - [ ] Know your time budget (5, 15, 30, 60+ minutes) - [ ] Know your role (backend, devops, PM, architect) - [ ] Know your task (bug fix, feature, learning) - [ ] Read ONLY what's needed"
   category: general
 }

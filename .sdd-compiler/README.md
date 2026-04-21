@@ -1,8 +1,9 @@
-# DSL Compiler - Phase 8 Workstream 2
+# DSL Compiler - SDD v3.0 Binary Compilation System
 
-Binary compilation engine for SDD v3.1: Converts human-readable DSL files (.spec, .dsl) to optimized binary format.
+Binary compilation engine for SDD v3.0: Converts human-readable DSL files (.spec, .dsl) to optimized binary format.
 
-**Status:** ✅ Implementation Complete (Week 2 of Phase 8)
+**Status:** ✅ Production-Ready (Apr 21, 2026)  
+**Location:** `.sdd-compiler/` (Core compiler + orchestration scripts)
 
 ## Overview
 
@@ -273,6 +274,112 @@ pytest .sdd-compiler/tests/test_compiler.py::TestDSLCompiler
     ├── __init__.py
     └── test_compiler.py             # Test suite (450+ lines)
 ```
+
+## Integration Scripts
+
+### integrate.py - SDD v3.0 Integration Pipeline
+
+**Location:** `.sdd-compiler/integrate.py`  
+**Purpose:** Orchestrate complete compilation + deployment workflow  
+**Status:** ✅ Production-ready (ready for GitHub Actions CI/CD)
+
+#### What It Does
+
+```
+1. Validate paths (.sdd-core, .sdd-compiler, .sdd-runtime exist)
+2. Compile mandate.spec → mandate.bin (via dsl_compiler.py)
+3. Compile guidelines.dsl → guidelines.bin (via dsl_compiler.py)
+4. Generate metadata.json with audit trail + statistics
+5. Deploy all artifacts to .sdd-runtime/
+6. Verify deployment integrity
+```
+
+#### Usage
+
+```bash
+# Full integration pipeline (compile + deploy + verify)
+cd /repo && python .sdd-compiler/integrate.py
+
+# Output
+# ============================================================
+# SDD v3.0 Integration Pipeline
+# ============================================================
+# ✅ All paths validated
+# 📝 Compiling mandate.spec → mandate.bin
+#   ✅ mandate.bin (3,724 bytes)
+# 📝 Compiling guidelines.dsl → guidelines.bin
+#   ✅ guidelines.bin (39,204 bytes)
+# 📊 Generating metadata.json
+#   ✅ metadata.json (451 bytes)
+#     - 2 mandates, 150 guidelines
+# ============================================================
+# 📦 Deployment Summary
+# ============================================================
+# ✅ Ready for wizard!
+# Artifacts deployed to: .sdd-runtime/
+# Next: python .sdd-wizard/src/wizard.py
+```
+
+#### Integration with CI/CD
+
+For GitHub Actions automation (Week 4):
+
+```yaml
+# .github/workflows/compile.yml
+name: Compile SDD
+on:
+  push:
+    paths:
+      - '.sdd-core/**'
+jobs:
+  compile:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+      - run: python .sdd-compiler/integrate.py
+      - run: pytest .sdd-wizard/tests/ -v
+      - uses: actions/upload-artifact@v3
+        with:
+          name: compiled-artifacts
+          path: .sdd-runtime/
+```
+
+#### Data Flow
+
+```
+.sdd-core/
+├── mandate.spec (SOURCE)
+└── guidelines.dsl (SOURCE)
+        ↓ integrate.py
+    .sdd-compiler/
+    ├── src/dsl_compiler.py (compiles both)
+    └── integrate.py (this script)
+        ↓
+    .sdd-runtime/ (COMPILED)
+    ├── mandate.bin
+    ├── guidelines.bin
+    └── metadata.json
+        ↓ (wizard reads)
+    .sdd-wizard/ (phase 2)
+```
+
+#### Architecture
+
+```python
+# Key classes
+class SDDIntegrator:
+    def validate_paths() -> bool
+    def compile_mandate() -> bool
+    def compile_guidelines() -> bool
+    def copy_compiled_json() -> bool  # Fallback
+    def generate_metadata() -> bool
+    def run() -> bool
+```
+
+---
 
 ## Next Steps (Week 3 Phase 8)
 

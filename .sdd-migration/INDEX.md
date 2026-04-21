@@ -8,22 +8,30 @@
 
 ## 📖 Documentation Index
 
-### Start Here
-- **[START_HERE.md](START_HERE.md)** - Overview + quick start (READ THIS FIRST)
+### 🎯 Quick Navigation
 
-### Migration Planning & Phases
-- **[PHASES.md](PHASES.md)** - 6-phase detailed plan with checklist
+**Start Here:**
+- **[README.md](README.md)** - 30-second overview
+- **[START_HERE.md](START_HERE.md)** - Quick start guide
+
+**For Current Sprint (Sprint 1 - Complete):**
+- **[SPRINT_FINAL_REPORT.md](SPRINT_FINAL_REPORT.md)** - ⭐ **CONSOLIDATED FINAL REPORT** (read this for complete status)
+
+**For Operational Details:**
+- **[PHASES.md](PHASES.md)** - 6-phase migration plan (if re-running migration)
 - **[CUTOVER.md](CUTOVER.md)** - Final production deployment procedure
 
-### Architecture & Reference
+**For Architecture & Reference:**
 - **[docs/ARCHITECTURE_OVERVIEW.md](docs/ARCHITECTURE_OVERVIEW.md)** - v3.0 architecture explained
 - **[docs/USER_GUIDE.md](docs/USER_GUIDE.md)** - How to upgrade from v2.1 to v3.0
 
-### Extraction & Mapping
+**For File Mapping:**
 - **[input/SOURCES.md](input/SOURCES.md)** - File mapping (v2.1 → v3.0)
 
-### Phase Archive (Historical)
-- **[phase-archive/](phase-archive/)** - Previous phase documents
+**For Architectural Decisions & History:**
+- **[phase-archive/README.md](phase-archive/README.md)** - Guide to archived documents
+- **[phase-archive/DECISIONS.md](phase-archive/DECISIONS.md)** - Key architectural decisions
+- **[phase-archive/PHASE_8_AMBIGUITIES_RESOLVED.md](phase-archive/PHASE_8_AMBIGUITIES_RESOLVED.md)** - Design justification
 
 ---
 
