@@ -12,7 +12,7 @@
 │ ARQUITETO (você) edita FONTE                                   │
 ├─────────────────────────────────────────────────────────────────┤
 │ .sdd-core/CANONICAL/mandate.spec                               │
-│ .sdd-guidelines/guidelines.dsl                                 │
+│ .sdd-core/CANONICAL/guidelines.dsl                             │
 └────────────────────┬────────────────────────────────────────────┘
                      │
                      ↓ COMPILADOR (.sdd-compiler/)
@@ -85,16 +85,16 @@
 
 **Your workflow:**
 ```bash
-# 1. Edit source
+# 1. Edit source (both in .sdd-core/CANONICAL/)
 vim .sdd-core/CANONICAL/mandate.spec
-vim .sdd-guidelines/guidelines.dsl
+vim .sdd-core/CANONICAL/guidelines.dsl
 
-# 2. Commit (via PR in WIP branch!)
+# 2. Commit (via PR in WIP branch - ADR-008!)
 git checkout -b wip/update-mandate-X
-git add .sdd-core/ .sdd-guidelines/
+git add .sdd-core/CANONICAL/
 git commit -m "feat: Update mandate/guideline"
 git push origin wip/update-mandate-X
-# → Create PR → Wait for architect review → Architect merges
+# → Create PR → Architect reviews → Architect merges (never auto-commit!)
 ```
 
 ---
@@ -111,7 +111,7 @@ git push origin wip/update-mandate-X
 │   └─ Lifecycle: Regenerated on source change
 │
 ├── guidelines.bin                  
-│   ├─ Origin: Compiled from .sdd-guidelines/guidelines.dsl
+│   ├─ Origin: Compiled from .sdd-core/CANONICAL/guidelines.dsl
 │   ├─ Format: MessagePack binary
 │   ├─ Size: ~20-30 KB
 │   ├─ Usage: Wizard reads (fast load)
@@ -127,55 +127,58 @@ git push origin wip/update-mandate-X
 
 **Auto-generation:**
 ```bash
-# CI/CD trigger: On commit to .sdd-core/ or .sdd-guidelines/
+# CI/CD trigger: On commit to .sdd-core/CANONICAL/
 # Command:
 python .sdd-compiler/src/compile.py \
   --mandate .sdd-core/CANONICAL/mandate.spec \
-  --guidelines .sdd-guidelines/guidelines.dsl \
+  --guidelines .sdd-core/CANONICAL/guidelines.dsl \
   --output .sdd-runtime/
 # Result: .bin files + metadata.json created
 ```
 
 ---
 
-### 3️⃣ TEMPLATE FINAL (.sdd-templates/)
+### 3️⃣ CLIENT TEMPLATE - Required Paths
 
 ```
-.sdd-templates/
-├── java/                           
-│   ├─ Trigger: User selects JAVA + chooses mandates + customization
-│   ├─ Source: .sdd-runtime/ (reads mandate.bin + guidelines.bin)
-│   ├─ Content:
-│   │   ├─ .sdd/CANONICAL/mandate.spec (subset: M001 only, if user chose)
-│   │   ├─ .sdd/guidelines.dsl (subset: Java-relevant guidelines)
-│   │   ├─ src/
-│   │   ├─ pom.xml
-│   │   ├─ mvn clean test
-│   │   ├─ README-SDD.md (setup instructions for JAVA dev)
-│   │   └─ .github/workflows/ (CI/CD with SDD validation)
-│   └─ Lifecycle: Generated on-demand by Wizard
+my-project/
+├── .sdd/                           (Compiled specifications - READ-ONLY)
+│   ├── CANONICAL/
+│   │   ├── mandate.spec           (subset: user-selected mandates, compiled)
+│   │   └── guidelines.dsl         (subset: language-specific, compiled)
+│   ├── metadata.json              (version, audit trail, compile timestamp)
+│   └── README-SDD.md              (client setup instructions)
 │
-├── python/                         
-│   ├─ Trigger: User selects Python + chooses mandates + customization
-│   ├─ Source: .sdd-runtime/
-│   ├─ Content:
-│   │   ├─ .sdd/CANONICAL/mandate.spec (user-selected subset)
-│   │   ├─ .sdd/guidelines.dsl (user-selected subset)
-│   │   ├─ src/
-│   │   ├─ requirements.txt
-│   │   ├─ pytest conftest.py (SDD validation)
-│   │   ├─ README-SDD.md
-│   │   └─ .github/workflows/ (CI/CD)
-│   └─ Lifecycle: Generated on-demand by Wizard
+├── .sdd-guidelines/               ⭐ REQUIRED PATH - ALWAYS INCLUDED
+│   ├── README.md                  (guidelines overview)
+│   ├── general.md                 (general best practices)
+│   ├── git.md                     (git workflow guidelines)
+│   ├── testing.md                 (testing strategies)
+│   ├── naming.md                  (naming conventions)
+│   ├── docs.md                    (documentation standards)
+│   ├── performance.md             (performance guidelines)
+│   └── style.md                   (code style guidelines)
 │
-└── js/                            
-    ├─ Similar structure
-    ├─ package.json instead of pom.xml
-    ├─ Jest test framework
-    └─ Generated on-demand by Wizard
+├── src/                           (language-specific project structure)
+├── [build config]                 (pom.xml, requirements.txt, package.json)
+└── README.md                      (project setup)
 ```
 
-**Template generation example:**
+**Template Structure Details:**
+- `.sdd/CANONICAL/` = Compiled, immutable specifications
+- `.sdd-guidelines/` = **REQUIRED** (client always receives this directory)
+- `.sdd/metadata.json` = Immutable audit trail
+- `.sdd-core/` = **NOT** included in template (architect source-only)
+- `.sdd-runtime/` = **NOT** included in template (intermediate build artifact)
+
+**Why .sdd-guidelines/ is Required:**
+- Client developers READ guidelines during development (`cat .sdd-guidelines/git.md`)
+- Provides context & examples for following mandates
+- Organized by topic (git, testing, naming, performance, etc.)
+- Reference documentation alongside `.sdd/CANONICAL/mandates`
+- NOT editable by client (managed by SDD, preserved on updates)
+
+**Template generation flow:**
 ```bash
 # User interaction with Wizard:
 $ python .sdd-extensions/wizard.py
@@ -197,10 +200,21 @@ $ python .sdd-extensions/wizard.py
 ? Destination: /tmp/my-java-project
 [INFO] Reading .sdd-runtime/mandate.bin
 [INFO] Reading .sdd-runtime/guidelines.bin
-[INFO] Generating Java template...
-[INFO] Template created: /tmp/my-java-project/
-[SUCCESS] Ready to use! cd /tmp/my-java-project && mvn clean test
+[INFO] Filtering guidelines for Java profile...
+[INFO] Creating .sdd-guidelines/ with selected topics...
+[INFO] Creating .sdd/CANONICAL/ with compiled specs...
+[INFO] Generating Java project structure...
+[SUCCESS] Template ready: /tmp/my-java-project/
+          Contains: .sdd/, .sdd-guidelines/, src/, pom.xml, etc.
 ```
+
+**What Wizard Does with .sdd-guidelines/:**
+1. Reads ALL guidelines from `.sdd-runtime/guidelines.bin`
+2. Filters by language (Java=relevant, Python-specific removed)
+3. Filters by profile (LITE=essential guidelines only)
+4. Generates `.sdd-guidelines/` in client project
+5. Organizes into readable files (git.md, testing.md, etc.)
+6. Marks as read-only (client cannot edit)
 
 ---
 
