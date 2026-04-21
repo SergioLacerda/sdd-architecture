@@ -1,0 +1,95 @@
+#!/bin/bash
+# Pre-commit Hook: CODE REVIEW Guardrail (ADR-008) - INFORMATIVE ONLY
+#
+# Purpose: Inform about ADR-008 workflow, stage files appropriately
+# Role: Agent abstracts current branch, leaves files in STAGE
+# Control: GitHub branch protection rules enforce final gate (architect controls)
+#
+# This hook:
+#   ✅ Advises on commit quality
+#   ✅ Warns about critical files
+#   ✅ Leaves files STAGED (no blocking)
+#   ✅ Lets GitHub enforce branch rules
+#
+# Installation: cp .git-hooks/pre-commit-code-review-simplified .git/hooks/pre-commit && chmod +x .git/hooks/pre-commit
+
+REPO_ROOT=$(git rev-parse --show-toplevel)
+CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
+STAGED_FILES=$(git diff --cached --name-only)
+
+echo "ℹ️  ADR-008: Code Review Workflow"
+echo "   Current branch: $CURRENT_BRANCH"
+echo ""
+
+# ============================================================================
+# INFO: Branch context (informational only)
+# ============================================================================
+
+echo "📋 Commit will be staged on: $CURRENT_BRANCH"
+echo ""
+
+if [ "$CURRENT_BRANCH" = "main" ]; then
+    echo "⚠️  Note: GitHub branch protection requires PR review + architect approval before push to main"
+    echo ""
+fi
+
+# ============================================================================
+# TIP: Commit message quality
+# ============================================================================
+
+COMMIT_FILE=".git/COMMIT_EDITMSG"
+
+if [ -f "$COMMIT_FILE" ]; then
+    MSG=$(cat "$COMMIT_FILE")
+    
+    if echo "$MSG" | grep -q "feat\|fix\|refactor"; then
+        if ! echo "$MSG" | grep -qE "FEATURE_DESIGN|ADR|COMPONENT|Ref:|See:|Implements"; then
+            echo "💡 Tip: Reference design/spec for significant changes"
+            echo "   Examples:"
+            echo "   - feat: Implement RTK (see FEATURE_DESIGN_rtk.md)"
+            echo "   - fix: Align with ADR-008"
+            echo ""
+        fi
+    fi
+fi
+
+# ============================================================================
+# CAUTION: Critical files warning
+# ============================================================================
+
+CRITICAL_FILES=(
+    "EXECUTION/spec/CANONICAL/decisions/ADR-007"
+    "EXECUTION/spec/CANONICAL/decisions/ADR-008"
+    ".sdd-migration/phase-archive/DECISIONS.md"
+    ".sdd-migration/PHASES.md"
+)
+
+for critical_file in "${CRITICAL_FILES[@]}"; do
+    if echo "$STAGED_FILES" | grep -q "$critical_file"; then
+        echo "⚠️  CAUTION: Modifying critical file: $critical_file"
+        echo "   → Architect must backup before merging"
+        echo "   → Requires explicit approval in PR"
+        echo ""
+    fi
+done
+
+# ============================================================================
+# READY: Show what will be committed
+# ============================================================================
+
+if [ -z "$STAGED_FILES" ]; then
+    echo "ℹ️  No changes staged"
+else
+    echo "✅ Staged for commit:"
+    echo "$STAGED_FILES" | sed 's/^/   + /'
+fi
+
+echo ""
+echo "📌 Next steps:"
+echo "   1. Commit staged files (below)"
+echo "   2. Push to origin"
+echo "   3. If main: Create PR (GitHub requires architect approval)"
+echo "   4. If WIP branch: Push directly to origin"
+echo ""
+
+exit 0
