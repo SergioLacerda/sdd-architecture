@@ -1,10 +1,10 @@
 {
-  "timestamp": "2026-04-21T14:22:09.765871",
+  "timestamp": "2026-04-21T17:55:17.897144",
   "mandates": {
     "extracted": 2,
     "categories": {
       "architecture": 1,
-      "general": 1
+      "testing": 1
     }
   },
   "guidelines": {
@@ -23,6 +23,6 @@
     "source_version": "2.1",
     "target_version": "3.0",
     "migration_tool": "sdd-migration",
-    "migration_date": "2026-04-21T14:22:09.765913"
+    "migration_date": "2026-04-21T17:55:17.897180"
   }
 }

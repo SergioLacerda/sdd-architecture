@@ -1,6 +1,6 @@
 # SDD v3.0 - GUIDELINES Specification
 # Generated from v2.1 guides
-# Generated: 2026-04-21T14:22:09.763692
+# Generated: 2026-04-21T17:55:17.895245
 
 guideline G01 {
   type: SOFT
