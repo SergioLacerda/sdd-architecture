@@ -123,7 +123,7 @@ python -m .sdd-compiler.src.dsl_compiler .sdd-core/mandate.spec
 
 # Compile with custom output
 python -m .sdd-compiler.src.dsl_compiler \
-  .sdd-guidelines/guidelines.dsl \
+  .sdd-core/guidelines.dsl \
   guidelines.compiled.json
 ```
 
@@ -407,7 +407,7 @@ class SDDIntegrator:
 
 1. **Test on Real Data**
    - Compile actual `.sdd-core/CANONICAL/mandate.spec`
-   - Compile actual `.sdd-guidelines/guidelines.dsl`
+   - Compile actual `.sdd-core/guidelines.dsl`
    - Verify compression metrics
    - Validate 100% content parity
 

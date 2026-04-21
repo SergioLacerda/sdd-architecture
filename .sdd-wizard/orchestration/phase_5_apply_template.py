@@ -229,7 +229,7 @@ def phase_5_apply_template(
         
         # 5. Create required directories
         (scaffolding_dir / '.sdd' / 'CANONICAL').mkdir(parents=True, exist_ok=True)
-        (scaffolding_dir / '.sdd-guidelines').mkdir(parents=True, exist_ok=True)
+        (scaffolding_dir / '.sdd-core').mkdir(parents=True, exist_ok=True)
         (scaffolding_dir / 'src').mkdir(parents=True, exist_ok=True)
         
         report['data'] = {

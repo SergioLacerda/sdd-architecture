@@ -26,10 +26,11 @@ class PluginLoader:
         
         Args:
             plugins_dir: Directory containing extension plugins
-                        Default: .sdd-extensions/examples/
+                        Default: .sdd-core/extensions/examples/
         """
         if plugins_dir is None:
-            plugins_dir = ".sdd-extensions/examples"
+            # Auto-detect relative to this framework location
+            plugins_dir = str(Path(__file__).parent.parent / "examples")
         
         self.plugins_dir = Path(plugins_dir)
         self.loaded_plugins: Dict[str, BaseExtension] = {}
@@ -162,7 +163,7 @@ def load_all_plugins(plugins_dir: Optional[str] = None) -> tuple[ExtensionRegist
     """Convenience function to load all plugins and return registry + stats
     
     Args:
-        plugins_dir: Directory containing plugins (default: .sdd-extensions/examples)
+        plugins_dir: Directory containing plugins (default: relative to framework)
         
     Returns:
         Tuple of (registry, stats)

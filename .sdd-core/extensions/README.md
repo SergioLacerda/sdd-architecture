@@ -72,10 +72,10 @@ class MyExtension(BaseExtension):
 
 ### 2. Create Example Extension
 
-Save your extension in `.sdd-extensions/examples/my-domain/__init__.py`:
+Save your extension in `.sdd-core/extensions/examples/my-domain/__init__.py`:
 
 ```
-.sdd-extensions/
+.sdd-core/extensions/
 └── examples/
     └── my-domain/
         ├── __init__.py          # Your Extension class here
@@ -113,7 +113,7 @@ For narrative-driven game backends with:
 - Event sourcing pattern (SOFT guideline)
 
 **Files:**
-- `.sdd-extensions/examples/game-master-api/__init__.py` (2 mandates, 3 guidelines)
+- `.sdd-core/extensions/examples/game-master-api/__init__.py` (2 mandates, 3 guidelines)
 
 ### 2. RPG Narrative Server (`rpg-narrative-server`)
 
@@ -126,7 +126,7 @@ For RPG narrative systems with:
 - Narrative continuity (SOFT guideline)
 
 **Files:**
-- `.sdd-extensions/examples/rpg-narrative-server/__init__.py` (2 mandates, 4 guidelines)
+- `.sdd-core/extensions/examples/rpg-narrative-server/__init__.py` (2 mandates, 4 guidelines)
 
 ## Architecture
 
@@ -195,7 +195,7 @@ errors = mandate.validate()  # Returns list of validation errors
 The loader automatically finds extensions in subdirectories:
 
 ```
-.sdd-extensions/examples/
+.sdd-core/extensions/examples/
 ├── game-master-api/      → Loaded as "game-master-api"
 ├── rpg-narrative-server/ → Loaded as "rpg-narrative-server"
 └── my-domain/            → Loaded as "my-domain"
@@ -247,13 +247,13 @@ Run extension tests:
 
 ```bash
 # All tests
-pytest .sdd-extensions/tests/
+pytest .sdd-core/extensions/tests/
 
 # With coverage
-pytest .sdd-extensions/tests/ --cov=.sdd-extensions.framework
+pytest .sdd-core/extensions/tests/ --cov=.sdd-core/extensions.framework
 
 # Specific test
-pytest .sdd-extensions/tests/test_extensions.py::TestCustomMandate
+pytest .sdd-core/extensions/tests/test_extensions.py::TestCustomMandate
 ```
 
 **Test Coverage:** >85% (target)
@@ -350,7 +350,7 @@ async def get_extension(domain: str):
 ## File Structure
 
 ```
-.sdd-extensions/
+.sdd-core/extensions/
 ├── __init__.py                              # Module init
 ├── README.md                                # This file
 │

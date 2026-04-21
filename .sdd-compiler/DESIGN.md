@@ -510,7 +510,7 @@ def test_compression_ratio():
     with open(".sdd-core/CANONICAL/mandate.spec") as f:
         mandate_dsl = f.read()
     
-    with open(".sdd-guidelines/guidelines.dsl") as f:
+    with open(".sdd-core/guidelines.dsl") as f:
         guideline_dsl = f.read()
     
     dsl_combined = mandate_dsl + guideline_dsl

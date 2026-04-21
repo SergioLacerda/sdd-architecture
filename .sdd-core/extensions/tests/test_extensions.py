@@ -264,7 +264,7 @@ class TestPluginLoader:
     def test_discover_plugins(self):
         """Test plugin discovery"""
         # Create a test loader pointing to examples directory
-        loader = PluginLoader(".sdd-extensions/examples")
+        loader = PluginLoader(str(Path(__file__).parent.parent / "examples"))
         
         plugins = loader.discover_plugins()
         
