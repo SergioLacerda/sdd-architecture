@@ -30,7 +30,7 @@ Go to `.ai-index.md` and read these sections:
 
 ## 🔑 Key Rules
 
-**16 mandatory rules:** [.sdd-core/EXECUTION/spec/CANONICAL/rules/ia-rules.md](../../.sdd-core/EXECUTION/spec/CANONICAL/rules/ia-rules.md)
+**16 mandatory rules:** [.sdd-core/spec/CANONICAL/rules/ia-rules.md](../../.sdd-core/spec/CANONICAL/rules/ia-rules.md)
 
 **Top 5 critical:**
 
@@ -67,8 +67,8 @@ sdd version               # Show framework version
 
 ## 📍 Find What You Need
 
-- **Getting started?** → `.sdd-core/EXECUTION/_START_HERE.md`
-- **Implementing?** → `.sdd-core/EXECUTION/spec/guides/onboarding/AGENT_HARNESS.md`
+- **Getting started?** → `.sdd-core/_START_HERE.md`
+- **Implementing?** → `.sdd-core/spec/guides/onboarding/AGENT_HARNESS.md`
 - **Integration templates?** → `.sdd-integration/README.md`
 - **CLI Reference?** → [README.md](../../README.md) (CLI Usage section)
 - **Stuck?** → `EXECUTION/spec/guides/emergency/README.md`

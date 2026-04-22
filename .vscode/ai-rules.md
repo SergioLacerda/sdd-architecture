@@ -43,26 +43,26 @@ This is your AI learning seed. It contains:
 
 ## 📍 Entry Points by Scenario
 
-**First .sdd-core/EXECUTION/_START_HERE.md](./.sdd-core/EXECUTION/_START_HERE.md)
+**First time here?**
+→ Read [.sdd-core/_START_HERE.md](./.sdd-core/_START_HERE.md)
 
 **Have a bug to fix?**
-→ Read [.sdd-core/EXECUTION/spec/guides/onboarding/AGENT_HARNESS.md](./.sdd-core/EXECUTION/spec/guides/onboarding/AGENT_HARNESS.md)
+→ Read [.sdd-core/spec/guides/onboarding/AGENT_HARNESS.md](./.sdd-core/spec/guides/onboarding/AGENT_HARNESS.md)
 
 **Stuck or confused?**
-→ Read [.sdd-core/EXECUTION/spec/guides/emergency/README.md](./.sdd-core/EXECUTION/spec/guides/emergency/README.md)
+→ Read [.sdd-core/spec/guides/emergency/README.md](./.sdd-core/spec/guides/emergency/README.md)
 
 **Need to find something?**
-→ Read [.sdd-core/EXECUTION/NAVIGATION.md](./.sdd-core/EXECUTION/NAVIGATION.md)
+→ Read [.sdd-core/NAVIGATION.md](./.sdd-core/NAVIGATION.md)
 
 **Want CLI reference?**
-→ Read [README.md](./README.md) (CLI Usage section
-→ Read [EXECUTION/NAVIGATION.md](./EXECUTION/NAVIGATION.md)
+→ Read [README.md](./README.md) (CLI Usage section)
 
 ---
 
 ## 📝 Mandatory Rules (16 Total)
 
-Full list: [EXECUTION/spec/CANONICAL/rules/ia-rules.md](./EXECUTION/spec/CANONICAL/rules/ia-rules.md)
+Full list: [.sdd-core/spec/CANONICAL/rules/ia-rules.md](./.sdd-core/spec/CANONICAL/rules/ia-rules.md)
 
 **Most critical 5:**
 
@@ -86,12 +86,12 @@ Full list: [EXECUTION/spec/CANONICAL/rules/ia-rules.md](./EXECUTION/spec/CANONIC
 
 ## 🆘 Emergency Resources
 
-- **Tests failing?** → `EXECUTION/spec/guides/emergency/`
-- **Rules violated?** → `EXECUTION/spec/CANONICAL/rules/ia-rules.md`
-- **Stuck on architecture?** → `EXECUTION/spec/CANONICAL/decisions/`
+- **Tests failing?** → [.sdd-core/spec/guides/emergency/README.md](./.sdd-core/spec/guides/emergency/README.md)
+- **Rules violated?** → [.sdd-core/spec/CANONICAL/rules/ia-rules.md](./.sdd-core/spec/CANONICAL/rules/ia-rules.md)
+- **Stuck on architecture?** → [.sdd-core/spec/CANONICAL/decisions/](./.sdd-core/spec/CANONICAL/decisions/)
 
 ---
 
-**Version:** SDD Framework 2.1  
-**Updated:** April 19, 2026  
-**Authority:** SPEC v2.1 Framework
+**Version:** SDD Framework v3.0  
+**Updated:** April 22, 2026  
+**Authority:** SDD v3.0 Framework
