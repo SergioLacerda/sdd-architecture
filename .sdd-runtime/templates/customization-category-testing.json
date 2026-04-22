@@ -1,0 +1,53 @@
+{
+  "version": "3.0",
+  "type": "category-customization-template",
+  "generated": "2026-04-22T16:12:02.926945Z",
+  "category": "testing",
+  "metadata": {
+    "total_items": 4,
+    "customizable": 4,
+    "immutable": 0
+  },
+  "items": [
+    {
+      "id": "G25",
+      "title": "Example test:",
+      "type": "GUIDELINE",
+      "category": "testing",
+      "criticality": "OPCIONAL",
+      "customizable": true,
+      "content": "def test_no_framework_in_domain(): validate customization no framework imports in domain",
+      "_status": "\u270f\ufe0f Can be customized"
+    },
+    {
+      "id": "G43",
+      "title": "4. Microservice (Focus on Contract Testing)",
+      "type": "GUIDELINE",
+      "category": "testing",
+      "criticality": "OPCIONAL",
+      "customizable": true,
+      "content": "```markdown",
+      "_status": "\u270f\ufe0f Can be customized"
+    },
+    {
+      "id": "G44",
+      "title": "Rule X: API Contract Testing",
+      "type": "GUIDELINE",
+      "category": "testing",
+      "criticality": "OPCIONAL",
+      "customizable": true,
+      "content": "Every endpoint has a contract test. Consumer contracts defined in OpenAPI/Pact. Producer validates against consumer contracts. ``` ---",
+      "_status": "\u270f\ufe0f Can be customized"
+    },
+    {
+      "id": "G129",
+      "title": "**\\",
+      "type": "GUIDELINE",
+      "category": "testing",
+      "criticality": "OPCIONAL",
+      "customizable": true,
+      "content": "\u2192 **Read:** 1. [IMPLEMENTATION_ROADMAP.md](implementation/IMPLEMENTATION_ROADMAP.md) (find similar feature) 2. `/EXECUTION/spec/CANONICAL/specifications/testing.md` (understand test types) \u2192...",
+      "_status": "\u270f\ufe0f Can be customized"
+    }
+  ]
+}
