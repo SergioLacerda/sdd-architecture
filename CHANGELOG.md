@@ -1,6 +1,8 @@
-# Changelog — SDD Framework
+# Changelog — SDD Framework v3.0
 
-All notable changes to this project will be documented in this file.
+**Current version documentation**
+
+For historical release notes (v2.x), see [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md).
 
 ---
 
@@ -154,201 +156,35 @@ Ready for wizard and agent use
 - v3.0-pipeline-compiler-complete (PHASE 1-4): 0632a97
 - v3.0-wizard-integration-complete (PHASE 1-5): bae26d4
 
-**Status:** ✅ All 5 phases complete, 100/100 tests passing, ready for agent integration and production deployment
-
----
-
-## [2.1] — April 20, 2026
-
-### ✨ Major Features
-
-#### 🟢 ULTRA-LITE Adoption Path (NEW)
-- **5 core principles** — Minimum viable governance
-- **3 essential rules** — Clear, simple constraints
-- **5 DoD checkpoints** — What "done" means
-- **5-minute setup** — Fastest entry point
-- **Perfect for:** Solo developers, prototypes, MVPs, learning
-- Upgrade to LITE anytime (10-minute migration)
-
-#### 📊 Three-Tier Adoption Strategy
-- **ULTRA-LITE** (5 min) — Solo/Prototype
-- **LITE** (15 min) — Learning/Small team (< 5 people)
-- **FULL** (40 min) — Production/Mission-critical
-- All tiers upgrade seamlessly; same principles, different enforcement
-
-#### 🏛️ Constitutional Transparency
-- **Honest framing:** "Python/FastAPI v2.1 with universal principles"
-- **Multi-language roadmap:** Node.js, Go, Rust in v3.0
-- **Customization guide:** [CONSTITUTION-CUSTOMIZATION.md](./.sdd-core/spec/guides/CONSTITUTION-CUSTOMIZATION.md)
-- **Missing files fixed:** lite-constitution.yaml template now available
-
-#### 🛠️ Framework Improvements
-- **Badges added:** AI-First, MIT, Python 3.11+, Status, Quality, Version, Adoption paths
-- **Better onboarding:** README now has quick comparison table (adoption levels)
-- **Metrics roadmap:** Transparent about what we measure and when
-- **Honest critique:** [HONEST-CRITIQUE-CONSTITUTION.md](./.sdd-core/HONEST-CRITIQUE-CONSTITUTION.md) documents limitations
-
-### 🐛 Bug Fixes
-
-- ❌ Removed outdated "language-agnostic Constitution" claim
-  - ✅ Now clear: "Python-first in v2.1, multi-language planned"
-
-- ❌ Fixed duplicate references to rpg-narrative-server in Constitution
-  - ✅ Now using disclaimer: domain examples are Python-specific
-
-- ❌ Missing lite-constitution.yaml referenced in LITE-ADOPTION.md
-  - ✅ Now provided: [templates/lite-constitution.yaml](./.sdd-core/spec/guides/adoption/templates/lite-constitution.yaml)
-
-- ❌ Context directory bloat (984K, 78 files)
-  - ✅ Cleaned: 328K, 30 strategic files (-67%)
-
-### 📚 Documentation Improvements
-
-#### New Guides
-- [CONSTITUTION-CUSTOMIZATION.md](./.sdd-core/spec/guides/CONSTITUTION-CUSTOMIZATION.md) — How to adapt framework to your needs
-- [HONEST-CRITIQUE-CONSTITUTION.md](./.sdd-core/HONEST-CRITIQUE-CONSTITUTION.md) — Transparent analysis of current limitations
-- [templates/lite-constitution.yaml](./.sdd-core/spec/guides/adoption/templates/lite-constitution.yaml) — Ready-to-customize Constitution template
-
-#### Updated Guides
-- [README.md](./README.md) — Added adoption comparison table, metrics roadmap
-- [.sdd-core/spec/guides/adoption/INDEX.md](./.sdd-core/spec/guides/adoption/INDEX.md) — Added ULTRA-LITE path, updated decision tree
-- [LITE-ADOPTION.md](./.sdd-core/spec/guides/adoption/LITE-ADOPTION.md) — Fixed setup instructions, added customization link
-- [ULTRA-LITE-ADOPTION.md](./.sdd-core/spec/guides/adoption/ULTRA-LITE-ADOPTION.md) — Added template reference
-- [constitution.md](./.sdd-core/spec/CANONICAL/rules/constitution.md) — Added "Python/FastAPI v2.1" disclaimer, multi-language roadmap
-
-#### Context Directory Reorganization
-- Deleted 24 working session files (cleanup)
-- Deleted 3 external reference subdirectories
-- Consolidated 3 index files into 1 ([context/INDEX.md](./context/INDEX.md))
-- Maintained progressive disclosure pattern (phases/ + detailed/)
-
-### 🔄 Breaking Changes
-
-**None.** All existing code written for v2.0 works unchanged with v2.1.
-
-- ✅ LITE path is backward compatible
-- ✅ FULL adoption unchanged
-- ✅ CANONICAL rules still apply
-- ✅ Custom specializations still work
-
-### ⚠️ Deprecations
-
-**None planned for v2.1.** Framework is stable.
-
-Future v2.2 may deprecate certain approach as real metrics inform better practices.
-
-### 📈 Performance
-
-**No significant performance changes since v2.0.**
-
-Framework is non-invasive (governance layer only). Performance depends on your application code, not SDD.
-
-### 🔐 Security
-
-**No security vulnerabilities reported.**
-
-Constitution security requirements unchanged (JWT, RBAC, encryption, input validation).
-
----
-
-## [2.0] — March 20, 2026
-
-### ✨ Major Features
-
-- ✅ SDD Framework v2.0 (Specification-Driven Development)
-- ✅ LITE & FULL adoption paths
-- ✅ 8-layer Clean Architecture
-- ✅ Constitutional governance
-- ✅ Python + FastAPI production-ready
-- ✅ AI-first design patterns
-
----
-
-## Philosophy
-
-### Semantic Versioning
-
-We follow [Semantic Versioning](https://semver.org/):
-
-- **MAJOR** — Breaking changes to core principles (unlikely, very rare)
-- **MINOR** — New features, new adoption paths, documentation improvements (normal)
-- **PATCH** — Bug fixes, small clarifications (frequent)
-
-### Stability Promise
-
-- **v2.x** is stable and production-ready
-- All breaking changes will be in v3.0+ (not before Q4 2026)
-- Early adopters can upgrade with confidence
-
-### Release Frequency
-
-- **v2.1 → v2.2:** Q2 2026 (metrics + multi-language planning)
-- **v2.2 → v2.3:** Q3 2026 (refinements based on real data)
-- **v3.0:** Q4 2026 (multi-language support launches)
-
----
-
-## Getting Help
-
-### I want to know...
-
-| Question | Answer |
-|----------|--------|
-| **What's new in v2.1?** | Read this file (above) |
-| **Should I upgrade from v2.0?** | Yes, safely. No breaking changes. |
-| **What's the upgrade path?** | Just pull latest. All v2.0 code works unchanged. |
-| **Will v2.1 work with my v2.0 project?** | Yes, 100% backward compatible. |
-| **When do I get real metrics?** | v2.2 (Q2 2026). See [README.md](./README.md#-metrics-roadmap--q2-2026). |
-| **Can I customize the Constitution?** | Yes! See [CONSTITUTION-CUSTOMIZATION.md](./.sdd-core/spec/guides/CONSTITUTION-CUSTOMIZATION.md). |
-| **Is Python/FastAPI lock-in?** | No. LITE abstracts language specifics. Multi-language in v3.0. |
-
----
-
-## Contributors
-
-SDD v2.1 was shaped by feedback from:
-
-- 5+ pilot teams (internal + partners)
-- 3+ organizations (early adopters)
-- 100+ developer-hours (real-world validation)
-- World-class engineering principles (external critique review)
-
-Thank you for validating that this matters.
-
----
-
-## Next Steps
-
-### For Users
-
-- ✅ Adopt at your level (ULTRA-LITE / LITE / FULL)
-- ✅ Customize your Constitution as needed
-- ✅ Provide feedback via GitHub issues
-- ✅ Become an early adopter for v2.2 metrics
-
-### For Contributors
-
-- ⏳ v2.2 roadmap: Real metrics collection
-- ⏳ Multi-language specializations planned
-- ⏳ Framework RFC process (v3.0)
-- ⏳ Community governance model
-
----
-
-## License
-
-MIT License — Free to use, modify, and distribute.
-
-See [LICENSE](./LICENSE) file for full text.
-
----
-
-## Releases
-
-- [v2.1](https://github.com/SergioLacerda/sdd-architecture/releases/tag/v2.1) — April 20, 2026 (Current)
-- [v2.0](https://github.com/SergioLacerda/sdd-architecture/releases/tag/v2.0) — March 20, 2026
-- [Older releases](https://github.com/SergioLacerda/sdd-architecture/releases)
-
----
-
-**Built for teams. Validated in production. Ready for your next project.** 🚀
+**Status:** ✅ All 6 phases complete, 124/124 tests passing, fully operational
+
+### 🎯 PHASE 6 Additions
+
+**CLI Implementation (Typer Framework)**
+- Modern Python CLI using Typer 0.12.1 (type-first)
+- Commands: governance load, governance validate, governance generate, sdd version
+- Rich formatted output (colors, tables, panels)
+- PyInstaller binary: 20M standalone executable (no Python installation required)
+- Tests: 24/24 passing (100% coverage)
+- Ready for cross-platform distribution
+
+**Documentation Consolidation**
+- EXECUTION folder → .sdd-core/ (106 files, complete source + specs)
+- INTEGRATION folder → .sdd-integration/ (50 files, integration templates)
+- Root reference updates in 5+ files
+- Namespace pattern: .sdd-* for all framework folders
+- Fully organized for production deployment
+
+### 📋 Reference
+
+**Tags:**
+- v3.0-pipeline-compiler-complete (PHASE 1-4): 0632a97
+- v3.0-wizard-integration-complete (PHASE 1-5): bae26d4
+- v3.0-cli-complete (PHASE 6): [wip/centralize-sdd-core]
+
+### 📚 Resources
+
+- **Release notes history:** [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md)
+- **Getting started:** [.sdd-core/_START_HERE.md](./.sdd-core/_START_HERE.md)
+- **Integration:** [.sdd-integration/README.md](./.sdd-integration/README.md)
+- **Documentation hub:** [INDEX.md](INDEX.md)

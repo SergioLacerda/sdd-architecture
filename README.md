@@ -2,38 +2,28 @@
 
 **Specification-Driven Development with Autonomous Governance**
 
-![Status](https://img.shields.io/badge/v2.1-✅%20Production-brightgreen?style=flat-square) 
-![Status](https://img.shields.io/badge/v3.0-📦%20Ready-blue?style=flat-square)
-![Tests](https://img.shields.io/badge/Tests-111%2F111%20✅-brightgreen?style=flat-square)
+![Status](https://img.shields.io/badge/v3.0-✅%20Production-brightgreen?style=flat-square)
+![Tests](https://img.shields.io/badge/Tests-124%2F124%20✅-brightgreen?style=flat-square)
 ![Docs](https://img.shields.io/badge/Docs-Consolidated-blue?style=flat-square)
 
 ---
 
 ## 📚 Documentation Hub
 
-**Start here:** [.sdd-migration/INDEX.md](.sdd-migration/INDEX.md) - Complete navigation  
-**For v2.1 users:** [RELEASE_v2.1.md](RELEASE_v2.1.md) - Current production release  
-**Migrating to v3.0:** [.sdd-migration/docs/USER_GUIDE.md](.sdd-migration/docs/USER_GUIDE.md) - Upgrade guide  
-**Architecture details:** [ARCHITECTURE_VISION_9_PILLARS.md](ARCHITECTURE_VISION_9_PILLARS.md) - Complete 9-pillar vision
+**Start here:** [.sdd-core/_START_HERE.md](.sdd-core/_START_HERE.md) - Get started with v3.0  
+**Integration workflow:** [.sdd-integration/README.md](.sdd-integration/README.md) - Add projects (30 min)  
+**Architecture overview:** [.sdd-core/NAVIGATION.md](.sdd-core/NAVIGATION.md) - Complete structure  
+**AI agents:** [.ai-index.md](.ai-index.md) - Agent entry point
 
 ---
 
 ## 🎯 Quick Navigation
 
-### Current Status (v2.1)
+### Current Status (v3.0)
 ✅ **Production Ready** - In active use  
-→ See [RELEASE_v2.1.md](RELEASE_v2.1.md) for current state
-
-### Upcoming (v3.0)
-✅ **Completely Planned** - Zero ambiguity  
-✅ **All Code Ready** - 111/111 tests passing  
-✅ **Migration Ready** - Parallel infrastructure prepared  
-→ See [.sdd-migration/](./sdd-migration/) for migration details
-
-### Implementation Roadmap
-**This Week (Apr 22-25):** v3.1-beta.1 release  
-**April 28 - June 6:** v3.0 migration (6 phases)  
-→ See [.sdd-migration/PHASES.md](.sdd-migration/PHASES.md) for schedule
+✅ **All Code Ready** - 124/124 tests passing (100%)  
+✅ **Fully Consolidated** - Documentation organized  
+→ Next: Deploy to your projects via [.sdd-integration/](.sdd-integration/)
 
 ---
 
@@ -46,21 +36,19 @@
 📖 **Customization guide** — [CONSTITUTION-CUSTOMIZATION.md](./.sdd-core/spec/guides/CONSTITUTION-CUSTOMIZATION.md)
 
 📊 **Metrics roadmap** — Transparent about what we measure (real data in Q2 2026)
+Ready in v3.0?
 
-📦 **Clean templates** — lite-constitution.yaml ready to use
+🏗️ **Complete Governance Pipeline** — 6-phase architecture (PHASES 1-6 complete)
 
-🧹 **Context cleaned** — 328K vs 984K (-67% size reduction)
+🔐 **Immutable Core + Flexible Client** — 2-file governance model with fingerprinting
 
-→ **Full details:** [RELEASE_v2.1.md](./RELEASE_v2.1.md) | [CHANGELOG.md](./CHANGELOG.md)
+🧠 **AI-First Design** — Autonomous governance for agent-driven development
 
----
+📊 **Full Test Coverage** — 124/124 tests passing (100% coverage)
 
-## 🎯 What is SDD?
+🚀 **Ready to Deploy** — CLI binary built, templates ready, integration workflow established
 
-**SDD = Specification-Driven Development with Autonomous Governance**
-
-A complete framework for building software where:
-- ✅ **AI agents are first-class citizens** — Not afterthoughts, integral to workflow
+→ **Full details:** [CHANGELOG.md](./CHANGELOG.md) | [.sdd-core/README.md](./.sdd-core/README
 - ✅ **Governance is automated** — Rules enforced via code, not meetings
 - ✅ **Every decision is documented** — Architecture Decision Records (ADRs)
 - ✅ **Developers are autonomous** — Clear rules, then get out of the way
@@ -73,11 +61,13 @@ A complete framework for building software where:
 
 **Everything in this framework is organized into clear flows:**
 
-- **.sdd-integration/:** Adding projects to the framework (30 min)
-- **EXECUTION/:** Developing with the framework (ongoing)
-- **context/:** Framework history & decisions (reference)
+- **.sdd-integration/:** Adding projects to the framewonamespaces:**
 
----
+- **.sdd-core/:** Governance specification + framework source
+- **.sdd-integration/:** Adding projects to the framework (30 min)
+- **.sdd-migration/:** v3.0 migration and historical documentation
+- **.sdd-wizard/:** Runtime compiled artifacts
+- **context/:** Historical analysis
 
 ## 🎯 Step 0: Choose Your Adoption Path
 
@@ -134,7 +124,7 @@ A complete framework for building software where:
 
 ### 🔷 **Are you adding a NEW project to SDD?**
 Yes → **[.sdd-integration/](./.sdd-integration/)** (30 minutes, 5 steps) + your chosen adoption path
-
+.sdd-core/](./.sdd-core/)** (
 ### 🔷 **Are you developing a feature/bug/improvement?**
 Yes → **[EXECUTION/](./.sdd-core/)** (ongoing, 7-phase workflow with your adoption level)
 
@@ -154,16 +144,16 @@ Yes → **[.github/copilot-instructions.md](./.github/copilot-instructions.md)**
 |------|------|-------|
 | **Learn about SDD** | 5-10 min | [README.md](./README.md) (you are here) |
 | **Add my project** | 30 min | [.sdd-integration/README.md](./.sdd-integration/README.md) → [.sdd-integration/CHECKLIST.md](./.sdd-integration/CHECKLIST.md) |
-| **Start developing** | 5 min | [EXECUTION/_START_HERE.md](./.sdd-core/_START_HERE.md) |
-| **Choose LITE vs FULL** | 5 min | [EXECUTION/spec/guides/adoption/INDEX.md](./.sdd-core/spec/guides/adoption/INDEX.md) |
+| **Start developing** | 5 min | [.sdd-core/_START_HERE.md](./.sdd-core/_START_HERE.md) |
+| **Choose LITE vs FULL** | 5 min | [.sdd-core/spec/guides/adoption/INDEX.md](./.sdd-core/spec/guides/adoption/INDEX.md) |
 | **See our design** | 1 page | [context/analysis/CRITIQUE-RESPONSE-EXEC-SUMMARY.md](./context/analysis/CRITIQUE-RESPONSE-EXEC-SUMMARY.md) |
 | **Setup AI agent** | 5 min | [.ai-index.md](./.ai-index.md) |
 
 ### By Role
 
 - **👨‍💼 Engineering Manager:** [.sdd-integration/README.md](./.sdd-integration/README.md) → Choose LITE/FULL → Ready
-- **👨‍💻 Developer:** [EXECUTION/_START_HERE.md](./.sdd-core/_START_HERE.md) → Pick adoption → Start coding
-- **🤖 AI Agent:** [.ai-index.md](./.ai-index.md) → Understand scope → [EXECUTION/](./.sdd-core/) flow
+- **👨‍💻 Developer:** [.sdd-core/_START_HERE.md](./.sdd-core/_START_HERE.md) → Pick adoption → Start coding
+- **🤖 AI Agent:** [.ai-index.md](./.ai-index.md) → Understand scope → [.sdd-core/](./.sdd-core/) flow
 - **🎓 Learner:** [EXECUTION/spec/guides/adoption/INDEX.md](./.sdd-core/spec/guides/adoption/INDEX.md) → Pick LITE/FULL → Learn at your pace
 
 ---
