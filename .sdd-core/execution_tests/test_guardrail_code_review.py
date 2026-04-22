@@ -308,7 +308,7 @@ class TestCodeReviewWorkflow:
         
         Diagram should show: Agent → WIP → PR → Architect → Commit
         """
-        adr_008 = Path("/home/sergio/dev/sdd-architecture/EXECUTION/spec/CANONICAL/decisions/ADR-008-code-review-governance.md")
+        adr_008 = Path("/home/sergio/dev/sdd-architecture/.sdd-core/spec/CANONICAL/decisions/ADR-008-code-review-governance.md")
         content = adr_008.read_text()
 
         # Must have step-by-step workflow
@@ -329,7 +329,7 @@ class TestCodeReviewWorkflow:
         
         Should guide what to include in PR description.
         """
-        adr_008 = Path("/home/sergio/dev/sdd-architecture/EXECUTION/spec/CANONICAL/decisions/ADR-008-code-review-governance.md")
+        adr_008 = Path("/home/sergio/dev/sdd-architecture/.sdd-core/spec/CANONICAL/decisions/ADR-008-code-review-governance.md")
         content = adr_008.read_text()
 
         # Must reference PR template
@@ -350,7 +350,7 @@ class TestCodeReviewWorkflow:
         
         Each item should be checkable (checkbox [ ]).
         """
-        adr_008 = Path("/home/sergio/dev/sdd-architecture/EXECUTION/spec/CANONICAL/decisions/ADR-008-code-review-governance.md")
+        adr_008 = Path("/home/sergio/dev/sdd-architecture/.sdd-core/spec/CANONICAL/decisions/ADR-008-code-review-governance.md")
         content = adr_008.read_text()
 
         # Count checkboxes in review checklist
@@ -374,7 +374,7 @@ class TestProductionSafety:
         4. Preventing auto-commits
         5. Enabling rollback if needed
         """
-        adr_008 = Path("/home/sergio/dev/sdd-architecture/EXECUTION/spec/CANONICAL/decisions/ADR-008-code-review-governance.md")
+        adr_008 = Path("/home/sergio/dev/sdd-architecture/.sdd-core/spec/CANONICAL/decisions/ADR-008-code-review-governance.md")
         content = adr_008.read_text()
 
         # Must explicitly address production safety
@@ -395,7 +395,7 @@ class TestProductionSafety:
         
         Must document emergency procedures.
         """
-        adr_008 = Path("/home/sergio/dev/sdd-architecture/EXECUTION/spec/CANONICAL/decisions/ADR-008-code-review-governance.md")
+        adr_008 = Path("/home/sergio/dev/sdd-architecture/.sdd-core/spec/CANONICAL/decisions/ADR-008-code-review-governance.md")
         content = adr_008.read_text()
 
         # Must have section for handling issues

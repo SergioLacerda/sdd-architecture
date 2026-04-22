@@ -54,8 +54,8 @@
 ├── .sdd-migration/                        (complete migration)
 │   └── INDEX.md                           (migration navigation)
 │
-├── 📖 EXECUTION (v2.1 specification)
-├── EXECUTION/                             (framework docs)
+├── 📖 SDD CORE (.sdd-core/ specification)
+├── .sdd-core/                             (framework docs + source)
 └── context/                               (reference context)
 ```
 
@@ -98,7 +98,7 @@
 
 **For End Users (v2.1):**
 1. [RELEASE_v2.1.md](RELEASE_v2.1.md) - Current release
-2. EXECUTION/ directory - Framework usage
+2. [.sdd-core/](../.sdd-core/) - Framework usage
 
 **For Users Upgrading to v3.0:**
 1. [.sdd-migration/docs/USER_GUIDE.md](.sdd-migration/docs/USER_GUIDE.md) - Upgrade steps
@@ -140,7 +140,7 @@
 
 ### Start Your Journey
 - **New to SDD?** → [ARCHITECTURE_VISION_9_PILLARS.md](ARCHITECTURE_VISION_9_PILLARS.md)
-- **Using v2.1?** → [RELEASE_v2.1.md](RELEASE_v2.1.md) + [EXECUTION/](EXECUTION/)
+- **Using v2.1?** → [RELEASE_v2.1.md](RELEASE_v2.1.md) + [.sdd-core/](.sdd-core/)
 - **Migrating to v3.0?** → [.sdd-migration/docs/USER_GUIDE.md](.sdd-migration/docs/USER_GUIDE.md)
 - **Planning migration?** → [.sdd-migration/PHASES.md](.sdd-migration/PHASES.md)
 - **Deploying to production?** → [.sdd-migration/CUTOVER.md](.sdd-migration/CUTOVER.md)

@@ -35,7 +35,7 @@ SDD now offers three adoption levels to fit your team size and needs:
 
 **All tiers upgrade seamlessly. Pick the level that fits your team.**
 
-→ **Decision tree:** [EXECUTION/spec/guides/adoption/INDEX.md](./EXECUTION/spec/guides/adoption/INDEX.md)
+→ **Decision tree:** [EXECUTION/spec/guides/adoption/INDEX.md](./.sdd-core/spec/guides/adoption/INDEX.md)
 
 ---
 
@@ -58,7 +58,7 @@ We're being honest about what v2.1 actually is:
    - Links to multi-language roadmap
    - Not hiding the current reality
 
-2. **Customization guide added:** [CONSTITUTION-CUSTOMIZATION.md](./EXECUTION/spec/guides/CONSTITUTION-CUSTOMIZATION.md)
+2. **Customization guide added:** [CONSTITUTION-CUSTOMIZATION.md](./.sdd-core/spec/guides/CONSTITUTION-CUSTOMIZATION.md)
    - Step-by-step customization (6 steps)
    - 4 example scenarios (embedded, CLI, pipeline, microservice)
    - Red flags & success criteria
@@ -66,11 +66,11 @@ We're being honest about what v2.1 actually is:
 
 3. **Missing template created:** `lite-constitution.yaml`
    - LITE-ADOPTION.md was referencing a missing file
-   - Now available at [templates/lite-constitution.yaml](./EXECUTION/spec/guides/adoption/templates/lite-constitution.yaml)
+   - Now available at [templates/lite-constitution.yaml](./.sdd-core/spec/guides/adoption/templates/lite-constitution.yaml)
    - Ready-to-customize YAML template
    - 10 minutes to adapt for your project
 
-4. **Honest critique published:** [HONEST-CRITIQUE-CONSTITUTION.md](./EXECUTION/HONEST-CRITIQUE-CONSTITUTION.md)
+4. **Honest critique published:** [HONEST-CRITIQUE-CONSTITUTION.md](./.sdd-core/HONEST-CRITIQUE-CONSTITUTION.md)
    - 4 real technical problems analyzed
    - Root causes explained
    - Proposed fixes for v2.2
@@ -181,16 +181,16 @@ Framework now displays badges that matter:
 ## 📚 Documentation Highlights
 
 ### New Documents
-- [CONSTITUTION-CUSTOMIZATION.md](./EXECUTION/spec/guides/CONSTITUTION-CUSTOMIZATION.md) — How to adapt framework
-- [HONEST-CRITIQUE-CONSTITUTION.md](./EXECUTION/HONEST-CRITIQUE-CONSTITUTION.md) — What we're fixing in v2.2
-- [ULTRA-LITE-ADOPTION.md](./EXECUTION/spec/guides/adoption/ULTRA-LITE-ADOPTION.md) — 5-minute fastest start
-- [templates/lite-constitution.yaml](./EXECUTION/spec/guides/adoption/templates/lite-constitution.yaml) — Ready-to-customize template
+- [CONSTITUTION-CUSTOMIZATION.md](./.sdd-core/spec/guides/CONSTITUTION-CUSTOMIZATION.md) — How to adapt framework
+- [HONEST-CRITIQUE-CONSTITUTION.md](./.sdd-core/HONEST-CRITIQUE-CONSTITUTION.md) — What we're fixing in v2.2
+- [ULTRA-LITE-ADOPTION.md](./.sdd-core/spec/guides/adoption/ULTRA-LITE-ADOPTION.md) — 5-minute fastest start
+- [templates/lite-constitution.yaml](./.sdd-core/spec/guides/adoption/templates/lite-constitution.yaml) — Ready-to-customize template
 
 ### Updated Documents
 - [README.md](./README.md) — Adoption comparison, metrics roadmap
-- [constitution.md](./EXECUTION/spec/CANONICAL/rules/constitution.md) — Python/FastAPI disclaimer
+- [constitution.md](./.sdd-core/spec/CANONICAL/rules/constitution.md) — Python/FastAPI disclaimer
 - [context/INDEX.md](./context/INDEX.md) — Cleaner navigation
-- [LITE-ADOPTION.md](./EXECUTION/spec/guides/adoption/LITE-ADOPTION.md) — Fixed instructions
+- [LITE-ADOPTION.md](./.sdd-core/spec/guides/adoption/LITE-ADOPTION.md) — Fixed instructions
 
 ---
 
@@ -289,8 +289,8 @@ ls -la context/
 ## 🤝 Support & Feedback
 
 ### Questions?
-- Read [FAQ.md](./EXECUTION/spec/guides/reference/FAQ.md)
-- See [CONSTITUTION-CUSTOMIZATION.md](./EXECUTION/spec/guides/CONSTITUTION-CUSTOMIZATION.md)
+- Read [FAQ.md](./.sdd-core/spec/guides/reference/FAQ.md)
+- See [CONSTITUTION-CUSTOMIZATION.md](./.sdd-core/spec/guides/CONSTITUTION-CUSTOMIZATION.md)
 - Check [.ai-index.md](./.ai-index.md) for AI agents
 
 ### Found an Issue?

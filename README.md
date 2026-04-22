@@ -43,7 +43,7 @@
 
 🏛️ **Honest positioning** — Python/FastAPI v2.1, multi-language planned for v3.0
 
-📖 **Customization guide** — [CONSTITUTION-CUSTOMIZATION.md](./EXECUTION/spec/guides/CONSTITUTION-CUSTOMIZATION.md)
+📖 **Customization guide** — [CONSTITUTION-CUSTOMIZATION.md](./.sdd-core/spec/guides/CONSTITUTION-CUSTOMIZATION.md)
 
 📊 **Metrics roadmap** — Transparent about what we measure (real data in Q2 2026)
 
@@ -90,7 +90,7 @@ A complete framework for building software where:
 - ✅ Perfect for: Solo dev, rapid prototyping, MVP validation
 - ✅ Upgrade to LITE anytime (10 min migration)
 
-→ **[ULTRA-LITE-ADOPTION.md](./EXECUTION/spec/guides/adoption/ULTRA-LITE-ADOPTION.md)**
+→ **[ULTRA-LITE-ADOPTION.md](./.sdd-core/spec/guides/adoption/ULTRA-LITE-ADOPTION.md)**
 
 ### 🟢 LITE (15 min setup) — Learning & Small Teams
 - ✅ 10 core principles
@@ -99,7 +99,7 @@ A complete framework for building software where:
 - ✅ Perfect for: Learning, side projects, < 5 people
 - ✅ Upgrade to FULL anytime (30 min migration)
 
-→ **[LITE-ADOPTION.md](./EXECUTION/spec/guides/adoption/LITE-ADOPTION.md)**
+→ **[LITE-ADOPTION.md](./.sdd-core/spec/guides/adoption/LITE-ADOPTION.md)**
 
 ### 🔵 FULL (40 min setup) — Production & Mission-Critical
 - ✅ 15 complete principles
@@ -108,9 +108,9 @@ A complete framework for building software where:
 - ✅ Perfect for: Production teams, regulatory, autonomous agents
 - ✅ Real metrics & governance automation
 
-→ **[FULL-ADOPTION.md](./EXECUTION/spec/guides/adoption/FULL-ADOPTION.md)**
+→ **[FULL-ADOPTION.md](./.sdd-core/spec/guides/adoption/FULL-ADOPTION.md)**
 
-**👉 Unsure?** Start with [adoption/INDEX.md](./EXECUTION/spec/guides/adoption/INDEX.md) — decision tree + comparison table
+**👉 Unsure?** Start with [adoption/INDEX.md](./.sdd-core/spec/guides/adoption/INDEX.md) — decision tree + comparison table
 
 ---
 
@@ -136,7 +136,7 @@ A complete framework for building software where:
 Yes → **[INTEGRATION/](./INTEGRATION/)** (30 minutes, 5 steps) + your chosen adoption path
 
 ### 🔷 **Are you developing a feature/bug/improvement?**
-Yes → **[EXECUTION/](./EXECUTION/)** (ongoing, 7-phase workflow with your adoption level)
+Yes → **[EXECUTION/](./.sdd-core/)** (ongoing, 7-phase workflow with your adoption level)
 
 ### 🔷 **Are you an AI agent?**
 Yes → **[.ai-index.md](./.ai-index.md)** (machine-readable entry point)
@@ -154,17 +154,17 @@ Yes → **[.github/copilot-instructions.md](./.github/copilot-instructions.md)**
 |------|------|-------|
 | **Learn about SDD** | 5-10 min | [README.md](./README.md) (you are here) |
 | **Add my project** | 30 min | [INTEGRATION/README.md](./INTEGRATION/README.md) → [INTEGRATION/CHECKLIST.md](./INTEGRATION/CHECKLIST.md) |
-| **Start developing** | 5 min | [EXECUTION/_START_HERE.md](./EXECUTION/_START_HERE.md) |
-| **Choose LITE vs FULL** | 5 min | [EXECUTION/spec/guides/adoption/INDEX.md](./EXECUTION/spec/guides/adoption/INDEX.md) |
+| **Start developing** | 5 min | [EXECUTION/_START_HERE.md](./.sdd-core/_START_HERE.md) |
+| **Choose LITE vs FULL** | 5 min | [EXECUTION/spec/guides/adoption/INDEX.md](./.sdd-core/spec/guides/adoption/INDEX.md) |
 | **See our design** | 1 page | [context/analysis/CRITIQUE-RESPONSE-EXEC-SUMMARY.md](./context/analysis/CRITIQUE-RESPONSE-EXEC-SUMMARY.md) |
 | **Setup AI agent** | 5 min | [.ai-index.md](./.ai-index.md) |
 
 ### By Role
 
 - **👨‍💼 Engineering Manager:** [INTEGRATION/README.md](./INTEGRATION/README.md) → Choose LITE/FULL → Ready
-- **👨‍💻 Developer:** [EXECUTION/_START_HERE.md](./EXECUTION/_START_HERE.md) → Pick adoption → Start coding
-- **🤖 AI Agent:** [.ai-index.md](./.ai-index.md) → Understand scope → [EXECUTION/](./EXECUTION/) flow
-- **🎓 Learner:** [EXECUTION/spec/guides/adoption/INDEX.md](./EXECUTION/spec/guides/adoption/INDEX.md) → Pick LITE/FULL → Learn at your pace
+- **👨‍💻 Developer:** [EXECUTION/_START_HERE.md](./.sdd-core/_START_HERE.md) → Pick adoption → Start coding
+- **🤖 AI Agent:** [.ai-index.md](./.ai-index.md) → Understand scope → [EXECUTION/](./.sdd-core/) flow
+- **🎓 Learner:** [EXECUTION/spec/guides/adoption/INDEX.md](./.sdd-core/spec/guides/adoption/INDEX.md) → Pick LITE/FULL → Learn at your pace
 
 ---
 
@@ -256,14 +256,14 @@ context/
 | **Purpose:** Add projects | **Purpose:** Develop code |
 | **Time:** 30 minutes | **Time:** 40 min setup + ongoing |
 | **Users:** Project leads | **Users:** Developers, agents |
-| **Docs:** [INTEGRATION/](./INTEGRATION/) | **Docs:** [EXECUTION/](./EXECUTION/) |
+| **Docs:** [INTEGRATION/](./INTEGRATION/) | **Docs:** [EXECUTION/](./.sdd-core/) |
 | **Goal:** Framework ready | **Goal:** Feature implemented |
 
 ### Constitutional Layer
 
-- **15 immutable principles** ([constitution.md](./EXECUTION/spec/CANONICAL/rules/constitution.md))
-- **16 mandatory rules** ([ia-rules.md](./EXECUTION/spec/CANONICAL/rules/ia-rules.md))
-- **6 Architecture Decision Records** ([ADR-*](./EXECUTION/spec/CANONICAL/decisions/))
+- **15 immutable principles** ([constitution.md](./.sdd-core/spec/CANONICAL/rules/constitution.md))
+- **16 mandatory rules** ([ia-rules.md](./.sdd-core/spec/CANONICAL/rules/ia-rules.md))
+- **6 Architecture Decision Records** ([ADR-*](./.sdd-core/spec/CANONICAL/decisions/))
 
 ### Current Implementation: Python + FastAPI
 
@@ -334,7 +334,7 @@ While the current implementation targets Python/FastAPI, the underlying principl
 - Scalable governance (works at 5 people → 500)
 - Measurable quality metrics
 
-→ **Start:** [EXECUTION/spec/guides/operational/](./EXECUTION/spec/guides/operational/)
+→ **Start:** [EXECUTION/spec/guides/operational/](./.sdd-core/spec/guides/operational/)
 
 ### 👨‍💻 Individual Developers
 - Clear rules to follow
@@ -342,7 +342,7 @@ While the current implementation targets Python/FastAPI, the underlying principl
 - Fast onboarding to new projects
 - Structured code reviews
 
-→ **Start:** [EXECUTION/_START_HERE.md](./EXECUTION/_START_HERE.md)
+→ **Start:** [EXECUTION/_START_HERE.md](./.sdd-core/_START_HERE.md)
 
 ### 🤖 AI Agents
 - Complete framework specification
@@ -358,7 +358,7 @@ While the current implementation targets Python/FastAPI, the underlying principl
 - Scaling strategies
 - Team workflow validation
 
-→ **Start:** [EXECUTION/spec/CANONICAL/decisions/](./EXECUTION/spec/CANONICAL/decisions/)
+→ **Start:** [EXECUTION/spec/CANONICAL/decisions/](./.sdd-core/spec/CANONICAL/decisions/)
 
 ---
 
@@ -428,13 +428,13 @@ While the current implementation targets Python/FastAPI, the underlying principl
 |------|------|
 | **AI governance rules** | [.github/copilot-instructions.md](./.github/copilot-instructions.md) |
 | **New project integration** | [INTEGRATION/README.md](./INTEGRATION/README.md) |
-| **Start developing** | [EXECUTION/_START_HERE.md](./EXECUTION/_START_HERE.md) |
-| **Rules to follow** | [EXECUTION/spec/CANONICAL/rules/](./EXECUTION/spec/CANONICAL/rules/) |
-| **Architecture patterns** | [EXECUTION/spec/CANONICAL/decisions/](./EXECUTION/spec/CANONICAL/decisions/) |
-| **How-to guides** | [EXECUTION/spec/guides/](./EXECUTION/spec/guides/) |
-| **Search documentation** | [EXECUTION/NAVIGATION.md](./EXECUTION/NAVIGATION.md) |
-| **Having problems?** | [EXECUTION/spec/guides/emergency/](./EXECUTION/spec/guides/emergency/) |
-| **Questions?** | [EXECUTION/spec/guides/reference/FAQ.md](./EXECUTION/spec/guides/reference/FAQ.md) |
+| **Start developing** | [EXECUTION/_START_HERE.md](./.sdd-core/_START_HERE.md) |
+| **Rules to follow** | [EXECUTION/spec/CANONICAL/rules/](./.sdd-core/spec/CANONICAL/rules/) |
+| **Architecture patterns** | [EXECUTION/spec/CANONICAL/decisions/](./.sdd-core/spec/CANONICAL/decisions/) |
+| **How-to guides** | [EXECUTION/spec/guides/](./.sdd-core/spec/guides/) |
+| **Search documentation** | [EXECUTION/NAVIGATION.md](./.sdd-core/NAVIGATION.md) |
+| **Having problems?** | [EXECUTION/spec/guides/emergency/](./.sdd-core/spec/guides/emergency/) |
+| **Questions?** | [EXECUTION/spec/guides/reference/FAQ.md](./.sdd-core/spec/guides/reference/FAQ.md) |
 
 ---
 
@@ -482,16 +482,16 @@ This is a mature framework. Contributions should:
 - Document all decisions
 - Pass 45+ quality criteria
 
-For details: [EXECUTION/spec/CANONICAL/specifications/definition-of-done.md](./EXECUTION/spec/CANONICAL/specifications/definition-of-done.md)
+For details: [EXECUTION/spec/CANONICAL/specifications/definition-of-done.md](./.sdd-core/spec/CANONICAL/specifications/definition-of-done.md)
 
 ---
 
 ## 📞 Support
 
 **Questions?**
-- Read: [EXECUTION/spec/guides/reference/FAQ.md](./EXECUTION/spec/guides/reference/FAQ.md)
-- Search: [EXECUTION/NAVIGATION.md](./EXECUTION/NAVIGATION.md)
-- Emergency: [EXECUTION/spec/guides/emergency/](./EXECUTION/spec/guides/emergency/)
+- Read: [EXECUTION/spec/guides/reference/FAQ.md](./.sdd-core/spec/guides/reference/FAQ.md)
+- Search: [EXECUTION/NAVIGATION.md](./.sdd-core/NAVIGATION.md)
+- Emergency: [EXECUTION/spec/guides/emergency/](./.sdd-core/spec/guides/emergency/)
 
 ---
 
@@ -500,4 +500,4 @@ Built by teams for teams. Proven at scale.
 
 For machine learning seed: [.ai-index.md](./.ai-index.md)  
 To integrate: [INTEGRATION/README.md](./INTEGRATION/README.md)  
-To develop: [EXECUTION/README.md](./EXECUTION/README.md)
+To develop: [EXECUTION/README.md](./.sdd-core/README.md)

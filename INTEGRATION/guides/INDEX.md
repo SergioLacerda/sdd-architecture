@@ -28,7 +28,7 @@
 
 - **How to integrate:** [../CHECKLIST.md](../CHECKLIST.md) (step-by-step)
 - **Choose your adoption:** [../STEP_6.md](../STEP_6.md) (intention detection)
-- **Compare LITE/FULL:** [../../EXECUTION/spec/guides/adoption/INDEX.md](../../EXECUTION/spec/guides/adoption/INDEX.md)
+- **Compare LITE/FULL:** [../../.sdd-core/spec/guides/adoption/INDEX.md](../../.sdd-core/spec/guides/adoption/INDEX.md)
 
 ---
 

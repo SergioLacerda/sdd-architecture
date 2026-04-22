@@ -179,14 +179,14 @@ Ready for wizard and agent use
 #### 🏛️ Constitutional Transparency
 - **Honest framing:** "Python/FastAPI v2.1 with universal principles"
 - **Multi-language roadmap:** Node.js, Go, Rust in v3.0
-- **Customization guide:** [CONSTITUTION-CUSTOMIZATION.md](./EXECUTION/spec/guides/CONSTITUTION-CUSTOMIZATION.md)
+- **Customization guide:** [CONSTITUTION-CUSTOMIZATION.md](./.sdd-core/spec/guides/CONSTITUTION-CUSTOMIZATION.md)
 - **Missing files fixed:** lite-constitution.yaml template now available
 
 #### 🛠️ Framework Improvements
 - **Badges added:** AI-First, MIT, Python 3.11+, Status, Quality, Version, Adoption paths
 - **Better onboarding:** README now has quick comparison table (adoption levels)
 - **Metrics roadmap:** Transparent about what we measure and when
-- **Honest critique:** [HONEST-CRITIQUE-CONSTITUTION.md](./EXECUTION/HONEST-CRITIQUE-CONSTITUTION.md) documents limitations
+- **Honest critique:** [HONEST-CRITIQUE-CONSTITUTION.md](./.sdd-core/HONEST-CRITIQUE-CONSTITUTION.md) documents limitations
 
 ### 🐛 Bug Fixes
 
@@ -197,7 +197,7 @@ Ready for wizard and agent use
   - ✅ Now using disclaimer: domain examples are Python-specific
 
 - ❌ Missing lite-constitution.yaml referenced in LITE-ADOPTION.md
-  - ✅ Now provided: [templates/lite-constitution.yaml](./EXECUTION/spec/guides/adoption/templates/lite-constitution.yaml)
+  - ✅ Now provided: [templates/lite-constitution.yaml](./.sdd-core/spec/guides/adoption/templates/lite-constitution.yaml)
 
 - ❌ Context directory bloat (984K, 78 files)
   - ✅ Cleaned: 328K, 30 strategic files (-67%)
@@ -205,16 +205,16 @@ Ready for wizard and agent use
 ### 📚 Documentation Improvements
 
 #### New Guides
-- [CONSTITUTION-CUSTOMIZATION.md](./EXECUTION/spec/guides/CONSTITUTION-CUSTOMIZATION.md) — How to adapt framework to your needs
-- [HONEST-CRITIQUE-CONSTITUTION.md](./EXECUTION/HONEST-CRITIQUE-CONSTITUTION.md) — Transparent analysis of current limitations
-- [templates/lite-constitution.yaml](./EXECUTION/spec/guides/adoption/templates/lite-constitution.yaml) — Ready-to-customize Constitution template
+- [CONSTITUTION-CUSTOMIZATION.md](./.sdd-core/spec/guides/CONSTITUTION-CUSTOMIZATION.md) — How to adapt framework to your needs
+- [HONEST-CRITIQUE-CONSTITUTION.md](./.sdd-core/HONEST-CRITIQUE-CONSTITUTION.md) — Transparent analysis of current limitations
+- [templates/lite-constitution.yaml](./.sdd-core/spec/guides/adoption/templates/lite-constitution.yaml) — Ready-to-customize Constitution template
 
 #### Updated Guides
 - [README.md](./README.md) — Added adoption comparison table, metrics roadmap
-- [EXECUTION/spec/guides/adoption/INDEX.md](./EXECUTION/spec/guides/adoption/INDEX.md) — Added ULTRA-LITE path, updated decision tree
-- [LITE-ADOPTION.md](./EXECUTION/spec/guides/adoption/LITE-ADOPTION.md) — Fixed setup instructions, added customization link
-- [ULTRA-LITE-ADOPTION.md](./EXECUTION/spec/guides/adoption/ULTRA-LITE-ADOPTION.md) — Added template reference
-- [constitution.md](./EXECUTION/spec/CANONICAL/rules/constitution.md) — Added "Python/FastAPI v2.1" disclaimer, multi-language roadmap
+- [.sdd-core/spec/guides/adoption/INDEX.md](./.sdd-core/spec/guides/adoption/INDEX.md) — Added ULTRA-LITE path, updated decision tree
+- [LITE-ADOPTION.md](./.sdd-core/spec/guides/adoption/LITE-ADOPTION.md) — Fixed setup instructions, added customization link
+- [ULTRA-LITE-ADOPTION.md](./.sdd-core/spec/guides/adoption/ULTRA-LITE-ADOPTION.md) — Added template reference
+- [constitution.md](./.sdd-core/spec/CANONICAL/rules/constitution.md) — Added "Python/FastAPI v2.1" disclaimer, multi-language roadmap
 
 #### Context Directory Reorganization
 - Deleted 24 working session files (cleanup)
@@ -299,7 +299,7 @@ We follow [Semantic Versioning](https://semver.org/):
 | **What's the upgrade path?** | Just pull latest. All v2.0 code works unchanged. |
 | **Will v2.1 work with my v2.0 project?** | Yes, 100% backward compatible. |
 | **When do I get real metrics?** | v2.2 (Q2 2026). See [README.md](./README.md#-metrics-roadmap--q2-2026). |
-| **Can I customize the Constitution?** | Yes! See [CONSTITUTION-CUSTOMIZATION.md](./EXECUTION/spec/guides/CONSTITUTION-CUSTOMIZATION.md). |
+| **Can I customize the Constitution?** | Yes! See [CONSTITUTION-CUSTOMIZATION.md](./.sdd-core/spec/guides/CONSTITUTION-CUSTOMIZATION.md). |
 | **Is Python/FastAPI lock-in?** | No. LITE abstracts language specifics. Multi-language in v3.0. |
 
 ---
