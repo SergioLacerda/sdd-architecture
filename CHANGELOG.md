@@ -1,12 +1,10 @@
 # Changelog — SDD Framework v3.0
 
-**Current version documentation**
-
-For historical release notes (v2.x), see [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md).
+**Complete version history and release notes**
 
 ---
 
-## [3.0] — April 22, 2026
+## [3.0] — April 22, 2026 (FINAL)
 
 ### ✨ Major Features
 
@@ -156,35 +154,118 @@ Ready for wizard and agent use
 - v3.0-pipeline-compiler-complete (PHASE 1-4): 0632a97
 - v3.0-wizard-integration-complete (PHASE 1-5): bae26d4
 
-**Status:** ✅ All 6 phases complete, 124/124 tests passing, fully operational
+**Status:** ✅ All 6 phases complete, 124/124 tests passing, production-ready
 
-### 🎯 PHASE 6 Additions
+### 🎯 PHASE 6: CLI & Documentation Finalization
 
-**CLI Implementation (Typer Framework)**
-- Modern Python CLI using Typer 0.12.1 (type-first)
-- Commands: governance load, governance validate, governance generate, sdd version
-- Rich formatted output (colors, tables, panels)
-- PyInstaller binary: 20M standalone executable (no Python installation required)
-- Tests: 24/24 passing (100% coverage)
-- Ready for cross-platform distribution
+#### A. CLI Implementation (Typer Framework)
+- **Framework:** Typer 0.12.1 (type-first Python CLI)
+- **Commands:**
+  * `sdd governance load` — Load and display governance configuration
+  * `sdd governance validate` — Validate integrity and fingerprints
+  * `sdd governance generate` — Generate agent seed templates (Cursor, Copilot, Generic)
+  * `sdd version` — Show framework version
+- **Output:** PyInstaller binary (20M standalone executable, no Python required)
+- **Tests:** 24/24 passing (100% coverage)
+- **Dependencies:** typer==0.12.1, click==8.1.7, rich==13.7.0, msgpack==1.0.8, PyYAML==6.0.1
+- **Distribution:** Cross-platform ready (Linux, macOS, Windows)
 
-**Documentation Consolidation**
-- EXECUTION folder → .sdd-core/ (106 files, complete source + specs)
-- INTEGRATION folder → .sdd-integration/ (50 files, integration templates)
-- Root reference updates in 5+ files
-- Namespace pattern: .sdd-* for all framework folders
-- Fully organized for production deployment
+#### B. Documentation Consolidation
+- **EXECUTION folder → .sdd-core/:** 106 files migrated
+  * Source code (pipeline, compiler, deployment)
+  * Specification layer (CANONICAL, decisions, rules)
+  * Guide layer (adoption, operational, reference, emergency)
+  * Integration components
+  * Test suite (execution_tests/)
+  * Tooling (generators, optimizers)
 
-### 📋 Reference
+- **INTEGRATION folder → .sdd-integration/:** 50 files migrated
+  * Integration workflow (STEP_1 through STEP_5)
+  * Checklist and guides
+  * Templates for project setup
+  * Concepts and comparison documents
 
-**Tags:**
-- v3.0-pipeline-compiler-complete (PHASE 1-4): 0632a97
-- v3.0-wizard-integration-complete (PHASE 1-5): bae26d4
-- v3.0-cli-complete (PHASE 6): [wip/centralize-sdd-core]
+- **Namespace pattern:** All framework folders now follow `.sdd-*` pattern:
+  * `.sdd-core/` — Governance + framework source
+  * `.sdd-integration/` — Project integration workflow
+  * `.sdd-migration/` — Historical migration documentation
+  * `.sdd-wizard/` — Runtime compiled artifacts
+  * `.sdd-compiler/` — Compiler source code
+  * `.sdd-compiled/` — Compiled outputs
 
-### 📚 Resources
+- **Reference updates:** 7+ root files updated with new paths
 
-- **Release notes history:** [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md)
-- **Getting started:** [.sdd-core/_START_HERE.md](./.sdd-core/_START_HERE.md)
+#### C. Root Documentation Cleanup
+- **Removed:** All v2.1 references and documentation
+  * RELEASE_v2.1.md archived
+  * v2.1 content removed from CHANGELOG.md
+  * v2.0 historical content consolidated
+  
+- **Updated:** Core documentation to v3.0 focus
+  * README.md: Removed adoption profiles (ULTRA-LITE, LITE, FULL)
+  * README.md: Added comprehensive CLI usage section
+  * INDEX.md: Simplified navigation
+  * .ai-index.md: Updated version and terminology
+  * CHANGELOG.md: Kept only v3.0 current (v2.x in archive)
+
+- **New:** CLI instructions in README
+  * Installation options (binary vs source)
+  * Available commands with examples
+  * Troubleshooting guide
+
+#### D. Documentation Simplification
+- **Removed:** Adoption path complexity
+  * No more ULTRA-LITE/LITE/FULL decision trees in README
+  * Removed adoption/INDEX.md references from main flow
+  * Simplified role-based navigation
+
+- **Added:** DevOps/Operator role guidance
+  * `sdd governance load` command in quick start
+  * CLI troubleshooting section
+  * Operator entry point in role-based navigation
+
+### 📊 Complete Testing Summary
+- **Total Tests:** 124/124 passing (100% coverage)
+  - PHASE 1 (Pipeline): 13 tests ✅
+  - PHASE 2 (Compiler): 15 tests ✅
+  - PHASE 3 (Orchestration): 15 tests ✅
+  - PHASE 4 (Deployment): 16 tests ✅
+  - PHASE 5 (Wizard): 41 tests ✅
+  - PHASE 6 (CLI): 24 tests ✅
+
+### 🎯 Git Commits (Session Summary)
+1. `b54d796` — Consolidate EXECUTION → .sdd-core (106 files)
+2. `10cc26b` — Consolidate INTEGRATION → .sdd-integration (50 files)
+3. `3706ede` — Remove v2.1 documentation, update to v3.0 focus
+4. `8eb0cc4` — Simplify README.md (remove adoption profiles, add CLI)
+5. Final commit → Update CHANGELOG with all session changes
+
+### 📋 Final Metrics
+- **Total Files Consolidated:** 156 files (106 + 50)
+- **Root Documentation Updated:** 7+ files
+- **CLI Tests:** 24/24 passing
+- **Binary Size:** 20M (no external dependencies)
+- **Namespace Consolidation:** 100% complete
+- **Documentation Cleanup:** 100% complete
+
+### 🚀 Production Ready Status
+✅ All 6 PHASES complete  
+✅ 124/124 tests passing  
+✅ CLI operational  
+✅ Documentation consolidated  
+✅ Root cleanup complete  
+✅ Namespace patterns established  
+✅ DevOps tooling available  
+✅ Ready for deployment
+
+### 🔗 Entry Points (Updated)
+- **Main:** [README.md](README.md)
+- **Developers:** [.sdd-core/_START_HERE.md](./.sdd-core/_START_HERE.md)
 - **Integration:** [.sdd-integration/README.md](./.sdd-integration/README.md)
-- **Documentation hub:** [INDEX.md](INDEX.md)
+- **AI Agents:** [.ai-index.md](./.ai-index.md)
+- **CLI:** `sdd --help` or see README CLI Usage section
+- **Architecture:** [.sdd-core/NAVIGATION.md](./.sdd-core/NAVIGATION.md)
+
+### 📚 Historical References
+- **v2.x Archive:** See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for v2.1 and v2.0 release notes
+- **Migration:** [.sdd-migration/](./sdd-migration/) contains v3.0 migration documentation
