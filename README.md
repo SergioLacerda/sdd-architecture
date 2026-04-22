@@ -30,7 +30,7 @@
 
 ## ✨ What's Ready in v3.0?
 
-🏗️ **Complete Governance Pipeline** — 6-phase architecture, all phases complete (PHASES 1-6)
+🏗️ **Complete Governance Pipeline** — 7-phase architecture, all phases complete (PHASES 1-7)
 
 🔐 **Immutable Core + Flexible Client** — 2-file governance model with fingerprinting for integrity validation
 
@@ -38,7 +38,9 @@
 
 📦 **CLI Binary Ready** — Standalone executable (`sdd` command) for governance management
 
-🚀 **Production Ready** — All artifacts compiled, templates ready, integration workflow established
+🚀 **Production Ready** — All artifacts compiled, templates ready, integration workflow + operational guides
+
+📖 **Operational Documentation** — Complete guides for deployment, monitoring, maintenance
 
 → **Full details:** [CHANGELOG.md](./CHANGELOG.md) | [.sdd-core/README.md](./.sdd-core/README.md)
 
