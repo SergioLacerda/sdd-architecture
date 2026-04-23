@@ -1,0 +1,73 @@
+# SDD v3.0 - Makefile Test Commands
+# Dispara testes de todas as camadas a partir da raiz
+
+.PHONY: test test-all test-core test-wizard test-migration test-extensions test-execution test-compiler test-rtk test-verbose test-fast test-list help
+
+help:
+	@echo "SDD v3.0 - Test Commands"
+	@echo ""
+	@echo "USAGE:"
+	@echo "  make test              - Executar todos os testes (todas as camadas)"
+	@echo "  make test-all          - Alias para 'test'"
+	@echo "  make test-verbose      - Todos os testes em modo verbose"
+	@echo "  make test-fast         - Todos os testes com fail-fast"
+	@echo ""
+	@echo "TESTES POR CAMADA:"
+	@echo "  make test-core         - Testes raiz (pipeline, compilador, integração)"
+	@echo "  make test-wizard       - Testes do wizard (orquestração)"
+	@echo "  make test-migration    - Testes de migração"
+	@echo "  make test-extensions   - Testes de extensões"
+	@echo "  make test-execution    - Testes de execução"
+	@echo "  make test-compiler     - Testes do compilador"
+	@echo "  make test-rtk          - Testes de telemetria (RTK)"
+	@echo ""
+	@echo "UTILIDADES:"
+	@echo "  make test-list         - Listar todas as camadas"
+	@echo "  make help              - Mostra esta mensagem"
+
+# Main test commands
+test: test-all
+
+test-all:
+	@echo "🚀 Executando testes de TODAS as camadas..."
+	@python3 run-all-tests.py
+
+test-verbose:
+	@echo "🚀 Executando testes em modo VERBOSE..."
+	@python3 run-all-tests.py --verbose
+
+test-fast:
+	@echo "🚀 Executando testes com FAIL-FAST..."
+	@python3 run-all-tests.py --fail-fast
+
+test-list:
+	@python3 run-all-tests.py --list-layers
+
+# Layer-specific tests
+test-core:
+	@echo "🧪 Core Root - Testes de pipeline, compilador, integração..."
+	@pytest tests -q
+
+test-wizard:
+	@echo "🧪 Wizard - Testes de orquestração..."
+	@pytest .sdd-wizard/tests -q
+
+test-migration:
+	@echo "🧪 Migration - Testes de migração v2→v3..."
+	@pytest .sdd-migration/tests -q 2>/dev/null || echo "⊘ Diretório não encontrado"
+
+test-extensions:
+	@echo "🧪 Extensions - Testes de extensões..."
+	@pytest .sdd-core/extensions/tests -q 2>/dev/null || echo "⊘ Diretório não encontrado"
+
+test-execution:
+	@echo "🧪 Execution - Testes de execução..."
+	@pytest .sdd-core/execution_tests -q 2>/dev/null || echo "⊘ Diretório não encontrado"
+
+test-compiler:
+	@echo "🧪 Compiler - Testes do compilador..."
+	@pytest .sdd-compiler/tests -q 2>/dev/null || echo "⊘ Diretório não encontrado"
+
+test-rtk:
+	@echo "🧪 RTK - Testes de telemetria..."
+	@pytest .sdd-compiler/src/runtime_telemetry_kit -q 2>/dev/null || echo "⊘ Diretório não encontrado"

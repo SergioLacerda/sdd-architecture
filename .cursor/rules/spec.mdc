@@ -1,6 +1,6 @@
-# SDD Framework Rules for Cursor IDE
+# 🔷 SDD Framework Rules for Cursor IDE (v3.0)
 
-You are working in a project governed by **SDD Framework v2.1**.
+You are working in the **SDD Framework v3.0** — Production Ready.
 
 ---
 
@@ -9,10 +9,10 @@ You are working in a project governed by **SDD Framework v2.1**.
 **Read this:** [.ai-index.md](../../.ai-index.md)
 
 This repository's main AI guidance is in `.ai-index.md`. It tells you:
-- What this project is
-- Your work scope (SDD framework only)
+- What this project is (SDD v3.0 framework)
+- Your work scope (framework development only)
 - How your work is validated (4-layer enforcement)
-- What to work on (HIGH priority items)
+- Available tooling (CLI: `sdd governance`, `sdd version`)
 - How to develop (AGENT_HARNESS 7-phase workflow)
 
 ---
@@ -30,7 +30,7 @@ Go to `.ai-index.md` and read these sections:
 
 ## 🔑 Key Rules
 
-**16 mandatory rules:** [EXECUTION/spec/CANONICAL/rules/ia-rules.md](../../EXECUTION/spec/CANONICAL/rules/ia-rules.md)
+**16 mandatory rules:** [.sdd-core/spec/CANONICAL/rules/ia-rules.md](../../.sdd-core/spec/CANONICAL/rules/ia-rules.md)
 
 **Top 5 critical:**
 
@@ -54,10 +54,23 @@ Go to `.ai-index.md` and read these sections:
 
 ---
 
+## 🎛️ CLI Commands
+
+```bash
+sdd governance load        # Load framework governance
+sdd governance validate    # Validate fingerprints & integrity
+sdd governance generate    # Generate agent seed templates
+sdd version               # Show framework version
+```
+
+---
+
 ## 📍 Find What You Need
 
-- **Getting started?** → `EXECUTION/_START_HERE.md`
-- **Implementing?** → `EXECUTION/spec/guides/onboarding/AGENT_HARNESS.md`
+- **Getting started?** → `.sdd-core/_START_HERE.md`
+- **Implementing?** → `.sdd-core/spec/guides/onboarding/AGENT_HARNESS.md`
+- **Integration templates?** → `.sdd-integration/README.md`
+- **CLI Reference?** → [README.md](../../README.md) (CLI Usage section)
 - **Stuck?** → `EXECUTION/spec/guides/emergency/README.md`
 - **Search for docs?** → `EXECUTION/NAVIGATION.md`
 
@@ -72,5 +85,5 @@ Go to `.ai-index.md` and read these sections:
 
 ---
 
-**Version:** SDD Framework 2.1  
-**Updated:** April 19, 2026
+**Version:** SDD Framework v3.0 Final (PHASE 7 Complete)  
+**Updated:** April 22, 2026

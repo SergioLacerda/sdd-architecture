@@ -1,0 +1,23 @@
+{
+  "version": "3.0.0",
+  "compiled_at": "2026-04-21T20:53:53.454993Z",
+  "source": {
+    "mandate_spec_hash": "2f2a072f",
+    "guidelines_dsl_hash": "f6440691"
+  },
+  "statistics": {
+    "mandates": 2,
+    "guidelines": 150
+  },
+  "artifacts": {
+    "mandate_bin": true,
+    "guidelines_bin": true
+  },
+  "audit_trail": [
+    {
+      "timestamp": "2026-04-21T20:53:53.455007Z",
+      "action": "integration",
+      "status": "completed"
+    }
+  ]
+}

@@ -1,0 +1,52 @@
+{
+  "version": "3.0",
+  "type": "criticality-customization-template",
+  "generated": "2026-04-22T16:16:21.234576Z",
+  "criticality": "OBRIGAT\u00d3RIO",
+  "metadata": {
+    "total_items": 4,
+    "description": "Mandatory items that must be enforced"
+  },
+  "items": [
+    {
+      "id": "M001",
+      "title": "Clean Architecture as Foundation",
+      "type": "MANDATE",
+      "category": "architecture",
+      "criticality": "OBRIGAT\u00d3RIO",
+      "customizable": false,
+      "content": "All systems must implement 8-layer Clean Architecture as defined in ADR-001. The layers are:",
+      "_status": "\ud83d\udd12 Immutable (core governance)"
+    },
+    {
+      "id": "M002",
+      "title": "Performance SLOs Mandatory",
+      "type": "MANDATE",
+      "category": "general",
+      "criticality": "OBRIGAT\u00d3RIO",
+      "customizable": false,
+      "content": "Every system MUST meet performance Service Level Objectives. Performance is not afterthought; it is architectural requirement.",
+      "_status": "\ud83d\udd12 Immutable (core governance)"
+    },
+    {
+      "id": "ADR-001",
+      "title": "Clean Architecture 8-Layer Pattern",
+      "type": "DECISION",
+      "category": "architecture",
+      "criticality": "OBRIGAT\u00d3RIO",
+      "customizable": false,
+      "content": "# ADR-001: Clean Architecture 8-Layer Pattern\n\n## Status\n- **Accepted** \u2705\n- Proposed: 2025-06-15\n- Accepted: 2025-06-20\n\n## Context\n\n**Problem**: The system needed clear separation between business logic, adaptation, and infrastructure.\n\n## Decision\n\n**Implement 8-layer Clean Architecture**:\n\n```\nLayer 8: Controllers & Interfaces (HTTP, CLI)\nLayer 7: DTOs & Serialization (Pydantic models)\nLayer 6: Adapters (Implementation of ports)\nLayer 5: Error Mapping (Domain \u2192 HTTP)\nLayer 4: Use Cases (Orchestration)\nLayer 3: Ports (Abstraction, interfaces)\nLayer 2: Domain (Business logic)\nLayer 1: Entities (Domain models)\n```\n\n## Consequences\n\n- \u2705 Consistency across all features\n- \u2705 Easy to spot violations\n- \u26a0\ufe0f More layers = more indirection\n",
+      "_status": "\ud83d\udd12 Immutable (core governance)"
+    },
+    {
+      "id": "RULE-001",
+      "title": "All handlers must implement error handling",
+      "type": "RULE",
+      "category": "quality",
+      "criticality": "OBRIGAT\u00d3RIO",
+      "customizable": false,
+      "content": "# RULE-001: All handlers must implement error handling\n\n## Description\n\nEvery request handler must explicitly handle errors and return appropriate HTTP status codes.\n\n## Specification\n\n1. Try-catch blocks must be present\n2. Errors must be logged\n3. HTTP status codes must be appropriate\n4. User-facing messages must not leak internal details\n\n## Validation\n\n```bash\npytest tests/contracts/test_error_handling.py -v\n```\n\n## Related\n\n- ADR-001 (Layer 5: Error Mapping)\n- GUARDRAIL-001 (No bare exceptions)\n",
+      "_status": "\ud83d\udd12 Immutable (core governance)"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+name: SDD Validation
+
+on: [push, pull_request]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Validate SDD mandates
+        run: |
+          # Client-side validation runs here
+          # Verifies code structure matches mandates
+          echo "Running SDD mandate validation..."
+

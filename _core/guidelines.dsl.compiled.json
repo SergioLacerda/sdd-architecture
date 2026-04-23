@@ -1,0 +1,1477 @@
+{
+  "format_version": "3.1",
+  "compiled_at": "2026-04-23T14:48:20Z",
+  "mandates": [],
+  "guidelines": [
+    {
+      "id": 1,
+      "type": "SOFT",
+      "title_idx": 0,
+      "description_idx": 1,
+      "category": 2,
+      "examples_idx": null
+    },
+    {
+      "id": 2,
+      "type": "SOFT",
+      "title_idx": 2,
+      "description_idx": 3,
+      "category": 2,
+      "examples_idx": null
+    },
+    {
+      "id": 3,
+      "type": "SOFT",
+      "title_idx": 4,
+      "description_idx": null,
+      "category": 2,
+      "examples_idx": null
+    },
+    {
+      "id": 4,
+      "type": "SOFT",
+      "title_idx": 5,
+      "description_idx": 6,
+      "category": 2,
+      "examples_idx": null
+    },
+    {
+      "id": 5,
+      "type": "SOFT",
+      "title_idx": 7,
+      "description_idx": 8,
+      "category": 2,
+      "examples_idx": null
+    },
+    {
+      "id": 6,
+      "type": "SOFT",
+      "title_idx": 9,
+      "description_idx": null,
+      "category": 2,
+      "examples_idx": null
+    },
+    {
+      "id": 7,
+      "type": "SOFT",
+      "title_idx": 10,
+      "description_idx": 11,
+      "category": 2,
+      "examples_idx": null
+    },
+    {
+      "id": 8,
+      "type": "SOFT",
+      "title_idx": 12,
+      "description_idx": 13,
+      "category": 2,
+      "examples_idx": null
+    },
+    {
+      "id": 9,
+      "type": "SOFT",
+      "title_idx": 14,
+      "description_idx": 15,
+      "category": 2,
+      "examples_idx": null
+    },
+    {
+      "id": 10,
+      "type": "SOFT",
+      "title_idx": 16,
+      "description_idx": null,
+      "category": 5,
+      "examples_idx": null
+    },
+    {
+      "id": 11,
+      "type": "SOFT",
+      "title_idx": 17,
+      "description_idx": null,
+      "category": 5,
+      "examples_idx": null
+    },
+    {
+      "id": 12,
+      "type": "SOFT",
+      "title_idx": 18,
+      "description_idx": 19,
+      "category": 5,
+      "examples_idx": null
+    },
+    {
+      "id": 13,
+      "type": "SOFT",
+      "title_idx": 20,
+      "description_idx": 21,
+      "category": 5,
+      "examples_idx": null
+    },
+    {
+      "id": 14,
+      "type": "SOFT",
+      "title_idx": 22,
+      "description_idx": null,
+      "category": 2,
+      "examples_idx": null
+    },
+    {
+      "id": 15,
+      "type": "SOFT",
+      "title_idx": 23,
+      "description_idx": null,
+      "category": 2,
+      "examples_idx": null
+    },
+    {
+      "id": 16,
+      "type": "SOFT",
+      "title_idx": 24,
+      "description_idx": null,
+      "category": 2,
+      "examples_idx": null
+    },
+    {
+      "id": 17,
+      "type": "SOFT",
+      "title_idx": 25,
+      "description_idx": null,
+      "category": 2,
+      "examples_idx": null
+    },
+    {
+      "id": 18,
+      "type": "SOFT",
+      "title_idx": 26,
+      "description_idx": 27,
+      "category": 2,
+      "examples_idx": null
+    },
+    {
+      "id": 19,
+      "type": "SOFT",
+      "title_idx": 28,
+      "description_idx": 29,
+      "category": 2,
+      "examples_idx": null
+    },
+    {
+      "id": 20,
+      "type": "SOFT",
+      "title_idx": 30,
+      "description_idx": 31,
+      "category": 6,
+      "examples_idx": null
+    },
+    {
+      "id": 21,
+      "type": "SOFT",
+      "title_idx": 32,
+      "description_idx": 33,
+      "category": 2,
+      "examples_idx": null
+    },
+    {
+      "id": 22,
+      "type": "SOFT",
+      "title_idx": 34,
+      "description_idx": 35,
+      "category": 2,
+      "examples_idx": null
+    },
+    {
+      "id": 23,
+      "type": "SOFT",
+      "title_idx": 36,
+      "description_idx": 37,
+      "category": 2,
+      "examples_idx": null
+    },
+    {
+      "id": 24,
+      "type": "SOFT",
+      "title_idx": 38,
+      "description_idx": 39,
+      "category": 2,
+      "examples_idx": null
+    },
+    {
+      "id": 25,
+      "type": "SOFT",
+      "title_idx": 40,
+      "description_idx": 41,
+      "category": 7,
+      "examples_idx": null
+    },
+    {
+      "id": 26,
+      "type": "SOFT",
+      "title_idx": 42,
+      "description_idx": 43,
+      "category": 2,
+      "examples_idx": null
+    },
+    {
+      "id": 27,
+      "type": "SOFT",
+      "title_idx": 16,
+      "description_idx": null,
+      "category": 5,
+      "examples_idx": null
+    },
+    {
+      "id": 28,
+      "type": "SOFT",
+      "title_idx": 44,
+      "description_idx": null,
+      "category": 2,
+      "examples_idx": null
+    },
+    {
+      "id": 29,
+      "type": "SOFT",
+      "title_idx": 45,
+      "description_idx": 46,
+      "category": 2,
+      "examples_idx": null
+    },
+    {
+      "id": 30,
+      "type": "SOFT",
+      "title_idx": 47,
+      "description_idx": 48,
+      "category": 2,
+      "examples_idx": null
+    },
+    {
+      "id": 31,
+      "type": "SOFT",
+      "title_idx": 49,
+      "description_idx": 50,
+      "category": 2,
+      "examples_idx": null
+    },
+    {
+      "id": 32,
+      "type": "SOFT",
+      "title_idx": 51,
+      "description_idx": null,
+      "category": 2,
+      "examples_idx": null
+    },
+    {
+      "id": 33,
+      "type": "SOFT",
+      "title_idx": 52,
+      "description_idx": 53,
+      "category": 2,
+      "examples_idx": null
+    },
+    {
+      "id": 34,
+      "type": "SOFT",
+      "title_idx": 17,
+      "description_idx": null,
+      "category": 5,
+      "examples_idx": null
+    },
+    {
+      "id": 35,
+      "type": "SOFT",
+      "title_idx": 18,
+      "description_idx": 54,
+      "category": 5,
+      "examples_idx": null
+    },
+    {
+      "id": 36,
+      "type": "SOFT",
+      "title_idx": 55,
+      "description_idx": 56,
+      "category": 5,
+      "examples_idx": null
+    },
+    {
+      "id": 37,
+      "type": "SOFT",
+      "title_idx": 57,
+      "description_idx": 58,
+      "category": 5,
+      "examples_idx": null
+    },
+    {
+      "id": 38,
+      "type": "SOFT",
+      "title_idx": 59,
+      "description_idx": 60,
+      "category": 5,
+      "examples_idx": null
+    },
+    {
+      "id": 39,
+      "type": "SOFT",
+      "title_idx": 62,
+      "description_idx": null,
+      "category": 2,
+      "examples_idx": [
+        61
+      ]
+    },
+    {
+      "id": 40,
+      "type": "SOFT",
+      "title_idx": 63,
+      "description_idx": 53,
+      "category": 2,
+      "examples_idx": null
+    },
+    {
+      "id": 41,
+      "type": "SOFT",
+      "title_idx": 64,
+      "description_idx": 65,
+      "category": 2,
+      "examples_idx": null
+    },
+    {
+      "id": 42,
+      "type": "SOFT",
+      "title_idx": 66,
+      "description_idx": 67,
+      "category": 2,
+      "examples_idx": null
+    },
+    {
+      "id": 43,
+      "type": "SOFT",
+      "title_idx": 68,
+      "description_idx": 53,
+      "category": 7,
+      "examples_idx": null
+    },
+    {
+      "id": 44,
+      "type": "SOFT",
+      "title_idx": 69,
+      "description_idx": 70,
+      "category": 7,
+      "examples_idx": null
+    },
+    {
+      "id": 45,
+      "type": "SOFT",
+      "title_idx": 71,
+      "description_idx": 53,
+      "category": 2,
+      "examples_idx": null
+    },
+    {
+      "id": 46,
+      "type": "SOFT",
+      "title_idx": 72,
+      "description_idx": null,
+      "category": 8,
+      "examples_idx": null
+    },
+    {
+      "id": 47,
+      "type": "SOFT",
+      "title_idx": 73,
+      "description_idx": null,
+      "category": 2,
+      "examples_idx": null
+    },
+    {
+      "id": 48,
+      "type": "SOFT",
+      "title_idx": 74,
+      "description_idx": null,
+      "category": 5,
+      "examples_idx": null
+    },
+    {
+      "id": 49,
+      "type": "SOFT",
+      "title_idx": 75,
+      "description_idx": 76,
+      "category": 8,
+      "examples_idx": null
+    },
+    {
+      "id": 50,
+      "type": "SOFT",
+      "title_idx": 77,
+      "description_idx": null,
+      "category": 2,
+      "examples_idx": null
+    },
+    {
+      "id": 51,
+      "type": "SOFT",
+      "title_idx": 23,
+      "description_idx": null,
+      "category": 2,
+      "examples_idx": null
+    },
+    {
+      "id": 52,
+      "type": "SOFT",
+      "title_idx": 24,
+      "description_idx": null,
+      "category": 2,
+      "examples_idx": null
+    },
+    {
+      "id": 53,
+      "type": "SOFT",
+      "title_idx": 25,
+      "description_idx": null,
+      "category": 2,
+      "examples_idx": null
+    },
+    {
+      "id": 54,
+      "type": "SOFT",
+      "title_idx": 78,
+      "description_idx": 27,
+      "category": 2,
+      "examples_idx": null
+    },
+    {
+      "id": 55,
+      "type": "SOFT",
+      "title_idx": 79,
+      "description_idx": 80,
+      "category": 2,
+      "examples_idx": null
+    },
+    {
+      "id": 56,
+      "type": "SOFT",
+      "title_idx": 81,
+      "description_idx": 82,
+      "category": 2,
+      "examples_idx": null
+    },
+    {
+      "id": 57,
+      "type": "SOFT",
+      "title_idx": 83,
+      "description_idx": 84,
+      "category": 2,
+      "examples_idx": null
+    },
+    {
+      "id": 58,
+      "type": "SOFT",
+      "title_idx": 85,
+      "description_idx": 86,
+      "category": 2,
+      "examples_idx": null
+    },
+    {
+      "id": 59,
+      "type": "SOFT",
+      "title_idx": 87,
+      "description_idx": null,
+      "category": 2,
+      "examples_idx": null
+    },
+    {
+      "id": 60,
+      "type": "SOFT",
+      "title_idx": 88,
+      "description_idx": 89,
+      "category": 2,
+      "examples_idx": null
+    },
+    {
+      "id": 61,
+      "type": "SOFT",
+      "title_idx": 90,
+      "description_idx": 91,
+      "category": 2,
+      "examples_idx": null
+    },
+    {
+      "id": 62,
+      "type": "SOFT",
+      "title_idx": 92,
+      "description_idx": 93,
+      "category": 2,
+      "examples_idx": null
+    },
+    {
+      "id": 63,
+      "type": "SOFT",
+      "title_idx": 94,
+      "description_idx": 95,
+      "category": 2,
+      "examples_idx": null
+    },
+    {
+      "id": 64,
+      "type": "SOFT",
+      "title_idx": 96,
+      "description_idx": 1,
+      "category": 2,
+      "examples_idx": null
+    },
+    {
+      "id": 65,
+      "type": "SOFT",
+      "title_idx": 97,
+      "description_idx": 98,
+      "category": 2,
+      "examples_idx": null
+    },
+    {
+      "id": 66,
+      "type": "SOFT",
+      "title_idx": 99,
+      "description_idx": null,
+      "category": 2,
+      "examples_idx": null
+    },
+    {
+      "id": 67,
+      "type": "SOFT",
+      "title_idx": 100,
+      "description_idx": 101,
+      "category": 2,
+      "examples_idx": null
+    },
+    {
+      "id": 68,
+      "type": "SOFT",
+      "title_idx": 102,
+      "description_idx": null,
+      "category": 6,
+      "examples_idx": null
+    },
+    {
+      "id": 69,
+      "type": "SOFT",
+      "title_idx": 103,
+      "description_idx": null,
+      "category": 2,
+      "examples_idx": null
+    },
+    {
+      "id": 70,
+      "type": "SOFT",
+      "title_idx": 104,
+      "description_idx": 105,
+      "category": 2,
+      "examples_idx": null
+    },
+    {
+      "id": 71,
+      "type": "SOFT",
+      "title_idx": 106,
+      "description_idx": null,
+      "category": 2,
+      "examples_idx": null
+    },
+    {
+      "id": 72,
+      "type": "SOFT",
+      "title_idx": 107,
+      "description_idx": 108,
+      "category": 2,
+      "examples_idx": null
+    },
+    {
+      "id": 73,
+      "type": "SOFT",
+      "title_idx": 106,
+      "description_idx": null,
+      "category": 2,
+      "examples_idx": null
+    },
+    {
+      "id": 74,
+      "type": "SOFT",
+      "title_idx": 109,
+      "description_idx": null,
+      "category": 2,
+      "examples_idx": null
+    },
+    {
+      "id": 75,
+      "type": "SOFT",
+      "title_idx": 110,
+      "description_idx": 111,
+      "category": 5,
+      "examples_idx": null
+    },
+    {
+      "id": 76,
+      "type": "SOFT",
+      "title_idx": 112,
+      "description_idx": 1,
+      "category": 9,
+      "examples_idx": null
+    },
+    {
+      "id": 77,
+      "type": "SOFT",
+      "title_idx": 113,
+      "description_idx": 1,
+      "category": 2,
+      "examples_idx": null
+    },
+    {
+      "id": 78,
+      "type": "SOFT",
+      "title_idx": 114,
+      "description_idx": 1,
+      "category": 2,
+      "examples_idx": null
+    },
+    {
+      "id": 79,
+      "type": "SOFT",
+      "title_idx": 115,
+      "description_idx": null,
+      "category": 2,
+      "examples_idx": null
+    },
+    {
+      "id": 80,
+      "type": "SOFT",
+      "title_idx": 117,
+      "description_idx": 118,
+      "category": 2,
+      "examples_idx": [
+        116
+      ]
+    },
+    {
+      "id": 81,
+      "type": "SOFT",
+      "title_idx": 119,
+      "description_idx": null,
+      "category": 2,
+      "examples_idx": null
+    },
+    {
+      "id": 82,
+      "type": "SOFT",
+      "title_idx": 120,
+      "description_idx": 121,
+      "category": 2,
+      "examples_idx": null
+    },
+    {
+      "id": 83,
+      "type": "SOFT",
+      "title_idx": 122,
+      "description_idx": null,
+      "category": 6,
+      "examples_idx": null
+    },
+    {
+      "id": 84,
+      "type": "SOFT",
+      "title_idx": 123,
+      "description_idx": 124,
+      "category": 2,
+      "examples_idx": null
+    },
+    {
+      "id": 85,
+      "type": "SOFT",
+      "title_idx": 125,
+      "description_idx": null,
+      "category": 2,
+      "examples_idx": null
+    },
+    {
+      "id": 86,
+      "type": "SOFT",
+      "title_idx": 126,
+      "description_idx": 53,
+      "category": 2,
+      "examples_idx": null
+    },
+    {
+      "id": 87,
+      "type": "SOFT",
+      "title_idx": 127,
+      "description_idx": null,
+      "category": 6,
+      "examples_idx": null
+    },
+    {
+      "id": 88,
+      "type": "SOFT",
+      "title_idx": 123,
+      "description_idx": 128,
+      "category": 2,
+      "examples_idx": null
+    },
+    {
+      "id": 89,
+      "type": "SOFT",
+      "title_idx": 129,
+      "description_idx": null,
+      "category": 2,
+      "examples_idx": null
+    },
+    {
+      "id": 90,
+      "type": "SOFT",
+      "title_idx": 130,
+      "description_idx": null,
+      "category": 2,
+      "examples_idx": null
+    },
+    {
+      "id": 91,
+      "type": "SOFT",
+      "title_idx": 131,
+      "description_idx": null,
+      "category": 2,
+      "examples_idx": null
+    },
+    {
+      "id": 92,
+      "type": "SOFT",
+      "title_idx": 132,
+      "description_idx": null,
+      "category": 2,
+      "examples_idx": null
+    },
+    {
+      "id": 93,
+      "type": "SOFT",
+      "title_idx": 133,
+      "description_idx": 134,
+      "category": 2,
+      "examples_idx": null
+    },
+    {
+      "id": 94,
+      "type": "SOFT",
+      "title_idx": 136,
+      "description_idx": 53,
+      "category": 5,
+      "examples_idx": [
+        135
+      ]
+    },
+    {
+      "id": 95,
+      "type": "SOFT",
+      "title_idx": 137,
+      "description_idx": 138,
+      "category": 2,
+      "examples_idx": null
+    },
+    {
+      "id": 96,
+      "type": "SOFT",
+      "title_idx": 140,
+      "description_idx": 141,
+      "category": 2,
+      "examples_idx": [
+        139
+      ]
+    },
+    {
+      "id": 97,
+      "type": "SOFT",
+      "title_idx": 142,
+      "description_idx": null,
+      "category": 2,
+      "examples_idx": null
+    },
+    {
+      "id": 98,
+      "type": "SOFT",
+      "title_idx": 143,
+      "description_idx": 53,
+      "category": 2,
+      "examples_idx": null
+    },
+    {
+      "id": 99,
+      "type": "SOFT",
+      "title_idx": 144,
+      "description_idx": 145,
+      "category": 2,
+      "examples_idx": null
+    },
+    {
+      "id": 100,
+      "type": "SOFT",
+      "title_idx": 146,
+      "description_idx": 53,
+      "category": 2,
+      "examples_idx": null
+    },
+    {
+      "id": 101,
+      "type": "SOFT",
+      "title_idx": 147,
+      "description_idx": null,
+      "category": 2,
+      "examples_idx": null
+    },
+    {
+      "id": 102,
+      "type": "SOFT",
+      "title_idx": 123,
+      "description_idx": 148,
+      "category": 2,
+      "examples_idx": null
+    },
+    {
+      "id": 103,
+      "type": "SOFT",
+      "title_idx": 149,
+      "description_idx": 150,
+      "category": 2,
+      "examples_idx": null
+    },
+    {
+      "id": 104,
+      "type": "SOFT",
+      "title_idx": 151,
+      "description_idx": 152,
+      "category": 2,
+      "examples_idx": null
+    },
+    {
+      "id": 105,
+      "type": "SOFT",
+      "title_idx": 153,
+      "description_idx": 154,
+      "category": 2,
+      "examples_idx": null
+    },
+    {
+      "id": 106,
+      "type": "SOFT",
+      "title_idx": 155,
+      "description_idx": null,
+      "category": 2,
+      "examples_idx": null
+    },
+    {
+      "id": 107,
+      "type": "SOFT",
+      "title_idx": 157,
+      "description_idx": null,
+      "category": 2,
+      "examples_idx": [
+        156
+      ]
+    },
+    {
+      "id": 108,
+      "type": "SOFT",
+      "title_idx": 158,
+      "description_idx": 1,
+      "category": 2,
+      "examples_idx": [
+        156
+      ]
+    },
+    {
+      "id": 109,
+      "type": "SOFT",
+      "title_idx": 159,
+      "description_idx": 160,
+      "category": 2,
+      "examples_idx": null
+    },
+    {
+      "id": 110,
+      "type": "SOFT",
+      "title_idx": 161,
+      "description_idx": 162,
+      "category": 2,
+      "examples_idx": null
+    },
+    {
+      "id": 111,
+      "type": "SOFT",
+      "title_idx": 163,
+      "description_idx": 164,
+      "category": 2,
+      "examples_idx": null
+    },
+    {
+      "id": 112,
+      "type": "SOFT",
+      "title_idx": 166,
+      "description_idx": 167,
+      "category": 2,
+      "examples_idx": [
+        165
+      ]
+    },
+    {
+      "id": 113,
+      "type": "SOFT",
+      "title_idx": 168,
+      "description_idx": 169,
+      "category": 2,
+      "examples_idx": null
+    },
+    {
+      "id": 114,
+      "type": "SOFT",
+      "title_idx": 170,
+      "description_idx": 171,
+      "category": 2,
+      "examples_idx": null
+    },
+    {
+      "id": 115,
+      "type": "SOFT",
+      "title_idx": 172,
+      "description_idx": 173,
+      "category": 2,
+      "examples_idx": null
+    },
+    {
+      "id": 116,
+      "type": "SOFT",
+      "title_idx": 174,
+      "description_idx": 175,
+      "category": 2,
+      "examples_idx": null
+    },
+    {
+      "id": 117,
+      "type": "SOFT",
+      "title_idx": 176,
+      "description_idx": 177,
+      "category": 2,
+      "examples_idx": null
+    },
+    {
+      "id": 118,
+      "type": "SOFT",
+      "title_idx": 178,
+      "description_idx": 1,
+      "category": 2,
+      "examples_idx": null
+    },
+    {
+      "id": 119,
+      "type": "SOFT",
+      "title_idx": 179,
+      "description_idx": 180,
+      "category": 2,
+      "examples_idx": [
+        165,
+        165
+      ]
+    },
+    {
+      "id": 120,
+      "type": "SOFT",
+      "title_idx": 181,
+      "description_idx": 1,
+      "category": 2,
+      "examples_idx": null
+    },
+    {
+      "id": 121,
+      "type": "SOFT",
+      "title_idx": 182,
+      "description_idx": null,
+      "category": 2,
+      "examples_idx": null
+    },
+    {
+      "id": 122,
+      "type": "SOFT",
+      "title_idx": 183,
+      "description_idx": 184,
+      "category": 5,
+      "examples_idx": null
+    },
+    {
+      "id": 123,
+      "type": "SOFT",
+      "title_idx": 183,
+      "description_idx": 185,
+      "category": 2,
+      "examples_idx": null
+    },
+    {
+      "id": 124,
+      "type": "SOFT",
+      "title_idx": 183,
+      "description_idx": 186,
+      "category": 2,
+      "examples_idx": null
+    },
+    {
+      "id": 125,
+      "type": "SOFT",
+      "title_idx": 183,
+      "description_idx": 187,
+      "category": 2,
+      "examples_idx": null
+    },
+    {
+      "id": 126,
+      "type": "SOFT",
+      "title_idx": 183,
+      "description_idx": 188,
+      "category": 2,
+      "examples_idx": null
+    },
+    {
+      "id": 127,
+      "type": "SOFT",
+      "title_idx": 189,
+      "description_idx": null,
+      "category": 2,
+      "examples_idx": null
+    },
+    {
+      "id": 128,
+      "type": "SOFT",
+      "title_idx": 183,
+      "description_idx": 190,
+      "category": 5,
+      "examples_idx": null
+    },
+    {
+      "id": 129,
+      "type": "SOFT",
+      "title_idx": 183,
+      "description_idx": 191,
+      "category": 7,
+      "examples_idx": null
+    },
+    {
+      "id": 130,
+      "type": "SOFT",
+      "title_idx": 183,
+      "description_idx": 192,
+      "category": 3,
+      "examples_idx": null
+    },
+    {
+      "id": 131,
+      "type": "SOFT",
+      "title_idx": 183,
+      "description_idx": 193,
+      "category": 2,
+      "examples_idx": null
+    },
+    {
+      "id": 132,
+      "type": "SOFT",
+      "title_idx": 194,
+      "description_idx": null,
+      "category": 2,
+      "examples_idx": null
+    },
+    {
+      "id": 133,
+      "type": "SOFT",
+      "title_idx": 195,
+      "description_idx": 196,
+      "category": 2,
+      "examples_idx": null
+    },
+    {
+      "id": 134,
+      "type": "SOFT",
+      "title_idx": 197,
+      "description_idx": 198,
+      "category": 2,
+      "examples_idx": null
+    },
+    {
+      "id": 135,
+      "type": "SOFT",
+      "title_idx": 199,
+      "description_idx": 200,
+      "category": 5,
+      "examples_idx": null
+    },
+    {
+      "id": 136,
+      "type": "SOFT",
+      "title_idx": 201,
+      "description_idx": 202,
+      "category": 2,
+      "examples_idx": null
+    },
+    {
+      "id": 137,
+      "type": "SOFT",
+      "title_idx": 203,
+      "description_idx": null,
+      "category": 2,
+      "examples_idx": null
+    },
+    {
+      "id": 138,
+      "type": "SOFT",
+      "title_idx": 204,
+      "description_idx": 205,
+      "category": 2,
+      "examples_idx": null
+    },
+    {
+      "id": 139,
+      "type": "SOFT",
+      "title_idx": 206,
+      "description_idx": 207,
+      "category": 2,
+      "examples_idx": null
+    },
+    {
+      "id": 140,
+      "type": "SOFT",
+      "title_idx": 208,
+      "description_idx": 209,
+      "category": 2,
+      "examples_idx": null
+    },
+    {
+      "id": 141,
+      "type": "SOFT",
+      "title_idx": 210,
+      "description_idx": 211,
+      "category": 2,
+      "examples_idx": null
+    },
+    {
+      "id": 142,
+      "type": "SOFT",
+      "title_idx": 212,
+      "description_idx": 213,
+      "category": 2,
+      "examples_idx": null
+    },
+    {
+      "id": 143,
+      "type": "SOFT",
+      "title_idx": 214,
+      "description_idx": null,
+      "category": 6,
+      "examples_idx": null
+    },
+    {
+      "id": 144,
+      "type": "SOFT",
+      "title_idx": 216,
+      "description_idx": 217,
+      "category": 5,
+      "examples_idx": [
+        215
+      ]
+    },
+    {
+      "id": 145,
+      "type": "SOFT",
+      "title_idx": 219,
+      "description_idx": 220,
+      "category": 5,
+      "examples_idx": [
+        218
+      ]
+    },
+    {
+      "id": 146,
+      "type": "SOFT",
+      "title_idx": 221,
+      "description_idx": 222,
+      "category": 2,
+      "examples_idx": [
+        165
+      ]
+    },
+    {
+      "id": 147,
+      "type": "SOFT",
+      "title_idx": 223,
+      "description_idx": null,
+      "category": 2,
+      "examples_idx": null
+    },
+    {
+      "id": 148,
+      "type": "SOFT",
+      "title_idx": 225,
+      "description_idx": null,
+      "category": 2,
+      "examples_idx": [
+        224
+      ]
+    },
+    {
+      "id": 149,
+      "type": "SOFT",
+      "title_idx": 227,
+      "description_idx": 1,
+      "category": 2,
+      "examples_idx": [
+        226
+      ]
+    },
+    {
+      "id": 150,
+      "type": "SOFT",
+      "title_idx": 228,
+      "description_idx": 229,
+      "category": 2,
+      "examples_idx": null
+    }
+  ],
+  "string_pool": [
+    "\ud83d\udee0\ufe0f Constitution Customization Guide",
+    "---",
+    "When to Customize",
+    "- \u2705 Your domain has different scale needs (embedded vs cloud) - \u2705 Your tech stack differs from Python/FastAPI - \u2705 Your team has different constraints - \u2705 You need fewer/more layers than the standard...",
+    "What's Immutable vs Flexible",
+    "\u2705 Immutable Core (DO NOT CHANGE)",
+    "These 5 principles must stay in every SDD Constitution: 1. **Clean separation of concerns** \u2014 Business logic isolated from infrastructure 2. **Explicit governance** \u2014 Rules documented, not implicit...",
+    "\u2705 Flexible (You Choose)",
+    "These aspects can be customized: - **Number of layers** \u2014 4-layer, 6-layer, 8-layer depending on your needs - **Specific ports** \u2014 What adapter contracts your domain needs - **Testing strategy** \u2014...",
+    "Step-by-Step Customization",
+    "Step 1: Choose Your Baseline",
+    "- Start with `/EXECUTION/spec/guides/adoption/templates/lite-constitution.yaml` - Modify the 5 principles for your domain - Takes: 15 minutes - Start with...",
+    "Step 2: Identify Your Constraints",
+    "Answer these questions: 1. **What's your scale?** - Solo dev \u2192 ULTRA-LITE - Small team (< 5) \u2192 LITE - Production system \u2192 FULL 2. **What's your primary I/O pattern?** - Async (web services) \u2192 Keep...",
+    "Step 3: Create Your Constitution",
+    "Create `.ai/constitution.md` in your project: ```markdown",
+    "[Your Project] Constitution",
+    "Core Principles",
+    "Principle 1: Clean Separation",
+    "[Explain for your domain]",
+    "Principle 2: ...",
+    "[etc.]",
+    "Your 3-5 Rules",
+    "Rule 1: ...",
+    "Rule 2: ...",
+    "Rule 3: ...",
+    "Definition of Done (5 items)",
+    "- [ ] Feature implemented - [ ] Tests passing - [ ] [Your #3] - [ ] [Your #4] - [ ] [Your #5]",
+    "Customizations from SDD LITE",
+    "- [Async requirement waived because: embedded system] - [Simplified to 4-layer because: fixed infrastructure] - [Added: load testing requirement] - [Clean separation] - [Explicit rules] - [Test...",
+    "Step 4: Document Your Deviations",
+    "For each customization, explain: 1. **What** \u2014 What principle/rule did you change? 2. **Why** \u2014 Why was the standard version not suitable? 3. **How** \u2014 What's your alternative? 4. **Validation** \u2014...",
+    "Customization: No Async-First",
+    "- Embedded system with single-threaded event loop - All I/O is sequential and blocking - Async would add unnecessary complexity - Single-threaded execution model - Clear sequential I/O operations -...",
+    "Step 5: Validate Your Custom Constitution",
+    "```bash",
+    "Validate your constitution syntax",
+    "python -c \\",
+    "Check your code matches the constitution",
+    "pytest tests/constitution/",
+    "Example test:",
+    "def test_no_framework_in_domain(): validate customization no framework imports in domain",
+    "Step 6: Version Your Constitution",
+    "Track changes like you'd track code: ```markdown",
+    "Change History",
+    "v1.2 (2026-04-20)",
+    "- Added load testing requirement (Rule 3) - Increased concurrent entity requirement from 10 to 20",
+    "v1.1 (2026-04-15)",
+    "- Simplified to 4-layer architecture - Waived async-first for embedded system",
+    "v1.0 (2026-04-10)",
+    "- Initial custom constitution based on SDD LITE ``` ---",
+    "Common Customizations",
+    "1. Embedded System (No Async)",
+    "```markdown",
+    "[Same as SDD]",
+    "Principle 2: Single-Threaded Execution",
+    "All code runs on a single thread with sequential I/O. Async/await is not used. Functions are synchronous.",
+    "Principle 3: Clear Ownership",
+    "Each module owns its resources. No shared mutable state.",
+    "Principle 4: ...",
+    "[Continue with SDD principles] ```",
+    "src/",
+    "2. CLI Tool (No HTTP Layer)",
+    "3. Data Pipeline (Focus on Resilience)",
+    "Rule 4: Checkpointing",
+    "Every pipeline stage has a checkpoint. If failure occurs, resume from last checkpoint (not restart).",
+    "Rule 5: Dead Letter Queue",
+    "Failed items go to DLQ for manual review, not retry loops. ```",
+    "4. Microservice (Focus on Contract Testing)",
+    "Rule X: API Contract Testing",
+    "Every endpoint has a contract test. Consumer contracts defined in OpenAPI/Pact. Producer validates against consumer contracts. ``` ---",
+    "Template: Custom Constitution",
+    "[Project Name] Constitution",
+    "Our Context",
+    "Core Principles (5)",
+    "Principle 1: [Name]",
+    "[Repeat for 5 principles]",
+    "Rules (3-5)",
+    "Definition of Done",
+    "Deviations from SDD",
+    "[List what you changed and why]",
+    "Validation",
+    "[How you verify this works]",
+    "Team Sign-Off",
+    "- [Name]: [Date] - [Name]: [Date]",
+    "References",
+    "- [SDD Baseline Document] - [Your project architecture] - [Additional standards] ``` ---",
+    "When Customization Goes Wrong",
+    "\ud83d\udea8 Red Flags",
+    "If you find yourself doing these, **stop and reconsider:** - \u274c \\",
+    "\u2705 Signs of Good Customization",
+    "- \u2705 Constitution is 2-4 pages - \u2705 Every change is documented with rationale - \u2705 Team agrees on it (sign-off document) - \u2705 Validation is automated (tests or linting) - \u2705 You can explain each...",
+    "Next Steps",
+    "1. **Choose your baseline** \u2014 ULTRA-LITE, LITE, or FULL? 2. **Answer the 5 constraint questions** (Step 2) 3. **Create your constitution** (Step 3) 4. **Get team buy-in** (sign-off) 5. **Add...",
+    "Getting Help",
+    "| Component | Can Customize | Recommendation | |-----------|---------------|-----------------| | **Number of layers** | \u2705 Yes | Document why (4, 6, or 8) | | **Specific rules** | \u2705 Yes | Keep...",
+    "\u26a1 IA-FIRST MARKDOWN SPECIFICATION",
+    "\ud83d\udccb Overview",
+    "IA-FIRST (AI-First) is a markdown format designed for: - \u2705 Machine parsing (AI agents, scripts) - \u2705 Clarity (humans and machines) - \u2705 Consistency (no format variations) - \u2705 Efficiency (reduced...",
+    "\ud83c\udfaf The 4 Core Rules",
+    "Rule 1: Heading Hierarchy (H1 \u2192 H2 \u2192 H3 \u2192 Lists)",
+    "```markdown \u2705 CORRECT:",
+    "Main Title (H1 \u2014 One per document)",
+    "Section (H2 \u2014 Major topics)",
+    "Subsection (H3 \u2014 Sub-topics)",
+    "- Item 1 - Item 2 - Nested item \u274c WRONG:",
+    "Title (H1)",
+    "Skipped levels (H4 \u2014 no H2/H3)",
+    "\u274c WRONG:",
+    "Section (H2)",
+    "Prose text without heading",
+    "Some paragraph text here (shouldn't exist without H3) - Items follow prose ``` ---",
+    "Rule 2: Links Use Markdown Format ONLY",
+    "Rule 3: Emoji Markers for Decisions",
+    "Rule 4: Lists for Complex Ideas",
+    "\ud83d\udd27 How to Apply IA-FIRST",
+    "python docs/ia/SCRIPTS/validate-ia-first.py --fix --audit docs/ia/",
+    "Option A: Auto-Fix (Recommended)",
+    "This automatically: - \u2705 Fixes heading hierarchy - \u2705 Adds missing IA-FIRST notice - \u2705 Suggests emoji markers - \u2705 Reports non-markdown links",
+    "Option B: Manual Application",
+    "Step 1: Add IA-FIRST Header",
+    "Place this after your H1 title: ```markdown",
+    "Document Title",
+    "\u26a1 IA-FIRST DESIGN NOTICE",
+    "- Structure: H1 \u2192 H2 (sections) \u2192 H3 (subsections) \u2192 Lists - All lists use `-` (not numbers or bullets) - All links use `[text](path.md)` format (no backticks) - All constraints marked with emoji (\u2705,...",
+    "Step 2: Add Status Metadata",
+    "Step 3: Restructure to H2/H3 Hierarchy",
+    "My Document",
+    "[As above]",
+    "Major Topic 1",
+    "Subtopic 1.1",
+    "Subtopic 1.2",
+    "Major Topic 2",
+    "Subtopic 2.1",
+    "- Item A - Item B - Nested detail ```",
+    "**After (lists):**",
+    "Step 4: Replace Prose with Lists",
+    "Architecture Layers",
+    "System components: - Storage layer: handles all data persistence - Index layer: maintains vector index for similarity search - Generation layer: calls the LLM ``` ---",
+    "Document Structure:",
+    "\u2705 Validation Checklist",
+    "Before committing documentation changes: ---",
+    "\ud83d\udd0d Examples",
+    "Example 1: Before (Non-IA-FIRST)",
+    "Configuration",
+    "The system uses immutable configuration files. These files define important parameters like the maximum number of concurrent campaigns and the LLM model to use. You can't change them after startup....",
+    "Example 1: After (IA-FIRST)",
+    "Configuration Management",
+    "[Standard notice...]",
+    "Immutable Configuration",
+    "Immutable config defines critical parameters: - MAX_CONCURRENT_CAMPAIGNS: limit on parallel campaigns - LLM_MODEL_VERSION: AI model selection - VECTOR_INDEX_DIMENSION: embedding dimension 1. Edit...",
+    "Mutable Configuration",
+    "Mutable config can change live without redeployment: - LLM_TEMPERATURE: within bounds [0.0, 1.0] - CACHE_TTL_SECONDS: within bounds [60, 3600] - RETRY_BACKOFF_MS: within bounds [100, 10000] \ud83c\udfaf...",
+    "Configuration Storage",
+    "Config locations by type: | Type | Location | Mutable? | |------|----------|----------| | Immutable | pyproject.toml | No | | Secrets | Kubernetes secrets | Admin only | | Mutable | Admin dashboard |...",
+    "\ud83d\udcca Impact on AI Parsing",
+    "Agent reads document:",
+    "Before (Non-IA-FIRST)",
+    "After (IA-FIRST)",
+    "\ud83d\udd17 References",
+    "- [validate-ia-first.py](../SCRIPTS/validate-ia-first.py) \u2014 Automated validation - [Quality Audit](../../../../context/runtime-state/analysis/WORLD_CLASS_REVIEW.md) \u2014 Architecture review - [Example:...",
+    "\u26a0\ufe0f Common Mistakes",
+    "| Mistake | Impact | Fix | |---------|--------|-----| | Mixing prose + lists in H2 | AI confusion | Use lists only | | Backtick links `[text](path)` | Parser error | Remove backticks | | H1 \u2192 H4...",
+    "\u2705 Next Steps",
+    "1. **Audit existing docs:** `python validate-ia-first.py --audit docs/ia/` 2. **Auto-fix:** `python validate-ia-first.py --fix --audit docs/ia/` 3. **Review changes:** Check git diff 4. **Commit:**...",
+    "guides/",
+    "\ud83d\udcda GUIDES ORGANIZATION",
+    "New structure for guides by purpose: ---",
+    "\ud83d\udfe2 ONBOARDING",
+    "When starting a new agent session: 1. **FIRST_SESSION_SETUP.md** \u2014 15-minute orientation - Understand documentation structure - Lock to ia-rules.md - Choose your PATH - Check execution state - Load...",
+    "\ud83d\udd35 IMPLEMENTATION",
+    "When building features: 1. **IMPLEMENTATION_ROADMAP.md** \u2014 Step-by-step process - Full workflow from idea to merge - Checkpoints along the way - Integration points 2. **DESIGN_DECISIONS.md** \u2014 Making...",
+    "\ud83d\udfe3 NAVIGATION",
+    "Finding what you need: 1. **INDEX.md** \u2014 \\",
+    "\ud83d\udfe1 CONTEXT",
+    "Background and historical information: 1. **DELIVERY_SUMMARY.md** \u2014 What was delivered - New files created - Files changed - Impact metrics 2. **FINAL_STATUS.md** \u2014 Completion checklist -...",
+    "\ud83d\udccb REFERENCE",
+    "Lookup tables and definitions: 1. **FAQ.md** \u2014 Common questions and answers - \\",
+    "QUICK NAVIGATION",
+    "MIGRATION NOTE",
+    "Old structure (flat): New structure (organized): Old files still exist at root level for compatibility during transition.",
+    "\ud83d\udcda GUIDES INDEX \u2014 On-Demand Reading",
+    "\ud83c\udfaf I need help with...",
+    "**\\",
+    "\u2192 **Time:** 30 minutes \u2192 **What to read:** 1. [FIRST_SESSION_SETUP.md](onboarding/FIRST_SESSION_SETUP.md) (15 min) 2. [QUICK_START.md](onboarding/QUICK_START.md) (5 min) 3....",
+    "\u2192 **Time:** 15 minutes reading \u2192 **What to read:** 1. [FIRST_SESSION_SETUP.md](onboarding/FIRST_SESSION_SETUP.md) \u00a71-3 (5 min) 2....",
+    "\u2192 **Time:** 20 minutes reading \u2192 **What to read:** 1. [QUICK_START.md](onboarding/QUICK_START.md) (3 min) 2. `/EXECUTION/spec/CANONICAL/rules/constitution.md` \u2014 sections 1-3 (10 min) 3....",
+    "\u2192 **Time:** 45 minutes reading \u2192 **What to read:** 1. [QUICK_START.md](onboarding/QUICK_START.md) (3 min) 2. `/EXECUTION/spec/CANONICAL/rules/constitution.md` \u2014 ALL sections (20 min) 3....",
+    "\u2192 **Time:** 30 minutes reading \u2192 **What to read:** 1. [FIRST_SESSION_SETUP.md](onboarding/FIRST_SESSION_SETUP.md) (15 min) 2....",
+    "\ud83d\udd0d I'm stuck with...",
+    "\u2192 **Read:** [CI/CD validation guide](../operational/README.md) \u2192 **Time:** 10 minutes",
+    "\u2192 **Read:** 1. [IMPLEMENTATION_ROADMAP.md](implementation/IMPLEMENTATION_ROADMAP.md) (find similar feature) 2. `/EXECUTION/spec/CANONICAL/specifications/testing.md` (understand test types) \u2192...",
+    "\u2192 **Read:** 1. `/EXECUTION/spec/CANONICAL/specifications/performance.md` (SLO targets) 2. [Performance SLOs](/EXECUTION/spec/CANONICAL/specifications/performance.md) \u2192 **Time:** 20 minutes",
+    "\u2192 **Read:** 1. Relevant ADR in `/EXECUTION/spec/CANONICAL/decisions/` 2. Project specialization in `/EXECUTION/spec/custom/rpg-narrative-server/SPECIALIZATIONS/` \u2192 **Time:** 15 minutes ---",
+    "\ud83d\udc65 By Role",
+    "**Backend Developer**",
+    "1. `/EXECUTION/spec/CANONICAL/rules/constitution.md` (principles) 2. `/EXECUTION/spec/CANONICAL/specifications/architecture.md` (design) 3....",
+    "**DevOps / SRE**",
+    "1. `/EXECUTION/spec/CANONICAL/specifications/observability.md` (logging/metrics) 2. `/EXECUTION/spec/CANONICAL/specifications/performance.md` (SLOs) 3. [CI/CD validation...",
+    "**Product Manager**",
+    "1. [YOUR_VISION_IMPLEMENTED.md](context/YOUR_VISION_IMPLEMENTED.md) (overview) 2. `/EXECUTION/spec/CANONICAL/rules/backward-compatibility-policy.md` (when breaking changes allowed) 3....",
+    "**Architect**",
+    "1. `/EXECUTION/spec/CANONICAL/rules/constitution.md` (ALL) 2. `/EXECUTION/spec/CANONICAL/specifications/architecture.md` (ALL) 3. `/EXECUTION/spec/CANONICAL/decisions/` (ALL ADRs) -...",
+    "\u23f1\ufe0f By Time Budget",
+    "**5 minutes** (Quick question)",
+    "- [QUICK_START.md](onboarding/QUICK_START.md) - Specific ADR title or one section",
+    "**15 minutes** (Quick decision)",
+    "- One principle from `/EXECUTION/spec/CANONICAL/rules/constitution.md` - One specification from `/EXECUTION/spec/CANONICAL/specifications/` - Project specialization overview",
+    "**30 minutes** (Daily work)",
+    "- [FIRST_SESSION_SETUP.md](onboarding/FIRST_SESSION_SETUP.md) - Relevant PATH from [QUICK_START.md](onboarding/QUICK_START.md) - Project-specific guides",
+    "**1 hour** (In-depth understanding)",
+    "- Full `/EXECUTION/spec/CANONICAL/rules/constitution.md` - Full `/EXECUTION/spec/CANONICAL/specifications/architecture.md` - Relevant ADRs (2-3)",
+    "**2+ hours** (Deep learning)",
+    "- Complete `/EXECUTION/spec/CANONICAL/` layer - Complete `/EXECUTION/spec/custom/rpg-narrative-server/` layer - Relevant guides for your role ---",
+    "\ud83d\uddfa\ufe0f Documentation Map",
+    "CANONICAL/",
+    "**CANONICAL Layer** (Generic, all projects inherit)",
+    "Used when: Understanding principles, learning patterns, implementing across projects",
+    "custom/rpg-narrative-server/SPECIALIZATIONS/",
+    "**SPECIALIZATIONS Layer** (Project-specific)",
+    "Used when: Implementing rpg-narrative-server features",
+    "**Guides Layer** (Navigation & learning)",
+    "Used when: Lost, stuck, or learning ---",
+    "\ud83d\ude80 Reading Flow Examples",
+    "1. START: Read PATH for feature complexity",
+    "**Example 1: I want to add campaign search**",
+    "1. QUICK: Understand what to read",
+    "**Example 2: Bug fix in campaign isolation**",
+    "\u2705 Loading Optimization Checklist",
+    "When reading docs: - [ ] Know your time budget (5, 15, 30, 60+ minutes) - [ ] Know your role (backend, devops, PM, architect) - [ ] Know your task (bug fix, feature, learning) - [ ] Read ONLY what's needed"
+  ],
+  "categories": {
+    "architecture": 1,
+    "general": 2,
+    "performance": 3,
+    "security": 4,
+    "git": 5,
+    "documentation": 6,
+    "testing": 7,
+    "naming": 8,
+    "code-style": 9
+  }
+}

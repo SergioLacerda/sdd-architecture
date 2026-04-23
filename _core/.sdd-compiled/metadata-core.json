@@ -1,0 +1,15 @@
+{
+  "version": "3.0",
+  "type": "core",
+  "generated_at": "2026-04-23T19:10:56.493247Z",
+  "fingerprint": "ceab139937d01215012975f44a139a5f242caa4d1e888b9ff81a5598c1b9c572",
+  "item_count": 2,
+  "items_by_type": {
+    "MANDATE": 2
+  },
+  "items_by_criticality": {
+    "OBRIGAT\u00d3RIO": 2
+  },
+  "readonly": true,
+  "customizable": false
+}

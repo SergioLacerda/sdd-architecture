@@ -1,6 +1,6 @@
-# 🤖 AI Rules for VS Code
+# 🤖 AI Rules for VS Code (v3.0)
 
-**VS Code has detected this workspace uses SDD Framework governance.**
+**VS Code has detected this workspace uses SDD Framework v3.0 governance.**
 
 ---
 
@@ -9,12 +9,13 @@
 **Read this first:** [.ai-index.md](./.ai-index.md)
 
 This is your AI learning seed. It contains:
-- What this project is (SDD Framework)
-- Your entry points (INTEGRATION vs EXECUTION flows)
+- What this project is (SDD Framework v3.0, production-ready)
+- Your entry points (.sdd-core/ for development, .sdd-integration/ for templates)
 - Project boundary (framework only, no external projects)
 - Rule enforcement mechanisms (4-layer validation)
 - Framework status & priorities (what to work on)
 - Full AGENT_HARNESS workflow (7-phase process)
+- CLI reference (how to use sdd commands)
 
 ---
 
@@ -43,22 +44,25 @@ This is your AI learning seed. It contains:
 ## 📍 Entry Points by Scenario
 
 **First time here?**
-→ Read [EXECUTION/_START_HERE.md](./EXECUTION/_START_HERE.md)
+→ Read [.sdd-core/_START_HERE.md](./.sdd-core/_START_HERE.md)
 
 **Have a bug to fix?**
-→ Read [EXECUTION/spec/guides/onboarding/AGENT_HARNESS.md](./EXECUTION/spec/guides/onboarding/AGENT_HARNESS.md)
+→ Read [.sdd-core/spec/guides/onboarding/AGENT_HARNESS.md](./.sdd-core/spec/guides/onboarding/AGENT_HARNESS.md)
 
 **Stuck or confused?**
-→ Read [EXECUTION/spec/guides/emergency/README.md](./EXECUTION/spec/guides/emergency/README.md)
+→ Read [.sdd-core/spec/guides/emergency/README.md](./.sdd-core/spec/guides/emergency/README.md)
 
 **Need to find something?**
-→ Read [EXECUTION/NAVIGATION.md](./EXECUTION/NAVIGATION.md)
+→ Read [.sdd-core/NAVIGATION.md](./.sdd-core/NAVIGATION.md)
+
+**Want CLI reference?**
+→ Read [README.md](./README.md) (CLI Usage section)
 
 ---
 
 ## 📝 Mandatory Rules (16 Total)
 
-Full list: [EXECUTION/spec/CANONICAL/rules/ia-rules.md](./EXECUTION/spec/CANONICAL/rules/ia-rules.md)
+Full list: [.sdd-core/spec/CANONICAL/rules/ia-rules.md](./.sdd-core/spec/CANONICAL/rules/ia-rules.md)
 
 **Most critical 5:**
 
@@ -82,12 +86,13 @@ Full list: [EXECUTION/spec/CANONICAL/rules/ia-rules.md](./EXECUTION/spec/CANONIC
 
 ## 🆘 Emergency Resources
 
-- **Tests failing?** → `EXECUTION/spec/guides/emergency/`
-- **Rules violated?** → `EXECUTION/spec/CANONICAL/rules/ia-rules.md`
-- **Stuck on architecture?** → `EXECUTION/spec/CANONICAL/decisions/`
+- **Tests failing?** → [.sdd-core/spec/guides/emergency/README.md](./.sdd-core/spec/guides/emergency/README.md)
+- **Rules violated?** → [.sdd-core/spec/CANONICAL/rules/ia-rules.md](./.sdd-core/spec/CANONICAL/rules/ia-rules.md)
+- **Stuck on architecture?** → [.sdd-core/spec/CANONICAL/decisions/](./.sdd-core/spec/CANONICAL/decisions/)
 
 ---
 
-**Version:** SDD Framework 2.1  
-**Updated:** April 19, 2026  
-**Authority:** SPEC v2.1 Framework
+**Version:** SDD Framework v3.0 Final (PHASE 7 Complete)  
+**Updated:** April 22, 2026  
+**Status:** Production Ready with Operational Documentation  
+**Authority:** SDD v3.0 Framework

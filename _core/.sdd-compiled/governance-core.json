@@ -1,0 +1,30 @@
+{
+  "category": "CORE",
+  "version": "3.0",
+  "generated_at": null,
+  "items": [
+    {
+      "id": "M001",
+      "title": "Clean Architecture as Foundation",
+      "type": "MANDATE",
+      "criticality": "OBRIGAT\u00d3RIO",
+      "customizable": false,
+      "optional": false,
+      "category": "architecture",
+      "source_file": "mandate.spec",
+      "content": "All systems must implement 8-layer Clean Architecture as defined in ADR-001. The layers are:"
+    },
+    {
+      "id": "M002",
+      "title": "Performance SLOs Mandatory",
+      "type": "MANDATE",
+      "criticality": "OBRIGAT\u00d3RIO",
+      "customizable": false,
+      "optional": false,
+      "category": "general",
+      "source_file": "mandate.spec",
+      "content": "Every system MUST meet performance Service Level Objectives. Performance is not afterthought; it is architectural requirement."
+    }
+  ],
+  "fingerprint": "ceab139937d01215012975f44a139a5f242caa4d1e888b9ff81a5598c1b9c572"
+}

@@ -1,0 +1,22 @@
+{
+  "version": "3.0",
+  "type": "criticality-customization-template",
+  "generated": "2026-04-22T16:16:21.234802Z",
+  "criticality": "ALERTA",
+  "metadata": {
+    "total_items": 1,
+    "description": "Alert-level items that should be reviewed"
+  },
+  "items": [
+    {
+      "id": "GUARDRAIL-001",
+      "title": "No bare exceptions in production code",
+      "type": "GUARDRAIL",
+      "category": "quality",
+      "criticality": "ALERTA",
+      "customizable": true,
+      "content": "# GUARDRAIL-001: No bare exceptions in production code\n\n## Description\n\nBare `except:` or `except Exception:` clauses are forbidden in source code (except in tests).\nMust catch specific exceptions.\n\n## Implementation\n\n```python\n# \u274c BAD\ntry:\n    result = dangerous_operation()\nexcept:\n    print(\"Error!\")\n\n# \u2705 GOOD\ntry:\n    result = dangerous_operation()\nexcept ValueError as e:\n    logger.error(f\"Invalid value: {e}\")\n    raise CustomError(f\"Could not process: {e}\") from e\n```\n\n## Exceptions\n\n- Tests may use bare `except` if needed\n- Shell scripts may use catch-all\n\n## Validation\n\n```bash\ngrep -r \"except:\\|except Exception:\" src/ && exit 1\npytest tests/quality/test_bare_exceptions.py -v\n```\n\n## Criticality\n\n- OBRIGAT\u00d3RIO: In user-facing APIs\n- ALERTA: In internal utilities\n- OPCIONAL: In batch jobs\n",
+      "_status": "\u270f\ufe0f Can be customized"
+    }
+  ]
+}

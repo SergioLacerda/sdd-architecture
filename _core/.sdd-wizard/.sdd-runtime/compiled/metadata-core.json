@@ -1,0 +1,17 @@
+{
+  "version": "3.0",
+  "type": "core",
+  "generated_at": "2026-04-22T16:16:20.963703Z",
+  "fingerprint": "35efc54d3e353daaf633fad531562f1da97ec17814193b7ac44b2e9ef12daddd",
+  "item_count": 4,
+  "items_by_type": {
+    "MANDATE": 2,
+    "DECISION": 1,
+    "RULE": 1
+  },
+  "items_by_criticality": {
+    "OBRIGAT\u00d3RIO": 4
+  },
+  "readonly": true,
+  "customizable": false
+}
