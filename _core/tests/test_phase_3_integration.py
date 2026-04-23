@@ -20,6 +20,8 @@ import shutil
 # Add paths
 sys.path.insert(0, str(Path(__file__).parent.parent / ".sdd-core"))
 sys.path.insert(0, str(Path(__file__).parent.parent / ".sdd-compiler"))
+sys.path.insert(0, str(Path(__file__).parent.parent / "build_scripts"))
+sys.path.insert(0, str(Path(__file__).parent.parent.parent / "_spec"))
 
 from pipeline_builder import PipelineBuilder
 from governance_compiler import GovernanceCompiler
@@ -49,7 +51,7 @@ class TestPhase3Integration:
     def test_end_to_end_fingerprints_consistent(self):
         """Test fingerprints remain consistent through pipeline and compiler"""
         # Run PHASE 1
-        builder = PipelineBuilder(".sdd-core")
+        builder = PipelineBuilder("_spec")
         phase1_result = builder.build()
         phase1_core_fp = phase1_result["governance_core"]["fingerprint"]
         phase1_client_fp = phase1_result["governance_client"]["fingerprint"]
@@ -70,7 +72,7 @@ class TestPhase3Integration:
     def test_core_fingerprint_salt_strategy(self):
         """Test that core fingerprint is properly used as salt for client"""
         # Build and compile
-        builder = PipelineBuilder(".sdd-core")
+        builder = PipelineBuilder("_spec")
         builder.save_outputs(".sdd-compiled")
 
         compiler = GovernanceCompiler(".sdd-compiled")
@@ -85,7 +87,7 @@ class TestPhase3Integration:
     def test_msgpack_deserializes_correctly(self):
         """Test that msgpack files deserialize to valid data"""
         # Build and compile
-        builder = PipelineBuilder(".sdd-core")
+        builder = PipelineBuilder("_spec")
         builder.save_outputs(".sdd-compiled")
 
         compiler = GovernanceCompiler(".sdd-compiled")
@@ -118,7 +120,7 @@ class TestPhase3Integration:
     def test_round_trip_msgpack_to_json(self):
         """Test msgpack can be deserialized and converted back to JSON"""
         # Build and compile
-        builder = PipelineBuilder(".sdd-core")
+        builder = PipelineBuilder("_spec")
         builder.save_outputs(".sdd-compiled")
 
         compiler = GovernanceCompiler(".sdd-compiled")
@@ -142,13 +144,13 @@ class TestPhase3Integration:
     def test_pipeline_idempotence(self):
         """Test pipeline produces same output when run twice"""
         # First run
-        builder1 = PipelineBuilder(".sdd-core")
+        builder1 = PipelineBuilder("_spec")
         result1 = builder1.build()
         core_fp1 = result1["governance_core"]["fingerprint"]
         client_fp1 = result1["governance_client"]["fingerprint"]
 
         # Second run
-        builder2 = PipelineBuilder(".sdd-core")
+        builder2 = PipelineBuilder("_spec")
         result2 = builder2.build()
         core_fp2 = result2["governance_core"]["fingerprint"]
         client_fp2 = result2["governance_client"]["fingerprint"]
@@ -160,7 +162,7 @@ class TestPhase3Integration:
     def test_compiler_idempotence(self):
         """Test compiler produces same output when run twice"""
         # Prepare
-        builder = PipelineBuilder(".sdd-core")
+        builder = PipelineBuilder("_spec")
         builder.save_outputs(".sdd-compiled")
 
         # First compile
@@ -180,7 +182,7 @@ class TestPhase3Integration:
     def test_all_items_categorized_correctly(self):
         """Test that items are correctly categorized by customizable flag"""
         # Build
-        builder = PipelineBuilder(".sdd-core")
+        builder = PipelineBuilder("_spec")
         builder.save_outputs(".sdd-compiled")
 
         # Load JSONs
@@ -202,7 +204,7 @@ class TestPhase3Integration:
     def test_metadata_reflects_content(self):
         """Test that metadata accurately reflects msgpack content"""
         # Build and compile
-        builder = PipelineBuilder(".sdd-core")
+        builder = PipelineBuilder("_spec")
         builder.save_outputs(".sdd-compiled")
 
         compiler = GovernanceCompiler(".sdd-compiled")
@@ -227,7 +229,7 @@ class TestPhase3Integration:
     def test_separation_preserved_through_compilation(self):
         """Test that CORE/CLIENT separation is preserved through both phases"""
         # Build and compile
-        builder = PipelineBuilder(".sdd-core")
+        builder = PipelineBuilder("_spec")
         phase1_result = builder.build()
         builder.save_outputs(".sdd-compiled")
 
@@ -250,7 +252,7 @@ class TestPhase3Integration:
         criticality_order = {"OBRIGATÓRIO": 0, "ALERTA": 1, "OPCIONAL": 2}
 
         # Build
-        builder = PipelineBuilder(".sdd-core")
+        builder = PipelineBuilder("_spec")
         builder.save_outputs(".sdd-compiled")
 
         # Load JSON
@@ -268,7 +270,7 @@ class TestPhase3Integration:
     def test_no_data_loss_through_pipeline(self):
         """Test that no data is lost when processing through pipeline+compiler"""
         # Build
-        builder = PipelineBuilder(".sdd-core")
+        builder = PipelineBuilder("_spec")
         phase1_result = builder.build()
         total_items_phase1 = (
             len(phase1_result["core_items"]) + len(phase1_result["client_items"])
@@ -303,7 +305,7 @@ class TestPhase3Integration:
     def test_msgpack_files_smaller_than_json(self):
         """Test that msgpack is more compact than JSON"""
         # Build and save JSONs
-        builder = PipelineBuilder(".sdd-core")
+        builder = PipelineBuilder("_spec")
         builder.save_outputs(".sdd-compiled")
 
         # Get JSON sizes
