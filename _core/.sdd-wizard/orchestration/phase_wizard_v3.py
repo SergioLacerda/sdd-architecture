@@ -320,9 +320,15 @@ No need to convert to YAML or move files - edit in place!
         if not self.generate_markdown_templates():
             return {'success': False, 'error': 'Failed to generate markdown templates'}
         
+        # Create output directory for Phase 3 compilation
+        phase3_output = self.output_path.parent / 'phase-4-output'
+        phase3_output.mkdir(parents=True, exist_ok=True)
+        self.log(f"Created phase-4-output directory (ready for Phase 3)")
+        
         print(f"  ✅ Generated {len(self.mandates)} mandates")
         print(f"  ✅ Generated {len(self.guidelines)} guidelines")
-        print(f"  📂 Output: {self.output_path}")
+        print(f"  📂 Templates: {self.output_path}")
+        print(f"  📂 Ready for Phase 3: {phase3_output}")
         print(f"\n📋 NEXT STEPS:")
         print(f"   1. Review files in: {self.output_path}")
         print(f"   2. Edit status fields for each rule (required/optional/custom)")
