@@ -189,9 +189,6 @@ Documentation:   9 comprehensive guides
 **"What happens to my data?"**
 → [WORKFLOW_FLOW.md](./WORKFLOW_FLOW.md#-complete-data-flow) (10 min)
 
-**"Why are there no profiles?"**
-→ [ARCHITECTURE_ALIGNMENT.md](./ARCHITECTURE_ALIGNMENT.md#-what-doesnt-exist-why-profiles-are-gone) (3 min)
-
 **"Is the CORE secure?"**
 → [ARCHITECTURE_ALIGNMENT.md](./ARCHITECTURE_ALIGNMENT.md#-fingerprinting-strategy-salt-protection) (3 min)
 

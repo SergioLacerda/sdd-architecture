@@ -159,11 +159,11 @@ Estimated total: ~4 weeks
 - SALT fingerprinting for integrity
 - User-driven selection (no profiles)
 
-### ✅ Profile Model Elimination
-- Removed predefined LITE/FULL/ULTRA-LITE buckets
-- Users choose exactly which guidelines to implement
+### ✅ Adoption Level Selection
+- LITE adoption level (essential guidelines)
+- FULL adoption level (comprehensive coverage)
 - Language-based filtering (python/java/js)
-- Autonomy-first approach
+- User-driven customization
 
 ### ✅ CLI Interface
 - Interactive mode (user prompts)

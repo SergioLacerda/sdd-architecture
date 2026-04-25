@@ -52,35 +52,32 @@ Client items can be customized, but CORE integrity is cryptographically verified
 
 ---
 
-## What Doesn't Exist: Why Profiles Are Gone
+## Adoption Level Selection
 
-### ❌ v2.1 Model (BEFORE)
+Users select their desired adoption level during setup:
 
-```
-Framework Says:
-├── LITE Profile    → 50 essential guidelines
-├── FULL Profile    → All 151 guidelines  
-└── ULTRA-LITE      → Just mandates (deprecated)
-
-Problem: Users forced into predefined buckets
-```
-
-### ✅ v3.0 Model (NOW)
+### Adoption Levels
 
 ```
 User Chooses:
-├── Implement CORE mandates (M001, M002)           ← Always
-├── Implement X guidelines from CLIENT (G01-G150) ← Your choice
-└── Skip guidelines that don't fit your project   ← Your choice
-
-Result: No need for profiles!
+├── LITE Adoption Level
+│   ├── Implement CORE mandates (M001, M002)        ← Always
+│   ├── Implement essential CLIENT guidelines       ← Based on priority
+│   └── Skip advanced/expert guidelines             ← Optional
+│
+└── FULL Adoption Level
+    ├── Implement CORE mandates (M001, M002)        ← Always
+    ├── Implement ALL CLIENT guidelines (G01-G150)  ← Everything
+    └── Complete governance coverage               ← Comprehensive
 ```
 
-**Why This Works:**
+**User Choice:** Selected during Phase 1 → Applied in Phase 4 filtering
+
+---
 
 1. **User autonomy** — Choose exactly what you need
-2. **No artificial buckets** — Not LITE or FULL, just "what matters to us"
-3. **Fingerprint protection** — CORE cannot be bypassed
+2. **Adoption-driven** — LITE for essentials, FULL for comprehensive coverage
+3. **Fingerprint protection** — CORE integrity verified cryptographically
 4. **Scalable** — Same model works for 1-person teams and 500-person orgs
 
 ---
@@ -106,15 +103,15 @@ Phase 2: Load COMPILED
 Phase 3: Filter Mandates (User Choice)
 ├─ Load all CORE items
 ├─ User selects which CORE to implement
-└─ (Usually: all of them, since they're inegociáveis)
+└─ (Usually: all of them, since they're non-negotiable)
 
     ↓
 
-Phase 4: Filter Guidelines (User Choice)
+Phase 4: Filter Guidelines (Language + Adoption Level)
 ├─ Load all CLIENT items
 ├─ Filter by language (python/java/js)
-├─ User customizes: pick which guidelines to follow
-└─ (No profile filtering - that's the point!)
+├─ Filter by adoption level (LITE/FULL)
+└─ User can further customize
 
     ↓
 
@@ -122,49 +119,6 @@ Phase 5-7: Generate + Validate
 ├─ Create project structure
 ├─ Validate SALT preserved
 └─ Project ready for use
-```
-
-### Key Design Decisions
-
-#### 1. No Profile Parameter ❌
-```python
-# WRONG (v2.1 style):
-phase_4_filter_guidelines(guidelines, language='python', profile='lite')
-
-# RIGHT (v3.0 style):
-phase_4_filter_guidelines(guidelines, language='python')
-# User customization happens separately, not via predefined profiles
-```
-
-#### 2. No Priority Metadata ❌
-```python
-# WRONG (would enable profiles):
-guidelines = {
-    'G001': {'priority': 1, 'name': '...'},  # Only FULL
-    'G002': {'priority': 2, 'name': '...'},  # LITE or FULL
-}
-
-# RIGHT (v3.0):
-guidelines = {
-    'G001': {'name': '...', 'tags': ['python']},
-    'G002': {'name': '...', 'tags': ['java']},
-}
-# Priority comes from user implementation plan, not metadata
-```
-
-#### 3. No Version Field in Runtime Metadata ❌
-```python
-# WRONG (versioning implies retrocompat):
-metadata = {
-    'version': '3.0',
-    'compiled_at': '2026-04-22T16:57:00',
-}
-
-# RIGHT (v3.0):
-metadata = {
-    'compiled_at': '2026-04-22T16:57:00',
-    # version not needed - v3.0 is production-ready, no legacy support
-}
 ```
 
 ---

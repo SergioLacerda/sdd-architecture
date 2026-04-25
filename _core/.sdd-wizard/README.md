@@ -66,7 +66,7 @@ CLIENT ready project (.sdd/)
 - 4 immutable rules (CORE governance)
 - 151 customizable guidelines (CLIENT governance)
 - 2 languages supported (Python, Java, JavaScript)
-- 0 profiles (user-driven selection instead)
+- 2 adoption levels (LITE, FULL) - user-selected
 
 ### Current Status
 ```
@@ -119,7 +119,6 @@ Quality:       ✅ Production ready
    - CLI examples
 
 2. **[ARCHITECTURE_ALIGNMENT.md](./ARCHITECTURE_ALIGNMENT.md)** — Governance model (5 min)
-   - Why profiles don't exist
    - CORE+CLIENT separation
    - SALT fingerprinting
    - Design rationale
@@ -153,8 +152,8 @@ Quality:       ✅ Production ready
    - Error handling
 
 3. **[ARCHITECTURE_ALIGNMENT.md](./ARCHITECTURE_ALIGNMENT.md)** — Governance design (5 min)
-   - Why CORE+CLIENT
-   - Profile elimination rationale
+   - CORE+CLIENT separation
+   - Adoption level filtering
    - Fingerprinting strategy
    - Design decisions
 
@@ -203,8 +202,7 @@ Quality:       ✅ Production ready
    - Future roadmap
 
 3. **[ARCHITECTURE_ALIGNMENT.md](./ARCHITECTURE_ALIGNMENT.md)** — Strategic alignment (5 min)
-   - Why this design
-   - Profile elimination
+   - Adoption level selection
    - Governance model
    - Scalability
 
@@ -429,7 +427,7 @@ See [ARCHITECTURE_ALIGNMENT.md](./ARCHITECTURE_ALIGNMENT.md)
 │   ├── phase_1_validate.py         (Validate SOURCE)
 │   ├── phase_2_load_compiled.py    (Load COMPILED)
 │   ├── phase_3_filter_mandates.py  (User mandate selection)
-│   ├── phase_4_filter_guidelines.py(Language + profile filtering)
+│   ├── phase_4_filter_guidelines.py(Language + adoption level filtering)
 │   ├── phase_5_apply_scaffold.py   (Load & apply templates)
 │   ├── phase_6_generate.py         (Generate project structure)
 │   └── phase_7_validate.py         (Validate output)
@@ -457,7 +455,7 @@ See [ARCHITECTURE_ALIGNMENT.md](./ARCHITECTURE_ALIGNMENT.md)
 Phase 1: VALIDATE SOURCE          → Check .sdd-core/ integrity
 Phase 2: LOAD COMPILED            → Read .sdd-runtime/ binary
 Phase 3: FILTER MANDATES          → User selects which mandates
-Phase 4: FILTER GUIDELINES        → Filter by language + profile
+Phase 4: FILTER GUIDELINES        → Filter by language + adoption level
 Phase 5: APPLY SCAFFOLD           → Load .sdd-wizard/templates/ base
 Phase 6: GENERATE PROJECT         → Create directory structure
 Phase 7: VALIDATE OUTPUT          → Verify deliverable
@@ -533,8 +531,7 @@ Next steps:
 ```bash
 python .sdd-wizard/src/wizard.py \
   --language java \
-  --mandates M001,M002 \
-  --profile lite \
+  --adoption-level lite \
   --output ~/my-java-project/ \
   --verbose
 ```
@@ -543,8 +540,7 @@ python .sdd-wizard/src/wizard.py \
 ```bash
 python .sdd-wizard/src/wizard.py \
   --language python \
-  --mandates M001 \
-  --profile full \
+  --adoption-level full \
   --dry-run \
   --verbose
 ```
@@ -562,9 +558,8 @@ Phase 1-2: LOAD ARTIFACTS
     └─ .sdd-wizard/templates/ (SCAFFOLD)
     ↓
 Phase 3-4: FILTER
-    ├─ Mandate selection (user chooses)
     ├─ Language filtering (remove irrelevant)
-    └─ Profile filtering (keep essential)
+    └─ Adoption level filtering (LITE vs FULL)
     ↓
 Phase 5: APPLY TEMPLATES
     ├─ Load base files

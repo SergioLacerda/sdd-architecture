@@ -94,7 +94,7 @@
 │  │ → Remove JS-specific guidelines (G101, G110)         │         │
 │  │ → Keep Java-relevant (G001, G002, ...)               │         │
 │  │                                                       │         │
-│  │ Profile Filter: lite                                  │         │
+│  │ Adoption Level: LITE                                   │         │
 │  │ → Keep only "essential" guidelines                    │         │
 │  │ → Drop "nice-to-have" guidelines                      │         │
 │  │                                                       │         │
@@ -286,22 +286,23 @@ Phase 4 Filtering (by language):
 Result: Only Java-relevant guidelines in .sdd-guidelines/
 ```
 
-### Guideline Filtering - Language Only (No Profiles)
+### Guideline Filtering - By Adoption Level
 ```
-User Input: Language = "java"
+User Input: Language = "java", Adoption Level = "LITE"
 
-All Java Guidelines:
+All Java Guidelines (filtered by adoption level):
   - G001: essential (priority: 1) ← KEEP
   - G002: essential (priority: 1) ← KEEP
-  - G020: advanced (priority: 3) ← DROP (lite only = priority 1-2)
+  - G020: advanced (priority: 3) ← DROP (LITE only = essential level)
   - G055: expert (priority: 4) ← DROP
 
-Phase 4 Filtering (by language):
+Phase 4 Filtering (by adoption_level):
   Language-specific:   Filter by language tags
-  User-customizable:    Choose which guidelines to implement (not framework-imposed)
+  Adoption-level:      Filter by adoption level (LITE/FULL)
+  User-customizable:    Choose which guidelines to implement
   
 Result:
-  .sdd-guidelines/*.md files only have lite-level content
+  .sdd/source/guidelines/ organized by category with LITE-level content
 ```
 
 ---

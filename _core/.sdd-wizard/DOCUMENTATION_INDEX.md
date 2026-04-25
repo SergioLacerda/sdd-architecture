@@ -130,18 +130,14 @@
 - Overview of CORE+CLIENT separation
 - What exists (4 CORE + 151 CLIENT)
 - SALT fingerprinting strategy
-- Why profiles don't exist (v2.1 vs v3.0)
+- Adoption level selection (LITE/FULL)
 - Design decisions explained
 - Wizard implementation overview
-- Migration notes from v2.1
-- FAQ about governance
-- Design rationale
 
 **Why Read It:**
-- Understand why profiles were removed
+- Understand adoption level selection
 - Learn SALT protection mechanism
 - See governance architecture
-- Understand design decisions
 
 ---
 
