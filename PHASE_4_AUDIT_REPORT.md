@@ -222,3 +222,4 @@ ln -s _spec/guides guides            # Se for copiar
 **Gerado:** April 23, 2026  
 **Próximo Review:** Após implementação dos 4 passos  
 **Statusfinal esperado:** 100% ✅ COMPLETE
+... (conteúdo original do arquivo) ...

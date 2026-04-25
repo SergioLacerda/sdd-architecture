@@ -147,8 +147,8 @@ Next steps:
             return False
     
     def phase_2_show_instructions(self) -> bool:
-        """Show Phase 2 instructions"""
-        self.print_header("PHASE 2: Customize Your Governance Rules", "📋")
+        """Show Phase 2 instructions - Two manual review steps"""
+        self.print_header("PHASE 2: Review & Customize Governance", "📋")
         
         # Adjust repo_root if we're inside _core
         repo_root = self.repo_root
@@ -156,46 +156,90 @@ Next steps:
             repo_root = repo_root.parent
         
         phase1_path = repo_root / '_core' / 'sdd-generated' / 'phase-1-choices'
+        output_path = repo_root / '_core' / 'sdd-generated' / 'phase-4-output'
         
         print(f"""
-You now have governance templates in:
-  {phase1_path}
+═══════════════════════════════════════════════════════════════════
+PHASE 2: TWO MANUAL REVIEW STEPS
+═══════════════════════════════════════════════════════════════════
 
-HOW TO CUSTOMIZE:
+📂 LOCATION OF YOUR TEMPLATES:
+   {phase1_path}
 
-1. OPEN AND EDIT FILES:
-   - mandates-*.md (Hard rules - required by default)
-   - guidelines-*.md (Soft rules - customizable)
+📌 GOVERNANCE STRUCTURE:
+   • Mandates (M001, M002): Immutable core rules → ALWAYS REQUIRED
+   • Guidelines (G01-G150): Customizable soft rules → YOU DECIDE
 
-2. FOR EACH RULE, DECIDE ITS STATUS:
-   ├─ required: true  → Keep as mandatory (default)
-   ├─ optional: true  → Skip this rule
-   └─ custom: true    → Include but customizable
+═══════════════════════════════════════════════════════════════════
+STEP 1: REVIEW & CLASSIFY EACH CRITERION
+═══════════════════════════════════════════════════════════════════
 
-3. CHANGE LINES LIKE:
-   FROM: **Status:** `required: true` (Default: include)
-   TO:   **Status:** `optional: true` (or custom: true)
+FILE ORGANIZATION (by category):
+  ├─ mandates-*.md          (Hard rules - cannot be changed)
+  └─ guidelines-*.md        (Soft rules - you decide status)
 
-4. WHEN DONE EDITING:
-   Just save the markdown files! No YAML conversion needed.
-   Phase 3 will read your edited files directly.
+FOR EACH GUIDELINE, SET ITS STATUS:
 
-5. RUN PHASE 3:
-   ./wizard.sh → Choose [3] Phase 3
-   
-   Phase 3 will:
-   - Read your edited markdown files
-   - Parse the status fields
-   - Skip items marked as optional
-   - Compile to final governance JSON
-   This compiles your YAML to final governance JSON
+  [A] REQUIRED (Default)
+      → Mandatory in your project
+      → Status: `required: true`
+      → Example: Core security checks, mandatory testing
 
-QUESTION: What's the difference?
-- Mandates (M001, M002): Hard rules, cannot be changed → always required
-- Guidelines (G01-G150): Soft rules, you decide → required/optional/custom
+  [B] CUSTOMIZABLE
+      → Optional but can be customized to fit your needs
+      → Status: `custom: true`
+      → Example: Code style preferences, flexibility allowed
 
-DEFAULT: Everything starts as REQUIRED
-YOUR CHOICE: Change any guideline to optional/custom as needed
+  [C] OPTIONAL
+      → Skip entirely - not relevant to your project
+      → Status: `optional: true`
+      → Example: Guidelines for unused frameworks, irrelevant rules
+
+EDITING INSTRUCTIONS:
+  1. Open each markdown file
+  2. Find the **Status:** field (each rule has one)
+  3. Change the value:
+     FROM: **Status:** `required: true` (default)
+     TO:   **Status:** `custom: true` OR `optional: true`
+  4. Save file (no YAML conversion needed)
+
+═══════════════════════════════════════════════════════════════════
+STEP 2: SAVE REVIEWED FILES TO OUTPUT DIRECTORY
+═══════════════════════════════════════════════════════════════════
+
+OUTPUT LOCATION:
+  {output_path}
+
+ACTION:
+  Copy all your REVIEWED & EDITED markdown files from:
+    {phase1_path}
+  Into:
+    {output_path}
+
+FILES TO COPY:
+  ✓ mandates-*.md (even if unchanged)
+  ✓ guidelines-*.md (with your status changes)
+  ✓ README.md (for reference)
+
+═══════════════════════════════════════════════════════════════════
+AFTER PHASE 2: RUN PHASE 3
+═══════════════════════════════════════════════════════════════════
+
+Phase 3 will:
+  1. Read your reviewed markdown files from phase-4-output
+  2. Parse all Status fields (required/custom/optional)
+  3. Skip items marked as optional
+  4. Compile into final governance JSON
+
+═══════════════════════════════════════════════════════════════════
+
+ℹ️  KEY POINTS FOR AI UNDERSTANDING:
+   - Governance has 2 immutable mandates (M001, M002)
+   - 150 customizable guidelines (G01-G150) with user-selectable status
+   - Status field enables filtering: required/custom/optional
+   - Phase 2 is purely manual review (no automation)
+   - Phase 3 automates compilation of reviewed decisions
+
 """)
         
         input("\nPress ENTER when you've completed Phase 2...")
