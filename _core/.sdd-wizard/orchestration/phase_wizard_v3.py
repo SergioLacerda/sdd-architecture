@@ -1,18 +1,19 @@
 #!/usr/bin/env python3
 """
-SDD Wizard v3 - 3-Phase Flow with Multiple Status-aware Files
+SDD Wizard v3 - 3-Phase Flow with Status-aware Governance
 
 Phase 1: Generate markdown templates with status fields
-  Input: mandate.spec, guidelines.dsl
+  Input: mandate.spec, guidelines.dsl from _core/.sdd-core/
   Output: /sdd-generated/phase-1-choices/ (Multiple .md files by category)
   
-Phase 2: Manual user marking of templates  
-  Action: User edits markdown files, changes status values
-  Output: /sdd-generated/phase-3-input/ (User creates YAML from marked files)
+Phase 2: Manual user review & customization
+  Input: /sdd-generated/phase-1-choices/ (generated templates)
+  Action: User copies to phase-2-input/, edits status values
+  Output: /sdd-generated/phase-2-input/ (User-edited markdown templates)
   
-Phase 3: Compile marked templates with fingerprints
-  Input: /sdd-generated/phase-3-input/ (User-created YAML)
-  Output: /sdd-generated/phase-4-output/ (JSON with fingerprints)
+Phase 3: Compile & fingerprint governance
+  Input: /sdd-generated/phase-2-input/ (user-edited markdown)
+  Output: /sdd-generated/phase-4-output/ (Compiled JSON with SALT fingerprints)
 """
 
 import json
@@ -328,15 +329,15 @@ No need to convert to YAML or move files - edit in place!
         if not self.generate_markdown_templates():
             return {'success': False, 'error': 'Failed to generate markdown templates'}
         
-        # Create output directory for Phase 3 compilation
-        phase3_output = self.output_path.parent / 'phase-4-output'
-        phase3_output.mkdir(parents=True, exist_ok=True)
-        self.log(f"Created phase-4-output directory (ready for Phase 3)")
+        # Create input directory for Phase 2 user review
+        phase2_input = self.output_path.parent / 'phase-2-input'
+        phase2_input.mkdir(parents=True, exist_ok=True)
+        self.log(f"Created phase-2-input directory (ready for Phase 2 customization)")
         
         print(f"  ✅ Generated {len(self.mandates)} mandates")
         print(f"  ✅ Generated {len(self.guidelines)} guidelines")
         print(f"  📂 Templates: {self.output_path}")
-        print(f"  📂 Ready for Phase 3: {phase3_output}")
+        print(f"  📂 Ready for Phase 2: {phase2_input}")
         print(f"\n📋 NEXT STEPS:")
         print(f"   1. Review files in: {self.output_path}")
         print(f"   2. Edit status fields for each rule (required/optional/custom)")

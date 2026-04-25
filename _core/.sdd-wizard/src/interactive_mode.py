@@ -136,7 +136,6 @@ Next steps:
 2. Edit status fields (required/optional/custom)
 3. Run Phase 2 for step-by-step instructions
 4. Run Phase 3 to compile
-5. Run Phase 4 to generate final project
 """)
             
             return result['success']
@@ -156,7 +155,7 @@ Next steps:
             repo_root = repo_root.parent
         
         phase1_path = repo_root / '_core' / 'sdd-generated' / 'phase-1-choices'
-        output_path = repo_root / '_core' / 'sdd-generated' / 'phase-4-output'
+        output_path = repo_root / '_core' / 'sdd-generated' / 'phase-2-input'
         
         print(f"""
 ═══════════════════════════════════════════════════════════════════
@@ -226,7 +225,7 @@ AFTER PHASE 2: RUN PHASE 3
 ═══════════════════════════════════════════════════════════════════
 
 Phase 3 will:
-  1. Read your reviewed markdown files from phase-4-output
+  1. Read your reviewed markdown files from phase-2-input
   2. Parse all Status fields (required/custom/optional)
   3. Skip items marked as optional
   4. Compile into final governance JSON
@@ -320,14 +319,14 @@ Phase 3 will:
         if repo_root.name == '_core':
             repo_root = repo_root.parent
         
-        # Phase 3 reads edited markdown from phase-1-choices
-        markdown_path = repo_root / '_core' / 'sdd-generated' / 'phase-1-choices'
+        # Phase 3 reads edited markdown from phase-2-input
+        markdown_path = repo_root / '_core' / 'sdd-generated' / 'phase-2-input'
         
         if not markdown_path.exists():
             print(f"\n❌ Templates not found: {markdown_path}")
             print("\nYou need to:")
             print("1. Run Phase 1 to generate templates")
-            print("2. Edit the markdown files (change status fields)")
+            print("2. Copy edited files to phase-2-input/")
             print("3. Run Phase 3 to compile")
             return False
         
@@ -341,15 +340,44 @@ Phase 3 will:
             
             if result['success']:
                 print(f"""
-✅ Phase 3 Complete!
+✅ PHASE 3 COMPLETE! 🎉
 
-📊 Compilation results:
-   Mandates: {result.get('mandates', 0)}
-   Guidelines: {result.get('guidelines', 0)}
-   Files: {', '.join(result.get('files', []))}
-   Location: {result.get('output_path')}
+📊 COMPILATION RESULTS:
+   ✓ Mandates: {result.get('mandates', 0)}
+   ✓ Guidelines: {result.get('guidelines', 0)}
+   ✓ Output Files: {', '.join(result.get('files', []))}
+   ✓ Location: {result.get('output_path')}
 
-Next: Run Phase 4 to generate final project structure
+═══════════════════════════════════════════════════════════════════
+YOUR GOVERNANCE IS READY TO DEPLOY
+═══════════════════════════════════════════════════════════════════
+
+📂 STEP 1: IMPORT TO YOUR PROJECT
+   Copy the entire .sdd/ folder to your project root:
+   
+   cp -r {result.get('output_path')} /path/to/your/project/.sdd/
+
+📍 STEP 2: UPDATE SEEDLING TEMPLATES
+   The wizard generates template references for AI tools:
+   
+   ✓ .vscode/settings.json        (VS Code AI settings)
+   ✓ .cursor/rules/sdd-rules.md   (Cursor AI context)
+   ✓ .ia/system-prompt.md         (Your AI system prompt)
+   
+   Review & customize these seedling files for your AI agents
+   to understand your governance structure.
+
+🔗 STEP 3: INTEGRATE WITH YOUR WORKFLOW
+   Reference your governance in:
+   ✓ CI/CD pipelines
+   ✓ Pull request templates
+   ✓ Development guidelines
+   ✓ Architecture decision records (ADRs)
+
+ℹ️  For AI understanding:
+   Your 2 immutable mandates (M001, M002) and 150 customizable 
+   guidelines are now compiled and ready for validation automation.
+
 """)
                 return True
             else:
