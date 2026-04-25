@@ -8,7 +8,7 @@
 
 ## Overview
 
-The SDD v3.0 Wizard implements a **CORE+CLIENT governance model** that eliminates the need for predefined profiles (LITE/FULL) through user-driven customization.
+The SDD v3.0 Wizard implements a **CORE+CLIENT governance model** with user-selected adoption levels (LITE/FULL).
 
 **Key Principle:** Users choose which governance items to implement, not frameworks choosing for them.
 

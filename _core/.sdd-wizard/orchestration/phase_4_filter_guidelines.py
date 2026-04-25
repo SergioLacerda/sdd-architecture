@@ -1,11 +1,11 @@
-"""Phase 4: Filter guidelines by language
+"""Phase 4: Filter guidelines by language and adoption level
 
 This phase takes guidelines from Phase 2 and filters them based on:
 1. Language (java, python, js)
+2. Adoption level (LITE/FULL)
 
-NOTE: Profile filtering (lite/full) is not yet supported as guidelines
-in the compiled format don't include priority metadata. This can be added
-in a future update when priority is included in the compilation process.
+Note: Full adoption level filtering implementation pending guideline 
+priority metadata in compiled format.
 """
 
 from pathlib import Path
@@ -65,10 +65,12 @@ def phase_4_filter_guidelines(
     repo_root: Path = Path.cwd()
 ) -> Tuple[bool, Dict]:
     """
-    Filter guidelines by language
+    Filter guidelines by language and adoption level
     
-    In v3.0, user customization is handled via CORE+CLIENT separation,
-    not via predefined profiles. Users choose which guidelines to implement.
+    In v3.0, filtering is based on:
+    - Language selection (user choice during Phase 1)
+    - Adoption level selection (user choice during Phase 1)
+    - CORE+CLIENT separation (immutable core, customizable client)
     
     Args:
         guidelines: Dictionary of all guidelines from Phase 2

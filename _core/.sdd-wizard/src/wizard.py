@@ -10,10 +10,10 @@ Usage:
     python wizard.py
   
   Non-interactive mode:
-    python wizard.py --language java --mandates M001 --profile lite --output ~/my-project/
+    python wizard.py --language java --output ~/my-project/
   
   Dry-run (preview without creating files):
-    python wizard.py --language java --dry-run --verbose
+    python wizard.py --language python --dry-run --verbose
 """
 
 import sys
@@ -293,10 +293,10 @@ Examples:
     python wizard.py
   
   Non-interactive mode:
-    python wizard.py --language java --mandates M001 --profile lite --output ~/my-project/
+    python wizard.py --language java --output ~/my-project/
   
   Dry-run (preview without creating files):
-    python wizard.py --language java --dry-run --verbose
+    python wizard.py --language python --dry-run --verbose
   
   Test phases 1-2:
     python wizard.py --test-phases 1-2
