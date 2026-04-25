@@ -5,26 +5,26 @@
   "items": [
     {
       "id": "M001",
-      "title": "Clean Architecture as Foundation",
+      "title": "Clean Architecture",
       "type": "MANDATE",
       "criticality": "OBRIGAT\u00d3RIO",
       "customizable": false,
       "optional": false,
       "category": "architecture",
       "source_file": "mandate.spec",
-      "content": "All systems must implement 8-layer Clean Architecture as defined in ADR-001. The layers are:"
+      "content": "All systems must implement 8-layer Clean Architecture"
     },
     {
       "id": "M002",
-      "title": "Performance SLOs Mandatory",
+      "title": "Test-Driven Development",
       "type": "MANDATE",
       "criticality": "OBRIGAT\u00d3RIO",
       "customizable": false,
       "optional": false,
-      "category": "general",
+      "category": "testing",
       "source_file": "mandate.spec",
-      "content": "Every system MUST meet performance Service Level Objectives. Performance is not afterthought; it is architectural requirement."
+      "content": "All code must be written using TDD (tests first)"
     }
   ],
-  "fingerprint": "ceab139937d01215012975f44a139a5f242caa4d1e888b9ff81a5598c1b9c572"
+  "fingerprint": "40c03e88d0efe299f85eb020f716685edaef79803d1d9e2cffa460dee968bcb6"
 }

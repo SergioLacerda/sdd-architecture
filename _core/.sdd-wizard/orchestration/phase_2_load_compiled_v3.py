@@ -120,15 +120,17 @@ class GovernanceLoader:
         client_fp_stored = self.client_data.get("fingerprint")
         client_salt = self.client_data.get("fingerprint_core_salt")
         
-        # Remove fingerprints from data for validation (but NOT the salt - it's calculated without it)
+        # Remove fingerprints from data for validation
+        # NOTE: Client FP is calculated WITH the salt included (from PipelineBuilder)
         client_data_for_validation = {
             k: v for k, v in self.client_data.items()
-            if k not in ["fingerprint", "fingerprint_core_salt"]
+            if k not in ["fingerprint"]  # Include fingerprint_core_salt in calculation
         }
         
-        # Calculate expected client fingerprint (same way as PHASE 2)
-        salt_input = json.dumps(client_data_for_validation, sort_keys=True).encode('utf-8')
-        client_fp_calculated = hashlib.sha256(salt_input).hexdigest()
+        # Calculate expected client fingerprint (same way as PipelineBuilder)
+        # The salt is included in the data being hashed
+        hash_input = json.dumps(client_data_for_validation, sort_keys=True).encode('utf-8')
+        client_fp_calculated = hashlib.sha256(hash_input).hexdigest()
         
         if client_fp_stored == client_fp_calculated:
             self.log(f"✓ Client fingerprint valid")

@@ -34,6 +34,9 @@ from orchestration.phase_5_apply_template import phase_5_apply_template
 from orchestration.phase_6_generate_project import phase_6_generate_project
 from orchestration.phase_7_validate_output import phase_7_validate_output
 
+# Import interactive mode
+from interactive_mode import InteractiveWizard
+
 
 class WizardOrchestrator:
     """Main orchestrator for 7-phase wizard pipeline"""
@@ -340,6 +343,13 @@ Examples:
         help="Test specific phases (e.g., 1-2, 1-7, just 1)"
     )
     
+    # Optional: Interactive mode
+    parser.add_argument(
+        "--interactive",
+        action="store_true",
+        help="Run in interactive guided mode (default if no arguments provided)"
+    )
+    
     return parser
 
 
@@ -351,15 +361,24 @@ def main():
     # Create orchestrator
     orchestrator = WizardOrchestrator(verbose=args.verbose)
     
-    # Parse mandates if provided
-    mandates = None
-    if args.mandates:
-        mandates = args.mandates.split(',')
+    # Determine if running in interactive mode
+    # Interactive by default if: no required args provided (language, mandates, output)
+    # And not in test mode
+    should_run_interactive = args.interactive or (
+        not args.language 
+        and not args.mandates 
+        and not args.output
+        and not args.test_phases
+    )
     
     # Test mode
     if args.test_phases:
         print(f"\n🧪 Testing phases: {args.test_phases}")
         # For now, run full pipeline in test mode
+        mandates = None
+        if args.mandates:
+            mandates = args.mandates.split(',')
+        
         orchestrator.run_full_pipeline(
             language=args.language or 'python',
             mandates=mandates,
@@ -367,7 +386,27 @@ def main():
         )
         return 0
     
-    # Run wizard
+    # Interactive mode
+    if should_run_interactive:
+        # Run Phase 1 and 2 first to load data
+        if not orchestrator.run_phase_1():
+            print("❌ Failed to validate source files")
+            return 1
+        
+        if not orchestrator.run_phase_2():
+            print("❌ Failed to load compiled governance")
+            return 1
+        
+        # Now run interactive guide
+        interactive = InteractiveWizard(orchestrator.repo_root, orchestrator)
+        success = interactive.run()
+        return 0 if success else 1
+    
+    # Non-interactive mode
+    mandates = None
+    if args.mandates:
+        mandates = args.mandates.split(',')
+    
     success = orchestrator.run_full_pipeline(
         language=args.language or 'python',
         mandates=mandates,

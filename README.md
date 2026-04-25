@@ -34,6 +34,27 @@ repository/
 
 ---
 
+## 🔧 First Time Setup (Required)
+
+**Before using the CLI or wizard**, install dependencies (one-time setup):
+
+```bash
+# Automatic setup (recommended)
+./setup.sh
+
+# OR manually:
+pip3 install -r _core/requirements-cli.txt
+```
+
+**What gets installed:**
+- `typer` - CLI framework
+- `click` - Command-line interface library
+- `rich` - Terminal formatting
+- `msgpack` - Data serialization
+- `PyYAML` - Configuration files
+
+---
+
 ## ⚡ Quick Start (Choose Your Role)
 
 ### 👨‍💻 **I'm a Developer**
@@ -68,10 +89,14 @@ cd /path/to/new/project
 ```
 
 ### 🔧 **I'm Using the CLI**
-```bash
-# Navigate to core
-cd _core
 
+First, make sure you've run setup:
+```bash
+./setup.sh
+```
+
+Then use the CLI:
+```bash
 # Show governance configuration
 python3 -m sdd_cli governance load
 
@@ -82,6 +107,40 @@ python3 -m sdd_cli governance validate
 python3 -m sdd_cli governance generate
 ```
 
+### 🧙 **I'm Creating a New Project (Wizard)**
+
+The easiest way to create a new SDD-based project - **now with interactive guided mode!**
+
+```bash
+# Interactive mode (guided setup - RECOMMENDED!)
+# Wizard will guide you through 4 steps with clear instructions
+./wizard.sh
+
+# Non-interactive mode (with command-line options)
+./wizard.sh --language java --mandates M001 --output ~/my-project/
+
+# Show all wizard options
+./wizard.sh --help
+```
+
+**📖 Complete Interactive Mode Guide:**
+See [WIZARD_INTERACTIVE_GUIDE.md](WIZARD_INTERACTIVE_GUIDE.md) for a detailed walkthrough of:
+1. 📂 Where source files are located (mandate.spec, guidelines.dsl)
+2. 📝 How to enter your project configuration
+3. 🚀 How the 7-phase pipeline executes
+4. 📍 Where generated templates are saved
+
+**What the wizard does:**
+- ✅ **Step 1:** Shows governance source files (mandate.spec, guidelines.dsl)
+- ✅ **Step 2:** Asks for project config (language, mandates, output location)
+- ✅ **Step 3:** Executes 7-phase pipeline automatically
+- ✅ **Step 4:** Shows exactly where your project was generated
+- ✅ Validates SDD specifications
+- ✅ Loads compiled governance rules
+- ✅ Filters by your selected mandates
+- ✅ Applies project templates
+- ✅ Generates initial project structure
+
 ---
 
 ## 📚 Documentation (Choose Your Path)
@@ -90,14 +149,18 @@ python3 -m sdd_cli governance generate
 - 🔤 **Code & Implementation:** See [_core/README.md](_core/README.md)
 - 📖 **Specs & Documentation:** See [_spec/README.md](_spec/README.md)
 - 📋 **Full Index:** See [_spec/docs/INDEX.md](_spec/docs/INDEX.md)
+- 🧙 **Wizard Guide:** See [WIZARD_DOCUMENTATION_INDEX.md](WIZARD_DOCUMENTATION_INDEX.md)
 
-| Document | Purpose | Location | Time |
-|----------|---------|----------|------|
-| [.ai-index.md](_spec/.ai-index.md) | AI agent entry point | _spec/ | 15 min |
-| [_core/.sdd-core/_START_HERE.md](_core/.sdd-core/_START_HERE.md) | Developer entry point | _core/ | 5 min |
-| [_core/.sdd-integration/CHECKLIST.md](_core/.sdd-integration/CHECKLIST.md) | Add projects | _core/ | 10 min |
-| [_spec/docs/TEST_RUNNER_GUIDE.md](_spec/docs/TEST_RUNNER_GUIDE.md) | Run all tests | _spec/ | 10 min |
-| [_spec/CHANGELOG.md](_spec/CHANGELOG.md) | Version history | _spec/ | varies |
+### 🧙 Wizard Documentation (New!)
+Start here if you want to create a new project with the SDD Wizard:
+
+| Document | Duration | Best For |
+|----------|----------|----------|
+| [WIZARD_QUICK_START.md](WIZARD_QUICK_START.md) | 2 min | Get started immediately |
+| [WIZARD_MAPPING.md](WIZARD_MAPPING.md) | 10 min | Understand the complete flow |
+| [WIZARD_INTERACTIVE_GUIDE.md](WIZARD_INTERACTIVE_GUIDE.md) | 15 min | Learn every detail |
+| [WIZARD_EXAMPLE_SESSION.md](WIZARD_EXAMPLE_SESSION.md) | 10 min | See a real example |
+| [WIZARD_DOCUMENTATION_INDEX.md](WIZARD_DOCUMENTATION_INDEX.md) | Navigation | Find what you need |
 
 ---
 
