@@ -53,13 +53,8 @@ class InteractiveWizard:
         try:
             from orchestration.phase_wizard_v3 import Phase1Generator
             
-            # Adjust repo_root if we're inside _core (wizard.sh changes to _core)
-            repo_root = self.repo_root
-            if repo_root.name == '_core':
-                repo_root = repo_root.parent
-            
-            sdd_core_path = repo_root / '_core'
-            output_path = repo_root / '_core' / 'sdd-generated' / 'phase-1-choices'
+            sdd_core_path = self.repo_root / '_core'
+            output_path = self.repo_root / '_core' / 'sdd-generated' / 'phase-1-choices'
             
             generator = Phase1Generator(sdd_core_path, output_path, verbose=True)
             result = generator.run()
@@ -75,16 +70,9 @@ class InteractiveWizard:
         """Show Phase 2 instructions"""
         self.print_header("PHASE 2: Customize Your Governance Rules", "📋")
         
-        # Adjust repo_root if we're inside _core
-        repo_root = self.repo_root
-        if repo_root.name == '_core':
-            repo_root = repo_root.parent
-        
-        phase1_path = repo_root / '_core' / 'sdd-generated' / 'phase-1-choices'
-        
-        print(f"""
+        print("""
 You now have governance templates in:
-  {phase1_path}
+  /home/sergio/dev/sdd-architecture/_core/sdd-generated/phase-1-choices/
 
 HOW TO CUSTOMIZE:
 
@@ -102,7 +90,7 @@ HOW TO CUSTOMIZE:
    TO:   **Status:** `optional: true` (or custom: true)
 
 4. WHEN DONE EDITING:
-   Create {repo_root / '_core' / 'sdd-generated' / 'phase-3-input'} folder
+   Create /sdd-generated/phase-3-input/ folder
    
    Add: mandates.yaml
    ```yaml
@@ -150,12 +138,7 @@ YOUR CHOICE: Change any guideline to optional/custom as needed
         """Execute Phase 3: Compile templates"""
         self.print_header("PHASE 3: Compile Governance", "⚙️")
         
-        # Adjust repo_root if we're inside _core
-        repo_root = self.repo_root
-        if repo_root.name == '_core':
-            repo_root = repo_root.parent
-        
-        phase2_path = repo_root / '_core' / 'sdd-generated' / 'phase-3-input'
+        phase2_path = self.repo_root / '_core' / 'sdd-generated' / 'phase-3-input'
         
         if not phase2_path.exists():
             print(f"\n❌ Phase 2 input not found: {phase2_path}")
@@ -168,9 +151,9 @@ YOUR CHOICE: Change any guideline to optional/custom as needed
         try:
             from orchestration.phase_wizard_v3 import Phase3Compiler
             
-            output_path = repo_root / '_core' / 'sdd-generated' / 'phase-4-output'
+            output_path = self.repo_root / '_core' / 'sdd-generated' / 'phase-4-output'
             
-            compiler = Phase3Compiler(phase2_path, output_path, repo_root, verbose=True)
+            compiler = Phase3Compiler(phase2_path, output_path, self.repo_root, verbose=True)
             result = compiler.run()
             
             if result['success']:

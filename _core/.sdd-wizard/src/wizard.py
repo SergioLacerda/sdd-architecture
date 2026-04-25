@@ -386,20 +386,10 @@ def main():
         )
         return 0
     
-    # Interactive mode
+    # Interactive mode (v3 new flow: 3-phase template generation)
     if should_run_interactive:
-        # Run Phase 1 and 2 first to load data
-        if not orchestrator.run_phase_1():
-            print("❌ Failed to validate source files")
-            return 1
-        
-        if not orchestrator.run_phase_2():
-            print("❌ Failed to load compiled governance")
-            return 1
-        
-        # Now run interactive guide
-        interactive = InteractiveWizard(orchestrator.repo_root, orchestrator)
-        success = interactive.run()
+        from interactive_mode import run_interactive_wizard
+        success = run_interactive_wizard(orchestrator.repo_root)
         return 0 if success else 1
     
     # Non-interactive mode
