@@ -279,52 +279,22 @@ Change to ONE of:
 **Status:** `custom: true`
 ```
 
-### Step 3: Save as YAML
+### Step 3: Run Phase 3
 
-Once edited, you need to convert your choices to YAML.
-
-Create: `/sdd-generated/phase-3-input/` (folder)
-
-Inside, create two YAML files:
-
-**mandates.yaml:**
-```yaml
-mandates:
-  - id: M001
-    title: Clean Architecture
-    type: HARD
-    status: required
-  - id: M002
-    title: Test-Driven Development
-    type: HARD
-    status: required
-```
-
-**guidelines.yaml:**
-```yaml
-guidelines:
-  - id: G01
-    title: Constitution Customization Guide
-    type: SOFT
-    status: required
-  - id: G02
-    title: When to Customize
-    type: SOFT
-    status: required
-  # ... add only the guidelines you want (required/custom)
-  # Skip guidelines with status: optional
-```
-
-### Step 4: Run Phase 3
-
-Once you have phase-3-input/ with mandates.yaml + guidelines.yaml:
+Once you've edited the markdown files, just run:
 
 ```bash
 ./wizard.sh
 # Choose: [3] Phase 3
 ```
 
-This compiles to final governance JSON.
+Phase 3 will:
+1. Read your edited markdown files from this folder
+2. Parse the status fields (required/optional/custom)
+3. Skip items marked as optional
+4. Compile to final governance JSON
+
+No need to convert to YAML or move files - edit in place!
 
 ## Questions?
 
@@ -355,9 +325,8 @@ This compiles to final governance JSON.
         print(f"  📂 Output: {self.output_path}")
         print(f"\n📋 NEXT STEPS:")
         print(f"   1. Review files in: {self.output_path}")
-        print(f"   2. Edit status fields for each rule")
-        print(f"   3. Convert to YAML in phase-3-input/")
-        print(f"   4. Run wizard Phase 3 to compile")
+        print(f"   2. Edit status fields for each rule (required/optional/custom)")
+        print(f"   3. Run wizard Phase 3 to compile")
         
         return {
             'success': True,
@@ -370,10 +339,17 @@ This compiles to final governance JSON.
 
 
 class Phase3Compiler:
-    """Compile marked templates using pipeline builder"""
+    """Compile edited markdown templates to governance JSON"""
     
-    def __init__(self, phase2_path: Path, output_path: Path, repo_root: Path, verbose: bool = False):
-        self.phase2_path = phase2_path
+    def __init__(self, markdown_input_path: Path, output_path: Path, repo_root: Path, verbose: bool = False):
+        """
+        Args:
+            markdown_input_path: Path to phase-1-choices/ folder with edited markdown files
+            output_path: Where to write governance JSON
+            repo_root: Root of sdd-architecture repo
+            verbose: Print detailed logs
+        """
+        self.markdown_input_path = markdown_input_path
         self.output_path = output_path
         self.repo_root = repo_root
         self.verbose = verbose
@@ -382,7 +358,66 @@ class Phase3Compiler:
         if self.verbose:
             print(f"  ℹ️  {message}")
     
-    def compile_with_pipeline_builder(self) -> bool:
+    def parse_markdown_status(self, content: str) -> str:
+        """Extract status from markdown content"""
+        # Match: **Status:** `required: true` or **Status:** `optional: true`
+        match = re.search(r'\*\*Status:\*\*\s*`(required|optional|custom):\s*(?:true|false)`', content)
+        if match:
+            return match.group(1)
+        return 'required'  # Default if not found
+    
+    def parse_markdown_items(self) -> Dict[str, List[Dict[str, Any]]]:
+        """Parse edited markdown files from phase-1-choices"""
+        mandates = []
+        guidelines = []
+        
+        try:
+            # Find all .md files in phase-1-choices
+            md_files = list(self.markdown_input_path.glob('*.md'))
+            
+            if not md_files:
+                print(f"  ❌ No markdown files found in {self.markdown_input_path}")
+                return {'mandates': [], 'guidelines': []}
+            
+            for md_file in md_files:
+                content = md_file.read_text(encoding='utf-8')
+                
+                # Parse items: ## ID: Title
+                pattern = r'## ([GM]\d+):\s*(.+?)\n(.*?)(?=##|$)'
+                for match in re.finditer(pattern, content, re.DOTALL):
+                    item_id = match.group(1)
+                    title = match.group(2).strip()
+                    item_content = match.group(3)
+                    
+                    # Get status
+                    status = self.parse_markdown_status(item_content)
+                    
+                    # Skip optional items
+                    if status == 'optional':
+                        self.log(f"Skipping optional item {item_id}")
+                        continue
+                    
+                    item = {
+                        'id': item_id,
+                        'title': title,
+                        'status': status,
+                        'type': 'HARD' if item_id.startswith('M') else 'SOFT'
+                    }
+                    
+                    if item_id.startswith('M'):
+                        mandates.append(item)
+                    else:
+                        guidelines.append(item)
+                    
+                    self.log(f"Parsed {item_id}: {title} (status: {status})")
+            
+            return {'mandates': mandates, 'guidelines': guidelines}
+        
+        except Exception as e:
+            print(f"  ❌ Error parsing markdown: {e}")
+            return {'mandates': [], 'guidelines': []}
+    
+    def compile_with_pipeline_builder(self, items: Dict[str, List[Dict]]) -> bool:
         """Use existing pipeline_builder to compile"""
         try:
             import sys
@@ -420,12 +455,21 @@ class Phase3Compiler:
             return False
     
     def run(self) -> Dict[str, Any]:
-        """Execute Phase 3"""
-        print("\n⚙️  PHASE 3: Compile Templates")
+        """Execute Phase 3: Read edited markdown and compile"""
+        print("\n⚙️  PHASE 3: Compile Governance from Edited Templates")
         print("=" * 70)
-        print(f"  📂 Reading from: {self.phase2_path}")
+        print(f"  📂 Reading from: {self.markdown_input_path}")
         
-        if not self.compile_with_pipeline_builder():
+        # Parse edited markdown files
+        items = self.parse_markdown_items()
+        mandates_count = len(items['mandates'])
+        guidelines_count = len(items['guidelines'])
+        
+        print(f"  ✅ Parsed {mandates_count} mandates, {guidelines_count} guidelines")
+        print(f"  ℹ️  (Skipped optional items)")
+        
+        # Compile with PipelineBuilder
+        if not self.compile_with_pipeline_builder(items):
             return {'success': False, 'error': 'Failed to compile'}
         
         print(f"  ✅ Compiled governance artifacts")
@@ -434,5 +478,7 @@ class Phase3Compiler:
         return {
             'success': True,
             'output_path': str(self.output_path),
-            'files': ['governance-core.json', 'governance-client.json']
+            'files': ['governance-core.json', 'governance-client.json'],
+            'mandates': mandates_count,
+            'guidelines': guidelines_count
         }

@@ -102,37 +102,17 @@ HOW TO CUSTOMIZE:
    TO:   **Status:** `optional: true` (or custom: true)
 
 4. WHEN DONE EDITING:
-   Create {repo_root / '_core' / 'sdd-generated' / 'phase-3-input'} folder
-   
-   Add: mandates.yaml
-   ```yaml
-   mandates:
-     - id: M001
-       title: Clean Architecture
-       status: required
-     - id: M002
-       title: Test-Driven Development
-       status: required
-   ```
-   
-   Add: guidelines.yaml
-   ```yaml
-   guidelines:
-     - id: G01
-       title: Your Guideline Title
-       type: SOFT
-       status: required
-     - id: G02
-       title: Another Guideline
-       type: SOFT
-       status: optional
-   ```
-   
-   TIP: Include only rules with status: required or custom
-        Skip rules with status: optional
+   Just save the markdown files! No YAML conversion needed.
+   Phase 3 will read your edited files directly.
 
 5. RUN PHASE 3:
    ./wizard.sh → Choose [3] Phase 3
+   
+   Phase 3 will:
+   - Read your edited markdown files
+   - Parse the status fields
+   - Skip items marked as optional
+   - Compile to final governance JSON
    This compiles your YAML to final governance JSON
 
 QUESTION: What's the difference?
@@ -147,7 +127,7 @@ YOUR CHOICE: Change any guideline to optional/custom as needed
         return True
     
     def phase_3_compile_templates(self) -> bool:
-        """Execute Phase 3: Compile templates"""
+        """Execute Phase 3: Compile edited templates to governance JSON"""
         self.print_header("PHASE 3: Compile Governance", "⚙️")
         
         # Adjust repo_root if we're inside _core
@@ -155,14 +135,15 @@ YOUR CHOICE: Change any guideline to optional/custom as needed
         if repo_root.name == '_core':
             repo_root = repo_root.parent
         
-        phase2_path = repo_root / '_core' / 'sdd-generated' / 'phase-3-input'
+        # Phase 3 reads edited markdown from phase-1-choices
+        markdown_path = repo_root / '_core' / 'sdd-generated' / 'phase-1-choices'
         
-        if not phase2_path.exists():
-            print(f"\n❌ Phase 2 input not found: {phase2_path}")
+        if not markdown_path.exists():
+            print(f"\n❌ Templates not found: {markdown_path}")
             print("\nYou need to:")
-            print("1. Complete Phase 1 (generate templates)")
-            print("2. Complete Phase 2 (edit and create YAML)")
-            print("3. Verify phase-3-input/ has mandates.yaml + guidelines.yaml")
+            print("1. Run Phase 1 to generate templates")
+            print("2. Edit the markdown files (change status fields)")
+            print("3. Run Phase 3 to compile")
             return False
         
         try:
@@ -170,13 +151,14 @@ YOUR CHOICE: Change any guideline to optional/custom as needed
             
             output_path = repo_root / '_core' / 'sdd-generated' / 'phase-4-output'
             
-            compiler = Phase3Compiler(phase2_path, output_path, repo_root, verbose=True)
+            compiler = Phase3Compiler(markdown_path, output_path, repo_root, verbose=True)
             result = compiler.run()
             
             if result['success']:
                 print(f"\n✅ Governance compiled successfully!")
                 print(f"   Files: {', '.join(result['files'])}")
                 print(f"   Location: {result['output_path']}")
+                print(f"   Mandates: {result.get('mandates', 0)}, Guidelines: {result.get('guidelines', 0)}")
                 return True
             else:
                 print(f"\n❌ Failed: {result.get('error', 'Unknown error')}")
