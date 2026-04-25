@@ -34,7 +34,7 @@ class InteractiveWizard:
         print("""Which phase would you like to run?
 
   [1] Phase 1: Generate governance templates
-              (Asks for language & adoption level)
+              (Asks for programming language)
               ✅ Start here or use to reset/regenerate
 
   [2] Phase 2: How to customize templates
@@ -54,7 +54,7 @@ class InteractiveWizard:
         return choice
     
     def ask_user_preferences(self) -> dict:
-        """Ask user for preferences: language and adoption level"""
+        """Ask user for preferences: programming language"""
         self.print_header("User Preferences Setup", "⚙️")
         
         # Ask for language
@@ -70,18 +70,8 @@ class InteractiveWizard:
         language = language_map.get(language_choice, 'Python')
         print(f"   ✅ Selected: {language}")
         
-        # Ask for adoption level
-        print(f"""\n2️⃣  What adoption level would you like?
-
-  [1] LITE - Minimal governance
-             (Essential guidelines, quick onboarding)
-             
-  [2] FULL - Complete governance framework
-             (All guidelines, comprehensive setup)
-""")
-        adoption_choice = input("Select adoption level (1-2): ").strip()
-        adoption_level = 'LITE' if adoption_choice == '1' else 'FULL'
-        print(f"   ✅ Selected: {adoption_level}")
+        # Default adoption level (FULL)
+        adoption_level = 'FULL'
         
         config = {
             'language': language,
