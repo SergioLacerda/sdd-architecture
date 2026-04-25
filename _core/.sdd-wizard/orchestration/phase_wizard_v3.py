@@ -71,10 +71,13 @@ class Guideline:
 class Phase1Generator:
     """Generate markdown templates from documentation with status fields"""
     
-    def __init__(self, sdd_core_path: Path, output_path: Path, verbose: bool = False):
+    def __init__(self, sdd_core_path: Path, output_path: Path, verbose: bool = False, config: dict = None):
         self.sdd_core_path = sdd_core_path
         self.output_path = output_path
         self.verbose = verbose
+        self.config = config or {}
+        self.language = config.get('language', 'Python') if config else 'Python'
+        self.adoption_level = config.get('adoption_level', 'FULL') if config else 'FULL'
         self.mandates: List[Mandate] = []
         self.guidelines: List[Guideline] = []
     
@@ -234,6 +237,11 @@ class Phase1Generator:
             f.write(f"""# Phase 1: Governance Rules Templates
 
 **Generated:** {datetime.now().isoformat()}
+
+## Configuration
+
+- **Language:** {self.language}
+- **Adoption Level:** {self.adoption_level}
 
 ## What You Have
 
