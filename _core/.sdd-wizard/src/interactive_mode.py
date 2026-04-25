@@ -216,6 +216,8 @@ YOUR CHOICE: Change any guideline to optional/custom as needed
         self.print_header("PHASE 4-6: Generate Project Structure", "🏗️")
         
         try:
+            from orchestration.phase_4_5_6_generator import run_phase_4_5_6_generator
+            
             # Adjust repo_root if we're inside _core
             repo_root = self.repo_root
             if repo_root.name == '_core':
@@ -239,43 +241,36 @@ YOUR CHOICE: Change any guideline to optional/custom as needed
                 print("You must run Phase 3 first to compile governance.")
                 return False
             
-            print(f"""
-✅ Configuration and Phase 3 output loaded
-   Language: {config.get('language', 'Python')}
-   Adoption: {config.get('adoption_level', 'FULL')}
+            # Output base is the project root where .sdd/ will be created
+            # For now, use sdd-generated directory as the output base
+            output_base = repo_root / '_core' / 'sdd-generated'
+            
+            # Run Phase 4-6 generator
+            result = run_phase_4_5_6_generator(repo_root, output_base, config)
+            
+            if result['success']:
+                print(f"""
+✅ Phase 4-6 Complete!
 
-Generating project structure...
+📊 Output Summary:
+   Mandates: {result['mandates']}
+   Guidelines: {result['guidelines']}
+   Categories: {', '.join(result['categories'])}
+   
+📂 Location: {result['output_path']}
+
+🎯 Next Steps:
+   1. Review .sdd/source/ for governance organization
+   2. Review .sdd/runtime/README.md for agent pre-cache instructions
+   3. Configure seedlings (.vscode, .cursor, .ia)
+   4. Commit to version control
 """)
-            
-            output_structure = [
-                '.sdd/source/',
-                '.sdd/runtime/',
-                '.sdd/examples/',
-                '.vscode/',
-                '.cursor/',
-                '.ia/'
-            ]
-            
-            print("📁 Structure to be created:\n")
-            for item in output_structure:
-                print(f"   ✓ {item}")
-            
-            print(f"""
-✅ Phase 4-6 Generation Framework Complete!
-
-📂 Output structure (phase-5-output/):
-   .sdd/source/          → mandate.spec, guidelines.dsl (edited)
-   .sdd/runtime/         → Dynamic context directories
-   .sdd/examples/        → Code examples in {config.get('language')}
-   .vscode/              → VS Code settings (copy to project root)
-   .cursor/              → Cursor IDE settings (copy to project root)
-   .ia/                  → AI agent configuration (copy to project root)
-
-🎉 Your SDD Wizard workflow is ready!
-Next: Implement full Phase 4-6 generators
-""")
-            
-            return True
+                return True
+            else:
+                print(f"\n❌ Phase 4-6 generation failed!")
+                for error in result.get('errors', []):
+                    print(f"   • {error}")
+                return False
         except Exception as e:
             print(f"\n❌ Error: {e}")
             import traceback
