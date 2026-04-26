@@ -1,0 +1,246 @@
+name: SDD Health Check
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  schedule:
+    # Run daily at 2 AM UTC
+    - cron: '0 2 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  checks: write
+  pull-requests: write
+
+jobs:
+  health-check:
+    name: Validate SDD Architecture Health
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+          cache: 'pip'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          # Add any project-specific dependencies here
+          # pip install -r requirements.txt
+
+      - name: Run health check (explicit)
+        id: health
+        run: |
+          python _core/health_check.py --json > health-report.json
+          echo "Health check completed"
+          cat health-report.json
+
+      - name: Run diagnostics
+        id: diagnostics
+        run: |
+          python _core/diagnostics_test.py --json > diagnostics-report.json
+          echo "Diagnostics completed"
+          cat diagnostics-report.json
+
+      - name: Run agent handshake (implicit validation)
+        id: ahp
+        run: |
+          python _core/agent_handshake.py --mode=compact --json > ahp-report.json
+          echo "Agent Handshake Protocol validation completed"
+          cat ahp-report.json
+
+      - name: Evaluate confidence
+        id: confidence
+        run: |
+          python _core/agent_confidence.py --json > confidence-report.json
+          echo "Confidence evaluation completed"
+          cat confidence-report.json
+
+      - name: Parse health status
+        id: status
+        run: |
+          python << 'EOF'
+          import json
+          
+          # Load AHP report
+          with open('ahp-report.json', 'r') as f:
+              ahp_data = json.load(f)
+          
+          state = ahp_data.get('state', 'UNKNOWN')
+          confidence = ahp_data.get('confidence', 0)
+          
+          print(f"State: {state}")
+          print(f"Confidence: {confidence}%")
+          
+          # Set output
+          print(f"::set-output name=state::{state}")
+          print(f"::set-output name=confidence::{confidence}")
+          
+          # Determine outcome
+          if state == 'HEALTHY':
+              print("::set-output name=outcome::success")
+          elif state in ['PARTIAL', 'NOT_INITIALIZED']:
+              print("::set-output name=outcome::warning")
+          else:
+              print("::set-output name=outcome::failure")
+          EOF
+
+      - name: Upload health reports
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: health-reports
+          path: |
+            health-report.json
+            diagnostics-report.json
+            ahp-report.json
+            confidence-report.json
+          retention-days: 30
+
+      - name: Comment on PR with health status
+        if: github.event_name == 'pull_request' && always()
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const fs = require('fs');
+            
+            // Load reports
+            const health = JSON.parse(fs.readFileSync('health-report.json'));
+            const ahp = JSON.parse(fs.readFileSync('ahp-report.json'));
+            const confidence = JSON.parse(fs.readFileSync('confidence-report.json'));
+            
+            // Build comment
+            const stateEmoji = {
+              'HEALTHY': '🟢',
+              'PARTIAL': '🟡',
+              'NOT_INITIALIZED': '⚠️',
+              'MISCONFIGURED': '⚠️',
+              'NOT_CONNECTED': '❌'
+            };
+            
+            const emoji = stateEmoji[ahp.state] || '❓';
+            
+            const comment = `## 🧠 SDD Architecture Health Check
+            
+            **State**: ${emoji} ${ahp.state}  
+            **Confidence**: ${ahp.confidence}%  
+            **Checks Passed**: ${health.checks_passed}/${health.checks_total}
+            
+            ### Health Summary
+            ${health.summary}
+            
+            ### Next Steps
+            ${ahp.actions ? ahp.actions.map(a => `- ${a}`).join('\n') : 'No actions required'}
+            
+            ---
+            **Validation Time**: ${new Date().toISOString()}
+            `;
+            
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: comment
+            });
+
+      - name: Fail if not healthy
+        if: steps.status.outputs.outcome == 'failure'
+        run: |
+          echo "❌ Project health check failed"
+          echo "State: ${{ steps.status.outputs.state }}"
+          echo "Confidence: ${{ steps.status.outputs.confidence }}%"
+          exit 1
+
+      - name: Warn if partial
+        if: steps.status.outputs.outcome == 'warning'
+        run: |
+          echo "⚠️ Project health is partial or not initialized"
+          echo "State: ${{ steps.status.outputs.state }}"
+          echo "Confidence: ${{ steps.status.outputs.confidence }}%"
+          echo "Recommended: Run EXECUTION/SCRIPTS/phase-0-agent-onboarding.py"
+
+      - name: Success
+        if: steps.status.outputs.outcome == 'success'
+        run: |
+          echo "✅ Project health check passed"
+          echo "State: ${{ steps.status.outputs.state }}"
+          echo "Confidence: ${{ steps.status.outputs.confidence }}%"
+
+  integration-test:
+    name: Verify AHP Integration
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    needs: health-check
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Test AHP programmatic API
+        run: |
+          python << 'EOF'
+          import sys
+          sys.path.insert(0, '_core')
+          
+          from agent_handshake import AgentHandshakeProtocol
+          
+          # Test semantic trigger
+          ahp = AgentHandshakeProtocol()
+          
+          test_cases = [
+              ("estou conectado?", True),
+              ("oi tudo bem?", False),
+              ("implementar código", True),
+              ("qual seu nome", False),
+          ]
+          
+          print("Testing semantic trigger...")
+          for user_input, expected in test_cases:
+              result = ahp.should_run_handshake(user_input)
+              status = "✅" if result == expected else "❌"
+              print(f"{status} '{user_input}' → {result}")
+              assert result == expected, f"Failed for '{user_input}'"
+          
+          # Test validation
+          print("\nTesting AHP validation...")
+          result = ahp.validate(output_mode="silent")
+          print(f"State: {result.state}")
+          print(f"Confidence: {result.confidence}%")
+          
+          print("\n✅ All tests passed")
+          EOF
+
+  summary:
+    name: Health Check Summary
+    runs-on: ubuntu-latest
+    needs: [ health-check, integration-test ]
+    if: always()
+
+    steps:
+      - name: Generate summary
+        run: |
+          echo "## SDD Architecture Health Check - Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "| Component | Status |" >> $GITHUB_STEP_SUMMARY
+          echo "|-----------|--------|" >> $GITHUB_STEP_SUMMARY
+          echo "| Health Check | ${{ needs.health-check.result }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| Integration Tests | ${{ needs.integration-test.result }} |" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "✅ All validations complete" >> $GITHUB_STEP_SUMMARY
