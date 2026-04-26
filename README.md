@@ -2,8 +2,21 @@
 
 **Specification-Driven Development with Autonomous Governance**
 
-![Status](https://img.shields.io/badge/v3.0-✅%20Production-brightgreen?style=flat-square)
-![Tests](https://img.shields.io/badge/Tests-124%2F124%20✅-brightgreen?style=flat-square)
+[![Version](https://img.shields.io/badge/v3.0-✅%20Production-brightgreen?style=flat-square&logo=github)](.) [![Tests](https://img.shields.io/badge/Tests-124%2F124%20✅-brightgreen?style=flat-square&logo=pytest)](docs/TEST_RUNNER_GUIDE.md) [![Python](https://img.shields.io/badge/Python-3.8%2B-blue?style=flat-square&logo=python)](.) [![CI/CD](https://img.shields.io/badge/GitHub%20Actions-Active-blue?style=flat-square&logo=github-actions)](.) [![Code Coverage](https://img.shields.io/badge/Coverage-100%25-brightgreen?style=flat-square&logo=codecov)](.) [![License](https://img.shields.io/badge/License-MIT-green?style=flat-square)](.) [![Governance](https://img.shields.io/badge/Governance-16%20Rules-orange?style=flat-square)](.) [![Status](https://img.shields.io/badge/Status-Production%20Ready-success?style=flat-square&logo=checkmarx)](.) [![Code Quality](https://img.shields.io/badge/Code%20Quality-Enterprise-blue?style=flat-square)](.) [![Architecture](https://img.shields.io/badge/Architecture-4%2BLayer%20Validation-purple?style=flat-square)](.)
+
+---
+
+## 🎯 Quick Start — Choose Your Path
+
+| 👨‍💻 Developer | 🤖 AI Agent | 🔬 Technical |
+|---|---|---|
+| **3 Steps:** | **AI-Ready:** | **7-Phase Workflow:** |
+| 1. `./setup.sh` | Wizard integration | Phase 1: Validate |
+| 2. `./wizard.sh` | Phase execution | Phase 2: Load |
+| 3. `cat .sdd/` | Seedling configs | Phase 3-4: Filter |
+| ⏱️ **5 min** | ⏱️ **10 min** | Phase 5-7: Generate |
+| [→ Developer](README.md) | [→ AI Guide](readme-ia.md) | ⏱️ **20 min** |
+| | | [→ Technical](readme-detailed.md) |
 
 ---
 
@@ -34,6 +47,23 @@ repository/
 
 ---
 
+## 📖 Documentation Paths
+
+### 👨‍💻 For Developers
+- [README.md](README.md) — Overview (3 min)
+- [_core/README.md](_core/README.md) — Code structure (5 min)  
+- [docs/TEST_RUNNER_GUIDE.md](docs/TEST_RUNNER_GUIDE.md) — Testing (10 min)
+
+### 🤖 For AI Agents
+- [readme-ia.md](readme-ia.md) — Wizard integration guide
+- [.ai-index.md](.ai-index.md) — AI entry point
+
+### 🔬 For Technical Details
+- [readme-detailed.md](readme-detailed.md) — 7-phase workflow
+- [_core/.sdd-wizard/WORKFLOW_FLOW.md](_core/.sdd-wizard/WORKFLOW_FLOW.md) — Complete orchestration
+
+---
+
 ## 🔧 First Time Setup (Required)
 
 **Before using the CLI or wizard**, install dependencies (one-time setup):
@@ -55,91 +85,35 @@ pip3 install -r _core/requirements-cli.txt
 
 ---
 
-## ⚡ Quick Start (Choose Your Role)
+## 🚀 Installation & Setup
 
-### 👨‍💻 **I'm a Developer**
+### Step 1: Clone & Install
+
 ```bash
-# 1. Read the governance rules (5 min)
-cat _core/.sdd-core/HONEST-CRITIQUE-CONSTITUTION.md
+git clone https://github.com/yourusername/sdd-architecture.git
+cd sdd-architecture
 
-# 2. Follow the 7-phase workflow  
-cat _core/.sdd-core/spec/guides/onboarding/AGENT_HARNESS.md
-
-# 3. Run tests to verify setup
-cd _core && python3 run-all-tests.py --fail-fast
-```
-
-### 🤖 **I'm an AI Agent**
-```bash
-# 1. Your complete guide
-cat _spec/.ai-index.md
-
-# 2. Verify your context
-python3 -c "print('✅ Ready for autonomous development')"
-```
-
-### 📦 **I'm Adding a Project to SDD**
-```bash
-# 1. Follow the integration checklist (30 min)
-cat _core/.sdd-integration/CHECKLIST.md
-
-# 2. Execute 5 steps
-cd /path/to/new/project
-# See: _core/.sdd-integration/STEP_1.md through STEP_5.md
-```
-
-### 🔧 **I'm Using the CLI**
-
-First, make sure you've run setup:
-```bash
+# Run setup script (one-time)
 ./setup.sh
 ```
 
-Then use the CLI:
-```bash
-# Show governance configuration
-python3 -m sdd_cli governance load
-
-# Validate integrity
-python3 -m sdd_cli governance validate
-
-# Generate agent seed templates
-python3 -m sdd_cli governance generate
-```
-
-### 🧙 **I'm Creating a New Project (Wizard)**
-
-The easiest way to create a new SDD-based project - **now with interactive guided mode!**
+### Step 2: Create Your First Project
 
 ```bash
-# Interactive mode (guided setup - RECOMMENDED!)
-# Wizard will guide you through 4 steps with clear instructions
+# Interactive mode (RECOMMENDED)
 ./wizard.sh
 
-# Non-interactive mode (with command-line options)
-./wizard.sh --language java --mandates M001 --output ~/my-project/
-
-# Show all wizard options
-./wizard.sh --help
+# Non-interactive
+./wizard.sh --language python --mandates M001 --output ~/my-project/
 ```
 
-**📖 Complete Interactive Mode Guide:**
-See [WIZARD_INTERACTIVE_GUIDE.md](WIZARD_INTERACTIVE_GUIDE.md) for a detailed walkthrough of:
-1. 📂 Where source files are located (mandate.spec, guidelines.dsl)
-2. 📝 How to enter your project configuration
-3. 🚀 How the 7-phase pipeline executes
-4. 📍 Where generated templates are saved
+### Step 3: Explore Generated Project
 
-**What the wizard does:**
-- ✅ **Step 1:** Shows governance source files (mandate.spec, guidelines.dsl)
-- ✅ **Step 2:** Asks for project config (language, mandates, output location)
-- ✅ **Step 3:** Executes 7-phase pipeline automatically
-- ✅ **Step 4:** Shows exactly where your project was generated
-- ✅ Validates SDD specifications
-- ✅ Loads compiled governance rules
-- ✅ Filters by your selected mandates
-- ✅ Applies project templates
-- ✅ Generates initial project structure
+```bash
+cd ~/my-project/
+cat .sdd/CANONICAL/mandate.spec
+make test
+```
 
 ---
 
