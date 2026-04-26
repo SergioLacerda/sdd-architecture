@@ -9,7 +9,7 @@
 **Have you picked LITE or FULL?**
 
 ### If NO → Do this NOW (5 min)
-Go to: **[adoption/INDEX.md](./spec/guides/adoption/INDEX.md)**
+Go to: **[adoption/INDEX.md](../../_spec/guides/adoption/INDEX.md)**
 - Read the comparison table
 - Choose LITE (15 min, learning) or FULL (40 min, production)
 - Come back here once decided

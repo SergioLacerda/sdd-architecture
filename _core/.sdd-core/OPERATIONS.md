@@ -555,8 +555,8 @@ du -sh .sdd-*
 - [DEPLOYMENT.md](./DEPLOYMENT.md) — Production deployment checklist
 - [MONITORING.md](./MONITORING.md) — Detailed monitoring procedures
 - [MAINTENANCE.md](./MAINTENANCE.md) — Advanced maintenance tasks
-- [.sdd-core/spec/guides/operational/](./spec/guides/operational/) — Specific operational tasks
-- [.sdd-core/spec/guides/troubleshooting/](./spec/guides/troubleshooting/) — Extended troubleshooting
+- [guides/operational/](../../_spec/guides/operational/) — Specific operational tasks
+- [guides/troubleshooting/](../../_spec/guides/troubleshooting/) — Extended troubleshooting
 
 ---
 

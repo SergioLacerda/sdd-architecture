@@ -235,8 +235,8 @@ Week 2+ (Ongoing)
 
 - **Framework Overview:** [README.md](../README.md)
 - **Architecture Details:** [.sdd-core/NAVIGATION.md](./NAVIGATION.md)
-- **Specific Operational Tasks:** [spec/guides/operational/](./spec/guides/operational/)
-- **Troubleshooting Deep-Dive:** [spec/guides/troubleshooting/](./spec/guides/troubleshooting/)
+- **Specific Operational Tasks:** [guides/operational/](../../_spec/guides/operational/)
+- **Troubleshooting Deep-Dive:** [guides/troubleshooting/](../../_spec/guides/troubleshooting/)
 - **Integration Workflow:** [.sdd-integration/README.md](../sdd-integration/README.md)
 
 ---
