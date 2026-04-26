@@ -23,7 +23,7 @@ _core/
 ├── .sdd-integration/       # Integration tools
 ├── .sdd-runtime/           # Runtime compiled governance
 │
-├── sdd_cli/                # CLI interface
+├── .sdd-cli/               # CLI interface
 ├── tests/                  # All test files (82+ tests)
 │
 ├── Configuration
@@ -71,7 +71,7 @@ python .sdd-wizard/src/wizard.py --help
 |--------|---------|----------|
 | **Compiler** | Extract & compile governance items | `.sdd-core/compile_governance.py` |
 | **Wizard** | 7-phase orchestration pipeline | `.sdd-wizard/src/wizard.py` |
-| **CLI** | Command-line interface | `sdd_cli/` |
+| **CLI** | Command-line interface | `.sdd-cli/` |
 | **Tests** | 82+ integration tests | `tests/` |
 | **Runtime** | Compiled governance artifacts | `.sdd-runtime/` |
 
