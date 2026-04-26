@@ -1,0 +1,140 @@
+#!/bin/bash
+# Pre-push Hook - SDD Architecture Framework (Not for Client Projects)
+#
+# Validates:
+# - Health check
+# - Governance compliance
+#
+# Skip only if absolutely necessary:
+#   git push --no-verify
+
+set -u
+set -o pipefail
+
+PROJECT_ROOT="$(git rev-parse --show-toplevel)"
+cd "$PROJECT_ROOT" || exit 1
+
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+NC='\033[0m'
+
+echo -e "${YELLOW}[PRE-PUSH] Starting final validation before push...${NC}"
+
+if [ -x "$PROJECT_ROOT/.venv/bin/python" ]; then
+    PYTHON_BIN="$PROJECT_ROOT/.venv/bin/python"
+elif command -v python3 >/dev/null 2>&1; then
+    PYTHON_BIN="python3"
+elif command -v python >/dev/null 2>&1; then
+    PYTHON_BIN="python"
+else
+    echo -e "${RED}✗ Python interpreter not found${NC}"
+    exit 1
+fi
+
+HEALTH_SCRIPT=""
+if [ -f "$PROJECT_ROOT/_core/tools/health_check.py" ]; then
+    HEALTH_SCRIPT="$PROJECT_ROOT/_core/tools/health_check.py"
+elif [ -f "$PROJECT_ROOT/_core/health_check.py" ]; then
+    HEALTH_SCRIPT="$PROJECT_ROOT/_core/health_check.py"
+fi
+
+if [ -z "$HEALTH_SCRIPT" ]; then
+    echo -e "${RED}✗ Health check script not found${NC}"
+    echo "  Expected one of:"
+    echo "  - _core/tools/health_check.py"
+    echo "  - _core/health_check.py"
+    exit 1
+fi
+
+GOVERNANCE_SCRIPT=""
+if [ -f "$PROJECT_ROOT/_core/tools/governance_compliance.py" ]; then
+    GOVERNANCE_SCRIPT="$PROJECT_ROOT/_core/tools/governance_compliance.py"
+elif [ -f "$PROJECT_ROOT/_core/governance_compliance.py" ]; then
+    GOVERNANCE_SCRIPT="$PROJECT_ROOT/_core/governance_compliance.py"
+fi
+
+if [ -z "$GOVERNANCE_SCRIPT" ]; then
+    echo -e "${RED}✗ Governance script not found${NC}"
+    echo "  Expected one of:"
+    echo "  - _core/governance_compliance.py"
+    echo "  - _core/tools/governance_compliance.py"
+    exit 1
+fi
+
+echo -e "${YELLOW}→ Running full health check (fresh, no cache)...${NC}"
+HEALTH_OUTPUT="$("$PYTHON_BIN" "$HEALTH_SCRIPT" 2>&1)"
+HEALTH_STATUS=$?
+if [ $HEALTH_STATUS -ne 0 ]; then
+    echo -e "${RED}✗ Health check command failed${NC}"
+    echo "$HEALTH_OUTPUT"
+    exit 1
+fi
+
+if ! echo "$HEALTH_OUTPUT" | grep -q "OPERATIONAL"; then
+    echo -e "${RED}✗ Health check failed${NC}"
+    echo "$HEALTH_OUTPUT"
+    exit 1
+fi
+echo -e "${GREEN}✓ Health check passed${NC}"
+
+GOVERNANCE_FILE=""
+if [ -f "$PROJECT_ROOT/.ai/governance-core.json" ]; then
+    GOVERNANCE_FILE="$PROJECT_ROOT/.ai/governance-core.json"
+elif [ -f "$PROJECT_ROOT/.sdd/governance-core.json" ]; then
+    GOVERNANCE_FILE="$PROJECT_ROOT/.sdd/governance-core.json"
+fi
+
+ENFORCEMENT_MODE="SKIPPED"
+if [ -n "$GOVERNANCE_FILE" ]; then
+    echo -e "${YELLOW}→ Verifying governance enforcement level...${NC}"
+    ENFORCEMENT_OUTPUT="$("$PYTHON_BIN" "$GOVERNANCE_SCRIPT" --enforcement-check 2>&1)"
+    if [ $? -ne 0 ]; then
+        echo -e "${RED}✗ Governance enforcement check failed${NC}"
+        echo "$ENFORCEMENT_OUTPUT"
+        exit 1
+    fi
+
+    ENFORCEMENT_MODE="$(echo "$ENFORCEMENT_OUTPUT" | grep -oE '(STRICT|STANDARD|PERMISSIVE)' | head -1 || true)"
+    if [ -z "$ENFORCEMENT_MODE" ]; then
+        ENFORCEMENT_MODE="UNKNOWN"
+    fi
+    echo -e "${GREEN}✓ Enforcement mode: $ENFORCEMENT_MODE${NC}"
+
+    echo -e "${YELLOW}→ Checking compliance percentage...${NC}"
+    VERIFY_OUTPUT="$("$PYTHON_BIN" "$GOVERNANCE_SCRIPT" --verify 2>&1)"
+    VERIFY_STATUS=$?
+    COMPLIANCE="$(echo "$VERIFY_OUTPUT" | grep -oE '[0-9]+%' | head -1 || true)"
+
+    if [ $VERIFY_STATUS -ne 0 ]; then
+        echo -e "${RED}✗ Governance verify failed${NC}"
+        echo "$VERIFY_OUTPUT"
+        exit 1
+    fi
+
+    if [ -n "$COMPLIANCE" ] && [ "$COMPLIANCE" != "100%" ]; then
+        echo -e "${RED}✗ Not fully compliant: $COMPLIANCE${NC}"
+        echo "  Fix steps: $PYTHON_BIN $GOVERNANCE_SCRIPT --fix-steps"
+        exit 1
+    fi
+
+    echo -e "${GREEN}✓ Governance compliance check passed${NC}"
+else
+    echo -e "${YELLOW}→ Governance file not found (.ai/.sdd). Skipping governance checks.${NC}"
+fi
+
+BRANCH="$(git rev-parse --abbrev-ref HEAD)"
+if git rev-parse --abbrev-ref @{u} >/dev/null 2>&1; then
+    COMMIT_COUNT="$(git rev-list --count @{u}..HEAD)"
+else
+    COMMIT_COUNT="(no upstream)"
+fi
+
+echo -e "${YELLOW}→ Summary for branch '$BRANCH':${NC}"
+echo -e "  Commits to push: $COMMIT_COUNT"
+echo -e "  Health: ${GREEN}✓ Healthy${NC}"
+echo -e "  Governance: ${GREEN}✓ Compliant${NC}"
+echo -e "  Enforcement: $ENFORCEMENT_MODE"
+echo -e "${GREEN}[PRE-PUSH] All checks passed. Push allowed.${NC}\n"
+
+exit 0

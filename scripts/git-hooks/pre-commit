@@ -1,0 +1,53 @@
+#!/bin/bash
+# Pre-commit Hook: CODE REVIEW Guardrail (ADR-008) - INFORMATIVE ONLY
+#
+# Non-blocking local guidance. Branch protection remains the hard gate.
+
+set -u
+set -o pipefail
+
+REPO_ROOT="$(git rev-parse --show-toplevel)"
+CURRENT_BRANCH="$(git rev-parse --abbrev-ref HEAD)"
+STAGED_FILES="$(git diff --cached --name-only)"
+
+echo "INFO ADR-008: Code Review Workflow"
+echo "Current branch: $CURRENT_BRANCH"
+echo
+
+if [ "$CURRENT_BRANCH" = "main" ]; then
+    echo "WARNING: main branch requires PR review + architect approval"
+    echo
+fi
+
+CRITICAL_PATTERNS=(
+    "_spec/architecture/decisions/ADR-007"
+    "_spec/architecture/decisions/ADR-008"
+    ".sdd-migration/phase-archive/DECISIONS.md"
+    "_core/.sdd-migration/phase-archive/DECISIONS.md"
+    ".sdd-migration/PHASES.md"
+    "_core/.sdd-migration/PHASES.md"
+)
+
+for critical in "${CRITICAL_PATTERNS[@]}"; do
+    if echo "$STAGED_FILES" | grep -q "$critical"; then
+        echo "CAUTION: Modifying critical file: $critical"
+        echo "  -> Requires explicit review in PR"
+        echo
+    fi
+done
+
+if [ -z "$STAGED_FILES" ]; then
+    echo "No staged files."
+else
+    echo "Staged files:"
+    echo "$STAGED_FILES" | sed 's/^/  + /'
+fi
+
+echo
+echo "Next steps:"
+echo "  1. Commit staged changes"
+echo "  2. Push to origin"
+echo "  3. Open/update PR when required"
+echo
+
+exit 0

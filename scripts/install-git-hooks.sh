@@ -2,10 +2,10 @@
 #
 # Git Hooks Installer
 # 
-# Installs all SDD Architecture git hooks:
-# - pre-commit: Validate governance before commit
-# - pre-push: Full health check before push
-# - post-merge: Update cache after merge
+# Installs all SDD Architecture git hooks from scripts/git-hooks/:
+# - pre-commit: Informational ADR-008 guidance
+# - pre-push: Full health + governance validation
+# - post-merge: Cache warm-up
 #
 # Usage:
 #   bash scripts/install-git-hooks.sh
@@ -15,6 +15,7 @@ set -e
 
 PROJECT_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 HOOKS_DIR="$PROJECT_ROOT/.git/hooks"
+TEMPLATES_DIR="$PROJECT_ROOT/scripts/git-hooks"
 
 # Colors
 GREEN='\033[0;32m'
@@ -42,20 +43,20 @@ success_count=0
 failed_count=0
 
 for hook_name in "${hooks[@]}"; do
-    hook_src="$PROJECT_ROOT/.git/hooks/$hook_name"
-    
-    if [ ! -f "$hook_src" ]; then
-        echo -e "${RED}✗ Hook not found: $hook_name${NC}"
+    hook_template="$TEMPLATES_DIR/$hook_name"
+    hook_target="$HOOKS_DIR/$hook_name"
+
+    if [ ! -f "$hook_template" ]; then
+        echo -e "${RED}✗ Hook template not found: $hook_template${NC}"
         failed_count=$((failed_count + 1))
         continue
     fi
-    
-    # Make hook executable
-    if chmod +x "$hook_src"; then
+
+    if cp "$hook_template" "$hook_target" && chmod +x "$hook_target"; then
         echo -e "${GREEN}✓ Installed: $hook_name${NC}"
         success_count=$((success_count + 1))
     else
-        echo -e "${RED}✗ Failed to make executable: $hook_name${NC}"
+        echo -e "${RED}✗ Failed to install: $hook_name${NC}"
         failed_count=$((failed_count + 1))
     fi
 done

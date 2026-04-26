@@ -90,7 +90,7 @@ pip3 install -r _core/requirements-cli.txt
 ### Step 1: Clone & Install
 
 ```bash
-git clone github.com:SergioLacerda/sdd-archtecture.git
+git clone github.com:SergioLacerda/sdd-architecture.git
 cd sdd-architecture && make setup
 
 # Run setup script (one-time)
