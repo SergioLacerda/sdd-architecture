@@ -12,11 +12,11 @@ Workflow:
 7. Provide git commands for commit + tag
 """
 
-import shutil
 import json
-from pathlib import Path
-from typing import Dict, Any, List, Tuple
+import shutil
 from datetime import datetime
+from pathlib import Path
+from typing import Any, Dict, List
 
 
 class DeploymentManager:

@@ -44,8 +44,8 @@ jobs:
       - name: Run health check (explicit)
         id: health
         run: |
-          python _core/health_check.py --verbose > health-report.txt 2>&1
-          python _core/health_check.py --json > health-report.json
+          python _core/tools/health_check.py --verbose > health-report.txt 2>&1
+          python _core/tools/health_check.py --json > health-report.json
           echo "✅ Health check completed"
 
       - name: Run agent handshake validation
@@ -110,12 +110,6 @@ jobs:
             health-report.txt
             handshake-report.json
             handshake-report.txt
-          retention-days: 30
-        uses: actions/upload-artifact@v3
-        with:
-          name: health-reports
-          path: |
-            health-report.json
             diagnostics-report.json
             ahp-report.json
             confidence-report.json

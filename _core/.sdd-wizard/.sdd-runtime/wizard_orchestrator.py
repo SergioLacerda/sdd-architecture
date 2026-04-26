@@ -11,14 +11,14 @@ Provides:
 
 import sys
 from pathlib import Path
-from typing import Dict, Any
+from typing import Any, Dict
 
 # Add runtime to path
 sys.path.insert(0, str(Path(__file__).parent))
 
+from customization_template_generator import CustomizationTemplateGenerator
 from governance_runtime_loader import GovernanceRuntimeLoader
 from wizard_integrator import WizardIntegrator
-from customization_template_generator import CustomizationTemplateGenerator
 
 
 class WizardOrchestrator:

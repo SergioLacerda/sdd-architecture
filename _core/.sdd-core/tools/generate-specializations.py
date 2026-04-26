@@ -17,43 +17,41 @@ Exit codes:
 """
 
 import argparse
-import json
-import os
 import sys
-from pathlib import Path
 from datetime import datetime
+from pathlib import Path
 
 
 def load_config(project_name: str) -> dict:
     """Load SPECIALIZATIONS_CONFIG.md for a project."""
     config_path = Path(f"docs/ia/custom/{project_name}/SPECIALIZATIONS_CONFIG.md")
-    
+
     if not config_path.exists():
         print(f"❌ ERROR: Config not found at {config_path}")
         return None
-    
+
     # Parse markdown config into dict (simple parser for key=value pairs)
     config = {
         "PROJECT_NAME": project_name,
         "GENERATED_AT": datetime.now().isoformat(),
     }
-    
+
     with open(config_path) as f:
         current_section = None
         for line in f:
             line = line.strip()
-            
+
             # Extract key=value pairs
             if "=" in line and not line.startswith("#"):
                 if line.startswith("```"):
                     continue
-                    
+
                 key, value = line.split("=", 1)
                 key = key.strip()
                 value = value.strip().strip('"')
-                
+
                 config[key] = value
-    
+
     return config
 
 
@@ -65,24 +63,24 @@ def validate_config(config: dict) -> bool:
         "LANGUAGE",
         "ASYNC_FRAMEWORK",
     ]
-    
+
     missing = [k for k in required if k not in config]
-    
+
     if missing:
         print(f"❌ ERROR: Missing required config fields: {missing}")
         return False
-    
+
     return True
 
 
 def generate_constitution_specialization(config: dict) -> str:
     """Generate project-specific constitution.md from generic version."""
-    
+
     project = config["PROJECT_NAME"]
     entities = config.get("PRIMARY_DOMAIN_OBJECTS", "domain objects")
     max_concurrent = config.get("MAX_CONCURRENT_ENTITIES", "50+")
     team_size = config.get("TEAM_SIZE", "unknown")
-    
+
     content = f"""# Constitutional Principles — {project} Specialization
 
 **Project:** {project}  
@@ -350,11 +348,11 @@ Validation:** Every endpoint must log on entry/exit with trace ID
 
 def generate_ia_rules_specialization(config: dict) -> str:
     """Generate project-specific ia-rules.md from generic version."""
-    
+
     project = config["PROJECT_NAME"]
     ports = config.get("PRIMARY_PORTS", ["StoragePort", "LLMPort"])
     threads = config.get("CONCURRENT_THREADS", ["WorkerThread"])
-    
+
     content = f"""# IA-FIRST Execution Rules — {project} Specialization
 
 **Project:** {project}  
@@ -419,10 +417,10 @@ def create_specializations_dir(project: str) -> bool:
 
 def write_specialization_files(project: str, config: dict, force: bool = False) -> bool:
     """Write generated specialization files."""
-    
+
     if not create_specializations_dir(project):
         return False
-    
+
     # Generate constitution specialization
     constitution_path = Path(f"docs/ia/custom/{project}/SPECIALIZATIONS/constitution-{project}-specific.md")
     if constitution_path.exists() and not force:
@@ -432,7 +430,7 @@ def write_specialization_files(project: str, config: dict, force: bool = False) 
         with open(constitution_path, "w") as f:
             f.write(content)
         print(f"✅ Generated: {constitution_path}")
-    
+
     # Generate ia-rules specialization
     rules_path = Path(f"docs/ia/custom/{project}/SPECIALIZATIONS/ia-rules-{project}-specific.md")
     if rules_path.exists() and not force:
@@ -442,7 +440,7 @@ def write_specialization_files(project: str, config: dict, force: bool = False) 
         with open(rules_path, "w") as f:
             f.write(content)
         print(f"✅ Generated: {rules_path}")
-    
+
     return True
 
 
@@ -452,26 +450,26 @@ def main():
     )
     parser.add_argument("--project", required=True, help="Project name (e.g., rpg-narrative-server)")
     parser.add_argument("--force", action="store_true", help="Overwrite existing files")
-    
+
     args = parser.parse_args()
-    
+
     # Load config
     config = load_config(args.project)
     if config is None:
         sys.exit(1)
-    
+
     # Validate config
     if not validate_config(config):
         sys.exit(3)
-    
+
     # Generate and write files
     if not write_specialization_files(args.project, config, args.force):
         sys.exit(1)
-    
+
     print(f"✅ SPECIALIZATIONS generated for {args.project}")
     print(f"📝 Files created in: docs/ia/custom/{args.project}/SPECIALIZATIONS/")
-    print(f"📋 Next step: Commit and push for CI/CD validation")
-    
+    print("📋 Next step: Commit and push for CI/CD validation")
+
     return 0
 
 

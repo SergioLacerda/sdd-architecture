@@ -15,11 +15,11 @@ Note: This is a SIMPLE compiler - no complex logic, just serialization and finge
 """
 
 import json
-import hashlib
-import msgpack
-from pathlib import Path
-from typing import Dict, Any, Tuple
 from datetime import datetime
+from pathlib import Path
+from typing import Any, Dict
+
+import msgpack
 
 
 class GovernanceCompiler:
@@ -225,21 +225,21 @@ class GovernanceCompiler:
 
         # Fingerprints should be different
         if core_fp == client_fp:
-            print(f"❌ Core and client fingerprints are identical (should be different)")
+            print("❌ Core and client fingerprints are identical (should be different)")
             return False
 
         # Check core fingerprint is used as salt for client
         core_salt = client_meta.get("fingerprint_core_salt")
         if core_salt != core_fp:
-            print(f"❌ Core fingerprint not used as salt for client")
+            print("❌ Core fingerprint not used as salt for client")
             return False
 
         # Check readonly flags
         if core_meta.get("readonly") is not True:
-            print(f"❌ Core metadata readonly flag not True")
+            print("❌ Core metadata readonly flag not True")
             return False
         if client_meta.get("customizable") is not True:
-            print(f"❌ Client metadata customizable flag not True")
+            print("❌ Client metadata customizable flag not True")
             return False
 
         print("✅ Compilation validation passed")

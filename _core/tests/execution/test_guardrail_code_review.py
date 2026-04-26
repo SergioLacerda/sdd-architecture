@@ -13,12 +13,12 @@ Tests verify:
   6. Rollback capability preserved
 """
 
-import os
 import subprocess
-import json
 from pathlib import Path
-from unittest import mock
 import pytest
+
+# Import centralized paths
+from tests.path_config import REPO_ROOT, ADR_DIR
 
 
 class TestCodeReviewGuardrail:
@@ -26,14 +26,14 @@ class TestCodeReviewGuardrail:
 
     def setup_method(self):
         """Setup for each test"""
-        self.repo_root = Path("/home/sergio/dev/sdd-architecture")
+        self.repo_root = REPO_ROOT
         self.git_dir = self.repo_root / ".git"
-        self.critical_files = {
-            "EXECUTION/spec/CANONICAL/decisions/ADR-007-implementation-guardrails-design-first.md",
-            "EXECUTION/spec/CANONICAL/decisions/ADR-008-code-review-governance.md",
-            ".sdd-migration/phase-archive/DECISIONS.md",
-            ".sdd-migration/PHASES.md",
-        }
+        self.critical_files = [
+            str(ADR_DIR / "ADR-007-implementation-guardrails-design-first.md"),
+            str(ADR_DIR / "ADR-008-code-review-governance.md"),
+            (".sdd-migration/phase-archive/DECISIONS.md", "_core/.sdd-migration/phase-archive/DECISIONS.md"),
+            (".sdd-migration/PHASES.md", "_core/.sdd-migration/PHASES.md"),
+        ]
 
     def test_main_branch_requires_architect_review(self):
         """
@@ -77,7 +77,7 @@ class TestCodeReviewGuardrail:
         
         Verify all required checks are documented.
         """
-        adr_008 = self.repo_root / "EXECUTION/spec/CANONICAL/decisions/ADR-008-code-review-governance.md"
+        adr_008 = ADR_DIR / "ADR-008-code-review-governance.md"
 
         assert adr_008.exists(), "ADR-008 must exist and define review process"
 
@@ -104,7 +104,7 @@ class TestCodeReviewGuardrail:
         
         Verify all critical files are tracked and have protection rules.
         """
-        adr_008 = self.repo_root / "EXECUTION/spec/CANONICAL/decisions/ADR-008-code-review-governance.md"
+        adr_008 = ADR_DIR / "ADR-008-code-review-governance.md"
         content = adr_008.read_text()
 
         # Must mention critical file protection
@@ -122,7 +122,7 @@ class TestCodeReviewGuardrail:
         
         This is the CORE RULE. Must be crystal clear.
         """
-        adr_008 = self.repo_root / "EXECUTION/spec/CANONICAL/decisions/ADR-008-code-review-governance.md"
+        adr_008 = ADR_DIR / "ADR-008-code-review-governance.md"
         content = adr_008.read_text()
 
         # Core rule must be explicit
@@ -143,7 +143,7 @@ class TestCodeReviewGuardrail:
         
         Verify workflow requires architect sign-off.
         """
-        adr_008 = self.repo_root / "EXECUTION/spec/CANONICAL/decisions/ADR-008-code-review-governance.md"
+        adr_008 = ADR_DIR / "ADR-008-code-review-governance.md"
         content = adr_008.read_text()
 
         # Must document architect approval requirement
@@ -164,7 +164,7 @@ class TestCodeReviewGuardrail:
         
         Verify all steps are documented in ADR-008.
         """
-        adr_008 = self.repo_root / "EXECUTION/spec/CANONICAL/decisions/ADR-008-code-review-governance.md"
+        adr_008 = ADR_DIR / "ADR-008-code-review-governance.md"
         content = adr_008.read_text()
 
         workflow_steps = [
@@ -187,7 +187,7 @@ class TestCodeReviewGuardrail:
         
         Verify rollback procedure is documented.
         """
-        adr_008 = self.repo_root / "EXECUTION/spec/CANONICAL/decisions/ADR-008-code-review-governance.md"
+        adr_008 = ADR_DIR / "ADR-008-code-review-governance.md"
         content = adr_008.read_text()
 
         # Must document rollback
@@ -208,7 +208,7 @@ class TestCodeReviewGuardrail:
         
         Verify rules are specified in ADR-008.
         """
-        adr_008 = self.repo_root / "EXECUTION/spec/CANONICAL/decisions/ADR-008-code-review-governance.md"
+        adr_008 = ADR_DIR / "ADR-008-code-review-governance.md"
         content = adr_008.read_text()
 
         # Must mention branch protection
@@ -229,10 +229,14 @@ class TestCodeReviewGuardrail:
         Verify files that should be protected are present.
         """
         for critical_file in self.critical_files:
-            full_path = self.repo_root / critical_file
-            assert (
-                full_path.exists()
-            ), f"Critical file must exist: {critical_file}"
+            if isinstance(critical_file, str):
+                full_path = self.repo_root / critical_file
+                assert full_path.exists(), f"Critical file must exist: {critical_file}"
+            else:
+                assert any((self.repo_root / candidate).exists() for candidate in critical_file), (
+                    "Critical file must exist in one of expected locations: "
+                    + ", ".join(critical_file)
+                )
 
     def test_adr_008_exists_and_complete(self):
         """
@@ -240,7 +244,7 @@ class TestCodeReviewGuardrail:
         
         This is the MANDATE that prevents broken versions.
         """
-        adr_008 = self.repo_root / "EXECUTION/spec/CANONICAL/decisions/ADR-008-code-review-governance.md"
+        adr_008 = ADR_DIR / "ADR-008-code-review-governance.md"
 
         assert adr_008.exists(), "ADR-008 must exist (Code Review Governance)"
 
@@ -262,7 +266,7 @@ class TestCodeReviewGuardrail:
         This is enforced at GitHub/GitLab level.
         Note: This test is documentation of the policy.
         """
-        adr_008 = self.repo_root / "EXECUTION/spec/CANONICAL/decisions/ADR-008-code-review-governance.md"
+        adr_008 = ADR_DIR / "ADR-008-code-review-governance.md"
         content = adr_008.read_text()
 
         # Must document that agent cannot self-merge
@@ -285,22 +289,26 @@ class TestCodeReviewGuardrail:
         
         No broken versions can be released if code review gate works.
         """
-        # Check current version is v2.1 (stable, already in production)
-        release_file = self.repo_root / "RELEASE_v2.1.md"
-        assert release_file.exists(), "v2.1 should be stable baseline"
-
-        # Check v3.1-beta.1 is planned (not yet released)
-        # This would be in PHASES.md
-        phases_file = self.repo_root / ".sdd-migration/PHASES.md"
-        assert phases_file.exists(), "Migration phases should exist"
+        # Check migration phases are documented (v2.1 baseline and next releases)
+        phases_candidates = [
+            self.repo_root / ".sdd-migration/PHASES.md",
+            self.repo_root / "_core/.sdd-migration/PHASES.md",
+        ]
+        phases_file = next((p for p in phases_candidates if p.exists()), None)
+        assert phases_file is not None, "Migration phases should exist"
 
         content = phases_file.read_text()
-        # Phases should document controlled progression
+        # Phases should document controlled progression and baseline references
         assert "phase" in content.lower()
+        assert "v2.1" in content.lower()
 
 
 class TestCodeReviewWorkflow:
     """Test the actual workflow enforcement"""
+
+    def setup_method(self):
+        """Setup for each test"""
+        self.repo_root = REPO_ROOT
 
     def test_workflow_diagram_documented(self):
         """
@@ -308,7 +316,7 @@ class TestCodeReviewWorkflow:
         
         Diagram should show: Agent → WIP → PR → Architect → Commit
         """
-        adr_008 = Path("/home/sergio/dev/sdd-architecture/_spec/CANONICAL/decisions/ADR-008-code-review-governance.md")
+        adr_008 = ADR_DIR / "ADR-008-code-review-governance.md"
         content = adr_008.read_text()
 
         # Must have step-by-step workflow
@@ -329,7 +337,7 @@ class TestCodeReviewWorkflow:
         
         Should guide what to include in PR description.
         """
-        adr_008 = Path("/home/sergio/dev/sdd-architecture/_spec/CANONICAL/decisions/ADR-008-code-review-governance.md")
+        adr_008 = ADR_DIR / "ADR-008-code-review-governance.md"
         content = adr_008.read_text()
 
         # Must reference PR template
@@ -350,7 +358,7 @@ class TestCodeReviewWorkflow:
         
         Each item should be checkable (checkbox [ ]).
         """
-        adr_008 = Path("/home/sergio/dev/sdd-architecture/_spec/CANONICAL/decisions/ADR-008-code-review-governance.md")
+        adr_008 = ADR_DIR / "ADR-008-code-review-governance.md"
         content = adr_008.read_text()
 
         # Count checkboxes in review checklist
@@ -363,6 +371,10 @@ class TestCodeReviewWorkflow:
 class TestProductionSafety:
     """Test that production safety is guaranteed"""
 
+    def setup_method(self):
+        """Setup for each test"""
+        self.repo_root = REPO_ROOT
+
     def test_no_broken_versions_in_production(self):
         """
         CRITICAL: Between v2.1 → v3.1-beta.1 → v3.0, no broken versions in production.
@@ -374,7 +386,7 @@ class TestProductionSafety:
         4. Preventing auto-commits
         5. Enabling rollback if needed
         """
-        adr_008 = Path("/home/sergio/dev/sdd-architecture/_spec/CANONICAL/decisions/ADR-008-code-review-governance.md")
+        adr_008 = ADR_DIR / "ADR-008-code-review-governance.md"
         content = adr_008.read_text()
 
         # Must explicitly address production safety
@@ -395,7 +407,7 @@ class TestProductionSafety:
         
         Must document emergency procedures.
         """
-        adr_008 = Path("/home/sergio/dev/sdd-architecture/_spec/CANONICAL/decisions/ADR-008-code-review-governance.md")
+        adr_008 = ADR_DIR / "ADR-008-code-review-governance.md"
         content = adr_008.read_text()
 
         # Must have section for handling issues
@@ -426,10 +438,8 @@ def test_guardrail_summary():
     - Broken versions cannot reach production
     - Rollback is always possible
     """
-    repo_root = Path("/home/sergio/dev/sdd-architecture")
-
     # Check ADR-008 exists
-    adr_008 = repo_root / "EXECUTION/spec/CANONICAL/decisions/ADR-008-code-review-governance.md"
+    adr_008 = ADR_DIR / "ADR-008-code-review-governance.md"
     assert adr_008.exists()
 
     content = adr_008.read_text()

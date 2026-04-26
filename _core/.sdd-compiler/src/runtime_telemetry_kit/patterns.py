@@ -11,12 +11,12 @@ F. Metadata Patterns (7): Languages, regions, types, versions
 Total: 50+ patterns covering 90% of typical telemetry
 """
 
-from typing import Dict, List, Any
+from typing import Dict
 
 
 class ExtendedPatterns:
     """Extended pattern definitions for RTK v3.1"""
-    
+
     # Category A: Temporal Patterns (5 patterns)
     A_PATTERNS = {
         "TS001": {
@@ -55,7 +55,7 @@ class ExtendedPatterns:
             "frequency": 0.35,
         },
     }
-    
+
     # Category B: Network Patterns (8 patterns)
     B_PATTERNS = {
         "NET001": {
@@ -115,7 +115,7 @@ class ExtendedPatterns:
             "frequency": 0.10,
         },
     }
-    
+
     # Category C: Identifier Patterns (10 patterns)
     C_PATTERNS = {
         "ID001": {
@@ -189,7 +189,7 @@ class ExtendedPatterns:
             "frequency": 0.50,
         },
     }
-    
+
     # Category D: Data Type Patterns (12 patterns)
     D_PATTERNS = {
         "TYPE001": {
@@ -277,7 +277,7 @@ class ExtendedPatterns:
             "frequency": 0.20,
         },
     }
-    
+
     # Category E: Message Patterns (8 patterns)
     E_PATTERNS = {
         "MSG001": {
@@ -337,7 +337,7 @@ class ExtendedPatterns:
             "frequency": 0.25,
         },
     }
-    
+
     # Category F: Metadata Patterns (7 patterns)
     F_PATTERNS = {
         "META001": {
@@ -390,7 +390,7 @@ class ExtendedPatterns:
             "frequency": 0.30,
         },
     }
-    
+
     @classmethod
     def get_all_patterns(cls) -> Dict[str, Dict]:
         """Get all 50+ patterns"""
@@ -402,7 +402,7 @@ class ExtendedPatterns:
         all_patterns.update(cls.E_PATTERNS)
         all_patterns.update(cls.F_PATTERNS)
         return all_patterns
-    
+
     @classmethod
     def get_coverage_estimate(cls) -> float:
         """Estimate coverage percentage"""

@@ -19,97 +19,97 @@ Time: ~15-20 minutes
 """
 
 import os
-import sys
 import shutil
-from pathlib import Path
-from configparser import ConfigParser
 import stat
+import sys
+from configparser import ConfigParser
+from pathlib import Path
 
 
 class PHASE0Bootstrap:
     """Bootstrap agent workspace for SPEC project."""
-    
+
     def __init__(self, project_root=None):
         self.project_root = Path(project_root or os.getcwd()).resolve()
         self.spec_config = self.project_root / ".spec.config"
         self.spec_path = None
         self.ai_dir = self.project_root / ".ai" / "context-aware"
-        
+
     def run(self):
         """Execute full PHASE 0 onboarding."""
         print("\n" + "="*60)
         print("🚀 PHASE 0: Agent Workspace Initialization")
         print("="*60 + "\n")
-        
+
         # Step 1: Verify .spec.config
         if not self._verify_config():
             return False
-            
+
         # Step 2: Verify SPEC framework
         if not self._verify_framework():
             return False
-            
+
         # Step 3: Create infrastructure
         if not self._create_infrastructure():
             return False
-            
+
         # Step 4: Take quiz
         if not self._validate_knowledge():
             return False
-            
+
         # Step 5: Success
         self._print_success()
         return True
-        
+
     def _verify_config(self):
         """Verify .spec.config exists and is readable."""
         print("✓ Step 1: Verify .spec.config")
-        
+
         if not self.spec_config.exists():
             print(f"  ❌ ERROR: .spec.config not found at {self.spec_config}")
             return False
-            
+
         try:
             config = ConfigParser()
             config.read(self.spec_config)
             self.spec_path = Path(config.get('spec', 'spec_path')).expanduser()
-            
+
             # Resolve relative paths relative to project root
             if not self.spec_path.is_absolute():
                 self.spec_path = (self.project_root / self.spec_path).resolve()
-                
-            print(f"  ✅ .spec.config found")
+
+            print("  ✅ .spec.config found")
             print(f"  ✅ spec_path = {self.spec_path}")
             return True
-            
+
         except Exception as e:
             print(f"  ❌ ERROR parsing .spec.config: {e}")
             return False
-            
+
     def _verify_framework(self):
         """Verify SPEC framework location."""
         print("\n✓ Step 2: Verify SPEC Framework")
-        
+
         required_dirs = [
             "docs/ia/CANONICAL/rules",
             "docs/ia/guides/onboarding",
             "docs/ia/guides/runtime",
             "templates/ai/context-aware",
         ]
-        
+
         for req_dir in required_dirs:
             path = self.spec_path / req_dir
             if not path.exists():
                 print(f"  ❌ ERROR: {req_dir} not found in SPEC framework")
                 return False
             print(f"  ✅ {req_dir} exists")
-            
+
         return True
-        
+
     def _create_infrastructure(self):
         """Create .ai/context-aware/ infrastructure."""
         print("\n✓ Step 3: Create Infrastructure")
-        
+
         # Create directories
         dirs = [
             self.ai_dir,
@@ -119,11 +119,11 @@ class PHASE0Bootstrap:
             self.project_root / ".ai" / "runtime",
             self.project_root / "scripts",
         ]
-        
+
         for d in dirs:
             d.mkdir(parents=True, exist_ok=True)
             print(f"  ✅ Created: {d.relative_to(self.project_root)}")
-            
+
         # Copy templates from SPEC framework
         templates_to_copy = [
             # Context-aware infrastructure
@@ -140,7 +140,7 @@ class PHASE0Bootstrap:
             ("templates/.pre-commit-config.yaml", self.project_root / ".pre-commit-config.yaml"),
             ("templates/scripts/setup-precommit-hook.sh", self.project_root / "scripts" / "setup-precommit-hook.sh"),
         ]
-        
+
         for src_rel, dst in templates_to_copy:
             src = self.spec_path / src_rel
             if src.exists():
@@ -152,41 +152,41 @@ class PHASE0Bootstrap:
                 print(f"  ✅ Copied: {dst.relative_to(self.project_root)}")
             else:
                 print(f"  ⚠️  Template not found: {src_rel}")
-                
+
         return True
-        
+
     def _validate_knowledge(self):
         """Validate SDD knowledge via quiz."""
         print("\n✓ Step 4: Validate SDD Knowledge")
-        
+
         quiz_file = self.spec_path / "docs/ia/guides/onboarding/VALIDATION_QUIZ.md"
-        
+
         if not quiz_file.exists():
             print(f"  ⚠️  Quiz not found: {quiz_file}")
             print("  ⚠️  Skipping quiz (manual validation recommended)")
             return True
-            
-        print(f"  📖 Quiz located: VALIDATION_QUIZ.md")
-        print(f"  📋 Please answer the following quiz questions:")
+
+        print("  📖 Quiz located: VALIDATION_QUIZ.md")
+        print("  📋 Please answer the following quiz questions:")
         print(f"  📍 Path: {quiz_file}")
-        print(f"\n  Quiz Instructions:")
+        print("\n  Quiz Instructions:")
         print(f"    1. Open: {quiz_file}")
-        print(f"    2. Answer all 5 questions")
-        print(f"    3. Score must be ≥ 4/5 (80%)")
-        print(f"    4. If score < 4, re-read ia-rules.md and retry")
-        
+        print("    2. Answer all 5 questions")
+        print("    3. Score must be ≥ 4/5 (80%)")
+        print("    4. If score < 4, re-read ia-rules.md and retry")
+
         # Automated quiz (simplified for testing)
         response = input("\n  ✓ Have you passed the quiz (≥4/5)? (yes/no): ").strip().lower()
-        
+
         if response in ('yes', 'y'):
-            print(f"  ✅ Quiz validation: PASSED")
+            print("  ✅ Quiz validation: PASSED")
             return True
         else:
-            print(f"  ❌ Quiz validation: FAILED")
+            print("  ❌ Quiz validation: FAILED")
             print(f"  📖 Please read: {self.spec_path}/docs/ia/CANONICAL/rules/ia-rules.md")
-            print(f"  ⏰ Wait 30 minutes, then retake the quiz")
+            print("  ⏰ Wait 30 minutes, then retake the quiz")
             return False
-            
+
     def _print_success(self):
         """Print success report."""
         print("\n" + "="*60)
@@ -247,10 +247,10 @@ Ready to start work!
 def main():
     """Main entry point."""
     project_root = sys.argv[1] if len(sys.argv) > 1 else os.getcwd()
-    
+
     bootstrap = PHASE0Bootstrap(project_root)
     success = bootstrap.run()
-    
+
     sys.exit(0 if success else 1)
 
 

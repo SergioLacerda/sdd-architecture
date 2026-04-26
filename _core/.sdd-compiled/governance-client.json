@@ -1442,7 +1442,7 @@
       "optional": true,
       "category": "general",
       "source_file": "guidelines.dsl",
-      "content": "\u2192 **Read:** 1. Relevant ADR in `/EXECUTION/spec/CANONICAL/decisions/` 2. Project specialization in `/EXECUTION/spec/custom/rpg-narrative-server/SPECIALIZATIONS/` \u2192 **Time:** 15 minutes ---"
+      "content": "\u2192 **Read:** 1. Relevant ADR in `/EXECUTION/spec/CANONICAL/decisions/` 2. Project specialization in `/EXECUTION/spec/custom/_TEMPLATE/` \u2192 **Time:** 15 minutes ---"
     },
     {
       "id": "G132",
@@ -1563,7 +1563,7 @@
       "optional": true,
       "category": "general",
       "source_file": "guidelines.dsl",
-      "content": "- Complete `/EXECUTION/spec/CANONICAL/` layer - Complete `/EXECUTION/spec/custom/rpg-narrative-server/` layer - Relevant guides for your role ---"
+      "content": "- Complete `/EXECUTION/spec/CANONICAL/` layer - Complete `/EXECUTION/spec/custom/_TEMPLATE/` layer - Relevant guides for your role ---"
     },
     {
       "id": "G143",
@@ -1596,7 +1596,7 @@
       "optional": true,
       "category": "git",
       "source_file": "guidelines.dsl",
-      "content": "Used when: Implementing rpg-narrative-server features"
+      "content": "Used when: Implementing project-specific customizations"
     },
     {
       "id": "G146",
@@ -1652,8 +1652,19 @@
       "category": "general",
       "source_file": "guidelines.dsl",
       "content": "When reading docs: - [ ] Know your time budget (5, 15, 30, 60+ minutes) - [ ] Know your role (backend, devops, PM, architect) - [ ] Know your task (bug fix, feature, learning) - [ ] Read ONLY what's needed"
+    },
+    {
+      "id": "G151",
+      "title": "GitHub Actions SDD Validation",
+      "type": "GUIDELINE",
+      "criticality": "OPCIONAL",
+      "customizable": true,
+      "optional": true,
+      "category": "devops",
+      "source_file": "guidelines.dsl",
+      "content": "Automated CI/CD workflow that validates code against M001 (Clean Architecture) and M002 (Test-Driven Development) on every push and PR. Includes linting, type checking, test execution, and governance rule compliance checks."
     }
   ],
-  "fingerprint": "978688dd11c7291b68e2521e62453313e569443e26a07d84e007e80adbbf90ac",
+  "fingerprint": "1d003927a92d10c6d173dbab22fb9ed44a2a406a935b297e4ef6be93548a77f9",
   "fingerprint_core_salt": "40c03e88d0efe299f85eb020f716685edaef79803d1d9e2cffa460dee968bcb6"
 }

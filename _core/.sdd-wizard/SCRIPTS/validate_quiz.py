@@ -16,6 +16,13 @@ import uuid
 from datetime import datetime
 from pathlib import Path
 
+# Ensure _core is in path for tests.path_config
+root = Path(__file__).resolve().parents[3]
+if str(root / "_core") not in sys.path:
+    sys.path.insert(0, str(root / "_core"))
+
+from tests.path_config import QUIZ_TRACKING
+
 
 class ValidationQuiz:
     """Interactive quiz validator for ia-rules.md"""
@@ -104,7 +111,7 @@ class ValidationQuiz:
         print("=" * 70)
         print(f"\nSession ID: {self.session_id}")
         print(f"Passing Score: {self.PASSING_SCORE}/{len(self.QUESTIONS)} ({self.PASSING_PERCENTAGE}%)")
-        print(f"Instructions: Answer each question with A/B/C/D\n")
+        print("Instructions: Answer each question with A/B/C/D\n")
 
         # Ask each question
         for q in self.QUESTIONS:
@@ -136,7 +143,7 @@ class ValidationQuiz:
         self.score += 1 if is_correct else 0
 
         if is_correct:
-            print(f"✅ Correct!")
+            print("✅ Correct!")
         else:
             print(f"❌ Incorrect. The correct answer is {q['correct']}")
 
@@ -165,7 +172,7 @@ class ValidationQuiz:
             print("  3. Retry this quiz")
             print("  4. After passing: continue with FIRST_SESSION_SETUP.md")
         else:
-            print(f"\n✅ Excellent! You understand the core protocols.")
+            print("\n✅ Excellent! You understand the core protocols.")
             print("\n🚀 Next Steps:")
             print("  1. Continue with FIRST_SESSION_SETUP.md (minute 9+)")
             print("  2. Read guides/QUICK_START.md to choose your PATH")
@@ -178,9 +185,7 @@ class ValidationQuiz:
 
     def _log_attempt(self, passed: bool, percentage: float, duration: float) -> None:
         """Log quiz attempt to tracking file."""
-        tracking_file = Path(
-            "/home/sergio/dev/rpg-narrative-server/docs/ia/current-system-state/_quiz_tracking.json"
-        )
+        tracking_file = QUIZ_TRACKING
 
         correct_q = [q_id for q_id, ans in self.answers.items() if ans == self.QUESTIONS[q_id - 1]["correct"]]
         incorrect_q = [q_id for q_id, ans in self.answers.items() if ans != self.QUESTIONS[q_id - 1]["correct"]]
@@ -214,9 +219,7 @@ class ValidationQuiz:
 
     def _get_attempt_number(self) -> int:
         """Get attempt number by counting previous sessions."""
-        tracking_file = Path(
-            "/home/sergio/dev/rpg-narrative-server/docs/ia/current-system-state/_quiz_tracking.json"
-        )
+        tracking_file = QUIZ_TRACKING
 
         if not tracking_file.exists():
             return 1

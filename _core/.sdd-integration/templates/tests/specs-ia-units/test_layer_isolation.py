@@ -32,8 +32,9 @@ pytest tests/specs-ia-units/test_layer_isolation.py -v
 ```
 """
 
-import pytest
 from pathlib import Path
+
+import pytest
 
 
 class TestLayerIsolation:
@@ -47,20 +48,20 @@ class TestLayerIsolation:
         """
         # EDIT: Change to your project structure
         domain_path = Path("src/domain")
-        
+
         if not domain_path.exists():
             pytest.skip("Domain path not found")
-        
+
         domain_files = list(domain_path.rglob("*.py"))
         assert len(domain_files) > 0, "No domain files found"
-        
+
         violations = []
         for file in domain_files:
             if "__pycache__" in str(file):
                 continue
-                
+
             content = file.read_text()
-            
+
             # Check for direct infrastructure imports
             forbidden_patterns = [
                 "from src.infrastructure",
@@ -68,13 +69,13 @@ class TestLayerIsolation:
                 "from .infrastructure",
                 # Add your project-specific infrastructure patterns here
             ]
-            
+
             for pattern in forbidden_patterns:
                 if pattern in content:
                     violations.append(f"{file.relative_to(Path.cwd())}: {pattern}")
-        
+
         assert len(violations) == 0, \
-            f"Domain imports infrastructure directly:\n" + "\n".join(violations)
+            "Domain imports infrastructure directly:\n" + "\n".join(violations)
 
     def test_domain_uses_ports_for_abstraction(self):
         """Domain entities should use ports, not concrete implementations.
@@ -84,10 +85,10 @@ class TestLayerIsolation:
         # EDIT: Change to your project structure
         domain_path = Path("src/domain")
         ports_path = Path("src/domain/ports")
-        
+
         if not ports_path.exists():
             pytest.skip("Ports directory not found")
-        
+
         # At least one port should exist
         ports = list(ports_path.glob("*.py"))
         assert len(ports) > 0, "No ports defined in domain"
@@ -99,10 +100,10 @@ class TestLayerIsolation:
         """
         # EDIT: Change to your project structure
         app_path = Path("src/application")
-        
+
         if not app_path.exists():
             pytest.skip("Application path not found")
-        
+
         # Application layer should exist and have content
         app_files = list(app_path.rglob("*.py"))
         assert len(app_files) > 0, "Application layer is empty"
@@ -114,20 +115,20 @@ class TestLayerIsolation:
         """
         # EDIT: Change to your project structure
         entities_path = Path("src/domain/entities")
-        
+
         if not entities_path.exists():
             pytest.skip("Domain entities path not found")
-        
+
         entity_files = list(entities_path.rglob("*.py"))
         assert len(entity_files) > 0, "No domain entities found"
-        
+
         violations = []
         for file in entity_files:
             if "__pycache__" in str(file):
                 continue
-            
+
             content = file.read_text()
-            
+
             # Entities should not know about storage mechanisms
             forbidden = [
                 "from src.infrastructure",
@@ -136,13 +137,13 @@ class TestLayerIsolation:
                 "@database",
                 # Add your project-specific forbidden patterns here
             ]
-            
+
             for pattern in forbidden:
                 if pattern in content:
                     violations.append(f"{file.name}: uses {pattern}")
-        
+
         assert len(violations) == 0, \
-            f"Domain entities import infrastructure details:\n" + "\n".join(violations)
+            "Domain entities import infrastructure details:\n" + "\n".join(violations)
 
     def test_config_independent_of_infrastructure(self):
         """Config layer should abstract infrastructure choices.
@@ -151,10 +152,10 @@ class TestLayerIsolation:
         """
         # EDIT: Change to your project structure
         config_path = Path("src/config")
-        
+
         if not config_path.exists():
             pytest.skip("Config path not found")
-        
+
         config_files = list(config_path.rglob("*.py"))
         assert len(config_files) > 0, "No config files found"
 
@@ -169,20 +170,20 @@ class TestModuleOrganization:
         """
         # EDIT: Change to your project structure
         src_path = Path("src")
-        
+
         required_layers = [
             "domain",
             "application",
             "infrastructure",
             # Add your project-specific layers here
         ]
-        
+
         missing = []
         for layer in required_layers:
             layer_path = src_path / layer
             if not layer_path.exists():
                 missing.append(layer)
-        
+
         assert len(missing) == 0, \
             f"Missing required layers: {', '.join(missing)}"
 
@@ -193,13 +194,13 @@ class TestModuleOrganization:
         """
         # EDIT: Change to your project structure
         domain_path = Path("src/domain")
-        
+
         if not domain_path.exists():
             pytest.skip("Domain path not found")
-        
+
         has_entities = (domain_path / "entities").exists()
         has_ports = (domain_path / "ports").exists()
-        
+
         # Should have at least one of these
         assert has_entities or has_ports, \
             "Domain should have 'entities' and/or 'ports' subdirectories"
@@ -215,13 +216,13 @@ class TestImportGraph:
         """
         # EDIT: Change to your project structure
         domain_path = Path("src/domain")
-        
+
         if not domain_path.exists():
             pytest.skip("Domain path not found")
-        
+
         domain_files = list(domain_path.rglob("*.py"))
         assert len(domain_files) > 0, "No domain files found"
-        
+
         # Note: Real circular import detection requires AST analysis.
         # This is a simplified check. For robust detection, use:
         # python -m py_compile src/domain/*.py

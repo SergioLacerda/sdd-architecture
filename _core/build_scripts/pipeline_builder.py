@@ -9,13 +9,14 @@ Each item includes metadata:
 - content (parsed body)
 """
 
-import json
 import hashlib
-import yaml
-from pathlib import Path
-from typing import Dict, List, Any, Optional
-from dataclasses import dataclass, asdict
+import json
 import re
+from dataclasses import dataclass
+from pathlib import Path
+from typing import Any, Dict, List, Optional
+
+import yaml
 
 
 @dataclass
@@ -36,7 +37,15 @@ class PipelineBuilder:
     """Consolidates governance files into 2 JSON structures"""
 
     def __init__(self, sdd_core_path: str = ".sdd-core"):
-        self.sdd_core_path = Path(sdd_core_path)
+        path = Path(sdd_core_path)
+
+        # Compat: when tests run from `_core/`, "_spec" lives in the parent dir.
+        if not path.exists() and not path.is_absolute():
+            parent_candidate = Path.cwd().parent / path
+            if parent_candidate.exists():
+                path = parent_candidate
+
+        self.sdd_core_path = path
         self.items: List[GovernanceItem] = []
 
     def build(self) -> Dict[str, Any]:

@@ -50,7 +50,7 @@ jobs:
         continue-on-error: true
         run: |
           echo "::group::Health Check"
-          python _core/health_check.py --verbose 2>&1 | tee health-py${{ matrix.python-version }}.txt
+          python _core/tools/health_check.py --verbose 2>&1 | tee health-py${{ matrix.python-version }}.txt
           echo "::endgroup::"
 
       - name: Run tests
@@ -94,7 +94,7 @@ jobs:
         id: health
         run: |
           echo "::group::Full Health Check"
-          python _core/health_check.py --verbose
+          python _core/tools/health_check.py --verbose
           echo "::endgroup::"
 
       - name: Run governance compliance

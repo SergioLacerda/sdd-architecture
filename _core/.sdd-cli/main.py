@@ -1,7 +1,7 @@
 """Main Typer application entry point."""
 
+
 import typer
-from typing import Optional
 from sdd_cli.commands import governance
 
 app = typer.Typer(

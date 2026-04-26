@@ -1,0 +1,88 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "sdd-architecture-core"
+version = "3.0.0"
+description = "Core governance and wizard engine for SDD Architecture"
+requires-python = ">=3.10"
+dependencies = [
+    "typer==0.12.1",
+    "click==8.1.7",
+    "rich==13.7.0",
+    "msgpack==1.0.8",
+    "PyYAML==6.0.1",
+]
+
+[project.optional-dependencies]
+dev = [
+    "black>=24.0.0",
+    "ruff>=0.3.0",
+    "mypy>=1.9.0",
+    "pytest>=8.0.0",
+    "pylint",
+    "pytest-github-actions-annotate-failures",
+]
+
+[tool.black]
+line-length = 127
+target-version = ['py310']
+include = '\.pyi?$'
+
+[tool.ruff]
+line-length = 127
+target-version = "py310"
+# Regras: E (Error), F (Pyflakes), I (Isort), B (Bugbear), W (Warning), C90 (Complexidade)
+select = ["E", "F", "I", "B", "W", "C90"]
+ignore = []
+
+[tool.ruff.mccabe]
+max-complexity = 10
+
+[tool.ruff.isort]
+known-first-party = ["_core"]
+
+[tool.mypy]
+python_version = "3.10"
+strict = true
+ignore_missing_imports = true
+mypy_path = [
+    ".",
+    ".sdd-core",
+    ".sdd-core/src",
+    ".sdd-wizard",
+    ".sdd-wizard/src",
+    ".sdd-compiler",
+    ".sdd-compiler/src",
+    "build_scripts"
+]
+exclude = ["_ci_test_project", "sdd-generated"]
+
+[tool.pylint."MESSAGES CONTROL"]
+max-line-length = 127
+disable = [
+    "C0114", # Missing module docstring
+    "C0115", # Missing class docstring
+    "C0116", # Missing function docstring
+]
+
+[tool.pylint.DESIGN]
+max-args = 7
+max-attributes = 10
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = [
+    ".",
+    ".sdd-core",
+    ".sdd-core/src",
+    ".sdd-wizard",
+    ".sdd-wizard/src",
+    ".sdd-compiler",
+    ".sdd-compiler/src",
+    "build_scripts",
+    "../_spec"
+]
+python_files = ["test_*.py"]
+addopts = "--strict-markers"

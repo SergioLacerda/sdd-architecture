@@ -473,6 +473,19 @@ python3 _core/run-all-tests.py
 python3 _core/governance_compliance.py --verify
 ```
 
+### ⚠️ Git Hooks: Framework vs Client Projects
+
+**SDD Architecture framework hook:**
+- Validates governance + health
+- Blocks push if governance compliance fails
+- Located: `.git/hooks/pre-push` (framework repo)
+
+**Client project hooks (future):**
+- Should validate project quality ONLY
+- Should NOT validate framework governance
+- Should NOT block for SDD Architecture compliance
+- Example: Validates tests pass, lint OK, but not SDD mandates
+
 ---
 
 ## 📚 Related Documentation

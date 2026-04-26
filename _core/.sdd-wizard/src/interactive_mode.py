@@ -9,24 +9,23 @@ Interactive mode for SDD Wizard v3 - Phase-based template generation
 4. Phase 4: Generate project structure
 """
 
-import sys
 import json
-from pathlib import Path
 from datetime import datetime
+from pathlib import Path
 
 
 class InteractiveWizard:
     """Interactive guide for SDD Wizard v3"""
-    
+
     def __init__(self, repo_root: Path):
         self.repo_root = repo_root
         self.config = {}
-    
+
     def print_header(self, title: str, icon: str = "🧙"):
         """Print formatted header"""
         print(f"\n{icon} {title}")
         print("=" * 70)
-    
+
     def show_phase_menu(self) -> str:
         """Show menu to choose which phase to start at"""
         self.print_header("SDD Wizard v3 - Choose Starting Phase", "🧙")
@@ -45,14 +44,14 @@ class InteractiveWizard:
               (Reads edited markdown → final JSON)
               ✅ Use after editing Phase 1 output
 """)
-        
+
         choice = input("Select phase (1-3): ").strip()
         return choice
-    
+
     def ask_user_preferences(self) -> dict:
         """Ask user for preferences: programming language"""
         self.print_header("User Preferences Setup", "⚙️")
-        
+
         # Ask for language
         print("""\n1️⃣  Which language would you like examples in?
 (This is for code examples only - governance applies to all languages)
@@ -65,60 +64,60 @@ class InteractiveWizard:
         language_map = {'1': 'Python', '2': 'Java', '3': 'TypeScript'}
         language = language_map.get(language_choice, 'Python')
         print(f"   ✅ Selected: {language}")
-        
+
         # Default adoption level (FULL)
         adoption_level = 'FULL'
-        
+
         config = {
             'language': language,
             'adoption_level': adoption_level,
             'generated_at': datetime.now().isoformat()
         }
-        
+
         return config
-    
+
     def save_config(self, config: dict) -> Path:
         """Save configuration to wizard-config.json"""
         repo_root = self.repo_root
         if repo_root.name == '_core':
             repo_root = repo_root.parent
-        
+
         config_dir = repo_root / 'sdd-generated'
         config_dir.mkdir(parents=True, exist_ok=True)
-        
+
         config_path = config_dir / 'wizard-config.json'
-        
+
         with open(config_path, 'w') as f:
             json.dump(config, f, indent=2)
-        
+
         return config_path
-    
+
     def phase_1_generate_templates(self) -> bool:
         """Execute Phase 1: Generate templates with user preferences"""
         self.print_header("PHASE 1: Generate Governance Templates", "📝")
-        
+
         try:
             from orchestration.phase_wizard_v3 import Phase1Generator
-            
+
             # Collect user preferences
             config = self.ask_user_preferences()
             self.config = config
-            
+
             # Save config
             config_path = self.save_config(config)
             print(f"\n✅ Configuration saved to: {config_path}")
-            
+
             # Adjust repo_root if we're inside _core (wizard.sh changes to _core)
             repo_root = self.repo_root
             if repo_root.name == '_core':
                 repo_root = repo_root.parent
-            
+
             sdd_core_path = repo_root / '_core'
             output_path = repo_root / 'sdd-generated' / 'phase-1-choices'
-            
+
             generator = Phase1Generator(sdd_core_path, output_path, verbose=True, config=config)
             result = generator.run()
-            
+
             if result['success']:
                 print(f"""
 ✅ Phase 1 Complete!
@@ -133,26 +132,26 @@ Next steps:
 3. Run Phase 2 for step-by-step instructions
 4. Run Phase 3 to compile
 """)
-            
+
             return result['success']
         except Exception as e:
             print(f"\n❌ Error: {e}")
             import traceback
             traceback.print_exc()
             return False
-    
+
     def phase_2_show_instructions(self) -> bool:
         """Show Phase 2 instructions - Two manual review steps"""
         self.print_header("PHASE 2: Review & Customize Governance", "📋")
-        
+
         # Adjust repo_root if we're inside _core
         repo_root = self.repo_root
         if repo_root.name == '_core':
             repo_root = repo_root.parent
-        
+
         phase1_path = repo_root / 'sdd-generated' / 'phase-1-choices'
         output_path = repo_root / 'sdd-generated' / 'phase-2-input'
-        
+
         print(f"""
 ═══════════════════════════════════════════════════════════════════
 PHASE 2: TWO MANUAL REVIEW STEPS
@@ -236,47 +235,47 @@ Phase 3 will:
    - Phase 3 automates compilation of reviewed decisions
 
 """)
-        
+
         input("\nPress ENTER when you've completed Phase 2...")
         return True
-    
+
     def phase_4_generate_project(self) -> bool:
         """Execute Phase 4-6: Generate project structure from compiled governance"""
         self.print_header("PHASE 4-6: Generate Project Structure", "🏗️")
-        
+
         try:
             from orchestration.phase_4_5_6_generator import run_phase_4_5_6_generator
-            
+
             # Adjust repo_root if we're inside _core
             repo_root = self.repo_root
             if repo_root.name == '_core':
                 repo_root = repo_root.parent
-            
+
             # Load config from wizard-config.json
             config_path = repo_root / 'sdd-generated' / 'wizard-config.json'
-            
+
             if not config_path.exists():
-                print(f"\n❌ Configuration not found!")
+                print("\n❌ Configuration not found!")
                 print("You must run Phase 1 first to set preferences.")
                 return False
-            
+
             with open(config_path, 'r') as f:
                 config = json.load(f)
-            
+
             # Check if Phase 3 completed
             phase3_output = repo_root / 'sdd-generated' / 'final-output'
             if not phase3_output.exists():
-                print(f"\n❌ Phase 3 output not found!")
+                print("\n❌ Phase 3 output not found!")
                 print("You must run Phase 3 first to compile governance.")
                 return False
-            
+
             # Output base is the project root where .sdd/ will be created
             # For now, use sdd-generated directory as the output base
             output_base = repo_root / 'sdd-generated'
-            
+
             # Run Phase 4-6 generator
             result = run_phase_4_5_6_generator(repo_root, output_base, config)
-            
+
             if result['success']:
                 print(f"""
 ✅ Phase 4-6 Complete!
@@ -296,7 +295,7 @@ Phase 3 will:
 """)
                 return True
             else:
-                print(f"\n❌ Phase 4-6 generation failed!")
+                print("\n❌ Phase 4-6 generation failed!")
                 for error in result.get('errors', []):
                     print(f"   • {error}")
                 return False
@@ -305,19 +304,19 @@ Phase 3 will:
             import traceback
             traceback.print_exc()
             return False
-    
+
     def phase_3_compile_templates(self) -> bool:
         """Execute Phase 3: Compile edited templates to governance JSON"""
         self.print_header("PHASE 3: Compile Governance", "⚙️")
-        
+
         # Adjust repo_root if we're inside _core
         repo_root = self.repo_root
         if repo_root.name == '_core':
             repo_root = repo_root.parent
-        
+
         # Phase 3 reads edited markdown from phase-2-input
         markdown_path = repo_root / 'sdd-generated' / 'phase-2-input'
-        
+
         if not markdown_path.exists():
             print(f"\n❌ Templates not found: {markdown_path}")
             print("\nYou need to:")
@@ -325,15 +324,15 @@ Phase 3 will:
             print("2. Copy edited files to phase-2-input/")
             print("3. Run Phase 3 to compile")
             return False
-        
+
         try:
             from orchestration.phase_wizard_v3 import Phase3Compiler
-            
+
             output_path = repo_root / 'sdd-generated' / 'final-output'
-            
+
             compiler = Phase3Compiler(markdown_path, output_path, repo_root, verbose=True)
             result = compiler.run()
-            
+
             if result['success']:
                 print(f"""
 ✅ PHASE 3 COMPLETE! 🎉
@@ -384,12 +383,12 @@ YOUR GOVERNANCE IS READY TO DEPLOY
             import traceback
             traceback.print_exc()
             return False
-    
+
     def run(self) -> bool:
         """Main interactive flow"""
         try:
             choice = self.show_phase_menu()
-            
+
             if choice == '1':
                 return self.phase_1_generate_templates()
             elif choice == '2':
@@ -399,7 +398,7 @@ YOUR GOVERNANCE IS READY TO DEPLOY
             else:
                 print("\n❌ Invalid choice. Please select 1, 2, or 3.")
                 return False
-        
+
         except KeyboardInterrupt:
             print("\n\n❌ Wizard cancelled by user")
             return False

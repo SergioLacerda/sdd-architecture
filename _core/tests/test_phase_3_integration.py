@@ -11,23 +11,14 @@ Validates complete governance compilation pipeline (PHASE 1 + PHASE 2):
 """
 
 import json
-import msgpack
 from pathlib import Path
+
+import msgpack
 import pytest
-import sys
-import shutil
 
-# Add paths
-sys.path.insert(0, str(Path(__file__).parent.parent / ".sdd-core"))
-sys.path.insert(0, str(Path(__file__).parent.parent / ".sdd-compiler"))
-sys.path.insert(0, str(Path(__file__).parent.parent / "build_scripts"))
-sys.path.insert(0, str(Path(__file__).parent.parent.parent / "_spec"))
-
-from pipeline_builder import PipelineBuilder
 from governance_compiler import GovernanceCompiler
+from pipeline_builder import PipelineBuilder
 
-# Import orchestrator
-sys.path.insert(0, str(Path(__file__).parent.parent / ".sdd-core"))
 from governance_orchestrator import GovernanceOrchestrator
 
 

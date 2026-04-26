@@ -14,6 +14,13 @@ Exit codes:
 import sys
 from pathlib import Path
 
+# Ensure _core is in path for tests.path_config
+root = Path(__file__).resolve().parents[3]
+if str(root / "_core") not in sys.path:
+    sys.path.insert(0, str(root / "_core"))
+
+from tests.path_config import CANONICAL_SPEC
+
 
 class GovernanceValidator:
     """Validates governance documents integrity"""
@@ -34,7 +41,7 @@ class GovernanceValidator:
     }
 
     def __init__(self):
-        self.root = Path("/home/sergio/dev/rpg-narrative-server/docs/ia")
+        self.root = CANONICAL_SPEC
         self.violations = []
         self.warnings = []
 

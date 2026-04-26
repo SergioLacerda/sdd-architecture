@@ -14,6 +14,13 @@ Exit codes:
 import sys
 from pathlib import Path
 
+# Ensure _core is in path for tests.path_config
+root = Path(__file__).resolve().parents[3]
+if str(root / "_core") not in sys.path:
+    sys.path.insert(0, str(root / "_core"))
+
+from tests.path_config import ADR_CANONICAL
+
 
 class ADRValidator:
     """Validates Architectural Decision Records"""
@@ -37,7 +44,7 @@ class ADRValidator:
     ]
 
     def __init__(self):
-        self.root = Path("/home/sergio/dev/rpg-narrative-server/docs/ia/decisions")
+        self.root = ADR_CANONICAL
         self.violations = []
         self.warnings = []
 

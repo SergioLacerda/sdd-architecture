@@ -1,9 +1,9 @@
-import msgpack
-from pathlib import Path
 import json
+from pathlib import Path
 
-from architecture.pipeline_builder import PipelineBuilder
+import msgpack
 from architecture.governance_compiler import GovernanceCompiler
+from architecture.pipeline_builder import PipelineBuilder
 
 # Build and compile
 print("Building pipeline...")

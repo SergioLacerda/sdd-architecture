@@ -14,10 +14,10 @@ Entry Points:
   - Library: from .sdd-compiler.src.integrate import SDDIntegrator
 """
 
-from .dsl_compiler import DSLCompiler, DSLValidator, DSLParser, compile_string, compile_file
-from .msgpack_encoder import MessagePackEncoder
-from .integrate import SDDIntegrator
 from . import runtime_telemetry_kit
+from .dsl_compiler import DSLCompiler, DSLParser, DSLValidator, compile_file, compile_string
+from .integrate import SDDIntegrator
+from .msgpack_encoder import MessagePackEncoder
 
 __all__ = [
     "DSLCompiler",

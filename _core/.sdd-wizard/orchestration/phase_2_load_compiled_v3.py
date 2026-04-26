@@ -16,18 +16,18 @@ Output:
   - Fingerprint verification reports
 """
 
-import json
 import hashlib
-from pathlib import Path
-from typing import Tuple, Dict, Any, List, Optional
+import json
 import sys
+from pathlib import Path
+from typing import Any, Dict, Tuple
 
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
 
 class GovernanceLoader:
     """Load and validate governance files from .sdd-compiled/"""
-    
+
     def __init__(self, repo_root: Path = Path.cwd(), verbose: bool = False):
         self.repo_root = Path(repo_root)
         self.compiled_dir = self.repo_root / ".sdd-compiled"
@@ -36,21 +36,21 @@ class GovernanceLoader:
         self.client_data = None
         self.metadata_core = None
         self.metadata_client = None
-    
+
     def log(self, message: str, level: str = "INFO"):
         """Log message"""
         if level == "INFO" or self.verbose:
             print(f"  {level:8s} {message}")
-    
+
     def load_files(self) -> bool:
         """Load governance JSON files"""
         self.log("Loading governance-core.json...")
-        
+
         core_path = self.compiled_dir / "governance-core.json"
         if not core_path.exists():
             self.log(f"❌ File not found: {core_path}", "ERROR")
             return False
-        
+
         try:
             with open(core_path) as f:
                 self.core_data = json.load(f)
@@ -58,14 +58,14 @@ class GovernanceLoader:
         except json.JSONDecodeError as e:
             self.log(f"❌ JSON parse error in governance-core.json: {e}", "ERROR")
             return False
-        
+
         self.log("Loading governance-client.json...")
-        
+
         client_path = self.compiled_dir / "governance-client.json"
         if not client_path.exists():
             self.log(f"❌ File not found: {client_path}", "ERROR")
             return False
-        
+
         try:
             with open(client_path) as f:
                 self.client_data = json.load(f)
@@ -73,7 +73,7 @@ class GovernanceLoader:
         except json.JSONDecodeError as e:
             self.log(f"❌ JSON parse error in governance-client.json: {e}", "ERROR")
             return False
-        
+
         # Load metadata files
         try:
             with open(self.compiled_dir / "metadata-core.json") as f:
@@ -82,9 +82,9 @@ class GovernanceLoader:
                 self.metadata_client = json.load(f)
         except Exception as e:
             self.log(f"⚠️  Could not load metadata files: {e}", "WARN")
-        
+
         return True
-    
+
     def validate_fingerprints(self) -> Tuple[bool, Dict[str, Any]]:
         """Validate fingerprints using SALT strategy"""
         report = {
@@ -95,74 +95,74 @@ class GovernanceLoader:
             "client_fp": None,
             "core_salt": None,
         }
-        
+
         if not self.core_data or not self.client_data:
             self.log("❌ Data not loaded", "ERROR")
             return False, report
-        
+
         self.log("Validating fingerprints...")
-        
+
         # Verify core fingerprint
         core_fp_stored = self.core_data.get("fingerprint")
         core_fp_calculated = self._calculate_fingerprint(self.core_data)
-        
+
         if core_fp_stored == core_fp_calculated:
-            self.log(f"✓ Core fingerprint valid")
+            self.log("✓ Core fingerprint valid")
             report["core_fingerprint_valid"] = True
             report["core_fp"] = core_fp_stored
         else:
-            self.log(f"❌ Core fingerprint mismatch!", "ERROR")
+            self.log("❌ Core fingerprint mismatch!", "ERROR")
             self.log(f"   Expected: {core_fp_stored[:16]}...", "ERROR")
             self.log(f"   Got:      {core_fp_calculated[:16]}...", "ERROR")
             return False, report
-        
+
         # Verify client fingerprint (SALT strategy)
         client_fp_stored = self.client_data.get("fingerprint")
         client_salt = self.client_data.get("fingerprint_core_salt")
-        
+
         # Remove fingerprints from data for validation
         # NOTE: Client FP is calculated WITH the salt included (from PipelineBuilder)
         client_data_for_validation = {
             k: v for k, v in self.client_data.items()
             if k not in ["fingerprint"]  # Include fingerprint_core_salt in calculation
         }
-        
+
         # Calculate expected client fingerprint (same way as PipelineBuilder)
         # The salt is included in the data being hashed
         hash_input = json.dumps(client_data_for_validation, sort_keys=True).encode('utf-8')
         client_fp_calculated = hashlib.sha256(hash_input).hexdigest()
-        
+
         if client_fp_stored == client_fp_calculated:
-            self.log(f"✓ Client fingerprint valid")
+            self.log("✓ Client fingerprint valid")
             report["client_fingerprint_valid"] = True
             report["client_fp"] = client_fp_stored
         else:
-            self.log(f"❌ Client fingerprint mismatch!", "ERROR")
+            self.log("❌ Client fingerprint mismatch!", "ERROR")
             self.log(f"   Expected: {client_fp_stored[:16]}...", "ERROR")
             self.log(f"   Got:      {client_fp_calculated[:16]}...", "ERROR")
             return False, report
-        
+
         # Verify SALT strategy
         if client_salt == core_fp_stored:
-            self.log(f"✓ SALT strategy verified (client salt == core fingerprint)")
+            self.log("✓ SALT strategy verified (client salt == core fingerprint)")
             report["salt_strategy_valid"] = True
             report["core_salt"] = client_salt
         else:
-            self.log(f"❌ SALT strategy broken!", "ERROR")
+            self.log("❌ SALT strategy broken!", "ERROR")
             self.log(f"   Core FP:   {core_fp_stored[:16]}...", "ERROR")
             self.log(f"   Client Salt: {client_salt[:16]}...", "ERROR")
             return False, report
-        
+
         return True, report
-    
+
     def _calculate_fingerprint(self, data: Dict) -> str:
         """Calculate SHA256 fingerprint of data"""
         # Remove fingerprint fields for calculation
-        data_copy = {k: v for k, v in data.items() 
+        data_copy = {k: v for k, v in data.items()
                     if k not in ["fingerprint", "fingerprint_core_salt"]}
         hash_input = json.dumps(data_copy, sort_keys=True).encode('utf-8')
         return hashlib.sha256(hash_input).hexdigest()
-    
+
     def extract_mandates(self) -> Dict[str, Dict]:
         """Extract mandates from core"""
         mandates = {}
@@ -176,12 +176,12 @@ class GovernanceLoader:
                     'source': 'core'
                 }
         return mandates
-    
+
     def extract_guidelines(self) -> Tuple[Dict[str, Dict], Dict[str, Dict]]:
         """Extract guidelines from both core and client"""
         core_guidelines = {}
         client_guidelines = {}
-        
+
         # Core guidelines
         for item in self.core_data.get('items', []):
             if item['type'] == 'GUIDELINE':
@@ -193,7 +193,7 @@ class GovernanceLoader:
                     'customizable': item['customizable'],
                     'source': 'core'
                 }
-        
+
         # Client guidelines
         for item in self.client_data.get('items', []):
             if item['type'] == 'GUIDELINE':
@@ -205,9 +205,9 @@ class GovernanceLoader:
                     'customizable': item['customizable'],
                     'source': 'client'
                 }
-        
+
         return core_guidelines, client_guidelines
-    
+
     def extract_all_governance(self) -> Dict[str, Any]:
         """Extract complete governance structure"""
         return {
@@ -239,7 +239,7 @@ def phase_2_load_compiled_v3(repo_root: Path = Path.cwd()) -> Tuple[bool, Dict]:
     print("PHASE 2 (v3): LOAD COMPILED GOVERNANCE")
     print("=" * 100)
     print()
-    
+
     # Initialize wizard-compatible report
     report = {
         'phase': 'PHASE_2_LOAD_COMPILED',
@@ -265,70 +265,70 @@ def phase_2_load_compiled_v3(repo_root: Path = Path.cwd()) -> Tuple[bool, Dict]:
         'warnings': [],
         '_artifacts': {},
     }
-    
+
     loader = GovernanceLoader(repo_root, verbose=False)
-    
+
     # Load files
     if not loader.load_files():
         report['errors'].append("Failed to load governance JSON files")
         report['status'] = 'FAILED'
         return False, report
-    
+
     report['checks']['core_json_exists'] = True
     report['checks']['client_json_exists'] = True
-    
+
     print()
     print("🔐 FINGERPRINT VALIDATION")
     print("-" * 100)
-    
+
     # Validate fingerprints
     valid, fp_report = loader.validate_fingerprints()
-    
+
     if not valid:
-        report['errors'].append(f"Fingerprint validation failed")
+        report['errors'].append("Fingerprint validation failed")
         report['status'] = 'FAILED'
         print()
         return False, report
-    
+
     report['checks']['fingerprint_validation'] = True
     report['statistics']['core_fingerprint'] = fp_report.get('core_fp', '')[:16] + '...'
     report['statistics']['client_fingerprint'] = fp_report.get('client_fp', '')[:16] + '...'
-    
+
     print()
     print("✅ All fingerprints validated!")
     print()
-    
+
     # Extract governance
     mandates = loader.extract_mandates()
     core_guidelines, client_guidelines = loader.extract_guidelines()
     all_governance = loader.extract_all_governance()
-    
+
     # Combine mandates and guidelines for wizard compatibility
     report['data']['mandate'] = mandates
     report['data']['guidelines'] = {}
     report['data']['guidelines'].update({f"core_{k}": v for k, v in core_guidelines.items()})
     report['data']['guidelines'].update({f"client_{k}": v for k, v in client_guidelines.items()})
-    
+
     report['statistics']['mandate_count'] = len(mandates)
     report['statistics']['core_guideline_count'] = len(core_guidelines)
     report['statistics']['client_guideline_count'] = len(client_guidelines)
-    
+
     # Store artifacts for downstream phases
     report['_artifacts']['mandates'] = mandates
     report['_artifacts']['core_guidelines'] = core_guidelines
     report['_artifacts']['client_guidelines'] = client_guidelines
     report['_artifacts']['governance'] = all_governance
     report['_artifacts']['fingerprints'] = fp_report
-    
+
     report['checks']['data_extraction'] = True
     report['status'] = 'SUCCESS'
-    
+
     return True, report
 
 
 if __name__ == "__main__":
     success, report = phase_2_load_compiled_v3()
-    
+
     if success:
         print("\n✅ PHASE 2 (v3) COMPLETE")
         print(f"   Mandates: {report['mandates_count']}")

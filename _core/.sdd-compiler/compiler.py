@@ -25,20 +25,20 @@ Usage:
     integrator.run()
 """
 
-import sys
 import importlib.util
+import sys
 from pathlib import Path
 
 if __name__ == "__main__":
     # Load integrate module from src/ to avoid naming conflicts
     src_dir = Path(__file__).parent / "src"
     integrate_path = src_dir / "integrate.py"
-    
+
     # Use importlib to load the module by name
     spec = importlib.util.spec_from_file_location("sdd_integrate", integrate_path)
     integrate_module = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(integrate_module)
-    
+
     # Run from repository root
     repo_root = Path(__file__).parent.parent
     integrator = integrate_module.SDDIntegrator(repo_root)

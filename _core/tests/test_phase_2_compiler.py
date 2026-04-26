@@ -11,10 +11,11 @@ Validates:
 """
 
 import json
-import msgpack
-from pathlib import Path
-import pytest
 import sys
+from pathlib import Path
+
+import msgpack
+import pytest
 
 # Add .sdd-compiler to path
 sys.path.insert(0, str(Path(__file__).parent.parent / ".sdd-compiler"))

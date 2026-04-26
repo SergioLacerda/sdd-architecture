@@ -6,7 +6,7 @@ using the --mandates flag.
 """
 
 from pathlib import Path
-from typing import Tuple, Dict, List
+from typing import Dict, List, Tuple
 
 
 def phase_3_filter_mandates(
@@ -33,7 +33,7 @@ def phase_3_filter_mandates(
             - errors: list of error messages
             - warnings: list of warning messages
     """
-    
+
     report = {
         'phase': 'PHASE_3_FILTER_MANDATES',
         'status': 'PENDING',
@@ -54,57 +54,57 @@ def phase_3_filter_mandates(
         'errors': [],
         'warnings': [],
     }
-    
+
     # Step 1: Check input
     if not mandates:
         report['errors'].append('No mandates provided from Phase 2')
         report['status'] = 'FAILED'
         return (False, report)
-    
+
     report['checks']['mandates_provided'] = True
-    
+
     # Step 2: Determine selection strategy
     # If no selection specified, include all mandates
     if not selected_mandate_ids:
         selected_mandate_ids = list(mandates.keys())
         report['data']['selected_ids'] = selected_mandate_ids
         report['warnings'].append(f'No mandate selection specified, using all {len(selected_mandate_ids)} mandates')
-    
+
     # Step 3: Validate selected IDs exist
     all_mandate_ids = set(mandates.keys())
     selected_ids_set = set(selected_mandate_ids)
     invalid_ids = selected_ids_set - all_mandate_ids
-    
+
     if invalid_ids:
         report['errors'].append(f'Invalid mandate IDs: {list(invalid_ids)}')
         report['errors'].append(f'Valid IDs are: {sorted(all_mandate_ids)}')
         report['status'] = 'FAILED'
         return (False, report)
-    
+
     report['checks']['valid_selection'] = True
-    
+
     # Step 4: Apply filtering
     filtered_mandates = {}
     for mandate_id in selected_mandate_ids:
         if mandate_id in mandates:
             filtered_mandates[mandate_id] = mandates[mandate_id]
-    
+
     report['checks']['filtering_applied'] = True
     report['data']['filtered_mandates'] = filtered_mandates
     report['statistics']['selected_mandates'] = len(filtered_mandates)
-    
+
     # Calculate percentage
     if report['statistics']['total_mandates'] > 0:
         percentage = (len(filtered_mandates) / report['statistics']['total_mandates']) * 100
         report['statistics']['filtered_percentage'] = round(percentage, 1)
-    
+
     # Step 5: Validate result
     if not filtered_mandates:
         report['errors'].append('Filtering resulted in zero mandates')
         report['status'] = 'FAILED'
         return (False, report)
-    
+
     # Success
     report['status'] = 'SUCCESS'
-    
+
     return (True, report)

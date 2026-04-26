@@ -18,10 +18,9 @@ Features:
     - Test mode for CI/CD validation
 """
 
-import os
+import argparse
 import sys
 import time
-import argparse
 from pathlib import Path
 
 
@@ -50,7 +49,7 @@ def ask_question(question: str, options: list) -> str:
     print(f"\n{Colors.BOLD}{question}{Colors.END}")
     for i, option in enumerate(options, 1):
         print(f"  {Colors.GREEN}{i}{Colors.END}. {option}")
-    
+
     while True:
         choice = input(f"\n{Colors.YELLOW}Choose (1-{len(options)}): {Colors.END}").strip()
         if choice.isdigit() and 1 <= int(choice) <= len(options):
@@ -61,7 +60,7 @@ def ask_question(question: str, options: list) -> str:
 def determine_path() -> str:
     """Interactive PATH determination."""
     print(f"\n{Colors.BOLD}{Colors.BLUE}Step 1: What are you building?{Colors.END}")
-    
+
     task_type = ask_question(
         "Task type?",
         [
@@ -71,21 +70,21 @@ def determine_path() -> str:
             "Parallel work (PATH D)",
         ]
     )
-    
+
     path_map = {
         "Fix a bug (PATH A)": "A",
         "Add a simple feature (PATH B)": "B",
         "Build complex feature (PATH C)": "C",
         "Parallel work (PATH D)": "D",
     }
-    
+
     return path_map[task_type]
 
 
 def get_context_size() -> str:
     """Determine user's context limit."""
     print(f"\n{Colors.BOLD}{Colors.BLUE}Step 2: How much documentation can you read?{Colors.END}")
-    
+
     choice = ask_question(
         "Context preference?",
         [
@@ -94,14 +93,14 @@ def get_context_size() -> str:
             "Deep dive (complete context, 30+ min)",
         ]
     )
-    
+
     return choice.split("(")[0].strip()
 
 
 def get_experience() -> str:
     """Determine developer experience level."""
     print(f"\n{Colors.BOLD}{Colors.BLUE}Step 3: Your experience level?{Colors.END}")
-    
+
     experience = ask_question(
         "How familiar are you with this codebase?",
         [
@@ -110,7 +109,7 @@ def get_experience() -> str:
             "Experienced (6+ months)",
         ]
     )
-    
+
     return experience
 
 
@@ -124,13 +123,13 @@ def print_path_summary(path: str, context: str, experience: str):
 
 def get_doc_paths(path: str, context: str) -> list:
     """Get list of documentation files to load."""
-    
+
     # Essential docs (all paths)
     essential = [
         "docs/ia/CANONICAL/rules/constitution.md",
         "docs/ia/CANONICAL/rules/ia-rules.md",
     ]
-    
+
     path_docs = {
         "A": [
             "docs/ia/CANONICAL/specifications/architecture.md",
@@ -156,9 +155,9 @@ def get_doc_paths(path: str, context: str) -> list:
             "docs/ia/CANONICAL/decisions/ADR-005-thread-isolation-mandatory.md",
         ],
     }
-    
+
     docs = essential + path_docs.get(path, [])
-    
+
     # Adjust for context preference
     if context == "Quick":
         # Only keep essential + top 3
@@ -169,7 +168,7 @@ def get_doc_paths(path: str, context: str) -> list:
             "docs/ia/CANONICAL/specifications/testing.md",
             "docs/ia/CANONICAL/specifications/definition_of_done.md",
         ])
-    
+
     return docs
 
 
@@ -177,12 +176,12 @@ def print_doc_list(docs: list):
     """Print formatted list of docs to read."""
     print(f"\n{Colors.BOLD}{Colors.BLUE}📚 Your Documentation Stack:{Colors.END}")
     total_size = 0
-    
+
     for i, doc in enumerate(docs, 1):
         size = estimate_doc_size(doc)
         total_size += size
         print(f"  {Colors.GREEN}{i:2d}.{Colors.END} {doc} ({size}KB)")
-    
+
     print(f"\n  {Colors.BOLD}Total: ~{total_size}KB{Colors.END}")
     print(f"  {Colors.YELLOW}Reading time: ~{max(5, total_size // 10)} minutes{Colors.END}")
 
@@ -200,10 +199,10 @@ def estimate_doc_size(doc_path: str) -> int:
 def print_next_steps():
     """Print next steps."""
     print(f"\n{Colors.BOLD}{Colors.GREEN}🎯 Next Steps:{Colors.END}")
-    print(f"  1. Read the docs listed above (skim is OK, focus on structure)")
-    print(f"  2. Start coding! Open QUICK_START.md as reference")
-    print(f"  3. When stuck: search docs/ia/ → grep for keywords")
-    print(f"  4. At end of task: update docs/ia/CUSTOM/_TEMPLATE/development/execution-state/_current.md")
+    print("  1. Read the docs listed above (skim is OK, focus on structure)")
+    print("  2. Start coding! Open QUICK_START.md as reference")
+    print("  3. When stuck: search docs/ia/ → grep for keywords")
+    print("  4. At end of task: update docs/ia/CUSTOM/_TEMPLATE/development/execution-state/_current.md")
     print(f"\n  {Colors.YELLOW}💡 Tip: Save this setup for next time (use --load-profile){Colors.END}")
 
 
@@ -211,11 +210,11 @@ def save_profile(path: str, context: str, experience: str):
     """Save user's profile for faster setup next time."""
     profile_path = Path.home() / ".dev-profile"
     profile = f"PATH={path}\nCONTEXT={context}\nEXPERIENCE={experience}\n"
-    
+
     try:
         profile_path.write_text(profile)
         print(f"\n{Colors.GREEN}✅ Profile saved to {profile_path}{Colors.END}")
-        print(f"   Next time: python setup-wizard.py --load-profile")
+        print("   Next time: python setup-wizard.py --load-profile")
     except:
         pass
 
@@ -241,41 +240,41 @@ def main():
         action="store_true",
         help="Show detailed timing information"
     )
-    
+
     args = parser.parse_args()
-    
+
     # Start timing
     start_time = time.time()
-    
+
     print_header()
-    
+
     # Test mode: run with mock answers
     if args.test:
         test_mode(start_time, args.verbose)
         return 0
-    
+
     # Normal interactive mode
     try:
         path = determine_path()
         context = get_context_size()
         experience = get_experience()
-        
+
         print_path_summary(path, context, experience)
-        
+
         docs = get_doc_paths(path, context)
         print_doc_list(docs)
         print_next_steps()
-        
+
         save_profile(path, context, experience)
-        
+
         # Log timing
         elapsed = time.time() - start_time
         print(f"\n{Colors.YELLOW}⏱️  Setup time: {elapsed:.1f} seconds{Colors.END}")
         if args.verbose:
             print(f"   setup_wizard_completed_seconds: {elapsed}")
-        
+
         return 0
-        
+
     except KeyboardInterrupt:
         print(f"\n{Colors.YELLOW}⏸️  Setup cancelled by user{Colors.END}")
         return 1
@@ -287,28 +286,28 @@ def main():
 def test_mode(start_time: float, verbose: bool = False):
     """Run wizard in test mode with mock answers."""
     print(f"\n{Colors.BLUE}🧪 Test Mode{Colors.END}")
-    print(f"   Running with mock answers (no user input)...")
-    
+    print("   Running with mock answers (no user input)...")
+
     # Mock answers
     mock_path = "A"
     mock_context = "Quick"
     mock_experience = "Some context (few weeks)"
-    
+
     print(f"   PATH: {mock_path}")
     print(f"   Context: {mock_context}")
     print(f"   Experience: {mock_experience}")
-    
+
     # Simulate doc loading
     docs = get_doc_paths(mock_path, mock_context)
     print(f"   Docs loaded: {len(docs)} files")
-    
+
     # Log timing
     elapsed = time.time() - start_time
     print(f"\n{Colors.GREEN}✅ Test mode passed{Colors.END}")
     print(f"   ⏱️  Duration: {elapsed:.1f} seconds")
-    
+
     if verbose:
-        print(f"\n📊 Metrics:")
+        print("\n📊 Metrics:")
         print(f"   setup_wizard_completed_seconds: {elapsed}")
         print(f"   docs_loaded: {len(docs)}")
         print(f"   docs_size_kb: {sum(estimate_doc_size(d) for d in docs)}")
@@ -316,25 +315,25 @@ def test_mode(start_time: float, verbose: bool = False):
 
 if __name__ == "__main__":
     sys.exit(main())
-    
+
     # Interactive questions
     path = determine_path()
     context = get_context_size()
     experience = get_experience()
-    
+
     # Summary
     print_path_summary(path, context, experience)
-    
+
     # Get documentation
     docs = get_doc_paths(path, context)
     print_doc_list(docs)
-    
+
     # Next steps
     print_next_steps()
-    
+
     # Save profile
     save_profile(path, context, experience)
-    
+
     print(f"\n{Colors.BOLD}{Colors.GREEN}🚀 Ready to build!{Colors.END}\n")
 
 

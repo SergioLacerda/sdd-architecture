@@ -4,27 +4,26 @@ Tests for MessagePack Binary Encoding
 Validates encoding, decoding, compression, and parsing performance.
 """
 
-import pytest
-import json
-import time
-from pathlib import Path
 import sys
+from pathlib import Path
+
+import pytest
 
 # Add paths
 sys.path.insert(0, str(Path(__file__).parent))
 
 from msgpack_encoder import (
-    MessagePackEncoder,
-    MessagePackDecoder,
     BinaryCompressionAnalyzer,
     BinaryMetrics,
+    MessagePackDecoder,
+    MessagePackEncoder,
     benchmark_parsing,
 )
 
 
 class TestBinaryMetrics:
     """Test BinaryMetrics dataclass"""
-    
+
     def test_create_metrics(self):
         """Test creating metrics"""
         metrics = BinaryMetrics(
@@ -32,20 +31,20 @@ class TestBinaryMetrics:
             msgpack_size=600,
             string_pool_size=200,
         )
-        
+
         assert metrics.json_size == 1000
         assert metrics.msgpack_size == 600
-    
+
     def test_compression_ratio(self):
         """Test compression ratio calculation"""
         metrics = BinaryMetrics(
             json_size=1000,
             msgpack_size=600,
         )
-        
+
         ratio = metrics.compression_ratio
         assert 0.3 < ratio < 0.5  # ~40% compression
-    
+
     def test_speedup_factor(self):
         """Test estimated speedup factor"""
         metrics = BinaryMetrics()
@@ -54,7 +53,7 @@ class TestBinaryMetrics:
 
 class TestMessagePackEncoder:
     """Test MessagePack encoding"""
-    
+
     @staticmethod
     def get_sample_data():
         """Get sample compiled DSL data"""
@@ -91,55 +90,55 @@ class TestMessagePackEncoder:
                 "def baz(z: list) -> dict:",
             ],
         }
-    
+
     def test_encode_basic(self):
         """Test basic encoding"""
         encoder = MessagePackEncoder()
         data = self.get_sample_data()
-        
+
         binary = encoder.encode(data)
-        
+
         # Check magic header
         assert binary[:4] == b'\x53\x44\x44\x03'
         # Check size reasonable
         assert len(binary) < 2000  # Should be small
-    
+
     def test_encode_metrics(self):
         """Test encoding captures metrics"""
         encoder = MessagePackEncoder()
         data = self.get_sample_data()
-        
+
         binary = encoder.encode(data)
         metrics = encoder.get_metrics()
-        
+
         assert metrics.json_size > 0
         assert metrics.msgpack_size > 0
         assert metrics.compression_ratio > 0
-    
+
     def test_encode_compression_ratio(self):
         """Test compression achieves target ratio"""
         encoder = MessagePackEncoder()
         data = self.get_sample_data()
-        
+
         binary = encoder.encode(data)
         metrics = encoder.get_metrics()
-        
+
         # Should compress by at least 20%
         assert metrics.compression_ratio > 0.15
-    
+
     def test_encode_file(self):
         """Test encoding to file"""
         import tempfile
-        
+
         encoder = MessagePackEncoder()
         data = self.get_sample_data()
-        
+
         with tempfile.NamedTemporaryFile(suffix='.bin', delete=False) as f:
             temp_path = f.name
-        
+
         try:
             encoder.encode_file(data, temp_path)
-            
+
             # Verify file exists and has content
             assert Path(temp_path).exists()
             assert Path(temp_path).stat().st_size > 0
@@ -149,7 +148,7 @@ class TestMessagePackEncoder:
 
 class TestMessagePackDecoder:
     """Test MessagePack decoding"""
-    
+
     @staticmethod
     def get_sample_binary():
         """Get sample binary data for testing"""
@@ -167,17 +166,17 @@ class TestMessagePackDecoder:
             "string_pool": ["Clean Architecture", "Performance"],
         }
         return encoder.encode(data)
-    
+
     def test_decode_valid(self):
         """Test decoding valid binary"""
         binary = self.get_sample_binary()
         decoded = MessagePackDecoder.decode(binary)
-        
+
         assert "mandates" in decoded
         assert "guidelines" in decoded
         assert "string_pool" in decoded
         assert len(decoded["mandates"]) > 0
-    
+
     def test_decode_preserves_data(self):
         """Test decode preserves encoded data"""
         encoder = MessagePackEncoder()
@@ -186,47 +185,47 @@ class TestMessagePackDecoder:
             "guidelines": [{"id": "G01", "type": "SOFT", "title": "Guideline", "category": 2}],
             "string_pool": ["Pool1", "Pool2"],
         }
-        
+
         binary = encoder.encode(original)
         decoded = MessagePackDecoder.decode(binary)
-        
+
         assert decoded["mandates"] == original["mandates"]
         assert decoded["guidelines"] == original["guidelines"]
         assert decoded["string_pool"] == original["string_pool"]
-    
+
     def test_decode_invalid_magic(self):
         """Test decode rejects invalid magic header"""
         invalid_binary = b'\x00\x00\x00\x00' + b'some data'
-        
+
         with pytest.raises(ValueError, match="Invalid SDD binary format"):
             MessagePackDecoder.decode(invalid_binary)
-    
+
     def test_decode_corrupted_payload(self):
         """Test decode handles corrupted payload"""
         # Valid header but invalid MessagePack
         bad_binary = b'\x53\x44\x44\x03' + b'\xff\xff\xff\xff'
-        
+
         with pytest.raises(ValueError, match="Failed to decode MessagePack"):
             MessagePackDecoder.decode(bad_binary)
-    
+
     def test_decode_file(self):
         """Test decoding from file"""
         import tempfile
-        
+
         encoder = MessagePackEncoder()
         data = {
             "mandates": [{"id": "M001", "type": "HARD", "title": "Test", "category": 1}],
             "guidelines": [],
             "string_pool": [],
         }
-        
+
         with tempfile.NamedTemporaryFile(suffix='.bin', delete=False) as f:
             temp_path = f.name
-        
+
         try:
             encoder.encode_file(data, temp_path)
             decoded = MessagePackDecoder.decode_file(temp_path)
-            
+
             assert decoded["mandates"][0]["id"] == "M001"
         finally:
             Path(temp_path).unlink()
@@ -234,7 +233,7 @@ class TestMessagePackDecoder:
 
 class TestDereferencing:
     """Test string pool dereferencing"""
-    
+
     def test_dereference_simple(self):
         """Test dereferencing compiled data"""
         compiled = {
@@ -249,12 +248,12 @@ class TestDereferencing:
             "guidelines": [],
             "string_pool": ["Clean Architecture", "Performance"],
         }
-        
+
         dereferenced = MessagePackDecoder.dereference_compiled(compiled)
-        
+
         # Should resolve string indices
         assert dereferenced["mandates"][0]["title"] == "Clean Architecture"
-    
+
     def test_dereference_with_arrays(self):
         """Test dereferencing arrays"""
         compiled = {
@@ -268,16 +267,16 @@ class TestDereferencing:
             ],
             "string_pool": ["Guideline", "Example1", "Example2", "Example3"],
         }
-        
+
         dereferenced = MessagePackDecoder.dereference_compiled(compiled)
-        
+
         assert dereferenced["guidelines"][0]["title"] == "Guideline"
         assert dereferenced["guidelines"][0]["examples"] == ["Example1", "Example2", "Example3"]
 
 
 class TestCompressionAnalysis:
     """Test compression analysis"""
-    
+
     def test_compare_formats(self):
         """Test format comparison"""
         data = {
@@ -293,15 +292,15 @@ class TestCompressionAnalysis:
             "guidelines": [],
             "string_pool": ["Test"],
         }
-        
+
         analysis = BinaryCompressionAnalyzer.compare_formats(data)
-        
+
         assert "json_size" in analysis
         assert "msgpack_size" in analysis
         assert analysis["json_size"] > 0
         assert analysis["msgpack_size"] > 0
         assert "savings" in analysis
-    
+
     def test_speedup_estimate(self):
         """Test speedup estimate"""
         data = {
@@ -309,15 +308,15 @@ class TestCompressionAnalysis:
             "guidelines": [],
             "string_pool": [],
         }
-        
+
         analysis = BinaryCompressionAnalyzer.compare_formats(data)
-        
+
         assert analysis["estimated_speedup"] >= 3.0
 
 
 class TestBenchmarking:
     """Test parsing performance benchmark"""
-    
+
     def test_benchmark_basic(self):
         """Test basic benchmarking"""
         data = {
@@ -327,14 +326,14 @@ class TestBenchmarking:
             "guidelines": [],
             "string_pool": [],
         }
-        
+
         results = benchmark_parsing(data, iterations=100)
-        
+
         assert "json_parse_ms" in results
         assert "msgpack_parse_ms" in results
         assert "speedup_factor" in results
         assert results["speedup_factor"] > 1.0
-    
+
     def test_benchmark_speedup_realistic(self):
         """Test speedup factor in realistic range"""
         data = {
@@ -348,9 +347,9 @@ class TestBenchmarking:
             ],
             "string_pool": [f"String {i}" for i in range(100)],
         }
-        
+
         results = benchmark_parsing(data, iterations=50)
-        
+
         # MessagePack can be 1.1-2x faster depending on data size
         # Actual speedup varies with Python version and data complexity
         # In production with larger datasets, speedup is 2-4x

@@ -9,16 +9,13 @@ Validates:
 """
 
 import json
-import sys
 from pathlib import Path
+
 import pytest
 
-# Add paths
-sys.path.insert(0, str(Path(__file__).parent.parent / ".sdd-wizard"))
-
+from customization_template_generator import CustomizationTemplateGenerator
 from governance_runtime_loader import GovernanceRuntimeLoader
 from wizard_integrator import WizardIntegrator
-from customization_template_generator import CustomizationTemplateGenerator
 
 
 class TestPhase5Runtime:
@@ -401,7 +398,7 @@ class TestPhase5Runtime:
         assert core_fp != client_fp, "Fingerprints should differ"
 
         # Export and re-load
-        export = loader.export_governance_json.__self__
+        loader.export_governance_json.__self__
 
         # Verify fingerprints unchanged
         assert loader.get_core_fingerprint() == core_fp

@@ -11,7 +11,7 @@ This enables end-to-end validation of the complete compilation flow.
 
 import sys
 from pathlib import Path
-from typing import Dict, Any, Tuple
+from typing import Any, Dict
 
 # Import pipeline builder
 sys.path.insert(0, str(Path(__file__).parent))
@@ -34,6 +34,10 @@ class GovernanceOrchestrator:
 
         self.repo_root = repo_root
         self.sdd_spec = repo_root / "_spec"
+        if not self.sdd_spec.exists():
+            parent_spec = repo_root.parent / "_spec"
+            if parent_spec.exists():
+                self.sdd_spec = parent_spec
         self.compiled_dir = repo_root / ".sdd-compiled"
 
     def run_full_pipeline(self) -> Dict[str, Any]:
@@ -53,7 +57,7 @@ class GovernanceOrchestrator:
             print("❌ PHASE 1 failed")
             return None
 
-        print(f"✅ PHASE 1 complete:")
+        print("✅ PHASE 1 complete:")
         print(f"   - Core items: {phase1_result['core_item_count']}")
         print(f"   - Client items: {phase1_result['client_item_count']}")
         print(f"   - Core fingerprint: {phase1_result['core_fingerprint'][:16]}...")
@@ -66,7 +70,7 @@ class GovernanceOrchestrator:
             print("❌ PHASE 2 failed")
             return None
 
-        print(f"✅ PHASE 2 complete:")
+        print("✅ PHASE 2 complete:")
         print(f"   - Core msgpack: {Path(phase2_result['core_msgpack_file']).name}")
         print(f"   - Client msgpack: {Path(phase2_result['client_msgpack_file']).name}")
         print()

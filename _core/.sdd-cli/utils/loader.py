@@ -2,7 +2,7 @@
 
 import sys
 from pathlib import Path
-from typing import Dict, Any, Optional
+from typing import Any, Dict
 
 # Add parent directory to path to import .sdd-wizard modules
 sys.path.insert(0, str(Path(__file__).parent.parent.parent))
@@ -12,10 +12,10 @@ def load_governance_config(path: str) -> Dict[str, Any]:
     """Load governance configuration from .sdd-wizard."""
     try:
         from sdd_wizard.governance_runtime_loader import GovernanceRuntimeLoader
-        
+
         loader = GovernanceRuntimeLoader(Path(path))
         config = loader.load_all()
-        
+
         return {
             "core_fingerprint": config.get("core_fingerprint"),
             "client_fingerprint": config.get("client_fingerprint"),
@@ -30,21 +30,21 @@ def load_governance_config(path: str) -> Dict[str, Any]:
 def validate_governance_path(path: str) -> bool:
     """Validate that governance path contains required files."""
     path_obj = Path(path)
-    
+
     required_files = [
         path_obj / "compiled" / "governance-core.compiled.msgpack",
         path_obj / "compiled" / "governance-client-template.compiled.msgpack",
         path_obj / "compiled" / "metadata-core.json",
         path_obj / "compiled" / "metadata-client-template.json",
     ]
-    
+
     return all(f.exists() for f in required_files)
 
 
 def get_governance_summary(path: str) -> Dict[str, Any]:
     """Get human-readable governance summary."""
     config = load_governance_config(path)
-    
+
     return {
         "Configuration Path": path,
         "Status": "✓ Ready",

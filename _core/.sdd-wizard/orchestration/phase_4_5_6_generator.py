@@ -31,14 +31,14 @@ Output Structure (AI Agent Optimized):
 
 import json
 import shutil
-from pathlib import Path
 from datetime import datetime
-from typing import Dict, List, Any, Tuple
+from pathlib import Path
+from typing import Any, Dict, Tuple
 
 
 class Phase456Generator:
     """Generate final project structure from compiled governance"""
-    
+
     def __init__(self, repo_root: Path, output_base: Path, config: dict, verbose: bool = False):
         """
         Initialize Phase 4-6 generator
@@ -52,46 +52,46 @@ class Phase456Generator:
         self.repo_root = repo_root
         if self.repo_root.name == '_core':
             self.repo_root = self.repo_root.parent
-        
+
         self.output_base = output_base
         self.config = config
         self.verbose = verbose
-        
+
         # Key paths
         self.sdd_dir = output_base / '.sdd'
         self.source_dir = self.sdd_dir / 'source'
         self.runtime_dir = self.sdd_dir / 'runtime'
         self.mandates_dir = self.source_dir / 'mandates'
         self.guidelines_dir = self.source_dir / 'guidelines'
-        
+
         # Governance input paths
         self.governance_core = self.repo_root / 'sdd-generated' / 'final-output' / 'governance-core.json'
         self.governance_client = self.repo_root / 'sdd-generated' / 'final-output' / 'governance-client.json'
-        
+
         # Template paths
         self.template_base = self.repo_root / '_core' / '.sdd-wizard' / 'templates' / 'base'
-        
+
         self.mandates = []
         self.guidelines = {}
         self.guidelines_by_category = {}
-    
+
     def log(self, message: str):
         """Print log message if verbose"""
         if self.verbose:
             print(f"  ℹ️  {message}")
-    
+
     def load_governance(self) -> bool:
         """Load compiled governance from Phase 3 output"""
         self.log(f"Loading governance-core.json from {self.governance_core}")
-        
+
         if not self.governance_core.exists():
             print(f"  ❌ governance-core.json not found: {self.governance_core}")
             return False
-        
+
         try:
             with open(self.governance_core, 'r') as f:
                 governance_core = json.load(f)
-            
+
             # Extract mandates and guidelines from items
             for item in governance_core.get('items', []):
                 if item['type'] == 'MANDATE':
@@ -103,7 +103,7 @@ class Phase456Generator:
                     if category not in self.guidelines_by_category:
                         self.guidelines_by_category[category] = []
                     self.guidelines_by_category[category].append(item)
-            
+
             self.log(f"Loaded {len(self.mandates)} mandates and {len(self.guidelines)} guidelines")
             self.log(f"Categories: {', '.join(self.guidelines_by_category.keys())}")
             return True
@@ -112,39 +112,39 @@ class Phase456Generator:
             import traceback
             traceback.print_exc()
             return False
-    
+
     def create_directories(self) -> bool:
         """Create output directory structure"""
         self.log("Creating directory structure")
-        
+
         try:
             # Create .sdd directories
             self.mandates_dir.mkdir(parents=True, exist_ok=True)
             self.guidelines_dir.mkdir(parents=True, exist_ok=True)
             self.runtime_dir.mkdir(parents=True, exist_ok=True)
-            
+
             # Create .github/workflows
             workflows_dir = self.output_base / '.github' / 'workflows'
             workflows_dir.mkdir(parents=True, exist_ok=True)
-            
+
             # Create seedling directories
             seedling_dirs = ['.vscode', '.cursor', '.ia']
             for seedling in seedling_dirs:
                 (self.output_base / seedling).mkdir(parents=True, exist_ok=True)
-            
-            self.log(f"Created directories: .sdd, .github, .vscode, .cursor, .ia")
+
+            self.log("Created directories: .sdd, .github, .vscode, .cursor, .ia")
             return True
         except Exception as e:
             print(f"  ❌ Failed to create directories: {e}")
             return False
-    
+
     def generate_mandates_file(self) -> bool:
         """Generate mandates.md with IA-FIRST optimization"""
         self.log("Generating mandates.md")
-        
+
         try:
             mandates_file = self.mandates_dir / 'mandates.md'
-            
+
             content = f"""# Mandates - SDD v3.0
 
 ⚡ IA-FIRST DESIGN NOTICE
@@ -158,7 +158,7 @@ class Phase456Generator:
 Mandatory rules that CANNOT be customized or skipped.
 
 """
-            
+
             for mandate in self.mandates:
                 content += f"""### {mandate['id']}: {mandate['title']}
 
@@ -168,20 +168,20 @@ Mandatory rules that CANNOT be customized or skipped.
 {mandate.get('content', 'No description available')}
 
 """
-            
+
             with open(mandates_file, 'w', encoding='utf-8') as f:
                 f.write(content)
-            
+
             self.log(f"Generated mandates.md ({len(self.mandates)} mandates)")
             return True
         except Exception as e:
             print(f"  ❌ Failed to generate mandates.md: {e}")
             return False
-    
+
     def generate_guidelines_files(self) -> bool:
         """Generate guidelines organized by category"""
         self.log("Generating guidelines by category")
-        
+
         try:
             # Map category names to friendly names
             category_names = {
@@ -195,13 +195,13 @@ Mandatory rules that CANNOT be customized or skipped.
                 'security': 'Security',
                 'other': 'Other Guidelines'
             }
-            
+
             for category, guidelines in self.guidelines_by_category.items():
                 friendly_name = category_names.get(category, category.title())
                 filename = category
-                
+
                 guidelines_file = self.guidelines_dir / f'{filename}.md'
-                
+
                 content = f"""# {friendly_name} Guidelines
 
 ⚡ IA-FIRST DESIGN NOTICE
@@ -216,7 +216,7 @@ Mandatory rules that CANNOT be customized or skipped.
 Guidelines in this category provide structured recommendations for {friendly_name.lower()}.
 
 """
-                
+
                 for guideline in guidelines:
                     content += f"""### {guideline['id']}: {guideline['title']}
 
@@ -227,27 +227,27 @@ Guidelines in this category provide structured recommendations for {friendly_nam
 {guideline.get('content', 'No description available')}
 
 """
-                
+
                 with open(guidelines_file, 'w', encoding='utf-8') as f:
                     f.write(content)
-                
+
                 self.log(f"Generated {filename}.md ({len(guidelines)} guidelines)")
-            
+
             return True
         except Exception as e:
             print(f"  ❌ Failed to generate guidelines files: {e}")
             return False
-    
+
     def generate_source_readme(self) -> bool:
         """Generate README.md with agent instructions for .sdd/source"""
         self.log("Generating .sdd/source/README.md")
-        
+
         try:
             source_readme = self.source_dir / 'README.md'
-            
+
             # Build categories list
             categories_list = '\n'.join(f'- {cat.title()}' for cat in sorted(self.guidelines_by_category.keys()))
-            
+
             content = f"""# .sdd/source - Governance Source of Truth
 
 ⚡ **For AI Agents: This is your primary query directory**
@@ -367,23 +367,23 @@ See `.sdd/runtime/README.md` for detailed pre-cache instructions.
 
 **Generated by SDD Wizard v3.0**
 """
-            
+
             with open(source_readme, 'w', encoding='utf-8') as f:
                 f.write(content)
-            
+
             self.log("Generated .sdd/source/README.md")
             return True
         except Exception as e:
             print(f"  ❌ Failed to generate source README: {e}")
             return False
-    
+
     def generate_runtime_readme(self) -> bool:
         """Generate README.md with pre-cache instructions for .sdd/runtime"""
         self.log("Generating .sdd/runtime/README.md")
-        
+
         try:
             runtime_readme = self.runtime_dir / 'README.md'
-            
+
             content = f"""# .sdd/runtime - Agent Pre-Cache Strategy
 
 ⚡ **For AI Agents: Instructions on using .sdd/source as pre-cache**
@@ -636,20 +636,20 @@ if governance_mtime > agent.memory.get('governance_loaded_at', 0):
 
 **Generated by SDD Wizard v3.0**
 """
-            
+
             with open(runtime_readme, 'w', encoding='utf-8') as f:
                 f.write(content)
-            
+
             self.log("Generated .sdd/runtime/README.md")
             return True
         except Exception as e:
             print(f"  ❌ Failed to generate runtime README: {e}")
             return False
-    
+
     def generate_metadata(self) -> bool:
         """Generate metadata.json with compilation info"""
         self.log("Generating metadata.json")
-        
+
         try:
             metadata = {
                 'version': '3.0',
@@ -665,51 +665,51 @@ if governance_mtime > agent.memory.get('governance_loaded_at', 0):
                     'seedlings': '.vscode, .cursor, .ia directories with references to .sdd/source'
                 }
             }
-            
+
             metadata_file = self.sdd_dir / 'metadata.json'
             with open(metadata_file, 'w') as f:
                 json.dump(metadata, f, indent=2)
-            
-            self.log(f"Generated metadata.json")
+
+            self.log("Generated metadata.json")
             return True
         except Exception as e:
             print(f"  ❌ Failed to generate metadata.json: {e}")
             return False
-    
+
     def copy_templates(self) -> bool:
         """Copy base templates to .github/workflows"""
         self.log("Copying templates")
-        
+
         try:
             src_workflow = self.template_base / '.github' / 'workflows' / 'sdd-validation.yml'
             dst_workflow = self.output_base / '.github' / 'workflows' / 'sdd-validation.yml'
-            
+
             if src_workflow.exists():
                 shutil.copy2(src_workflow, dst_workflow)
-                self.log(f"Copied sdd-validation.yml to .github/workflows/")
+                self.log("Copied sdd-validation.yml to .github/workflows/")
             else:
                 self.log(f"Template not found: {src_workflow}")
-            
+
             return True
         except Exception as e:
             print(f"  ❌ Failed to copy templates: {e}")
             return False
-    
+
     def create_seedlings(self) -> bool:
         """Create seedling directories with reference files"""
         self.log("Creating seedling directories")
-        
+
         try:
             seedlings = {
                 '.vscode': 'VS Code Settings (reference .sdd/source)',
                 '.cursor': 'Cursor IDE Settings (reference .sdd/source)',
                 '.ia': 'AI Agent Configuration (reference .sdd/source)'
             }
-            
+
             for seedling, description in seedlings.items():
                 seedling_dir = self.output_base / seedling
                 seedling_dir.mkdir(parents=True, exist_ok=True)
-                
+
                 # Create README in seedling
                 readme = seedling_dir / 'README.md'
                 content = f"""# {seedling}
@@ -729,27 +729,27 @@ Add your {seedling} specific configuration here.
 
 **Always reference**: `.sdd/source/` for governance decisions.
 """
-                
+
                 with open(readme, 'w') as f:
                     f.write(content)
-                
+
                 self.log(f"Created {seedling}/ with reference README")
-            
+
             return True
         except Exception as e:
             print(f"  ❌ Failed to create seedlings: {e}")
             return False
-    
+
     def validate_output(self) -> Tuple[bool, Dict[str, Any]]:
         """Validate generated output structure"""
         self.log("Validating output structure")
-        
+
         validation_result = {
             'valid': True,
             'checks': {},
             'errors': []
         }
-        
+
         try:
             # Check directories
             required_dirs = [
@@ -761,14 +761,14 @@ Add your {seedling} specific configuration here.
                 self.output_base / '.cursor',
                 self.output_base / '.ia'
             ]
-            
+
             for req_dir in required_dirs:
                 exists = req_dir.exists()
                 validation_result['checks'][str(req_dir.relative_to(self.output_base))] = 'OK' if exists else 'MISSING'
                 if not exists:
                     validation_result['valid'] = False
                     validation_result['errors'].append(f"Missing directory: {req_dir}")
-            
+
             # Check files
             required_files = [
                 (self.mandates_dir / 'mandates.md', 'Mandates'),
@@ -777,14 +777,14 @@ Add your {seedling} specific configuration here.
                 (self.sdd_dir / 'metadata.json', 'Metadata'),
                 (self.output_base / '.github' / 'workflows' / 'sdd-validation.yml', 'Workflow')
             ]
-            
+
             for req_file, desc in required_files:
                 exists = req_file.exists()
                 validation_result['checks'][f'file: {desc}'] = 'OK' if exists else 'MISSING'
                 if not exists:
                     validation_result['valid'] = False
                     validation_result['errors'].append(f"Missing file: {req_file}")
-            
+
             # Check guideline files
             expected_categories = set(self.guidelines_by_category.keys())
             for category in expected_categories:
@@ -794,19 +794,19 @@ Add your {seedling} specific configuration here.
                 if not exists:
                     validation_result['valid'] = False
                     validation_result['errors'].append(f"Missing guideline: {guideline_file}")
-            
+
             return validation_result['valid'], validation_result
         except Exception as e:
             print(f"  ❌ Validation failed: {e}")
             validation_result['valid'] = False
             validation_result['errors'].append(str(e))
             return False, validation_result
-    
+
     def run(self) -> Dict[str, Any]:
         """Execute Phase 4-6 generation"""
         print("\n🏗️  PHASE 4-6: Generate Project Structure")
         print("=" * 70)
-        
+
         result = {
             'success': False,
             'phase': 'Phase 4-6',
@@ -816,72 +816,72 @@ Add your {seedling} specific configuration here.
             'categories': [],
             'errors': []
         }
-        
+
         # Phase 4: Load governance
         if not self.load_governance():
             result['errors'].append('Failed to load governance')
             return result
-        
+
         result['mandates'] = len(self.mandates)
         result['guidelines'] = len(self.guidelines)
         result['categories'] = list(self.guidelines_by_category.keys())
-        
+
         # Phase 5: Create directories and files
         if not self.create_directories():
             result['errors'].append('Failed to create directories')
             return result
-        
+
         if not self.generate_mandates_file():
             result['errors'].append('Failed to generate mandates')
             return result
-        
+
         if not self.generate_guidelines_files():
             result['errors'].append('Failed to generate guidelines')
             return result
-        
+
         if not self.generate_source_readme():
             result['errors'].append('Failed to generate source README')
             return result
-        
+
         if not self.generate_runtime_readme():
             result['errors'].append('Failed to generate runtime README')
             return result
-        
+
         if not self.generate_metadata():
             result['errors'].append('Failed to generate metadata')
             return result
-        
+
         if not self.copy_templates():
             result['errors'].append('Failed to copy templates')
             return result
-        
+
         if not self.create_seedlings():
             result['errors'].append('Failed to create seedlings')
             return result
-        
+
         # Phase 6: Validate output
         valid, validation_result = self.validate_output()
-        
+
         if not valid:
             result['errors'].extend(validation_result['errors'])
             return result
-        
+
         result['success'] = True
         result['validation'] = validation_result['checks']
-        
+
         # Summary
-        print(f"\n✅ Phase 4-6 Complete!")
-        print(f"\n📊 Structure Generated:")
+        print("\n✅ Phase 4-6 Complete!")
+        print("\n📊 Structure Generated:")
         print(f"   Mandates: {result['mandates']}")
         print(f"   Guidelines: {result['guidelines']}")
         print(f"   Categories: {', '.join(result['categories'])}")
         print(f"\n📂 Location: {result['output_path']}")
-        print(f"\n🎯 Next Steps:")
-        print(f"   1. Review .sdd/source/ for governance organization")
-        print(f"   2. Review .sdd/runtime/README.md for agent pre-cache instructions")
-        print(f"   3. Configure seedlings (.vscode, .cursor, .ia)")
-        print(f"   4. Commit to version control")
-        
+        print("\n🎯 Next Steps:")
+        print("   1. Review .sdd/source/ for governance organization")
+        print("   2. Review .sdd/runtime/README.md for agent pre-cache instructions")
+        print("   3. Configure seedlings (.vscode, .cursor, .ia)")
+        print("   4. Commit to version control")
+
         return result
 
 

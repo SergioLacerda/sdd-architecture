@@ -597,11 +597,14 @@ Phase 6-7 (Generate & Validate)
 
 ### Pre-Push Hook Strategy
 
-**SDD Architecture includes `.git/hooks/pre-push` that runs locally:**
+**SDD Architecture framework** uses `.git/hooks/pre-push` that runs locally:
 
 ```bash
 #!/bin/bash
-# Runs before push to catch issues early
+# Pre-push Hook - SDD Architecture Framework (Not for Client Projects)
+#
+# ⚠️ This hook is for the framework only, not client projects.
+# Validates framework health + governance compliance.
 
 [PRE-PUSH] Starting final validation...
 → Running full health check (fresh, no cache)...
@@ -623,6 +626,10 @@ python3 _core/governance_compliance.py --verify
 # Force push if absolutely necessary (not recommended)
 git push --no-verify
 ```
+
+**⚠️ Important distinction:**
+- **Framework hook**: Validates governance + health (blocks if compliance fails)
+- **Client project hook** (future): Validates project quality only (no framework governance validation)
 
 ### Continuous Monitoring Post-Merge
 

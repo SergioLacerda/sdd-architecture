@@ -16,14 +16,10 @@ Example:
     >>> extensions = registry.load_all()
 """
 
-from typing import List, Dict, Any, Optional, Type, Callable
-from dataclasses import dataclass, field
-from pathlib import Path
-from enum import Enum
-import json
 from abc import ABC, abstractmethod
-import importlib.util
-import sys
+from dataclasses import dataclass, field
+from enum import Enum
+from typing import Any, Dict, List, Optional
 
 
 class ItemType(str, Enum):
@@ -57,28 +53,28 @@ class CustomMandate:
     rationale: Optional[str] = None
     validation_commands: Optional[List[str]] = None
     metadata: Dict[str, Any] = field(default_factory=dict)
-    
+
     def validate(self) -> List[str]:
         """Validate mandate structure"""
         errors = []
-        
+
         if not self.id:
             errors.append("Mandate ID cannot be empty")
-        
+
         if not self.type or self.type not in ["HARD", "SOFT"]:
             errors.append(f"Invalid type: {self.type} (must be HARD or SOFT)")
-        
+
         if not self.title or len(self.title.strip()) == 0:
             errors.append("Mandate title cannot be empty")
-        
+
         if not self.description or len(self.description.strip()) == 0:
             errors.append("Mandate description cannot be empty")
-        
+
         if self.category not in [c.value for c in Category]:
             errors.append(f"Invalid category: {self.category}")
-        
+
         return errors
-    
+
     def to_dict(self) -> Dict[str, Any]:
         """Convert to dictionary"""
         return {
@@ -106,25 +102,25 @@ class CustomGuideline:
     examples: Optional[List[str]] = None
     related_mandate: Optional[str] = None
     metadata: Dict[str, Any] = field(default_factory=dict)
-    
+
     def validate(self) -> List[str]:
         """Validate guideline structure"""
         errors = []
-        
+
         if not self.id:
             errors.append("Guideline ID cannot be empty")
-        
+
         if not self.type or self.type not in ["HARD", "SOFT"]:
             errors.append(f"Invalid type: {self.type} (must be HARD or SOFT)")
-        
+
         if not self.title or len(self.title.strip()) == 0:
             errors.append("Guideline title cannot be empty")
-        
+
         if self.category not in [c.value for c in Category]:
             errors.append(f"Invalid category: {self.category}")
-        
+
         return errors
-    
+
     def to_dict(self) -> Dict[str, Any]:
         """Convert to dictionary"""
         return {
@@ -142,10 +138,10 @@ class CustomGuideline:
 
 class ExtensionMetadata:
     """Metadata for extension packages"""
-    
-    def __init__(self, 
-                 name: str, 
-                 version: str, 
+
+    def __init__(self,
+                 name: str,
+                 version: str,
                  author: str,
                  description: str,
                  domain: str,
@@ -158,7 +154,7 @@ class ExtensionMetadata:
         self.domain = domain
         self.dependencies = dependencies or []
         self.license = license
-    
+
     def to_dict(self) -> Dict[str, Any]:
         """Convert to dictionary"""
         return {
@@ -174,30 +170,30 @@ class ExtensionMetadata:
 
 class BaseExtension(ABC):
     """Base class for all SDD extensions"""
-    
+
     # Subclasses must define these
     metadata: ExtensionMetadata
     mandates: List[CustomMandate] = []
     guidelines: List[CustomGuideline] = []
-    
+
     @abstractmethod
     def initialize(self) -> None:
         """Initialize extension - called on load"""
         pass
-    
+
     @abstractmethod
     def validate(self) -> List[str]:
         """Validate extension structure"""
         pass
-    
+
     def get_mandates(self) -> List[CustomMandate]:
         """Get all mandates from this extension"""
         return self.mandates
-    
+
     def get_guidelines(self) -> List[CustomGuideline]:
         """Get all guidelines from this extension"""
         return self.guidelines
-    
+
     def to_dict(self) -> Dict[str, Any]:
         """Convert extension to dictionary"""
         return {
@@ -209,34 +205,34 @@ class BaseExtension(ABC):
 
 class ExtensionRegistry:
     """Registry for managing SDD extensions"""
-    
+
     def __init__(self):
         self.extensions: Dict[str, BaseExtension] = {}
         self.errors: List[str] = []
-    
+
     def register(self, domain: str, extension: BaseExtension) -> bool:
         """Register an extension"""
         validation_errors = extension.validate()
-        
+
         if validation_errors:
             self.errors.extend([f"{domain}: {e}" for e in validation_errors])
             return False
-        
+
         self.extensions[domain] = extension
         return True
-    
+
     def get(self, domain: str) -> Optional[BaseExtension]:
         """Get extension by domain"""
         return self.extensions.get(domain)
-    
+
     def get_all(self) -> Dict[str, BaseExtension]:
         """Get all registered extensions"""
         return self.extensions.copy()
-    
+
     def get_mandates(self, domain: Optional[str] = None) -> List[CustomMandate]:
         """Get all mandates, optionally filtered by domain"""
         mandates = []
-        
+
         if domain:
             ext = self.get(domain)
             if ext:
@@ -244,13 +240,13 @@ class ExtensionRegistry:
         else:
             for ext in self.extensions.values():
                 mandates.extend(ext.get_mandates())
-        
+
         return mandates
-    
+
     def get_guidelines(self, domain: Optional[str] = None) -> List[CustomGuideline]:
         """Get all guidelines, optionally filtered by domain"""
         guidelines = []
-        
+
         if domain:
             ext = self.get(domain)
             if ext:
@@ -258,14 +254,14 @@ class ExtensionRegistry:
         else:
             for ext in self.extensions.values():
                 guidelines.extend(ext.get_guidelines())
-        
+
         return guidelines
-    
+
     def get_stats(self) -> Dict[str, Any]:
         """Get statistics about registered extensions"""
         total_mandates = sum(len(ext.get_mandates()) for ext in self.extensions.values())
         total_guidelines = sum(len(ext.get_guidelines()) for ext in self.extensions.values())
-        
+
         return {
             "total_extensions": len(self.extensions),
             "domains": list(self.extensions.keys()),
@@ -303,7 +299,7 @@ if __name__ == "__main__":
     # Example usage
     print("SDD Extension Framework")
     print("=" * 50)
-    
+
     # Create example mandate
     mandate = CustomMandate(
         id="DM001",
@@ -313,7 +309,7 @@ if __name__ == "__main__":
         category=Category.ARCHITECTURE.value,
         domain="example",
     )
-    
+
     errors = mandate.validate()
     if not errors:
         print("✅ Mandate valid")
@@ -322,7 +318,7 @@ if __name__ == "__main__":
         print("❌ Mandate invalid")
         for error in errors:
             print(f"  - {error}")
-    
+
     # Create example guideline
     guideline = CustomGuideline(
         id="DG001",
@@ -332,7 +328,7 @@ if __name__ == "__main__":
         domain="example",
         description="Custom coding standards",
     )
-    
+
     errors = guideline.validate()
     if not errors:
         print("✅ Guideline valid")

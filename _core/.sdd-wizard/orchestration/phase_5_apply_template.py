@@ -3,10 +3,9 @@
 Copies template files from .sdd-wizard/templates/ and applies language customizations
 """
 
-from pathlib import Path
-from typing import Tuple, Dict, Any
 import shutil
-import json
+from pathlib import Path
+from typing import Any, Dict, Tuple
 
 
 def _get_language_template_dir(language: str) -> Path:
@@ -33,26 +32,26 @@ def _copy_template_files(
     """
     if not source_dir.exists():
         return (0, [f"Template directory not found: {source_dir}"])
-    
+
     errors = []
     files_copied = 0
-    
+
     try:
         for item in source_dir.rglob('*'):
             if item.is_file():
                 # Calculate relative path
                 rel_path = item.relative_to(source_dir)
                 target_file = target_dir / rel_path
-                
+
                 # Create parent directories
                 target_file.parent.mkdir(parents=True, exist_ok=True)
-                
+
                 # Copy file
                 shutil.copy2(item, target_file)
                 files_copied += 1
     except Exception as e:
         errors.append(f"Error copying template files: {e}")
-    
+
     return (files_copied, errors)
 
 
@@ -72,7 +71,7 @@ def _apply_placeholder_replacements(
     result = text
     for placeholder, value in replacements.items():
         result = result.replace(f"{{{{{placeholder}}}}}", str(value))
-    
+
     return result
 
 
@@ -87,23 +86,23 @@ def _customize_file_for_language(
     """
     if not file_path.exists():
         return (False, f"File not found: {file_path}")
-    
+
     try:
         # Read file
         content = file_path.read_text(encoding='utf-8')
-        
+
         # Language-specific placeholders
         replacements = {
             'LANGUAGE': language.upper(),
             'language': language.lower(),
         }
-        
+
         # Apply replacements
         customized = _apply_placeholder_replacements(content, replacements)
-        
+
         # Write back
         file_path.write_text(customized, encoding='utf-8')
-        
+
         return (True, f"Customized for {language}")
     except Exception as e:
         return (False, f"Error customizing file: {e}")
@@ -136,23 +135,23 @@ def phase_5_apply_template(
         'warnings': [],
         'errors': [],
     }
-    
+
     try:
         # Create scaffolding directory
         scaffolding_dir.mkdir(parents=True, exist_ok=True)
-        
+
         # 1. Copy base templates
         base_dir = _get_base_template_dir()
         if not base_dir.exists():
             report['errors'].append(f"Base template directory not found: {base_dir}")
             report['status'] = 'FAILED'
             return (False, report)
-        
+
         base_copied, base_errors = _copy_template_files(base_dir, scaffolding_dir)
         report['statistics']['base_files_copied'] = base_copied
         if base_errors:
             report['warnings'].extend(base_errors)
-        
+
         # 2. Copy language-specific templates
         lang_dir = _get_language_template_dir(language)
         if lang_dir.exists():
@@ -162,7 +161,7 @@ def phase_5_apply_template(
                 report['warnings'].extend(lang_errors)
         else:
             report['warnings'].append(f"Language template not found: {lang_dir}")
-        
+
         # 3. Apply customizations
         customizations_count = 0
         for file_path in scaffolding_dir.rglob('*'):
@@ -171,23 +170,23 @@ def phase_5_apply_template(
                 success, msg = _customize_file_for_language(file_path, language)
                 if success:
                     customizations_count += 1
-        
+
         report['statistics']['customizations_applied'] = customizations_count
-        
+
         # 5. Create required directories
         (scaffolding_dir / '.sdd' / 'CANONICAL').mkdir(parents=True, exist_ok=True)
         (scaffolding_dir / '.sdd-core').mkdir(parents=True, exist_ok=True)
         (scaffolding_dir / 'src').mkdir(parents=True, exist_ok=True)
-        
+
         report['data'] = {
             'scaffolding_dir': str(scaffolding_dir),
             'language': language,
             'total_files': base_copied + report['statistics']['language_files_copied'],
         }
-        
+
         report['status'] = 'SUCCESS'
         return (True, report)
-    
+
     except Exception as e:
         report['errors'].append(str(e))
         report['status'] = 'FAILED'

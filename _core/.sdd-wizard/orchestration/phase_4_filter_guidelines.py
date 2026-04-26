@@ -9,8 +9,7 @@ priority metadata in compiled format.
 """
 
 from pathlib import Path
-from typing import Tuple, Dict, List
-
+from typing import Dict, List, Tuple
 
 # Language tags that identify guidelines relevant to specific languages
 LANGUAGE_TAGS = {
@@ -40,22 +39,22 @@ def filter_guidelines_by_language(
     filtered = {}
     removed = []
     lang_tags = LANGUAGE_TAGS.get(language, set())
-    
+
     for guide_id, guide in guidelines.items():
         tags = guide.get('tags', [])
-        
+
         # If no tags specified, guideline is universal
         if not tags:
             filtered[guide_id] = guide
             continue
-        
+
         # If tags present, check if any match target language
         tags_set = set(tag.lower() for tag in tags)
         if tags_set & lang_tags:  # Intersection
             filtered[guide_id] = guide
         else:
             removed.append(guide_id)
-    
+
     return (filtered, removed)
 
 
@@ -88,7 +87,7 @@ def phase_4_filter_guidelines(
             - errors: list of error messages
             - warnings: list of warning messages
     """
-    
+
     report = {
         'phase': 'PHASE_4_FILTER_GUIDELINES',
         'status': 'PENDING',
@@ -112,15 +111,15 @@ def phase_4_filter_guidelines(
         'errors': [],
         'warnings': [],
     }
-    
+
     # Step 1: Validate input
     if not guidelines:
         report['errors'].append('No guidelines provided from Phase 2')
         report['status'] = 'FAILED'
         return (False, report)
-    
+
     report['checks']['guidelines_provided'] = True
-    
+
     # Step 2: Validate language
     valid_languages = set(LANGUAGE_TAGS.keys())
     if language not in valid_languages:
@@ -128,30 +127,30 @@ def phase_4_filter_guidelines(
         report['errors'].append(f'Valid languages: {sorted(valid_languages)}')
         report['status'] = 'FAILED'
         return (False, report)
-    
+
     report['checks']['language_valid'] = True
-    
+
     # Step 3: Apply language filter only
     language_filtered, language_removed = filter_guidelines_by_language(
         guidelines,
         language
     )
-    
+
     report['checks']['language_filtering_applied'] = True
     report['data']['filtering_details']['language_removed'] = language_removed
     report['statistics']['after_language_filter'] = len(language_filtered)
-    
+
     if report['statistics']['total_guidelines'] > 0:
         pct = (len(language_filtered) / report['statistics']['total_guidelines']) * 100
         report['statistics']['language_filter_percentage'] = round(pct, 1)
-    
+
     # Step 5: Validate result
     if not language_filtered:
         report['errors'].append('Filtering resulted in zero guidelines')
         report['status'] = 'FAILED'
         return (False, report)
-    
+
     report['data']['filtered_guidelines'] = language_filtered
     report['status'] = 'SUCCESS'
-    
+
     return (True, report)

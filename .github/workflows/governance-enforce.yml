@@ -1,4 +1,4 @@
-name: Governance Enforcement
+name: 🏗️ Governance Provider Validation (Core & Wizard)
 
 on:
   push:
@@ -6,79 +6,109 @@ on:
   pull_request:
     types: [ opened, synchronize, reopened ]
 
+permissions:
+  contents: write
+  pull-requests: write
+
 jobs:
   governance-enforce:
-    runs-on: ubuntu-latest
-    name: Governance Enforcement
+    name: Governance Integrity (${{ matrix.os }} - ${{ matrix.enforcement }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        enforcement: [strict, permissive]
+        os: [ubuntu-latest, windows-latest]
     
+    defaults:
+      run:
+        shell: bash
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
+          submodules: recursive
       
       - name: Setup Python
         uses: actions/setup-python@v4
         with:
           python-version: "3.10"
+          cache: 'pip' # Melhora a velocidade da esteira
       
-      - name: Verify Governance Compliance
-        id: verify
+      - name: Install Test Dependencies
         run: |
-          echo "::group::Governance Compliance Verification"
-          
-          python3 _core/governance_compliance.py --verify
-          COMPLIANCE_CODE=$?
-          
-          if [ $COMPLIANCE_CODE -eq 0 ]; then
-            echo "✓ All policies compliant"
-          else
-            echo "✗ Policy violations detected"
-            echo "::group::Auto-fix recommendations"
-            python3 _core/governance_compliance.py --fix-steps
-            echo "::endgroup::"
-          fi
-          
+          python -m pip install --upgrade pip
+          pip install "./_core[dev]"
+
+      - name: 🛡️ Security Scan & Docker Validation (Linux)
+        if: matrix.os == 'ubuntu-latest'
+        run: |
+          echo "::group::Vulnerability Scan"
+          make docker-scan
           echo "::endgroup::"
-          exit $COMPLIANCE_CODE
+          echo "::group::Full Containerized Check"
+          make docker-build
+          make docker-run ENFORCEMENT=${{ matrix.enforcement }}
+          echo "::endgroup::"
+
+      - name: 🔍 Native Validation (Windows)
+        if: matrix.os == 'windows-latest'
+        run: |
+          make check ENFORCEMENT=${{ matrix.enforcement }}
       
       - name: Check Enforcement Level
         if: always()
         run: |
           echo "::group::Enforcement Level"
-          python3 _core/governance_compliance.py --enforcement-check
+          python _core/governance_compliance.py --enforcement-check
           echo "::endgroup::"
       
       - name: Determine Merge Blocking
         if: failure()
         run: |
-          echo "## ⛔ Governance Enforcement Failed" >> $GITHUB_STEP_SUMMARY
+          echo "## ⛔ Provider Validation Failed" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
-          echo "Your changes violate project governance policies." >> $GITHUB_STEP_SUMMARY
-          echo "" >> $GITHUB_STEP_SUMMARY
-          echo "**To fix locally:**" >> $GITHUB_STEP_SUMMARY
-          echo "1. \`python3 _core/governance_compliance.py --verify\`" >> $GITHUB_STEP_SUMMARY
-          echo "2. \`python3 _core/governance_compliance.py --fix-steps\`" >> $GITHUB_STEP_SUMMARY
-          echo "3. Apply suggested fixes" >> $GITHUB_STEP_SUMMARY
-          echo "4. Push again" >> $GITHUB_STEP_SUMMARY
-          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "The Wizard or the Compilation Pipeline is producing invalid artifacts." >> $GITHUB_STEP_SUMMARY
+          echo "Check the 'Wizard Generation Test' and 'Generated Project Certification' steps." >> $GITHUB_STEP_SUMMARY
           echo "For questions, see: docs/TROUBLESHOOTING.md" >> $GITHUB_STEP_SUMMARY
 
   pr-approval-check:
+    needs: governance-enforce
     runs-on: ubuntu-latest
     name: PR Approval Check
     if: github.event_name == 'pull_request'
     
     steps:
-      - name: Check for architect approval
+      - name: Strict Governance Label Check
         uses: actions/github-script@v6
         with:
           script: |
             const labels = context.payload.pull_request?.labels || [];
             const hasGovernanceLabel = labels.some(l => l.name === 'governance-approved');
-            
-            if (!hasGovernanceLabel && context.payload.pull_request?.author_association !== 'OWNER') {
-              console.log('⚠️ PR requires governance review');
-            } else {
-              console.log('✓ Governance approval confirmed');
-            }
+            if (!hasGovernanceLabel) core.setFailed('PR requires "governance-approved" label to merge.');
+
+  auto-tag:
+    needs: governance-enforce
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Create and Push Tag
+        run: |
+          # Gera uma tag baseada na data e hash curto do commit
+          TAG_NAME="v-auto-$(date +'%Y%m%d-%H%M')-$(git rev-parse --short HEAD)"
+          echo "Creating tag: $TAG_NAME"
+          
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          
+          git tag -a "$TAG_NAME" -m "Automated governance-approved release"
+          git push origin "$TAG_NAME"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -3,10 +3,10 @@
 Generates the final project with specifications, guidelines, and language-specific structure
 """
 
-from pathlib import Path
-from typing import Tuple, Dict, Any
 import json
 from datetime import datetime
+from pathlib import Path
+from typing import Any, Dict, Tuple
 
 
 def _create_project_directories(project_dir: Path) -> Tuple[bool, list]:
@@ -16,7 +16,7 @@ def _create_project_directories(project_dir: Path) -> Tuple[bool, list]:
         (success, messages)
     """
     messages = []
-    
+
     try:
         dirs = [
             project_dir / '.sdd' / 'CANONICAL',
@@ -26,11 +26,11 @@ def _create_project_directories(project_dir: Path) -> Tuple[bool, list]:
             project_dir / '.github' / 'workflows',
             project_dir / 'docs',
         ]
-        
+
         for directory in dirs:
             directory.mkdir(parents=True, exist_ok=True)
             messages.append(f"Created: {directory.relative_to(project_dir)}")
-        
+
         return (True, messages)
     except Exception as e:
         return (False, [f"Error creating directories: {e}"])
@@ -48,20 +48,20 @@ def _write_specification_files(
         (success, messages)
     """
     messages = []
-    
+
     try:
         sdd_dir = project_dir / '.sdd' / 'CANONICAL'
-        
+
         # Write mandate.spec
         mandate_file = sdd_dir / 'mandate.spec'
         mandate_file.write_text(mandate_text, encoding='utf-8')
         messages.append(f"Generated: {mandate_file.relative_to(project_dir)}")
-        
+
         # Write guidelines.dsl
         guidelines_file = sdd_dir / 'guidelines.dsl'
         guidelines_file.write_text(guidelines_text, encoding='utf-8')
         messages.append(f"Generated: {guidelines_file.relative_to(project_dir)}")
-        
+
         # Write metadata.json
         metadata_file = sdd_dir / 'metadata.json'
         metadata_with_timestamp = {
@@ -74,7 +74,7 @@ def _write_specification_files(
             encoding='utf-8'
         )
         messages.append(f"Generated: {metadata_file.relative_to(project_dir)}")
-        
+
         return (True, messages)
     except Exception as e:
         return (False, [f"Error writing specification files: {e}"])
@@ -94,43 +94,43 @@ def _generate_guideline_markdowns(
         (success, messages)
     """
     messages = []
-    
+
     try:
         guidelines_dir = project_dir / '.sdd-guidelines'
-        
+
         # Create index markdown
         index_content = "# Guidelines Reference\n\n"
         index_content += f"Generated: {datetime.now().isoformat()}\n\n"
         index_content += f"Total Guidelines: {len(guidelines)}\n\n"
         index_content += "## Guidelines\n\n"
-        
+
         # Generate individual guideline files
         for guide_id, guide in guidelines.items():
             # Create guideline markdown
             title = guide.get('title', 'Untitled')
             description = guide.get('description', 'No description')
-            
+
             guideline_content = f"# {title}\n\n"
             guideline_content += f"**ID:** {guide_id}\n\n"
             guideline_content += f"## Description\n\n{description}\n\n"
-            
+
             if guide.get('examples'):
                 guideline_content += f"## Examples\n\n{guide['examples']}\n\n"
-            
+
             # Write guideline file
             guideline_file = guidelines_dir / f"{guide_id}.md"
             guideline_file.write_text(guideline_content, encoding='utf-8')
-            
+
             # Add to index
             index_content += f"- [{title}]({guide_id}.md)\n"
-        
+
         # Write index
         index_file = guidelines_dir / 'README.md'
         index_file.write_text(index_content, encoding='utf-8')
-        
+
         messages.append(f"Generated: {len(guidelines)} guideline markdown files")
         messages.append(f"Generated: {index_file.relative_to(project_dir)}")
-        
+
         return (True, messages)
     except Exception as e:
         return (False, [f"Error generating guideline markdowns: {e}"])
@@ -152,7 +152,7 @@ def _generate_build_files(
         (success, messages)
     """
     messages = []
-    
+
     try:
         if language == 'java':
             # Generate pom.xml
@@ -175,7 +175,7 @@ def _generate_build_files(
             pom_file = project_dir / 'pom.xml'
             pom_file.write_text(pom_content, encoding='utf-8')
             messages.append(f"Generated: {pom_file.relative_to(project_dir)}")
-        
+
         elif language == 'python':
             # Generate requirements.txt
             requirements_content = '''# Generated from SDD v3.0
@@ -185,7 +185,7 @@ pytest>=7.0
             req_file = project_dir / 'requirements.txt'
             req_file.write_text(requirements_content, encoding='utf-8')
             messages.append(f"Generated: {req_file.relative_to(project_dir)}")
-            
+
             # Generate pyproject.toml
             pyproject_content = '''[build-system]
 requires = ["setuptools", "wheel"]
@@ -202,7 +202,7 @@ dev = ["pytest>=7.0"]
             pyproject_file = project_dir / 'pyproject.toml'
             pyproject_file.write_text(pyproject_content, encoding='utf-8')
             messages.append(f"Generated: {pyproject_file.relative_to(project_dir)}")
-        
+
         elif language == 'js':
             # Generate package.json
             package_content = json.dumps({
@@ -221,7 +221,7 @@ dev = ["pytest>=7.0"]
             package_file = project_dir / 'package.json'
             package_file.write_text(package_content, encoding='utf-8')
             messages.append(f"Generated: {package_file.relative_to(project_dir)}")
-        
+
         return (True, messages)
     except Exception as e:
         return (False, [f"Error generating build files: {e}"])
@@ -239,7 +239,7 @@ def _generate_readme(
         (success, messages)
     """
     messages = []
-    
+
     try:
         readme_content = f'''# SDD Generated Project
 
@@ -274,11 +274,11 @@ This project was generated from SDD v3.0 specifications.
 ### Mandates
 
 '''
-        
+
         for mandate_id, mandate in mandates.items():
             title = mandate.get('title', 'Untitled')
             readme_content += f"- **{mandate_id}**: {title}\n"
-        
+
         readme_content += '''
 
 ### Getting Started
@@ -296,11 +296,11 @@ For detailed guidelines, see `.sdd-guidelines/README.md`
 
 **Generated by SDD v3.0 Wizard**
 '''
-        
+
         readme_file = project_dir / 'README.md'
         readme_file.write_text(readme_content, encoding='utf-8')
         messages.append(f"Generated: {readme_file.relative_to(project_dir)}")
-        
+
         return (True, messages)
     except Exception as e:
         return (False, [f"Error generating README: {e}"])
@@ -345,7 +345,7 @@ def phase_6_generate_project(
         'warnings': [],
         'errors': [],
     }
-    
+
     try:
         # 1. Create project directories
         success, messages = _create_project_directories(output_dir)
@@ -354,7 +354,7 @@ def phase_6_generate_project(
             report['status'] = 'FAILED'
             return (False, report)
         report['statistics']['directories_created'] = len(messages)
-        
+
         # 2. Write specification files
         success, messages = _write_specification_files(
             output_dir,
@@ -366,7 +366,7 @@ def phase_6_generate_project(
             report['errors'].extend(messages)
         else:
             report['statistics']['files_generated'] += 3
-        
+
         # 3. Generate guideline markdowns
         success, messages = _generate_guideline_markdowns(
             output_dir,
@@ -376,7 +376,7 @@ def phase_6_generate_project(
             report['warnings'].extend(messages)
         else:
             report['statistics']['files_generated'] += 1
-        
+
         # 4. Generate build files
         success, messages = _generate_build_files(
             output_dir,
@@ -387,7 +387,7 @@ def phase_6_generate_project(
             report['warnings'].extend(messages)
         else:
             report['statistics']['files_generated'] += 1
-        
+
         # 5. Generate README
         success, messages = _generate_readme(
             output_dir,
@@ -399,7 +399,7 @@ def phase_6_generate_project(
             report['warnings'].extend(messages)
         else:
             report['statistics']['files_generated'] += 1
-        
+
         report['data'] = {
             'output_dir': str(output_dir),
             'language': language,
@@ -407,10 +407,10 @@ def phase_6_generate_project(
             'guidelines_count': len(filtered_guidelines),
             'total_files_generated': report['statistics']['files_generated'],
         }
-        
+
         report['status'] = 'SUCCESS'
         return (True, report)
-    
+
     except Exception as e:
         report['errors'].append(str(e))
         report['status'] = 'FAILED'

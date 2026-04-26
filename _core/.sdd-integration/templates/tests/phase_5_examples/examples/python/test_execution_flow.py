@@ -9,7 +9,6 @@ Tests the EXECUTION flow by validating:
 - AI-first design
 """
 
-import os
 from pathlib import Path
 
 
@@ -26,14 +25,14 @@ class TestExecutionFlow:
     def test_entry_points(self):
         """Test EXECUTION entry points exist"""
         print("\n📋 TEST 1: Entry Points")
-        
+
         entry_points = [
             "README.md",
             "_START_HERE.md",
             "NAVIGATION.md",
             "INDEX.md"
         ]
-        
+
         for entry in entry_points:
             path = self.execution_dir / entry
             if path.exists():
@@ -42,22 +41,22 @@ class TestExecutionFlow:
             else:
                 print(f"  ❌ Entry point missing: {entry}")
                 self.results.append((entry, False))
-        
+
         return all(result for _, result in self.results[-len(entry_points):])
 
     def test_canonical_layer(self):
         """Test CANONICAL layer (immutable authority)"""
         print("\n📋 TEST 2: CANONICAL Layer")
-        
+
         canonical_dir = self.execution_dir / "docs/ia/CANONICAL"
-        
+
         # Rules layer
         rules_files = [
             "rules/constitution.md",
             "rules/ia-rules.md",
             "rules/conventions.md"
         ]
-        
+
         print("  🔴 Constitution Layer:")
         for rule_file in rules_files:
             path = canonical_dir / rule_file
@@ -67,11 +66,11 @@ class TestExecutionFlow:
             else:
                 print(f"    ❌ {rule_file}")
                 self.results.append((f"canonical/{rule_file}", False))
-        
+
         # Decisions layer (ADRs)
         adr_dir = canonical_dir / "decisions"
         adr_files = list(adr_dir.glob("ADR-*.md")) if adr_dir.exists() else []
-        
+
         print("  🟡 Decisions Layer (ADRs):")
         if len(adr_files) >= 6:
             print(f"    ✅ Found {len(adr_files)} ADRs")
@@ -79,7 +78,7 @@ class TestExecutionFlow:
         else:
             print(f"    ❌ Only found {len(adr_files)} ADRs (need 6+)")
             self.results.append(("canonical/decisions", False))
-        
+
         # Specifications layer
         spec_files = [
             "specifications/definition_of_done.md",
@@ -87,7 +86,7 @@ class TestExecutionFlow:
             "specifications/architecture.md",
             "specifications/testing.md"
         ]
-        
+
         print("  🟢 Specifications Layer:")
         for spec_file in spec_files:
             path = canonical_dir / spec_file
@@ -96,26 +95,26 @@ class TestExecutionFlow:
                 self.results.append((f"canonical/{spec_file}", True))
             else:
                 print(f"    ⚠️  Optional: {spec_file}")
-        
+
         return True
 
     def test_guides_layer(self):
         """Test Guides layer (operational help)"""
         print("\n📋 TEST 3: Guides Layer")
-        
+
         guides_dir = self.execution_dir / "docs/ia/guides"
-        
+
         guide_categories = {
             "onboarding": ["AGENT_HARNESS.md", "VALIDATION_QUIZ.md"],
             "operational": ["ADDING_NEW_PROJECT.md", "TROUBLESHOOTING_SPEC_VIOLATIONS.md"],
             "emergency": ["README.md"],
             "reference": ["FAQ.md", "GLOSSARY.md"]
         }
-        
+
         for category, files in guide_categories.items():
             cat_dir = guides_dir / category
             print(f"  📚 {category.upper()}:")
-            
+
             for file in files:
                 path = cat_dir / file
                 if path.exists():
@@ -123,21 +122,21 @@ class TestExecutionFlow:
                     self.results.append((f"guides/{category}/{file}", True))
                 else:
                     print(f"    ⚠️  {file}")
-        
+
         return True
 
     def test_runtime_layer(self):
         """Test Runtime layer (search & indices)"""
         print("\n📋 TEST 4: Runtime Layer")
-        
+
         runtime_dir = self.execution_dir / "docs/ia/runtime"
-        
+
         runtime_files = [
             "search-keywords.md",
             "spec-canonical-index.md",
             "spec-guides-index.md"
         ]
-        
+
         for runtime_file in runtime_files:
             path = runtime_dir / runtime_file
             if path.exists():
@@ -148,42 +147,42 @@ class TestExecutionFlow:
             else:
                 print(f"  ❌ {runtime_file}")
                 self.results.append((f"runtime/{runtime_file}", False))
-        
+
         return True
 
     def test_custom_layer(self):
         """Test Custom layer (project-specific)"""
         print("\n📋 TEST 5: Custom Layer")
-        
+
         custom_dir = self.execution_dir / "docs/ia/custom"
-        
+
         if custom_dir.exists():
             projects = list(custom_dir.glob("*/"))
-            print(f"  ✅ Custom layer exists")
+            print("  ✅ Custom layer exists")
             print(f"  ✅ Projects configured: {len(projects)}")
             for project in projects:
                 print(f"    - {project.name}")
             self.results.append(("custom_layer", True))
         else:
-            print(f"  ❌ Custom layer missing")
+            print("  ❌ Custom layer missing")
             self.results.append(("custom_layer", False))
-        
+
         return True
 
     def test_markdown_links(self):
         """Test markdown links validity"""
         print("\n📋 TEST 6: Markdown Links")
-        
+
         # Check key files for link format
         key_files = [
             "_START_HERE.md",
             "NAVIGATION.md",
             "INDEX.md"
         ]
-        
+
         import re
         link_pattern = re.compile(r'\[([^\]]+)\]\(([^)]+)\)')
-        
+
         total_links = 0
         for key_file in key_files:
             path = self.execution_dir / key_file
@@ -196,22 +195,22 @@ class TestExecutionFlow:
             else:
                 print(f"  ❌ {key_file}: file not found")
                 self.results.append((f"links/{key_file}", False))
-        
+
         print(f"  📊 Total links: {total_links}")
         return True
 
     def test_ai_first_design(self):
         """Test AI-first design (at root level)"""
         print("\n📋 TEST 7: AI-First Design")
-        
+
         root_dir = self.framework_root
-        
+
         ai_files = [
             ".ai-index.md",
             "README.md",
             ".spec.config"
         ]
-        
+
         for ai_file in ai_files:
             path = root_dir / ai_file
             if path.exists():
@@ -221,7 +220,7 @@ class TestExecutionFlow:
             else:
                 print(f"  ❌ {ai_file}")
                 self.results.append((f"ai_first/{ai_file}", False))
-        
+
         return True
 
     def run_all_tests(self):
@@ -229,7 +228,7 @@ class TestExecutionFlow:
         print("\n" + "="*80)
         print("🚀 PHASE 5: EXECUTION FLOW FUNCTIONAL TEST")
         print("="*80)
-        
+
         try:
             # Run all tests
             tests = [
@@ -241,30 +240,30 @@ class TestExecutionFlow:
                 self.test_markdown_links,
                 self.test_ai_first_design
             ]
-            
+
             for test in tests:
                 try:
                     test()
                 except Exception as e:
                     print(f"  ❌ ERROR in {test.__name__}: {e}")
-            
+
             # Summary
             print("\n" + "="*80)
             print("📊 TEST SUMMARY")
             print("="*80)
-            
+
             passed = sum(1 for _, result in self.results if result)
             total = len(self.results)
-            
+
             print(f"Tests Passed: {passed}/{total}")
-            
+
             if passed >= total * 0.9:  # 90% pass rate is good
                 print("\n✅ EXECUTION FLOW: READY FOR PRODUCTION")
                 return True
             else:
                 print("\n⚠️  EXECUTION FLOW: CHECK FAILURES ABOVE")
                 return False
-                
+
         except Exception as e:
             print(f"\n❌ CRITICAL ERROR: {e}")
             return False

@@ -10,11 +10,11 @@ Performance:
 - Format: Optimized binary with string pooling
 """
 
-import msgpack
 import json
-from typing import Dict, List, Any, Optional, BinaryIO
 from dataclasses import dataclass
-from pathlib import Path
+from typing import Any, Dict
+
+import msgpack
 
 
 @dataclass
@@ -23,19 +23,19 @@ class BinaryMetrics:
     json_size: int = 0
     msgpack_size: int = 0
     string_pool_size: int = 0
-    
+
     @property
     def compression_ratio(self) -> float:
         """Compression vs JSON (negative = expansion)"""
         if self.json_size == 0:
             return 0.0
         return (self.json_size - self.msgpack_size) / self.json_size
-    
+
     @property
     def speedup_factor(self) -> float:
         """Estimated parse speedup (3-4x typical)"""
         return 3.5  # Conservative estimate
-    
+
     def to_dict(self) -> Dict[str, Any]:
         return {
             "json_size": self.json_size,
@@ -48,13 +48,13 @@ class BinaryMetrics:
 
 class MessagePackEncoder:
     """Encodes compiled DSL to MessagePack binary format"""
-    
+
     # Magic number for format versioning
     MAGIC = b'\x53\x44\x44\x03'  # "SDD" + version 3
-    
+
     def __init__(self):
         self.metrics = BinaryMetrics()
-    
+
     def encode(self, compiled_data: Dict[str, Any]) -> bytes:
         """
         Encode compiled DSL to MessagePack binary
@@ -68,7 +68,7 @@ class MessagePackEncoder:
         # Record JSON size
         json_str = json.dumps(compiled_data, separators=(',', ':'))
         self.metrics.json_size = len(json_str.encode('utf-8'))
-        
+
         # Prepare data for MessagePack
         # We use a compact representation with version info
         binary_data = {
@@ -77,27 +77,27 @@ class MessagePackEncoder:
             "g": compiled_data.get("guidelines", []),
             "s": compiled_data.get("string_pool", []),
         }
-        
+
         # Encode with MessagePack (use_bin_type for compatibility)
         msgpack_payload = msgpack.packb(binary_data, use_bin_type=True)
-        
+
         # Record sizes
         self.metrics.msgpack_size = len(msgpack_payload)
         self.metrics.string_pool_size = len(
             json.dumps(compiled_data.get("string_pool", [])).encode('utf-8')
         )
-        
+
         # Build final binary with magic header
         binary_output = self.MAGIC + msgpack_payload
-        
+
         return binary_output
-    
+
     def encode_file(self, compiled_data: Dict[str, Any], output_path: str) -> None:
         """Write binary to file"""
         binary = self.encode(compiled_data)
         with open(output_path, 'wb') as f:
             f.write(binary)
-    
+
     def get_metrics(self) -> BinaryMetrics:
         """Get encoding metrics"""
         return self.metrics
@@ -105,9 +105,9 @@ class MessagePackEncoder:
 
 class MessagePackDecoder:
     """Decodes MessagePack binary back to structured data"""
-    
+
     MAGIC = b'\x53\x44\x44\x03'  # "SDD" + version 3
-    
+
     @staticmethod
     def decode(binary_data: bytes) -> Dict[str, Any]:
         """
@@ -125,14 +125,14 @@ class MessagePackDecoder:
         # Verify magic header
         if len(binary_data) < 4 or binary_data[:4] != MessagePackDecoder.MAGIC:
             raise ValueError("Invalid SDD binary format (bad magic header)")
-        
+
         # Extract and decode MessagePack payload
         try:
             payload = binary_data[4:]
             binary_obj = msgpack.unpackb(payload, raw=False)
         except Exception as e:
             raise ValueError(f"Failed to decode MessagePack payload: {e}")
-        
+
         # Reconstruct compiled data structure
         compiled = {
             "mandates": binary_obj.get("m", []),
@@ -140,16 +140,16 @@ class MessagePackDecoder:
             "string_pool": binary_obj.get("s", []),
             "version": binary_obj.get("v", 3),
         }
-        
+
         return compiled
-    
+
     @staticmethod
     def decode_file(file_path: str) -> Dict[str, Any]:
         """Read and decode binary file"""
         with open(file_path, 'rb') as f:
             binary_data = f.read()
         return MessagePackDecoder.decode(binary_data)
-    
+
     @staticmethod
     def dereference_compiled(compiled: Dict[str, Any]) -> Dict[str, Any]:
         """
@@ -158,7 +158,7 @@ class MessagePackDecoder:
         Useful for converting between formats or inspecting data.
         """
         string_pool = compiled.get("string_pool", [])
-        
+
         # Dereference mandates
         mandates = []
         for m in compiled.get("mandates", []):
@@ -174,7 +174,7 @@ class MessagePackDecoder:
                 else:
                     mandate[key] = value
             mandates.append(mandate)
-        
+
         # Dereference guidelines
         guidelines = []
         for g in compiled.get("guidelines", []):
@@ -190,7 +190,7 @@ class MessagePackDecoder:
                 else:
                     guideline[key] = value
             guidelines.append(guideline)
-        
+
         return {
             "mandates": mandates,
             "guidelines": guidelines,
@@ -200,7 +200,7 @@ class MessagePackDecoder:
 
 class BinaryCompressionAnalyzer:
     """Analyzes binary compression performance"""
-    
+
     @staticmethod
     def compare_formats(compiled_data: Dict[str, Any]) -> Dict[str, Any]:
         """
@@ -211,12 +211,12 @@ class BinaryCompressionAnalyzer:
         # JSON encoding
         json_str = json.dumps(compiled_data, separators=(',', ':'), indent=None)
         json_size = len(json_str.encode('utf-8'))
-        
+
         # MessagePack encoding
         encoder = MessagePackEncoder()
         binary = encoder.encode(compiled_data)
         msgpack_size = len(binary)
-        
+
         # Analysis
         return {
             "json_size": json_size,
@@ -252,25 +252,25 @@ def benchmark_parsing(compiled_data: Dict[str, Any], iterations: int = 1000) -> 
         Parse times in milliseconds for each format
     """
     import time
-    
+
     # JSON benchmark
     json_str = json.dumps(compiled_data, separators=(',', ':'))
     json_bytes = json_str.encode('utf-8')
-    
+
     start = time.perf_counter()
     for _ in range(iterations):
         json.loads(json_str)
     json_time = (time.perf_counter() - start) * 1000 / iterations
-    
+
     # MessagePack benchmark
     encoder = MessagePackEncoder()
     binary = encoder.encode(compiled_data)
-    
+
     start = time.perf_counter()
     for _ in range(iterations):
         MessagePackDecoder.decode(binary)
     msgpack_time = (time.perf_counter() - start) * 1000 / iterations
-    
+
     return {
         "json_parse_ms": json_time,
         "msgpack_parse_ms": msgpack_time,

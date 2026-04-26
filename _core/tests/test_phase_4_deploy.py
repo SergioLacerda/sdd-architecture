@@ -11,11 +11,8 @@ Validates:
 
 import json
 from pathlib import Path
-import pytest
-import sys
 
-# Add paths
-sys.path.insert(0, str(Path(__file__).parent.parent / ".sdd-core"))
+import pytest
 
 from deployment_manager import DeploymentManager
 
@@ -51,7 +48,10 @@ class TestPhase4Deployment:
         result = manager.deploy()
 
         location = result.get("deployment_location")
-        assert ".sdd-compiler/runtime" in location
+        assert (
+            ".sdd-runtime/compiled" in location
+            or ".sdd-compiler/runtime" in location
+        )
         assert Path(location).exists()
 
     def test_checklist_all_passed(self, manager):
@@ -113,7 +113,7 @@ class TestPhase4Deployment:
 
     def test_core_metadata_deployed(self, manager):
         """Test that core metadata is deployed"""
-        result = manager.deploy()
+        manager.deploy()
 
         metadata_file = manager.runtime_compiled / "metadata-core.json"
         assert metadata_file.exists(), "Core metadata not deployed"
@@ -127,7 +127,7 @@ class TestPhase4Deployment:
 
     def test_client_metadata_deployed(self, manager):
         """Test that client metadata is deployed"""
-        result = manager.deploy()
+        manager.deploy()
 
         metadata_file = manager.runtime_compiled / "metadata-client-template.json"
         assert metadata_file.exists(), "Client metadata not deployed"
@@ -141,7 +141,7 @@ class TestPhase4Deployment:
 
     def test_backup_directory_created(self, manager):
         """Test that backup directory is created"""
-        result = manager.deploy()
+        manager.deploy()
 
         backup_dir = manager.runtime_compiled / "backup"
         assert backup_dir.exists(), "Backup directory not created"

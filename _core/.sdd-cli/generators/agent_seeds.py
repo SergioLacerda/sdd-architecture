@@ -1,8 +1,7 @@
 """Generate AI agent seed configurations."""
 
 from pathlib import Path
-from typing import Dict, Any, List, Tuple
-import json
+from typing import Any, Dict, List, Tuple
 
 
 def generate_agent_seeds(output_dir: Path, config: Dict[str, Any]) -> List[Tuple[str, Path, str]]:
@@ -18,32 +17,32 @@ def generate_agent_seeds(output_dir: Path, config: Dict[str, Any]) -> List[Tuple
     """
     # Create output directory
     output_dir.mkdir(parents=True, exist_ok=True)
-    
+
     # Get governance items
     items = config.get("items", [])
     mandatory_rules = [i for i in items if i.get("type") == "rule" and i.get("is_immutable")]
     customizable_items = [i for i in items if not i.get("is_immutable")]
-    
+
     results = []
-    
+
     # 1. Cursor Agent Seed
     cursor_content = _generate_cursor_seed(config, mandatory_rules, customizable_items)
     cursor_path = output_dir / "cursor-agent.md"
     cursor_path.write_text(cursor_content, encoding="utf-8")
     results.append(("Cursor IDE", cursor_path, "✓ Generated"))
-    
+
     # 2. Copilot Agent Seed
     copilot_content = _generate_copilot_seed(config, mandatory_rules, customizable_items)
     copilot_path = output_dir / "copilot-agent.md"
     copilot_path.write_text(copilot_content, encoding="utf-8")
     results.append(("GitHub Copilot", copilot_path, "✓ Generated"))
-    
+
     # 3. Generic Agent Seed
     generic_content = _generate_generic_seed(config, mandatory_rules, customizable_items)
     generic_path = output_dir / "generic-agent.md"
     generic_path.write_text(generic_content, encoding="utf-8")
     results.append(("Generic AI", generic_path, "✓ Generated"))
-    
+
     return results
 
 
@@ -206,11 +205,11 @@ def _format_rules(rules: List[Dict]) -> str:
     """Format rules as markdown list."""
     if not rules:
         return "No mandatory rules defined."
-    
+
     formatted = []
     for i, rule in enumerate(rules, 1):
         name = rule.get("name", f"Rule {i}")
         description = rule.get("description", "No description")
         formatted.append(f"{i}. **{name}**: {description}")
-    
+
     return "\n".join(formatted)

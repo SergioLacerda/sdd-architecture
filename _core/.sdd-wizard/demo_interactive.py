@@ -5,12 +5,12 @@ with automated inputs for testing/demonstration purposes
 """
 
 import subprocess
-import time
 from pathlib import Path
+
 
 def run_interactive_demo():
     """Run interactive wizard with automated inputs"""
-    
+
     # Prepare inputs for the wizard
     # These are the responses to the interactive prompts
     inputs = [
@@ -22,10 +22,10 @@ def run_interactive_demo():
         "y",                   # Include M002? y
         "",                    # Project output directory (use default)
     ]
-    
+
     # Join inputs with newlines and encode to bytes
     input_text = "\n".join(inputs)
-    
+
     print("=" * 70)
     print("🧙 SDD WIZARD - INTERACTIVE MODE DEMONSTRATION")
     print("=" * 70)
@@ -33,7 +33,7 @@ def run_interactive_demo():
     print("This script runs the wizard in INTERACTIVE mode with automated inputs.")
     print("Watch how the wizard guides you through project generation!")
     print()
-    
+
     # Run the wizard
     cmd = ["./wizard.sh"]
     try:
@@ -45,12 +45,12 @@ def run_interactive_demo():
             text=True,
             cwd=Path(__file__).parent.parent.parent  # sdd-architecture root
         )
-        
+
         # Send inputs
         output, _ = process.communicate(input=input_text, timeout=120)
-        
+
         print(output)
-        
+
         if process.returncode == 0:
             print()
             print("=" * 70)
@@ -61,7 +61,7 @@ def run_interactive_demo():
             print("=" * 70)
             print(f"❌ Wizard exited with code: {process.returncode}")
             print("=" * 70)
-        
+
     except subprocess.TimeoutExpired:
         process.kill()
         print("❌ Wizard timed out")

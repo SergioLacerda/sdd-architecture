@@ -4,29 +4,30 @@ Tests for DSL Compiler
 Tests parsing, compilation, and metrics generation.
 """
 
-import pytest
 import json
-import tempfile
 import sys
+import tempfile
 from pathlib import Path
+
+import pytest
 
 # Add parent directory to path for imports
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from src.dsl_compiler import (
-    DSLCompiler,
-    DSLValidator,
-    DSLParser,
-    StringPool,
     CompilationMetrics,
-    compile_string,
+    DSLCompiler,
+    DSLParser,
+    DSLValidator,
+    StringPool,
     compile_file,
+    compile_string,
 )
 
 
 class TestDSLValidator:
     """Test DSL validation"""
-    
+
     def test_valid_mandate_syntax(self):
         """Test valid mandate syntax passes validation"""
         dsl = """
@@ -39,7 +40,7 @@ class TestDSLValidator:
         """
         errors = DSLValidator.validate_dsl(dsl)
         assert len(errors) == 0
-    
+
     def test_mandate_id_must_be_sequential(self):
         """Test mandate IDs must be sequential"""
         dsl = """
@@ -56,7 +57,7 @@ class TestDSLValidator:
         """
         errors = DSLValidator.validate_dsl(dsl)
         assert any("not sequential" in e for e in errors)
-    
+
     def test_mandate_missing_required_field(self):
         """Test mandate must have required fields"""
         dsl = """
@@ -67,7 +68,7 @@ class TestDSLValidator:
         """
         errors = DSLValidator.validate_dsl(dsl)
         assert any("missing field" in e for e in errors)
-    
+
     def test_valid_guideline_syntax(self):
         """Test valid guideline syntax passes validation"""
         dsl = """
@@ -80,7 +81,7 @@ class TestDSLValidator:
         """
         errors = DSLValidator.validate_dsl(dsl)
         assert len(errors) == 0
-    
+
     def test_guideline_id_must_be_sequential(self):
         """Test guideline IDs must be sequential"""
         dsl = """
@@ -101,7 +102,7 @@ class TestDSLValidator:
 
 class TestDSLParser:
     """Test DSL parsing"""
-    
+
     def test_parse_simple_mandate(self):
         """Test parsing simple mandate"""
         dsl = """
@@ -113,13 +114,13 @@ class TestDSLParser:
         }
         """
         mandates = DSLParser.parse_mandates(dsl)
-        
+
         assert len(mandates) == 1
         assert mandates[0]["id"] == "M001"
         assert mandates[0]["type"] == "HARD"
         assert mandates[0]["title"] == "Clean Architecture"
         assert mandates[0]["category"] == "architecture"
-    
+
     def test_parse_mandate_with_validation(self):
         """Test parsing mandate with validation commands"""
         dsl = """
@@ -133,10 +134,10 @@ class TestDSLParser:
         }
         """
         mandates = DSLParser.parse_mandates(dsl)
-        
+
         assert len(mandates) == 1
         assert mandates[0]["validation_commands"] == ["pytest", "coverage"]
-    
+
     def test_parse_multiple_mandates(self):
         """Test parsing multiple mandates"""
         dsl = """
@@ -152,11 +153,11 @@ class TestDSLParser:
         }
         """
         mandates = DSLParser.parse_mandates(dsl)
-        
+
         assert len(mandates) == 2
         assert mandates[0]["id"] == "M001"
         assert mandates[1]["id"] == "M002"
-    
+
     def test_parse_simple_guideline(self):
         """Test parsing simple guideline"""
         dsl = """
@@ -168,12 +169,12 @@ class TestDSLParser:
         }
         """
         guidelines = DSLParser.parse_guidelines(dsl)
-        
+
         assert len(guidelines) == 1
         assert guidelines[0]["id"] == "G01"
         assert guidelines[0]["type"] == "SOFT"
         assert guidelines[0]["title"] == "Test Guideline"
-    
+
     def test_parse_guideline_with_examples(self):
         """Test parsing guideline with examples"""
         dsl = """
@@ -185,10 +186,10 @@ class TestDSLParser:
         }
         """
         guidelines = DSLParser.parse_guidelines(dsl)
-        
+
         assert len(guidelines) == 1
         assert guidelines[0]["examples"] == ["Example 1", "Example 2"]
-    
+
     def test_parse_multiple_guidelines(self):
         """Test parsing multiple guidelines"""
         dsl = """
@@ -204,7 +205,7 @@ class TestDSLParser:
         }
         """
         guidelines = DSLParser.parse_guidelines(dsl)
-        
+
         assert len(guidelines) == 2
         assert guidelines[0]["id"] == "G01"
         assert guidelines[1]["id"] == "G02"
@@ -212,54 +213,54 @@ class TestDSLParser:
 
 class TestStringPool:
     """Test string deduplication"""
-    
+
     def test_string_deduplication(self):
         """Test identical strings get same index"""
         pool = StringPool()
-        
+
         idx1 = pool.add("Common String")
         idx2 = pool.add("Common String")
-        
+
         assert idx1 == idx2
         assert len(pool.pool) == 1
-    
+
     def test_different_strings_different_indices(self):
         """Test different strings get different indices"""
         pool = StringPool()
-        
+
         idx1 = pool.add("String 1")
         idx2 = pool.add("String 2")
-        
+
         assert idx1 != idx2
         assert len(pool.pool) == 2
-    
+
     def test_none_strings_ignored(self):
         """Test None strings don't get added"""
         pool = StringPool()
-        
+
         idx = pool.add(None)
-        
+
         assert idx is None
         assert len(pool.pool) == 0
-    
+
     def test_empty_strings_ignored(self):
         """Test empty strings don't get added"""
         pool = StringPool()
-        
+
         idx = pool.add("")
-        
+
         assert idx is None
         assert len(pool.pool) == 0
-    
+
     def test_pool_array_generation(self):
         """Test pool array generation"""
         pool = StringPool()
-        
+
         idx1 = pool.add("First")
         idx2 = pool.add("Second")
-        
+
         pool_array = pool.get_array()
-        
+
         assert len(pool_array) == 2
         assert pool_array[idx1] == "First"
         assert pool_array[idx2] == "Second"
@@ -267,7 +268,7 @@ class TestStringPool:
 
 class TestDSLCompiler:
     """Test DSL compiler"""
-    
+
     def test_compile_single_mandate(self):
         """Test compiling single mandate"""
         dsl = """
@@ -280,11 +281,11 @@ class TestDSLCompiler:
         """
         compiler = DSLCompiler()
         output = compiler.compile(dsl)
-        
+
         assert output is not None
         assert len(output["mandates"]) == 1
         assert output["mandates"][0]["id"] == 1
-    
+
     def test_compile_single_guideline(self):
         """Test compiling single guideline"""
         dsl = """
@@ -297,11 +298,11 @@ class TestDSLCompiler:
         """
         compiler = DSLCompiler()
         output = compiler.compile(dsl)
-        
+
         assert output is not None
         assert len(output["guidelines"]) == 1
         assert output["guidelines"][0]["id"] == 1
-    
+
     def test_compile_with_string_deduplication(self):
         """Test string deduplication during compilation"""
         dsl = """
@@ -314,10 +315,10 @@ class TestDSLCompiler:
         """
         compiler = DSLCompiler()
         output = compiler.compile(dsl)
-        
+
         # "Shared Title" should only appear once in pool
         assert len(compiler.string_pool.pool) == 1
-    
+
     def test_compilation_metrics(self):
         """Test compilation metrics"""
         dsl = """
@@ -330,24 +331,24 @@ class TestDSLCompiler:
         """
         compiler = DSLCompiler()
         output = compiler.compile(dsl)
-        
+
         metrics = compiler.get_metrics()
-        
+
         assert metrics.input_size > 0
         assert metrics.output_size > 0
         assert metrics.compilation_time_ms >= 0
         assert metrics.mandates_compiled == 1
         assert metrics.success
-    
+
     def test_compression_ratio(self):
         """Test compression ratio calculation"""
         metrics = CompilationMetrics(
             input_size=1000,
             output_size=400
         )
-        
+
         assert metrics.compression_ratio == 0.6  # 60%
-    
+
     def test_validation_error_handling(self):
         """Test validation errors are caught"""
         dsl = """
@@ -358,14 +359,14 @@ class TestDSLCompiler:
         """
         compiler = DSLCompiler()
         output = compiler.compile(dsl, validate=True)
-        
+
         assert output is None
         assert len(compiler.metrics.errors) > 0
 
 
 class TestIntegration:
     """Integration tests"""
-    
+
     def test_compile_mixed_mandates_and_guidelines(self):
         """Test compiling mixed content"""
         dsl = """
@@ -395,13 +396,13 @@ class TestIntegration:
         }
         """
         output, metrics = compile_string(dsl)
-        
+
         assert output is not None
         assert len(output["mandates"]) == 2
         assert len(output["guidelines"]) == 2
         assert metrics.mandates_compiled == 2
         assert metrics.guidelines_compiled == 2
-    
+
     def test_compile_to_file(self):
         """Test compiling to file"""
         dsl = """
@@ -412,23 +413,23 @@ class TestIntegration:
           category: general
         }
         """
-        
+
         with tempfile.TemporaryDirectory() as tmpdir:
             input_file = Path(tmpdir) / "test.spec"
             output_file = Path(tmpdir) / "test.compiled.json"
-            
+
             input_file.write_text(dsl)
-            
+
             metrics = compile_file(str(input_file), str(output_file))
-            
+
             assert metrics.success
             assert output_file.exists()
-            
+
             with open(output_file) as f:
                 output = json.load(f)
-            
+
             assert len(output["mandates"]) == 1
-    
+
     def test_compile_complex_structure(self):
         """Test compiling complex structure"""
         dsl = """
@@ -451,7 +452,7 @@ class TestIntegration:
         }
         """
         output, metrics = compile_string(dsl)
-        
+
         assert output is not None
         assert metrics.success
         # Note: Small test cases may have negative compression due to JSON overhead

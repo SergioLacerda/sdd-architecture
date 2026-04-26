@@ -11,12 +11,12 @@ Location: .sdd-compiler/src/runtime_telemetry_kit/
 """
 
 from .engine import (
+    CompressionMetrics,
     DeduplicationEngine,
     PatternRegistry,
-    CompressionMetrics,
     deduplicate_event,
-    get_engine,
     get_compression_metrics,
+    get_engine,
 )
 from .patterns import ExtendedPatterns
 

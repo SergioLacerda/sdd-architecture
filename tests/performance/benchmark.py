@@ -23,8 +23,16 @@ import sys
 import statistics
 from pathlib import Path
 from dataclasses import dataclass, asdict
-from typing import List, Dict
+from typing import List
 import subprocess
+
+# Ensure _core is in path for tests.path_config
+root = Path(__file__).resolve().parents[2]
+if str(root / "_core") not in sys.path:
+    sys.path.insert(0, str(root / "_core"))
+
+from tests.path_config import REPO_ROOT
+
 
 @dataclass
 class BenchmarkResult:
@@ -39,8 +47,8 @@ class BenchmarkResult:
 class PerformanceBenchmark:
     """Benchmark suite for SDD architecture operations"""
     
-    def __init__(self, project_root: str = "/home/sergio/dev/sdd-architecture"):
-        self.project_root = Path(project_root)
+    def __init__(self, project_root: str = None):
+        self.project_root = Path(project_root) if project_root else REPO_ROOT
         self.results: List[BenchmarkResult] = []
         self.targets = {
             "health_check_quick": 0.2,      # 200ms
@@ -230,7 +238,7 @@ class PerformanceBenchmark:
             lines.append(f"│   {status_str}")
             
             if result.cache_hit:
-                lines.append(f"│   Cache hit: Yes")
+                lines.append("│   Cache hit: Yes")
             if result.notes:
                 lines.append(f"│   Note: {result.notes}")
             lines.append("│")
