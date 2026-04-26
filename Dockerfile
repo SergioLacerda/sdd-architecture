@@ -1,5 +1,5 @@
 # Estágio 1: Builder - Instala dependências de build
-FROM python:3.10-slim AS builder
+FROM python:3.14-slim AS builder
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
     make \
@@ -24,7 +24,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends curl ca-certifi
 RUN trivy filesystem --exit-code 1 --severity HIGH,CRITICAL --no-progress /app
 
 # Estágio 2: Runtime - Imagem final leve
-FROM python:3.10-slim
+FROM python:3.14-slim
 
 # Mantemos apenas o 'make' para orquestração; 'git' é removido por ser apenas build-time
 RUN apt-get update && apt-get install -y --no-install-recommends \
