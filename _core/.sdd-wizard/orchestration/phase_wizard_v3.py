@@ -415,8 +415,17 @@ class Phase3Compiler:
             templates_dir = self.repo_root / '_core' / '.sdd-wizard' / 'templates'
             language_lower = self.language.lower()
             
+            # Map language names to template directory names
+            language_dir_map = {
+                'python': 'python',
+                'java': 'java',
+                'typescript': 'js',  # TypeScript/JavaScript use same templates in js/ folder
+            }
+            
+            template_dir_name = language_dir_map.get(language_lower, language_lower)
+            
             # Copy language-specific templates
-            language_template_dir = templates_dir / 'languages' / language_lower
+            language_template_dir = templates_dir / 'languages' / template_dir_name
             if language_template_dir.exists():
                 target_dir = self.output_path / 'templates'
                 target_dir.mkdir(parents=True, exist_ok=True)
