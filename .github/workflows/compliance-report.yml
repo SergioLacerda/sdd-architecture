@@ -1,0 +1,111 @@
+name: Compliance Report
+
+on:
+  schedule:
+    # Weekly: Monday 9 AM UTC
+    - cron: "0 9 * * 1"
+  workflow_dispatch:
+
+jobs:
+  compliance-report:
+    runs-on: ubuntu-latest
+    name: Generate Compliance Report
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.10"
+      
+      - name: Run Compliance Analysis
+        id: compliance
+        run: |
+          echo "::group::Compliance Status"
+          
+          # Run compliance check
+          python3 _core/governance_compliance.py --verify > compliance.txt 2>&1
+          COMPLIANCE_CODE=$?
+          
+          # Extract compliance percentage
+          COMPLIANCE=$(grep -oE '[0-9]+%' compliance.txt | head -1 || echo "Unknown")
+          echo "COMPLIANCE=$COMPLIANCE" >> $GITHUB_ENV
+          
+          # Run health check
+          python3 _core/health_check.py --verbose > health.txt 2>&1
+          HEALTH_CODE=$?
+          
+          echo "::endgroup::"
+          exit $COMPLIANCE_CODE
+      
+      - name: Health Metrics
+        if: always()
+        run: |
+          echo "::group::Health Metrics"
+          
+          # Extract health check summary
+          python3 _core/health_check.py --mode compact
+          
+          echo "::endgroup::"
+      
+      - name: Performance Metrics
+        if: always()
+        run: |
+          echo "::group::Performance Metrics"
+          
+          # Run performance benchmark
+          python3 tests/performance/benchmark.py --save
+          
+          echo "::endgroup::"
+      
+      - name: Generate Report
+        if: always()
+        run: |
+          echo "# Weekly Compliance Report" > report.md
+          echo "" >> report.md
+          echo "**Generated**: $(date -u +'%Y-%m-%d %H:%M:%S UTC')" >> report.md
+          echo "**Branch**: ${{ github.ref_name }}" >> report.md
+          echo "" >> report.md
+          
+          echo "## Compliance Status" >> report.md
+          echo "- Compliance: ${{ env.COMPLIANCE }}" >> report.md
+          echo "- Generated: $(date)" >> report.md
+          echo "" >> report.md
+          
+          echo "## Details" >> report.md
+          echo "See artifacts for full compliance and health reports" >> report.md
+      
+      - name: Upload Compliance Report
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: compliance-reports
+          path: |
+            report.md
+            compliance.txt
+            health.txt
+      
+      - name: Comment on PR
+        if: github.event_name == 'pull_request'
+        uses: actions/github-script@v6
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const fs = require('fs');
+            const compliance = process.env.COMPLIANCE;
+            
+            const comment = `## 📊 Compliance Check
+            
+- **Compliance**: ${compliance}
+- **Status**: ${compliance === '100%' ? '✓ Compliant' : '⚠️ Violations Found'}
+
+Run \`python3 _core/governance_compliance.py --verify\` locally for details.`;
+            
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: comment
+            });

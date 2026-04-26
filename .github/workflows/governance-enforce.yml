@@ -1,0 +1,84 @@
+name: Governance Enforcement
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    types: [ opened, synchronize, reopened ]
+
+jobs:
+  governance-enforce:
+    runs-on: ubuntu-latest
+    name: Governance Enforcement
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.10"
+      
+      - name: Verify Governance Compliance
+        id: verify
+        run: |
+          echo "::group::Governance Compliance Verification"
+          
+          python3 _core/governance_compliance.py --verify
+          COMPLIANCE_CODE=$?
+          
+          if [ $COMPLIANCE_CODE -eq 0 ]; then
+            echo "✓ All policies compliant"
+          else
+            echo "✗ Policy violations detected"
+            echo "::group::Auto-fix recommendations"
+            python3 _core/governance_compliance.py --fix-steps
+            echo "::endgroup::"
+          fi
+          
+          echo "::endgroup::"
+          exit $COMPLIANCE_CODE
+      
+      - name: Check Enforcement Level
+        if: always()
+        run: |
+          echo "::group::Enforcement Level"
+          python3 _core/governance_compliance.py --enforcement-check
+          echo "::endgroup::"
+      
+      - name: Determine Merge Blocking
+        if: failure()
+        run: |
+          echo "## ⛔ Governance Enforcement Failed" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "Your changes violate project governance policies." >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**To fix locally:**" >> $GITHUB_STEP_SUMMARY
+          echo "1. \`python3 _core/governance_compliance.py --verify\`" >> $GITHUB_STEP_SUMMARY
+          echo "2. \`python3 _core/governance_compliance.py --fix-steps\`" >> $GITHUB_STEP_SUMMARY
+          echo "3. Apply suggested fixes" >> $GITHUB_STEP_SUMMARY
+          echo "4. Push again" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "For questions, see: docs/TROUBLESHOOTING.md" >> $GITHUB_STEP_SUMMARY
+
+  pr-approval-check:
+    runs-on: ubuntu-latest
+    name: PR Approval Check
+    if: github.event_name == 'pull_request'
+    
+    steps:
+      - name: Check for architect approval
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const labels = context.payload.pull_request?.labels || [];
+            const hasGovernanceLabel = labels.some(l => l.name === 'governance-approved');
+            
+            if (!hasGovernanceLabel && context.payload.pull_request?.author_association !== 'OWNER') {
+              console.log('⚠️ PR requires governance review');
+            } else {
+              console.log('✓ Governance approval confirmed');
+            }
