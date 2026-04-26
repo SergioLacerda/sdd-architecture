@@ -82,7 +82,7 @@ jobs:
     
     steps:
       - name: Strict Governance Label Check
-        uses: actions/github-script@v6
+        uses: actions/github-script@v9
         with:
           script: |
             const labels = context.payload.pull_request?.labels || [];
