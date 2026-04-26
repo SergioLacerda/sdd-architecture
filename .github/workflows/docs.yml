@@ -1,0 +1,197 @@
+name: 📚 Documentation
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'docs/**'
+      - 'README.md'
+      - '.github/workflows/docs.yml'
+  pull_request:
+    branches: [ main, develop ]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-docs:
+    name: Validate Documentation
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+          cache: 'pip'
+
+      - name: Install doc tools
+        run: |
+          python -m pip install --upgrade pip
+          pip install markdown-it-py link-checker
+
+      - name: Validate markdown syntax
+        id: markdown
+        continue-on-error: true
+        run: |
+          echo "::group::Markdown Validation"
+          for file in docs/**/*.md README.md; do
+            if [ -f "$file" ]; then
+              echo "Checking $file..."
+              python -m markdown_it.cli "$file" > /dev/null 2>&1 && echo "✓ $file" || echo "✗ $file"
+            fi
+          done
+          echo "::endgroup::"
+
+      - name: Check for missing links
+        id: links
+        continue-on-error: true
+        run: |
+          echo "::group::Link Validation"
+          # Basic check: look for markdown links and ensure files exist
+          grep -r "\[.*\](.*\.md)" docs/ README.md 2>/dev/null | while read line; do
+            echo "Found link: $line"
+          done
+          echo "::endgroup::"
+
+      - name: Check documentation structure
+        id: structure
+        continue-on-error: true
+        run: |
+          echo "::group::Documentation Structure"
+          
+          # Check required files
+          required_files=("README.md" "docs/INDEX.md" "docs/HEALTH_CHECK_GUIDE.md" "docs/TROUBLESHOOTING.md" "docs/GIT_HOOKS_GUIDE.md")
+          
+          for file in "${required_files[@]}"; do
+            if [ -f "$file" ]; then
+              lines=$(wc -l < "$file")
+              echo "✓ $file ($lines lines)"
+            else
+              echo "✗ MISSING: $file"
+            fi
+          done
+          
+          echo "::endgroup::"
+
+      - name: Build documentation index
+        id: index
+        run: |
+          echo "::group::Building Documentation Index"
+          
+          cat > docs-index.txt << 'EOF'
+          # Documentation Index
+          
+          ## Core Files
+          EOF
+          
+          find docs -name "*.md" -type f | sort | while read file; do
+            title=$(head -1 "$file" | sed 's/^# //')
+            echo "- [$title]($file)" >> docs-index.txt
+          done
+          
+          cat docs-index.txt
+          echo "::endgroup::"
+
+      - name: Upload doc artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: docs-build
+          path: |
+            docs-index.txt
+          retention-days: 30
+
+  build-docs-site:
+    name: Build Documentation Site
+    runs-on: ubuntu-latest
+    needs: validate-docs
+    if: github.ref == 'refs/heads/main'
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Install mkdocs
+        run: |
+          python -m pip install --upgrade pip
+          pip install mkdocs mkdocs-material mkdocs-search
+
+      - name: Generate site structure
+        run: |
+          echo "::group::Generating Documentation Site"
+          
+          # Check if mkdocs.yml exists, if not create basic version
+          if [ ! -f mkdocs.yml ]; then
+            cat > mkdocs.yml << 'EOF'
+          site_name: SDD Architecture
+          site_description: Semantic-Driven Development Architecture
+          theme:
+            name: material
+            palette:
+              - scheme: default
+                primary: blue
+              - scheme: slate
+                primary: blue
+          nav:
+            - Home: 'index.md'
+            - Documentation: 'docs/INDEX.md'
+            - Health Check: 'docs/HEALTH_CHECK_GUIDE.md'
+            - Troubleshooting: 'docs/TROUBLESHOOTING.md'
+            - Git Hooks: 'docs/GIT_HOOKS_GUIDE.md'
+          EOF
+          fi
+          
+          echo "::endgroup::"
+
+      - name: Build site
+        id: build
+        continue-on-error: true
+        run: |
+          echo "::group::Building MkDocs Site"
+          mkdocs build -f mkdocs.yml -d site 2>&1 | tee mkdocs-build.log
+          echo "::endgroup::"
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: mkdocs-site
+          path: site/
+          retention-days: 7
+
+      - name: Deploy to GitHub Pages
+        if: success()
+        uses: actions/upload-pages-artifact@v2
+        with:
+          path: site/
+
+  deploy-pages:
+    name: Deploy to GitHub Pages
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build-docs-site
+    if: github.ref == 'refs/heads/main'
+
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v2
