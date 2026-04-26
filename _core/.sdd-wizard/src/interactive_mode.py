@@ -329,7 +329,7 @@ Phase 3 will:
         try:
             from orchestration.phase_wizard_v3 import Phase3Compiler
             
-            output_path = repo_root / '_core' / 'sdd-generated' / 'phase-4-output'
+            output_path = repo_root / 'sdd-generated' / 'final-output'
             
             compiler = Phase3Compiler(markdown_path, output_path, repo_root, verbose=True)
             result = compiler.run()
