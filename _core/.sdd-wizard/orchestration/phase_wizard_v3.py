@@ -410,7 +410,7 @@ class Phase3Compiler:
             return False
     
     def copy_language_templates(self) -> bool:
-        """Copy language-specific templates to .sdd/source, conditionally include CI/CD workflows"""
+        """Copy language-specific templates to templates/, conditionally include CI/CD workflows"""
         try:
             templates_dir = self.repo_root / '_core' / '.sdd-wizard' / 'templates'
             language_lower = self.language.lower()
@@ -418,7 +418,7 @@ class Phase3Compiler:
             # Copy language-specific templates
             language_template_dir = templates_dir / 'languages' / language_lower
             if language_template_dir.exists():
-                target_dir = self.output_path / '.sdd' / 'source' / 'templates'
+                target_dir = self.output_path / 'templates'
                 target_dir.mkdir(parents=True, exist_ok=True)
                 
                 import shutil
@@ -429,12 +429,12 @@ class Phase3Compiler:
                         target_file.parent.mkdir(parents=True, exist_ok=True)
                         shutil.copy2(item, target_file)
                 
-                self.log(f"Copied {language_lower} language templates to .sdd/source")
+                self.log(f"Copied {language_lower} language templates to templates/")
             
             # Copy base templates, but selectively include .github/workflows
             base_template_dir = templates_dir / 'base'
             if base_template_dir.exists():
-                target_dir = self.output_path / '.sdd' / 'source' / 'templates'
+                target_dir = self.output_path / 'templates'
                 target_dir.mkdir(parents=True, exist_ok=True)
                 
                 import shutil
