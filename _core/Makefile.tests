@@ -58,7 +58,7 @@ test-migration:
 
 test-extensions:
 	@echo "🧪 Extensions - Testes de extensões..."
-	@pytest .sdd-core/extensions/tests -q 2>/dev/null || echo "⊘ Diretório não encontrado"
+	@pytest .sdd-cli/extensions/tests -q 2>/dev/null || echo "⊘ Diretório não encontrado"
 
 test-execution:
 	@echo "🧪 Execution - Testes de execução..."

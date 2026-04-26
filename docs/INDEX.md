@@ -1,48 +1,57 @@
-# 📖 SDD Framework - Documentation Index
+# 📖 SDD Architecture - Documentation Index
 
-**Centralized documentation for SDD v3.0**
+**Centralized context and implementation documentation for SDD v3.0**
 
-**Date:** April 22, 2026  
-**Status:** ✅ Complete
-
----
-
-## 📚 Quick Navigation
-
-| Document | Purpose | Audience | Time |
-|----------|---------|----------|------|
-| **README.md** | Main entry point | Everyone | 5-10 min |
-| **.ai-index.md** | AI agent guide | AI agents | 15 min |
-| **docs/TEST_RUNNER_GUIDE.md** | Test execution guide | Developers/CI/CD | 10 min |
-| **docs/CHANGELOG.md** | Version history | Everyone | 5-20 min |
-| **.sdd-core/_START_HERE.md** | Development start | Developers | 5 min |
-| **.sdd-integration/README.md** | Add projects | DevOps/Leads | 30 min |
+**Date:** April 25, 2026  
+**Status:** ✅ Consolidated and Organized
 
 ---
 
-## 🤖 For AI Agents
+## 📚 Quick Navigation by Directory
 
-Start here: [.ai-index.md](../.ai-index.md)
-
-**What you need:**
-- ✅ Understanding SDD architecture
-- ✅ Learning CLI commands
-- ✅ Using governance rules
-- ✅ Following development workflow
-- ✅ Running tests and deployment
+| Directory | Purpose | Key Documents | Audience |
+|-----------|---------|---|----------|
+| **[project-status/](project-status/)** | Current readiness & planning | Launch readiness, implementation plans | Leads, Managers |
+| **[phases/](phases/)** | Phase documentation & outputs | Phase reports, audit records, generated outputs | Everyone |
+| **[migration/](migration/)** | Migration documentation | Cutover plans, final reports, audit records | DevOps, Leads |
+| **[integration/](integration/)** | Integration workflow (6 steps) | STEP_1-6, checklist | Implementation teams |
+| **[wizard/](wizard/)** | Setup wizard system documentation | Implementation status, workflows, guides | Developers, Architects |
+| **[operations/](operations/)** | Deployment & operational docs | Deployment, operations, monitoring, maintenance | DevOps, SRE |
+| **[guides/](guides/)** | How-to and reference guides | Test runner guide, technical references | Everyone |
 
 ---
 
-## 👨‍💻 For Developers
+## 🎯 Quick Start by Role
 
-Start here: [README.md](../README.md)
+### 👨‍💻 Developers
+1. Read [README.md](README.md) (main docs overview)
+2. Check current status: [project-status/V3_LAUNCH_READINESS.md](project-status/V3_LAUNCH_READINESS.md)
+3. Follow integration workflow: [integration/STEP_1.md](integration/STEP_1.md) → [integration/STEP_6.md](integration/STEP_6.md)
+4. Understand wizard: [wizard/START_HERE_FOR_DOCUMENTATION.md](wizard/START_HERE_FOR_DOCUMENTATION.md)
+5. For testing: [guides/TEST_RUNNER_GUIDE.md](guides/TEST_RUNNER_GUIDE.md)
 
-**What you need:**
-- ✅ Quick CLI examples
-- ✅ How to compile governance
-- ✅ Template location & usage
-- ✅ Test execution
-- ✅ Link to detailed guides
+### 🏗️ Architects
+1. Architecture overview: [phases/PHASES.md](phases/PHASES.md)
+2. Wizard design: [wizard/ARCHITECTURE_ALIGNMENT.md](wizard/ARCHITECTURE_ALIGNMENT.md)
+3. Integration architecture: [integration/README.md](integration/README.md)
+4. Operational design: [operations/DESIGN.md](operations/DESIGN.md)
+
+### 🛠️ DevOps/SRE
+1. Deployment guide: [operations/DEPLOYMENT.md](operations/DEPLOYMENT.md)
+2. Operations procedures: [operations/OPERATIONS.md](operations/OPERATIONS.md)
+3. Monitoring setup: [operations/MONITORING.md](operations/MONITORING.md)
+4. Maintenance: [operations/MAINTENANCE.md](operations/MAINTENANCE.md)
+
+### 📊 Project Managers/Leads
+1. Project status: [project-status/V3_LAUNCH_READINESS.md](project-status/V3_LAUNCH_READINESS.md)
+2. Implementation plan: [project-status/V3.1_BETA1_IMPLEMENTATION_PLAN.md](project-status/V3.1_BETA1_IMPLEMENTATION_PLAN.md)
+3. Integration checklist: [integration/CHECKLIST.md](integration/CHECKLIST.md)
+4. Phase reports: [phases/PHASE_4_COMPLETION_SUMMARY.md](phases/PHASE_4_COMPLETION_SUMMARY.md)
+
+### 🤖 AI Agents
+1. AI guide: [wizard/AI_AGENT_GUIDE.md](wizard/AI_AGENT_GUIDE.md)
+2. Orchestration: [wizard/ORCHESTRATION.md](wizard/ORCHESTRATION.md)
+3. Workflows: [wizard/WORKFLOW_FLOW.md](wizard/WORKFLOW_FLOW.md)
 
 ---
 

@@ -66,9 +66,9 @@ pytest
 - **Descrição:** Migração v2 → v3
 - **Comando:** `pytest .sdd-migration/tests`
 
-### Camada 4: Extensions (`.sdd-core/extensions/tests/`)
+### Camada 4: Extensions (`.sdd-cli/extensions/tests/`)
 - **Descrição:** Extensões do framework
-- **Comando:** `pytest .sdd-core/extensions/tests`
+- **Comando:** `pytest .sdd-cli/extensions/tests`
 
 ### Camada 5: Execution (`.sdd-core/execution_tests/`)
 - **Descrição:** Testes de execução e setup

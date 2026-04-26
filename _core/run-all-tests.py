@@ -21,7 +21,7 @@ TEST_LAYERS = [
     TestLayer("Core Root", "tests", "Testes de pipeline, compilador e integração"),
     TestLayer("Wizard", ".sdd-wizard/tests", "Testes de orquestração 7-fases"),
     TestLayer("Migration", ".sdd-migration/tests", "Testes de migração v2→v3"),
-    TestLayer("Core Extensions", ".sdd-core/extensions/tests", "Testes de extensões"),
+    TestLayer("Core Extensions", ".sdd-cli/extensions/tests", "Testes de extensões"),
     TestLayer("Core Execution", ".sdd-core/execution_tests", "Testes de execução"),
     TestLayer("Compiler", ".sdd-compiler/tests", "Testes do compilador"),
     TestLayer("RTK", ".sdd-compiler/src/runtime_telemetry_kit", "Testes de telemetria"),

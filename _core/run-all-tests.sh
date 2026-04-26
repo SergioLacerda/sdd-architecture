@@ -107,7 +107,7 @@ main() {
     [ "$fail_fast" = true ] && [ $passed -ne $total ] && exit 1
     
     # Core Extensions
-    if run_layer "Extensions" ".sdd-core/extensions/tests" "Extensões"; then
+    if run_layer "Extensions" ".sdd-cli/extensions/tests" "Extensões"; then
         ((passed++))
     fi
     ((total++))
@@ -151,7 +151,7 @@ list_layers() {
     echo "1. Core Root      - tests"
     echo "2. Wizard         - .sdd-wizard/tests"
     echo "3. Migration      - .sdd-migration/tests"
-    echo "4. Extensions     - .sdd-core/extensions/tests"
+    echo "4. Extensions     - .sdd-cli/extensions/tests"
     echo "5. Execution      - .sdd-core/execution_tests"
     echo "6. Compiler       - .sdd-compiler/tests"
     echo "7. RTK            - .sdd-compiler/src/runtime_telemetry_kit"
