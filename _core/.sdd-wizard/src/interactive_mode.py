@@ -114,7 +114,7 @@ class InteractiveWizard:
                 repo_root = repo_root.parent
             
             sdd_core_path = repo_root / '_core'
-            output_path = repo_root / '_core' / 'sdd-generated' / 'phase-1-choices'
+            output_path = repo_root / 'sdd-generated' / 'phase-1-choices'
             
             generator = Phase1Generator(sdd_core_path, output_path, verbose=True, config=config)
             result = generator.run()
@@ -150,8 +150,8 @@ Next steps:
         if repo_root.name == '_core':
             repo_root = repo_root.parent
         
-        phase1_path = repo_root / '_core' / 'sdd-generated' / 'phase-1-choices'
-        output_path = repo_root / '_core' / 'sdd-generated' / 'phase-2-input'
+        phase1_path = repo_root / 'sdd-generated' / 'phase-1-choices'
+        output_path = repo_root / 'sdd-generated' / 'phase-2-input'
         
         print(f"""
 ═══════════════════════════════════════════════════════════════════
@@ -264,7 +264,7 @@ Phase 3 will:
                 config = json.load(f)
             
             # Check if Phase 3 completed
-            phase3_output = repo_root / '_core' / 'sdd-generated' / 'phase-4-output'
+            phase3_output = repo_root / 'sdd-generated' / 'final-output'
             if not phase3_output.exists():
                 print(f"\n❌ Phase 3 output not found!")
                 print("You must run Phase 3 first to compile governance.")
@@ -272,7 +272,7 @@ Phase 3 will:
             
             # Output base is the project root where .sdd/ will be created
             # For now, use sdd-generated directory as the output base
-            output_base = repo_root / '_core' / 'sdd-generated'
+            output_base = repo_root / 'sdd-generated'
             
             # Run Phase 4-6 generator
             result = run_phase_4_5_6_generator(repo_root, output_base, config)
@@ -316,7 +316,7 @@ Phase 3 will:
             repo_root = repo_root.parent
         
         # Phase 3 reads edited markdown from phase-2-input
-        markdown_path = repo_root / '_core' / 'sdd-generated' / 'phase-2-input'
+        markdown_path = repo_root / 'sdd-generated' / 'phase-2-input'
         
         if not markdown_path.exists():
             print(f"\n❌ Templates not found: {markdown_path}")

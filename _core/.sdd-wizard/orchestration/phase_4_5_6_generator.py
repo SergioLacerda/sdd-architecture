@@ -65,8 +65,8 @@ class Phase456Generator:
         self.guidelines_dir = self.source_dir / 'guidelines'
         
         # Governance input paths
-        self.governance_core = self.repo_root / '_core' / 'sdd-generated' / 'phase-4-output' / 'governance-core.json'
-        self.governance_client = self.repo_root / '_core' / 'sdd-generated' / 'phase-4-output' / 'governance-client.json'
+        self.governance_core = self.repo_root / 'sdd-generated' / 'final-output' / 'governance-core.json'
+        self.governance_client = self.repo_root / 'sdd-generated' / 'final-output' / 'governance-client.json'
         
         # Template paths
         self.template_base = self.repo_root / '_core' / '.sdd-wizard' / 'templates' / 'base'

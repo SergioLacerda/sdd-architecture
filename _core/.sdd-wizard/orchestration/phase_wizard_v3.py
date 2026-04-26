@@ -13,7 +13,7 @@ Phase 2: Manual user review & customization
   
 Phase 3: Compile & fingerprint governance
   Input: /sdd-generated/phase-2-input/ (user-edited markdown)
-  Output: /sdd-generated/phase-4-output/ (Compiled JSON with SALT fingerprints)
+  Output: /sdd-generated/final-output/ (Compiled JSON with SALT fingerprints)
 """
 
 import json
