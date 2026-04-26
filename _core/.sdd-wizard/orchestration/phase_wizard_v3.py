@@ -370,6 +370,7 @@ class Phase3Compiler:
         self.verbose = verbose
         self.language = 'Python'  # default
         self.config = {}
+        self.selected_guidelines = []  # Track which guidelines are selected (required/custom)
     
     def log(self, message: str):
         if self.verbose:
@@ -409,7 +410,7 @@ class Phase3Compiler:
             return False
     
     def copy_language_templates(self) -> bool:
-        """Copy language-specific templates to .sdd/source"""
+        """Copy language-specific templates to .sdd/source, conditionally include CI/CD workflows"""
         try:
             templates_dir = self.repo_root / '_core' / '.sdd-wizard' / 'templates'
             language_lower = self.language.lower()
@@ -430,7 +431,7 @@ class Phase3Compiler:
                 
                 self.log(f"Copied {language_lower} language templates to .sdd/source")
             
-            # Copy base templates
+            # Copy base templates, but selectively include .github/workflows
             base_template_dir = templates_dir / 'base'
             if base_template_dir.exists():
                 target_dir = self.output_path / '.sdd' / 'source' / 'templates'
@@ -440,13 +441,25 @@ class Phase3Compiler:
                 for item in base_template_dir.rglob('*'):
                     if item.is_file():
                         rel_path = item.relative_to(base_template_dir)
+                        
+                        # Check if this is a workflow file
+                        is_workflow_file = '.github' in rel_path.parts and 'workflows' in rel_path.parts
+                        
+                        # Only copy workflow files if G151 is selected
+                        if is_workflow_file and 'G151' not in self.selected_guidelines:
+                            self.log(f"Skipping workflow template (G151 not selected): {rel_path}")
+                            continue
+                        
                         target_file = target_dir / rel_path
                         target_file.parent.mkdir(parents=True, exist_ok=True)
                         # Don't overwrite language-specific templates
                         if not target_file.exists():
                             shutil.copy2(item, target_file)
                 
-                self.log(f"Copied base templates to .sdd/source")
+                if 'G151' in self.selected_guidelines:
+                    self.log(f"Copied base templates with CI/CD workflow (G151 selected)")
+                else:
+                    self.log(f"Copied base templates (workflow skipped - G151 not selected)")
             
             return True
         except Exception as e:
@@ -542,6 +555,8 @@ class Phase3Compiler:
                         mandates.append(item)
                     else:
                         guidelines.append(item)
+                        # Store guideline ID for conditional template generation
+                        self.selected_guidelines.append(item_id)
                     
                     self.log(f"Parsed {item_id}: {title} (status: {status})")
             

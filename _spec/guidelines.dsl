@@ -1091,3 +1091,10 @@ guideline G150 {
   description: "When reading docs: - [ ] Know your time budget (5, 15, 30, 60+ minutes) - [ ] Know your role (backend, devops, PM, architect) - [ ] Know your task (bug fix, feature, learning) - [ ] Read ONLY what's needed"
   category: general
 }
+
+guideline G151 {
+  type: SOFT
+  title: "GitHub Actions SDD Validation"
+  description: "Automated CI/CD workflow that validates code against M001 (Clean Architecture) and M002 (Test-Driven Development) on every push and PR. Includes linting, type checking, test execution, and governance rule compliance checks."
+  category: devops
+}
