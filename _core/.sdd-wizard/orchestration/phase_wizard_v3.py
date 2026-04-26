@@ -19,7 +19,7 @@ Phase 3: Compile & fingerprint governance
 import json
 import re
 from pathlib import Path
-from typing import Dict, Any, List, Optional
+from typing import Dict, Any, List, Optional, Tuple
 from dataclasses import dataclass
 from datetime import datetime
 
@@ -606,6 +606,315 @@ class Phase3Compiler:
             traceback.print_exc()
             return False
     
+    def load_compiled_governance(self) -> Tuple[List[Dict], List[Dict]]:
+        """Load mandates and guidelines from compiled governance JSONs"""
+        try:
+            source_dir = self.output_path / '.sdd' / 'source'
+            core_file = source_dir / 'governance-core.json'
+            client_file = source_dir / 'governance-client.json'
+            
+            mandates = []
+            guidelines = []
+            
+            # Load mandates from governance-core.json
+            if core_file.exists():
+                with open(core_file, 'r', encoding='utf-8') as f:
+                    governance_core = json.load(f)
+                
+                for item in governance_core.get('items', []):
+                    if item['type'] == 'MANDATE':
+                        mandates.append(item)
+            
+            # Load guidelines from governance-client.json
+            if client_file.exists():
+                with open(client_file, 'r', encoding='utf-8') as f:
+                    governance_client = json.load(f)
+                
+                for item in governance_client.get('items', []):
+                    if item['type'] == 'GUIDELINE':
+                        guidelines.append(item)
+            
+            self.log(f"Loaded {len(mandates)} mandates and {len(guidelines)} guidelines")
+            return mandates, guidelines
+        except Exception as e:
+            print(f"  ❌ Error loading compiled governance: {e}")
+            import traceback
+            traceback.print_exc()
+            return [], []
+    
+    def generate_mandates_file(self, mandates: List[Dict]) -> bool:
+        """Generate mandates.md with IA-FIRST optimization"""
+        try:
+            mandates_dir = self.output_path / '.sdd' / 'source' / 'mandates'
+            mandates_dir.mkdir(parents=True, exist_ok=True)
+            
+            mandates_file = mandates_dir / 'mandates.md'
+            
+            content = f"""# Mandates - SDD v3.0
+
+⚡ IA-FIRST DESIGN NOTICE
+- **Status**: Architecture-level governance rules
+- **Optimization**: Optimized for AI agent parsing
+- **Version**: 3.0
+- **Language**: {self.language}
+- **Generated**: {datetime.now().isoformat()}
+
+## Core Mandates
+
+Mandatory rules that CANNOT be customized or skipped.
+
+"""
+            
+            for mandate in mandates:
+                content += f"""## {mandate['id']}: {mandate['title']}
+
+**Criticality**: {mandate.get('criticality', 'MANDATORY')}
+**Customizable**: No
+
+{mandate.get('description', mandate.get('content', 'No description available'))}
+
+"""
+            
+            with open(mandates_file, 'w', encoding='utf-8') as f:
+                f.write(content)
+            
+            self.log(f"Generated mandates.md ({len(mandates)} mandates)")
+            return True
+        except Exception as e:
+            print(f"  ❌ Error generating mandates.md: {e}")
+            import traceback
+            traceback.print_exc()
+            return False
+    
+    def generate_guidelines_files(self, guidelines: List[Dict]) -> bool:
+        """Generate guidelines organized by category"""
+        try:
+            guidelines_dir = self.output_path / '.sdd' / 'source' / 'guidelines'
+            guidelines_dir.mkdir(parents=True, exist_ok=True)
+            
+            # Organize by category
+            by_category = {}
+            for guideline in guidelines:
+                cat = guideline.get('category', 'general')
+                if cat not in by_category:
+                    by_category[cat] = []
+                by_category[cat].append(guideline)
+            
+            # Generate file for each category
+            for category, items in sorted(by_category.items()):
+                filename = category.lower().replace(' ', '-')
+                filepath = guidelines_dir / f'{filename}.md'
+                
+                content = f"""# {category.title()} Guidelines
+
+⚡ IA-FIRST DESIGN NOTICE
+- **Status**: Customizable best practices
+- **Optimization**: Optimized for AI agent parsing
+- **Category**: {category.title()}
+- **Count**: {len(items)} guidelines
+- **Generated**: {datetime.now().isoformat()}
+
+## Overview
+
+Guidelines in this category provide structured recommendations for {category.lower()}.
+
+"""
+                
+                for guideline in items:
+                    content += f"""## {guideline['id']}: {guideline['title']}
+
+**Type**: {guideline.get('type', 'GUIDELINE')}
+**Status**: {guideline.get('status', 'required')}
+**Customizable**: {'Yes' if guideline.get('customizable', True) else 'No'}
+
+{guideline.get('description', guideline.get('content', 'No description available'))}
+
+"""
+                
+                with open(filepath, 'w', encoding='utf-8') as f:
+                    f.write(content)
+                
+                self.log(f"Generated {filename}.md ({len(items)} guidelines)")
+            
+            return True
+        except Exception as e:
+            print(f"  ❌ Error generating guidelines files: {e}")
+            import traceback
+            traceback.print_exc()
+            return False
+    
+    def generate_source_readme(self, mandates: List[Dict], guidelines: List[Dict]) -> bool:
+        """Generate README.md with agent instructions for .sdd/source"""
+        try:
+            source_dir = self.output_path / '.sdd' / 'source'
+            readme_file = source_dir / 'README.md'
+            
+            # Get categories from guidelines
+            categories = sorted(set(g.get('category', 'general') for g in guidelines))
+            if not categories:
+                categories = ['general']
+            categories_list = '\n'.join(f'- {cat.title()}' for cat in categories)
+            
+            # Build guidelines file references
+            guidelines_refs = '\n'.join(f'- {cat.lower()}.md' for cat in categories)
+            
+            content = f"""# .sdd/source - Governance Source of Truth
+
+⚡ **For AI Agents: This is your primary query directory**
+
+## Overview
+
+This directory contains the **compiled and optimized** governance specifications that agents should reference.
+
+**Generated**: {datetime.now().isoformat()}
+**Language**: {self.language}
+
+## Directory Structure
+
+```
+.sdd/source/
+├── mandates/
+│   └── mandates.md              ← Read mandates first (hard rules)
+├── guidelines/
+│   ├── {categories[0]}.md
+│   ├── {categories[1] if len(categories) > 1 else 'other'}.md
+│   └── (organized by category)
+└── README.md                    ← This file
+```
+
+## For AI Agents: How to Use This
+
+### 1. Query Mandates First
+
+Always read `.sdd/source/mandates/mandates.md` to understand **hard rules** that CANNOT be customized.
+
+```bash
+cat .sdd/source/mandates/mandates.md
+```
+
+### 2. Query Relevant Guidelines
+
+Based on the task, read relevant guidelines:
+
+```bash
+# For category-related work
+cat .sdd/source/guidelines/category.md
+```
+
+### 3. Use As Pre-Cache Context
+
+These files are **optimized for AI parsing** (IA-FIRST format):
+- Flat hierarchy (H2 sections, no skipped levels)
+- Clear lists instead of prose
+- Emoji markers for decisions
+- Markdown links only
+- No nested HTML or complex formatting
+
+This reduces token usage when including in agent context.
+
+### 4. Reference in Agent Prompts
+
+Example agent prompt structure:
+
+```
+You are a development assistant following SDD (Specification-Driven Development).
+
+MANDATES (Hard Rules):
+<read from .sdd/source/mandates/mandates.md>
+
+GUIDELINES (Best Practices):
+<read from .sdd/source/guidelines/{{relevant-category}}.md>
+
+TASK:
+<your specific task>
+```
+
+## Pre-Cache Strategy
+
+For optimal performance when using these with agents:
+
+1. **Load once**: Read governance files once per session
+2. **Cache in memory**: Store in agent context/memory
+3. **Reference later**: Use markdown file references instead of re-reading
+4. **Update on changes**: Re-read if .sdd/source files change
+
+## File Organization
+
+### Mandates (Non-customizable)
+- Location: `.sdd/source/mandates/mandates.md`
+- Count: {len(mandates)}
+- Rule: **MUST** be followed (no exceptions)
+
+### Guidelines (Customizable)
+- Location: `.sdd/source/guidelines/`
+- Count: {len(guidelines)}
+- Rule: Should be followed (exceptions allowed with documentation)
+
+### Categories Covered
+
+{categories_list}
+
+## Next Steps
+
+1. **Read Mandates**: Start with `.sdd/source/mandates/mandates.md`
+2. **Browse Guidelines**: Review `.sdd/source/guidelines/` for your domain
+3. **Use in Tasks**: Reference these when making decisions
+4. **Cache Strategically**: Load once, reuse across multiple agent calls
+
+---
+
+**Generated by SDD Wizard v3.0**
+"""
+            
+            with open(readme_file, 'w', encoding='utf-8') as f:
+                f.write(content)
+            
+            self.log("Generated .sdd/source/README.md")
+            return True
+        except Exception as e:
+            print(f"  ❌ Error generating source README: {e}")
+            import traceback
+            traceback.print_exc()
+            return False
+        """Use existing pipeline_builder to compile governance to .sdd/source"""
+        try:
+            import sys
+            builder_path = self.repo_root / '_core' / 'build_scripts'
+            sys.path.insert(0, str(builder_path))
+            from pipeline_builder import PipelineBuilder
+            
+            self.log("Importing PipelineBuilder...")
+            
+            spec_path = self.repo_root / '_spec'
+            builder = PipelineBuilder(spec_path)
+            self.log(f"Building with spec path: {spec_path}")
+            
+            result = builder.build()
+            self.log("Build complete")
+            
+            # Create directories
+            sdd_source = self.output_path / '.sdd' / 'source'
+            sdd_source.mkdir(parents=True, exist_ok=True)
+            
+            # Write to .sdd/source/
+            core_file = sdd_source / 'governance-core.json'
+            client_file = sdd_source / 'governance-client.json'
+            
+            with open(core_file, 'w', encoding='utf-8') as f:
+                json.dump(result['governance_core'], f, indent=2)
+            self.log(f"Wrote {core_file}")
+            
+            with open(client_file, 'w', encoding='utf-8') as f:
+                json.dump(result['governance_client'], f, indent=2)
+            self.log(f"Wrote {client_file}")
+            
+            return True
+        except Exception as e:
+            print(f"  ❌ Pipeline builder error: {e}")
+            import traceback
+            traceback.print_exc()
+            return False
+    
     def run(self) -> Dict[str, Any]:
         """Execute Phase 3: Read edited markdown and compile with complete structure"""
         print("\n⚙️  PHASE 3: Compile Governance from Edited Templates")
@@ -640,6 +949,19 @@ class Phase3Compiler:
         if not self.copy_seedlings():
             return {'success': False, 'error': 'Failed to copy seedlings'}
         
+        # Generate AI-optimized files (.sdd/source/mandates/, guidelines/, README.md)
+        mandates, guidelines = self.load_compiled_governance()
+        
+        if mandates or guidelines:
+            if not self.generate_mandates_file(mandates):
+                return {'success': False, 'error': 'Failed to generate mandates.md'}
+            
+            if not self.generate_guidelines_files(guidelines):
+                return {'success': False, 'error': 'Failed to generate guidelines files'}
+            
+            if not self.generate_source_readme(mandates, guidelines):
+                return {'success': False, 'error': 'Failed to generate source README'}
+        
         print(f"  ✅ Compiled governance artifacts")
         print(f"  ✅ Generated complete .sdd structure")
         print(f"  📂 Output: {self.output_path}")
@@ -648,7 +970,7 @@ class Phase3Compiler:
             'success': True,
             'output_path': str(self.output_path),
             'language': self.language,
-            'files': ['governance-core.json', 'governance-client.json', 'templates/', 'seedling/'],
-            'mandates': mandates_count,
-            'guidelines': guidelines_count
+            'files': ['governance-core.json', 'governance-client.json', 'templates/', 'seedling/', 'mandates.md', 'guidelines/'],
+            'mandates': len(mandates),
+            'guidelines': len(guidelines)
         }
