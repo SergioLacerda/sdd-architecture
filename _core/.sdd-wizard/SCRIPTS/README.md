@@ -10,7 +10,7 @@ This folder contains executable tools for agent onboarding and validation.
 
 **Usage**:
 ```bash
-python docs/ia/scripts/validate_quiz.py
+python _core/.sdd-wizard/SCRIPTS/validate_quiz.py
 ```
 
 **What it does**:
@@ -22,7 +22,7 @@ python docs/ia/scripts/validate_quiz.py
 
 **Output**:
 - Terminal: Pass/fail, score, next steps
-- File: `/docs/ia/current-system-state/_quiz_tracking.json` (appended)
+- File: `/.ai/current-system-state/_quiz_tracking.json` (appended)
 
 **Exit codes**:
 - `0` = Passed (≥80%)
@@ -30,7 +30,7 @@ python docs/ia/scripts/validate_quiz.py
 
 **For CI/CD**:
 ```bash
-python docs/ia/scripts/validate_quiz.py && echo "✅ Agent validated" || echo "❌ Agent needs re-training"
+python _core/.sdd-wizard/SCRIPTS/validate_quiz.py && echo "✅ Agent validated" || echo "❌ Agent needs re-training"
 ```
 
 ---
@@ -41,7 +41,7 @@ python docs/ia/scripts/validate_quiz.py && echo "✅ Agent validated" || echo "�
 
 **Usage**:
 ```bash
-python docs/ia/scripts/validate_governance.py
+python _core/.sdd-wizard/SCRIPTS/validate_governance.py
 ```
 
 **What it checks**:
@@ -60,7 +60,7 @@ python docs/ia/scripts/validate_governance.py
 
 **For CI/CD**:
 ```bash
-python docs/ia/scripts/validate_governance.py || exit 1
+python _core/.sdd-wizard/SCRIPTS/validate_governance.py || exit 1
 ```
 
 ---
@@ -71,7 +71,7 @@ python docs/ia/scripts/validate_governance.py || exit 1
 
 **Usage**:
 ```bash
-python docs/ia/scripts/validate_adrs.py
+python _core/.sdd-wizard/SCRIPTS/validate_adrs.py
 ```
 
 **What it checks**:
@@ -97,7 +97,7 @@ python docs/ia/scripts/validate_adrs.py
 
 **For CI/CD**:
 ```bash
-python docs/ia/scripts/validate_adrs.py || exit 1
+python _core/.sdd-wizard/SCRIPTS/validate_adrs.py || exit 1
 ```
 
 ---
@@ -106,7 +106,7 @@ python docs/ia/scripts/validate_adrs.py || exit 1
 
 Results are logged to:
 ```
-/docs/ia/current-system-state/_quiz_tracking.json
+/.ai/current-system-state/_quiz_tracking.json
 ```
 
 Format: JSON Lines (one entry per line)
@@ -132,18 +132,18 @@ Format: JSON Lines (one entry per line)
 
 **Show summary**:
 ```bash
-cat docs/ia/current-system-state/_quiz_tracking.json | jq -s 'group_by(.passed) | map({passed: .[0].passed, count: length})'
+cat .ai/current-system-state/_quiz_tracking.json | jq -s 'group_by(.passed) | map({passed: .[0].passed, count: length})'
 ```
 
 **Show pass rate on first attempt**:
 ```bash
-cat docs/ia/current-system-state/_quiz_tracking.json | \
+cat .ai/current-system-state/_quiz_tracking.json | \
   jq -s '[.[] | select(.attempt_number == 1) | .passed] | {total: length, passed: map(select(. == true)) | length, rate: (map(select(. == true)) | length) / length * 100}'
 ```
 
 **Show most failed questions**:
 ```bash
-cat docs/ia/current-system-state/_quiz_tracking.json | \
+cat .ai/current-system-state/_quiz_tracking.json | \
   jq -s '[.[] | .questions_incorrect[]?] | group_by(.) | sort_by(-length) | map({question: .[0], failures: length})'
 ```
 
@@ -163,13 +163,13 @@ cat docs/ia/current-system-state/_quiz_tracking.json | \
 
 ```yaml
 - name: Validate Governance
-  run: python docs/ia/scripts/validate_governance.py
+  run: python _core/.sdd-wizard/SCRIPTS/validate_governance.py
 
 - name: Validate ADRs  
-  run: python docs/ia/scripts/validate_adrs.py
+  run: python _core/.sdd-wizard/SCRIPTS/validate_adrs.py
 
 - name: Validate Quiz
-  run: python docs/ia/scripts/validate_quiz.py
+  run: python _core/.sdd-wizard/SCRIPTS/validate_quiz.py
 ```
 
 ### Local Pre-commit Hook

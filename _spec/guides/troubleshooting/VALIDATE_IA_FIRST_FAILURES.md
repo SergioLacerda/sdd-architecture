@@ -233,7 +233,7 @@ We chose database X instead of Y because...
 
 ```bash
 # Run validation with auto-fix
-python docs/ia/SCRIPTS/validate-ia-first.py --fix
+python _core/.sdd-wizard/SCRIPTS/validate-ia-first.py --fix
 
 # This will:
 # ✅ Add IA-FIRST DESIGN NOTICE to docs that are missing it
@@ -275,7 +275,7 @@ git checkout docs/ia/
 ## 🔗 Related Docs
 
 - [IA-FIRST Specification](../../../CANONICAL/specifications/IA_FIRST_SPECIFICATION.md) — Format definition
-- [validate-ia-first.py Script](../../../SCRIPTS/validate-ia-first.py) — Source code
+- [validate-ia-first.py Script](_core/.sdd-wizard/SCRIPTS/validate-ia-first.py) — Source code
 - [Emergency Procedures](../emergency/) — If validation completely breaks
 
 ---

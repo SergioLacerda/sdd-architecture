@@ -2,7 +2,7 @@
 
 **For:** Developers running `setup-wizard.py` and encountering errors  
 **Time to Resolution:** 2-10 minutes (most cases)  
-**Quick Test:** `python docs/ia/SCRIPTS/setup-wizard.py --test`
+**Quick Test:** `python _core/.sdd-wizard/SCRIPTS/setup-wizard.py --test`
 
 ---
 
@@ -25,7 +25,7 @@
 
 **Symptom:**
 ```
-$ python docs/ia/SCRIPTS/setup-wizard.py
+$ python _core/.sdd-wizard/SCRIPTS/setup-wizard.py
 ImportError: No module named 'questionary'
 ```
 
@@ -59,7 +59,7 @@ pip install -e .[dev]
 # This installs questionary + all other deps
 
 # Verify
-python docs/ia/SCRIPTS/setup-wizard.py
+python _core/.sdd-wizard/SCRIPTS/setup-wizard.py
 # Should now work
 ```
 
@@ -77,7 +77,7 @@ questionary is used for interactive prompts in the wizard. Without it, the scrip
 
 **Symptom:**
 ```
-$ python docs/ia/SCRIPTS/setup-wizard.py
+$ python _core/.sdd-wizard/SCRIPTS/setup-wizard.py
 SyntaxError: invalid syntax
 # (or similar Python version incompatibility)
 ```
@@ -118,7 +118,7 @@ Download from python.org and install Python 3.11+
 python3.11 -m venv venv
 source venv/bin/activate
 pip install -e .[dev]
-python docs/ia/SCRIPTS/setup-wizard.py
+python _core/.sdd-wizard/SCRIPTS/setup-wizard.py
 ```
 
 ---
@@ -127,7 +127,7 @@ python docs/ia/SCRIPTS/setup-wizard.py
 
 **Symptom:**
 ```
-$ python docs/ia/SCRIPTS/setup-wizard.py
+$ python _core/.sdd-wizard/SCRIPTS/setup-wizard.py
 ImportError: questionary not found
 # But you installed it!
 ```
@@ -176,7 +176,7 @@ where python  # Windows (in CMD)
 
 **Symptom:**
 ```
-$ python docs/ia/SCRIPTS/setup-wizard.py
+$ python _core/.sdd-wizard/SCRIPTS/setup-wizard.py
 Error: Config not found at docs/ia/custom/my-project/SPECIALIZATIONS_CONFIG.md
 ```
 
@@ -195,7 +195,7 @@ ls -la docs/ia/custom/
 **Option A: Use default project (rpg-narrative-server)**
 ```bash
 # The wizard should auto-detect rpg-narrative-server
-python docs/ia/SCRIPTS/setup-wizard.py
+python _core/.sdd-wizard/SCRIPTS/setup-wizard.py
 
 # If prompted for project name, just press Enter for default
 ```
@@ -218,7 +218,7 @@ TEAM_SIZE=5
 EOF
 
 # Now run wizard
-python docs/ia/SCRIPTS/setup-wizard.py
+python _core/.sdd-wizard/SCRIPTS/setup-wizard.py
 ```
 
 **Option C: Skip wizard, read docs directly**
@@ -256,7 +256,7 @@ ls -la ~/.dev-profile
 chmod 644 ~/.dev-profile
 
 # Retry wizard
-python docs/ia/SCRIPTS/setup-wizard.py --load-profile
+python _core/.sdd-wizard/SCRIPTS/setup-wizard.py --load-profile
 ```
 
 **Option B: Delete and recreate profile**
@@ -264,7 +264,7 @@ python docs/ia/SCRIPTS/setup-wizard.py --load-profile
 rm ~/.dev-profile
 
 # Run wizard again (will create new profile)
-python docs/ia/SCRIPTS/setup-wizard.py
+python _core/.sdd-wizard/SCRIPTS/setup-wizard.py
 ```
 
 **Option C: Manual profile creation**
@@ -276,7 +276,7 @@ EXPERIENCE=Familiar
 EOF
 
 # Now load it
-python docs/ia/SCRIPTS/setup-wizard.py --load-profile
+python _core/.sdd-wizard/SCRIPTS/setup-wizard.py --load-profile
 ```
 
 ---
@@ -286,7 +286,7 @@ python docs/ia/SCRIPTS/setup-wizard.py --load-profile
 **To verify setup-wizard works without user input:**
 
 ```bash
-python docs/ia/SCRIPTS/setup-wizard.py --test
+python _core/.sdd-wizard/SCRIPTS/setup-wizard.py --test
 
 # Output:
 # ✅ Questionnaire logic: PASS
@@ -306,22 +306,22 @@ python docs/ia/SCRIPTS/setup-wizard.py --test
 
 **Run wizard interactively:**
 ```bash
-python docs/ia/SCRIPTS/setup-wizard.py
+python _core/.sdd-wizard/SCRIPTS/setup-wizard.py
 ```
 
 **Run with mock responses (for testing):**
 ```bash
-python docs/ia/SCRIPTS/setup-wizard.py --test
+python _core/.sdd-wizard/SCRIPTS/setup-wizard.py --test
 ```
 
 **Load previous profile:**
 ```bash
-python docs/ia/SCRIPTS/setup-wizard.py --load-profile
+python _core/.sdd-wizard/SCRIPTS/setup-wizard.py --load-profile
 ```
 
 **View timing information:**
 ```bash
-python docs/ia/SCRIPTS/setup-wizard.py 2>&1 | grep -i "seconds"
+python _core/.sdd-wizard/SCRIPTS/setup-wizard.py 2>&1 | grep -i "seconds"
 # Shows how long each phase took
 ```
 
@@ -379,4 +379,4 @@ Help?"
 
 **Last Updated:** 2026-04-19  
 **Status:** Complete (v1.0)  
-**Test:** `python docs/ia/SCRIPTS/setup-wizard.py --test`
+**Test:** `python _core/.sdd-wizard/SCRIPTS/setup-wizard.py --test`
