@@ -134,14 +134,14 @@ def get_doc_paths(path: str, context: str) -> list:
     path_docs = {
         "A": [
             "docs/ia/CANONICAL/specifications/architecture.md",
-            "docs/ia/custom/rpg-narrative-server/reality/current-system-state/known_issues.md",
-            "docs/ia/custom/rpg-narrative-server/reality/current-system-state/services.md",
+            "docs/ia/custom/_TEMPLATE/reality/current-system-state/known_issues.md",
+            "docs/ia/custom/_TEMPLATE/reality/current-system-state/services.md",
         ],
         "B": [
             "docs/ia/CANONICAL/rules/conventions.md",
             "docs/ia/CANONICAL/specifications/architecture.md",
             "docs/ia/CANONICAL/specifications/feature-checklist.md",
-            "docs/ia/custom/rpg-narrative-server/reality/current-system-state/contracts.md",
+            "docs/ia/custom/_TEMPLATE/reality/current-system-state/contracts.md",
         ],
         "C": [
             "docs/ia/CANONICAL/specifications/architecture.md",
@@ -151,7 +151,7 @@ def get_doc_paths(path: str, context: str) -> list:
             "docs/ia/CANONICAL/decisions/ADR-003-ports-adapters-pattern.md",
         ],
         "D": [
-            "docs/ia/custom/rpg-narrative-server/development/execution-state/_current.md",
+            "docs/ia/custom/_TEMPLATE/development/execution-state/_current.md",
             "docs/ia/CANONICAL/rules/ENFORCEMENT_RULES.md",
             "docs/ia/CANONICAL/decisions/ADR-005-thread-isolation-mandatory.md",
         ],
@@ -203,7 +203,7 @@ def print_next_steps():
     print(f"  1. Read the docs listed above (skim is OK, focus on structure)")
     print(f"  2. Start coding! Open QUICK_START.md as reference")
     print(f"  3. When stuck: search docs/ia/ → grep for keywords")
-    print(f"  4. At end of task: update docs/ia/CUSTOM/rpg-narrative-server/development/execution-state/_current.md")
+    print(f"  4. At end of task: update docs/ia/CUSTOM/_TEMPLATE/development/execution-state/_current.md")
     print(f"\n  {Colors.YELLOW}💡 Tip: Save this setup for next time (use --load-profile){Colors.END}")
 
 

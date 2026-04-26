@@ -118,7 +118,7 @@ MATURITY_LEVEL=alpha
 Document how this project differs from other projects:
 
 ```markdown
-**Unlike rpg-narrative-server:**
+**Unlike [PROJECT_NAME]:**
 - Focus: Campaign orchestration (vs narrative generation)
 - Scale: 200 concurrent (vs 50 in rpg-narrative)
 - Architecture: Event-driven (vs request-response)
@@ -135,7 +135,7 @@ Document how this project differs from other projects:
 
 | Field | Example | Why |
 |-------|---------|-----|
-| `PROJECT_NAME` | `game-master-api` | Identifier for generate-specializations |
+| `PROJECT_NAME` | `[PROJECT_NAME]` | Identifier for generate-specializations |
 | `LANGUAGE` | `python` | For language-specific templates |
 | `ASYNC_FRAMEWORK` | `fastapi` | For async patterns |
 | `MAX_CONCURRENT_ENTITIES` | `200` | For scaling constraints |
@@ -313,11 +313,11 @@ EOF
 ```yaml
 - name: Test specializations generation
   run: |
-    echo "Testing Project 1: rpg-narrative-server"
-    python docs/ia/SCRIPTS/generate-specializations.py --project rpg-narrative-server --force
+    echo "Testing Project 1: [PROJECT_NAME]"
+    python docs/ia/SCRIPTS/generate-specializations.py --project [PROJECT_NAME] --force
     
-    echo "Testing Project 2: game-master-api"
-    python docs/ia/SCRIPTS/generate-specializations.py --project game-master-api --force
+    echo "Testing Project 2: [PROJECT_NAME]"
+    python docs/ia/SCRIPTS/generate-specializations.py --project [PROJECT_NAME] --force
     
     echo "Testing Project 3: PROJECT_NAME"  # ← ADD THIS
     python docs/ia/SCRIPTS/generate-specializations.py --project PROJECT_NAME --force
@@ -371,7 +371,7 @@ Read: docs/ia/guides/onboarding/AGENT_HARNESS.md
 **Before adding project 5+, verify:**
 
 ✅ Projects 2-3 work successfully (test coverage)  
-✅ Scaling to different domains works (rpg-narrative + game-master-api demonstrate this)  
+✅ Scaling to different domains works (rpg-narrative + [PROJECT_NAME] demonstrate this)  
 ✅ CANONICAL/constitution.md satisfies all projects  
 ✅ Thread isolation prevents team conflicts  
 ✅ CI/CD validates all projects on every commit  
@@ -421,7 +421,7 @@ Before marking "complete":
 
 ## 🔗 Related Docs
 
-- [SPECIALIZATIONS_CONFIG.md template](../../game-master-api/SPECIALIZATIONS_CONFIG.md)
+- [SPECIALIZATIONS_CONFIG.md template](../../[PROJECT_NAME]/SPECIALIZATIONS_CONFIG.md)
 - [generate-specializations.py](../SCRIPTS/generate-specializations.py)
 - [AGENT_HARNESS.md](../onboarding/AGENT_HARNESS.md)
 - [architecture.md](../../CANONICAL/specifications/architecture.md)
@@ -430,4 +430,4 @@ Before marking "complete":
 
 **Last Updated:** 2026-04-19  
 **Status:** Complete (v1.0)  
-**Tested With:** game-master-api (2 projects, 4x entity scale increase)
+**Tested With:** [PROJECT_NAME] (2 projects, 4x entity scale increase)

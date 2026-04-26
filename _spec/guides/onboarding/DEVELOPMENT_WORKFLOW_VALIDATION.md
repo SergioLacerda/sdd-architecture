@@ -115,7 +115,7 @@ Developer:
      └─ Time: 3 minutes
      └─ Knows: Naming, file structure, patterns
      
-  2. Reads: /EXECUTION/spec/custom/rpg-narrative-server/development/execution-state/_current.md
+  2. Reads: /EXECUTION/spec/custom/_TEMPLATE/development/execution-state/_current.md
      └─ Time: 3 minutes
      └─ Knows: Active threads, conflicts, blockers
      └─ Verifies: No conflicts with planned work

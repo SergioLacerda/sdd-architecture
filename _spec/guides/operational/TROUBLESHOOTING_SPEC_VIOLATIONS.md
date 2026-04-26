@@ -383,7 +383,7 @@ Some content...
 ```markdown
 **IA-FIRST:** This guide documents emergency procedures for when CI/CD gates fail.
 
-**IA-FIRST:** This document defines the canonical constitution for rpg-narrative-server.
+**IA-FIRST:** This document defines the canonical constitution for [PROJECT_NAME].
 
 **IA-FIRST:** This specifies how to add new projects to the SPEC framework.
 ```
@@ -497,4 +497,4 @@ python docs/ia/SCRIPTS/validate-ia-first.py --audit docs/ia/
 
 **Last Updated:** 2026-04-19  
 **Status:** Complete (v1.0)  
-**Tested:** 116 docs audit in rpg-narrative-server codebase
+**Tested:** 116 docs audit in [PROJECT_NAME] codebase

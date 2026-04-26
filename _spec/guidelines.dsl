@@ -940,7 +940,7 @@ guideline G130 {
 guideline G131 {
   type: SOFT
   title: "**\"I don't understand an ADR decision\"**"
-  description: "→ **Read:** 1. Relevant ADR in `/EXECUTION/spec/CANONICAL/decisions/` 2. Project specialization in `/EXECUTION/spec/custom/rpg-narrative-server/SPECIALIZATIONS/` → **Time:** 15 minutes ---"
+  description: "→ **Read:** 1. Relevant ADR in `/EXECUTION/spec/CANONICAL/decisions/` 2. Project specialization in `/EXECUTION/spec/custom/_TEMPLATE/` → **Time:** 15 minutes ---"
   category: general
 }
 
@@ -1017,7 +1017,7 @@ guideline G141 {
 guideline G142 {
   type: SOFT
   title: "**2+ hours** (Deep learning)"
-  description: "- Complete `/EXECUTION/spec/CANONICAL/` layer - Complete `/EXECUTION/spec/custom/rpg-narrative-server/` layer - Relevant guides for your role ---"
+  description: "- Complete `/EXECUTION/spec/CANONICAL/` layer - Complete `/EXECUTION/spec/custom/_TEMPLATE/` layer - Relevant guides for your role ---"
   category: general
 }
 
@@ -1041,10 +1041,10 @@ guideline G144 {
 guideline G145 {
   type: SOFT
   title: "**SPECIALIZATIONS Layer** (Project-specific)"
-  description: "Used when: Implementing rpg-narrative-server features"
+  description: "Used when: Implementing project-specific customizations"
   category: git
   examples: [
-    "custom/rpg-narrative-server/SPECIALIZATIONS/",
+    "custom/_TEMPLATE/SPECIALIZATIONS/",
   ]
 }
 

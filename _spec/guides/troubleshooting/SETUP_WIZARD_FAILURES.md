@@ -192,9 +192,9 @@ ls -la docs/ia/custom/
 
 **Fix:**
 
-**Option A: Use default project (rpg-narrative-server)**
+**Option A: Use default project ([PROJECT_NAME])**
 ```bash
-# The wizard should auto-detect rpg-narrative-server
+# The wizard should auto-detect [PROJECT_NAME]
 python _core/.sdd-wizard/SCRIPTS/setup-wizard.py
 
 # If prompted for project name, just press Enter for default

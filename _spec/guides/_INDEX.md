@@ -23,8 +23,8 @@
 → **Time:** 15 minutes reading  
 → **What to read:**
 1. [FIRST_SESSION_SETUP.md](onboarding/FIRST_SESSION_SETUP.md) §1-3 (5 min)
-2. `/EXECUTION/spec/custom/rpg-narrative-server/SPECIALIZATIONS/ia-rules-rpg-specific.md` (5 min)
-3. `/EXECUTION/spec/custom/rpg-narrative-server/reality/limitations/known_issues.md` (5 min)
+2. `/EXECUTION/spec/custom/_TEMPLATE/SPECIALIZATIONS/ia-rules-rpg-specific.md` (5 min)
+3. `/EXECUTION/spec/custom/_TEMPLATE/reality/limitations/known_issues.md` (5 min)
 
 **Outcome:** Understand bug, execute fix, avoid breaking other code
 
@@ -57,8 +57,8 @@
 → **Time:** 30 minutes reading  
 → **What to read:**
 1. [FIRST_SESSION_SETUP.md](onboarding/FIRST_SESSION_SETUP.md) (15 min)
-2. `/EXECUTION/spec/custom/rpg-narrative-server/SPECIALIZATIONS/ia-rules-rpg-specific.md#development-threads` (10 min)
-3. `/EXECUTION/spec/custom/rpg-narrative-server/development/execution-state/_current.md` (5 min)
+2. `/EXECUTION/spec/custom/_TEMPLATE/SPECIALIZATIONS/ia-rules-rpg-specific.md#development-threads` (10 min)
+3. `/EXECUTION/spec/custom/_TEMPLATE/development/execution-state/_current.md` (5 min)
 
 **Outcome:** Understand thread boundaries, avoid conflicts, coordinate changes
 
@@ -85,7 +85,7 @@
 ### **"I don't understand an ADR decision"**
 → **Read:**  
 1. Relevant ADR in `/EXECUTION/spec/CANONICAL/decisions/`
-2. Project specialization in `/EXECUTION/spec/custom/rpg-narrative-server/SPECIALIZATIONS/`
+2. Project specialization in `/EXECUTION/spec/custom/_TEMPLATE/SPECIALIZATIONS/`
 → **Time:** 15 minutes
 
 ---
@@ -96,7 +96,7 @@
 **Priority reading:**
 1. `/EXECUTION/spec/CANONICAL/rules/constitution.md` (principles)
 2. `/EXECUTION/spec/CANONICAL/specifications/architecture.md` (design)
-3. `/EXECUTION/spec/custom/rpg-narrative-server/SPECIALIZATIONS/` (project specifics)
+3. `/EXECUTION/spec/custom/_TEMPLATE/SPECIALIZATIONS/` (project specifics)
 
 **Optional:**
 - `/EXECUTION/spec/CANONICAL/decisions/` (understand why)
@@ -115,7 +115,7 @@
 **Priority reading:**
 1. [YOUR_VISION_IMPLEMENTED.md](context/YOUR_VISION_IMPLEMENTED.md) (overview)
 2. `/EXECUTION/spec/CANONICAL/rules/backward-compatibility-policy.md` (when breaking changes allowed)
-3. `/EXECUTION/spec/custom/rpg-narrative-server/README.md` (project status)
+3. `/EXECUTION/spec/custom/_TEMPLATE/README.md` (project status)
 
 **Optional:**
 - `/EXECUTION/spec/CANONICAL/specifications/performance.md` (performance targets)
@@ -127,7 +127,7 @@
 3. `/EXECUTION/spec/CANONICAL/decisions/` (ALL ADRs)
 
 **Optional:**
-- `/EXECUTION/spec/custom/rpg-narrative-server/reality/` (understand system)
+- `/EXECUTION/spec/custom/_TEMPLATE/reality/` (understand system)
 
 ---
 
@@ -154,7 +154,7 @@
 
 ### **2+ hours** (Deep learning)
 - Complete `/EXECUTION/spec/CANONICAL/` layer
-- Complete `/EXECUTION/spec/custom/rpg-narrative-server/` layer
+- Complete `/EXECUTION/spec/custom/_TEMPLATE/` layer
 - Relevant guides for your role
 
 ---
@@ -187,10 +187,10 @@ CANONICAL/
 ```
 
 ### **SPECIALIZATIONS Layer** (Project-specific)
-Used when: Implementing rpg-narrative-server features
+Used when: Implementing [PROJECT_NAME] features
 
 ```
-custom/rpg-narrative-server/SPECIALIZATIONS/
+custom/[PROJECT_NAME]/SPECIALIZATIONS/
 ├─ ia-rules-rpg-specific.md (project paths & services)
 ├─ constitution-rpg-specific.md (campaigns & concurrency)
 └─ (more specializations as project grows)
@@ -227,7 +227,7 @@ guides/
    → /EXECUTION/spec/CANONICAL/specifications/architecture.md (10 min)
 
 4. PROJECT: Understand campaign structure
-   → /EXECUTION/spec/custom/rpg-narrative-server/SPECIALIZATIONS/constitution-rpg-specific.md (10 min)
+   → /EXECUTION/spec/custom/_TEMPLATE/SPECIALIZATIONS/constitution-rpg-specific.md (10 min)
 
 5. IMPLEMENTATION: Design search
    → Create feature, follow principles
@@ -250,10 +250,10 @@ Total: 50 minutes reading + implementation time
    → guides/onboarding/QUICK_START.md § PATH A (2 min)
 
 2. BUG: Understand the issue
-   → /EXECUTION/spec/custom/rpg-narrative-server/reality/limitations/known_issues.md (5 min)
+   → /EXECUTION/spec/custom/_TEMPLATE/reality/limitations/known_issues.md (5 min)
 
 3. RULES: Know hard constraints
-   → /EXECUTION/spec/custom/rpg-narrative-server/SPECIALIZATIONS/ia-rules-rpg-specific.md § Campaign Isolation (10 min)
+   → /EXECUTION/spec/custom/_TEMPLATE/SPECIALIZATIONS/ia-rules-rpg-specific.md § Campaign Isolation (10 min)
 
 4. FIX: Implement fix
    → Fix code (quick, focused)
@@ -277,7 +277,7 @@ When reading docs:
 - [ ] Read ONLY what's relevant
 - [ ] Use this index to navigate
 - [ ] Skip CANONICAL if you understand principles
-- [ ] Skip project specializations if not working on rpg-narrative-server
+- [ ] Skip project specializations if not working on [PROJECT_NAME]
 - [ ] Bookmark guides you'll use repeatedly
 
 ---

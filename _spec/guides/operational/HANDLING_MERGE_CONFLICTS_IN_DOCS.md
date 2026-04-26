@@ -287,7 +287,7 @@ For ANY conflict, verify after resolving:
 - [ ] Version number updated if both sides merged
 - [ ] Run specializations validation for affected projects
   ```bash
-  python docs/ia/SCRIPTS/generate-specializations.py --project rpg-narrative-server --force
+  python docs/ia/SCRIPTS/generate-specializations.py --project [PROJECT_NAME] --force
   ```
 
 ---

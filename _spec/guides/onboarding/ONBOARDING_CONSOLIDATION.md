@@ -221,7 +221,7 @@ If user wants to modify code outside their thread:
   
 "You're in Thread A. This code is in Thread B (or shared CANONICAL).
  Thread isolation is mandatory per ADR-005.
- /EXECUTION/spec/custom/rpg-narrative-server/development/execution-state/threads/
+ /EXECUTION/spec/custom/_TEMPLATE/development/execution-state/threads/
  
  What you CAN do:
  1. Modify only Thread A code
@@ -233,7 +233,7 @@ If user wants to modify code outside their thread:
 
 ```
 After implementation, you MUST:
-  "Update checkpoint: /EXECUTION/spec/custom/rpg-narrative-server/development/execution-state/_current.md
+  "Update checkpoint: /EXECUTION/spec/custom/_TEMPLATE/development/execution-state/_current.md
   
   Include:
   - What you implemented
@@ -363,7 +363,7 @@ Response:
 ### For Multi-Thread Work
 
 ```
-1. Have them read: /EXECUTION/spec/custom/rpg-narrative-server/development/execution-state/threads/
+1. Have them read: /EXECUTION/spec/custom/_TEMPLATE/development/execution-state/threads/
 2. Identify their thread: "You're in [Thread Name]"
 3. Read thread requirements
 4. Enforce isolation: "Only modify code in your thread"

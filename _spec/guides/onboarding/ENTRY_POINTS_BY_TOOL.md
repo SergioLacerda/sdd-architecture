@@ -79,7 +79,7 @@ When a user asks for work (bug fix, feature, etc.), respond:
 
 5. Update checkpoint
    "Update execution-state/_current.md with your changes"
-   → Path: /EXECUTION/spec/custom/rpg-narrative-server/development/execution-state/_current.md
+   → Path: /EXECUTION/spec/custom/_TEMPLATE/development/execution-state/_current.md
 ```
 
 ### Copilot Conversation Flow
@@ -151,7 +151,7 @@ Plus add:
 **New Cursor User:**
 ```
 1. Opens Cursor
-2. Sees: "Welcome to rpg-narrative-server"
+2. Sees: "Welcome to [PROJECT_NAME]"
 3. Gets suggestion: "Read AGENT_HARNESS for guided setup"
 4. Can access:
    - /docs/ia/guides/onboarding/AGENT_HARNESS.md
@@ -164,7 +164,7 @@ Plus add:
 
 Create `.cursor/settings.md`:
 ```markdown
-# Cursor Settings for rpg-narrative-server
+# Cursor Settings for [PROJECT_NAME]
 
 ## Initialization
 When starting new work session:
@@ -278,7 +278,7 @@ Ready for work! ✅
 echo "Checking AGENT_HARNESS compliance..."
 
 # 1. Verify execution-state was updated
-if git diff --cached docs/ia/custom/rpg-narrative-server/development/execution-state/_current.md | grep -q "^+"; then
+if git diff --cached _spec/custom/_TEMPLATE/development/execution-state/_current.md | grep -q "^+"; then
     echo "✅ execution-state checkpoint updated"
 else
     echo "⚠️  WARNING: execution-state/_current.md not updated"
@@ -349,7 +349,7 @@ jobs:
       - name: Verify AGENT_HARNESS compliance
         run: |
           # 1. Check execution-state updated
-          if ! git diff origin/main...HEAD docs/ia/custom/rpg-narrative-server/development/execution-state/_current.md | grep -q "^+"; then
+          if ! git diff origin/main...HEAD _spec/custom/_TEMPLATE/development/execution-state/_current.md | grep -q "^+"; then
             echo "❌ FAIL: execution-state not updated in this PR"
             echo "   Please document your changes in execution-state/_current.md"
             exit 1
@@ -409,8 +409,8 @@ Bot:
   1. /EXECUTION/spec/CANONICAL/rules/conventions.md (2 min)
   2. /EXECUTION/spec/CANONICAL/specifications/architecture.md - Section: "Application Layer" (5 min)
   3. /EXECUTION/spec/CANONICAL/specifications/testing.md - Section: "Unit Tests" (3 min)
-  4. /EXECUTION/spec/custom/rpg-narrative-server/reality/known_issues.md (3 min)
-  5. /EXECUTION/spec/custom/rpg-narrative-server/reality/services.md - "MemoryService" (3 min)
+  4. /EXECUTION/spec/custom/_TEMPLATE/reality/known_issues.md (3 min)
+  5. /EXECUTION/spec/custom/_TEMPLATE/reality/services.md - "MemoryService" (3 min)
   
   Total: ~16 min reading
   Then: Feature checklist for PATH A

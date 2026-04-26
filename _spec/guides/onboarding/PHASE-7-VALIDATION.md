@@ -86,9 +86,9 @@
 
 ---
 
-### ✅ rpg-narrative-server (Target Project - Minimal)
+### ✅ [PROJECT_NAME] (Target Project - Minimal)
 
-**Location:** `/home/sergio/dev/rpg-narrative-server/`
+**Location:** `/home/sergio/dev/[PROJECT_NAME]/`
 
 **Verification:**
 ```bash
@@ -98,7 +98,7 @@
    │   ├── min_version = 2.1
    │   └── discovery_mode = explicit
    └── [repository]
-       ├── name = rpg-narrative-server
+       ├── name = [PROJECT_NAME]
        ├── language = python
        └── project_type = backend-service
 
@@ -267,10 +267,10 @@ e7e3d2c: Refactor: Move infrastructure creation to PHASE 0 (agent-driven)
 ### Test: Clone to Different Machine
 
 ```
-Original: /home/sergio/dev/rpg-narrative-server
+Original: /home/sergio/dev/[PROJECT_NAME]
           .spec.config says: spec_path = ../spec-architecture
 
-Clone to: /tmp/new_location/rpg-narrative-server
+Clone to: /tmp/new_location/[PROJECT_NAME]
           .spec.config still says: spec_path = ../spec-architecture
           BUT interpreted relative to: /tmp/new_location/
           

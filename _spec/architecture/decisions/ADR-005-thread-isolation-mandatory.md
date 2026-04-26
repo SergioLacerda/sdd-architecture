@@ -222,7 +222,7 @@ python scripts/audit_execution_state.py
 **Manual Checks:**
 
 1. For each active thread:
-   - [ ] Thread has /EXECUTION/spec/custom/rpg-narrative-server/development/execution-state/threads/THREAD_NAME.md
+   - [ ] Thread has `/EXECUTION/spec/custom/[PROJECT]/development/execution-state/threads/THREAD_NAME.md`
    - [ ] Assigned work clearly documented
    - [ ] Modified files listed
    - [ ] Status matches reality (IN_PROGRESS vs BLOCKED)

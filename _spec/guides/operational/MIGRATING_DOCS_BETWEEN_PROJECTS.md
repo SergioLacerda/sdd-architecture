@@ -50,8 +50,8 @@ Result: This doc is ready for CANONICAL migration
    - "Thread isolation mandatory" (core governance)
    
 ❌ KEEP in custom/:
-   - "rpg-narrative-server uses max 50 concurrent campaigns" (project-specific)
-   - "game-master-api prioritizes NPC performance" (domain-specific)
+   - "[Project A] uses max 50 concurrent entities" (project-specific)
+   - "[Project B] prioritizes performance for [domain]" (domain-specific)
    - "Experimental: new logging framework" (not yet stable)
 ```
 
@@ -85,8 +85,8 @@ Rest of document...
 
 ## 📝 Version History
 
-- **v1.0 (2026-04-15):** Initial in custom/rpg-narrative-server/
-- **v1.1 (2026-04-19):** Tested in game-master-api, ready for CANONICAL
+- **v1.0 (date):** Initial in custom/[PROJECT_NAME]/
+- **v1.1 (date):** Tested in additional project, ready for CANONICAL
 
 ---
 
@@ -103,13 +103,13 @@ grep -i "rpg-narrative\|campaign\|project-specific" \
 
 # If found, extract project-specific parts into separate doc
 # BEFORE (mixed):
-# "rpg-narrative-server uses 50 concurrent campaigns, which means..."
+# "[PROJECT_NAME] uses 50 concurrent campaigns, which means..."
 
 # AFTER (generic in CANONICAL):
 # "Projects typically use 50-200 concurrent entities, which means..."
 
 # AFTER (project-specific in custom/):
-# "rpg-narrative-server constraint: max 50 concurrent campaigns"
+# "[PROJECT_NAME] constraint: max 50 concurrent campaigns"
 ```
 
 **Generic version checklist:**
@@ -293,9 +293,9 @@ git add docs/ia/custom/*/reality/concurrent-limits.md  # Redirect
 git commit -m "docs: Migrate concurrent-limits to CANONICAL (ADR-007)
 
 MIGRATION DETAILS:
-- From: docs/ia/custom/rpg-narrative-server/reality/concurrent-limits.md
+- From: _spec/custom/_TEMPLATE/reality/concurrent-limits.md
 - To: /EXECUTION/spec/CANONICAL/decisions/ADR-007-concurrent-entity-constraints.md
-- Reason: Proven stable across rpg-narrative-server + game-master-api
+- Reason: Proven stable across [PROJECT_NAME] + [PROJECT_NAME]
 
 CHANGES:
 - Created ADR-007 with generalized rule
@@ -312,8 +312,8 @@ VALIDATION:
 python docs/ia/SCRIPTS/validate-ia-first.py --audit docs/ia/
 
 # Validate projects still work
-python docs/ia/SCRIPTS/generate-specializations.py --project rpg-narrative-server --force
-python docs/ia/SCRIPTS/generate-specializations.py --project game-master-api --force
+python docs/ia/SCRIPTS/generate-specializations.py --project [PROJECT_NAME] --force
+python docs/ia/SCRIPTS/generate-specializations.py --project [PROJECT_NAME] --force
 ```
 
 ---
@@ -336,9 +336,9 @@ python docs/ia/SCRIPTS/generate-specializations.py --project game-master-api --f
 **Example:**
 
 ```
-Move: "rpg-narrative-server max 50 concurrent campaigns"
+Move: "[PROJECT_NAME] max 50 concurrent campaigns"
 From: /EXECUTION/spec/CANONICAL/specifications/performance.md
-To: docs/ia/custom/rpg-narrative-server/SPECIALIZATIONS/constitution-rpg-specific.md
+To: _spec/custom/_TEMPLATE/SPECIALIZATIONS/constitution-rpg-specific.md
 
 In CANONICAL, update to:
 "Projects define concurrent entity limits in their SPECIALIZATIONS"
@@ -425,4 +425,4 @@ Before migrating a doc:
 
 **Last Updated:** 2026-04-19  
 **Status:** Complete (v1.0)  
-**Use Case:** Proven with rpg-narrative-server + game-master-api pattern
+**Use Case:** Proven with [PROJECT_NAME] + [PROJECT_NAME] pattern

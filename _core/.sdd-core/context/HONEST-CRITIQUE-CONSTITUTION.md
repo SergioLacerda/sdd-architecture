@@ -63,7 +63,7 @@ The Constitution has 20+ references to `rpg-narrative-server`:
 
 ```markdown
 > **Project example:** In rpg-narrative-server, this means 50+ concurrent campaigns.
-> See [Campaign Load Testing](../../custom/rpg-narrative-server/SPECIALIZATIONS/constitution-rpg-specific.md#campaign-concurrency)
+> See [Project Specialization Examples](./guides/adoption/ULTRA-LITE-ADOPTION.md) for domain-specific implementations.
 
 | Port | Purpose | Example |
 |------|---------|---------|
@@ -323,7 +323,7 @@ We're not hiding this. We're documenting it so teams can adopt with open eyes.
 
 - [constitution.md](./CANONICAL/rules/constitution.md) — Current (v2.1, Python-specific)
 - [ULTRA-LITE-ADOPTION.md](./guides/adoption/ULTRA-LITE-ADOPTION.md) — Simpler entry point (already abstracts away specifics)
-- [custom/rpg-narrative-server/](./custom/rpg-narrative-server/) — Real example of domain specialization
+- [custom/_TEMPLATE/](./custom/_TEMPLATE/) — Template for project-specific specialization
 - [CONSTITUTION-CUSTOMIZATION.md](./guides/CONSTITUTION-CUSTOMIZATION.md) — Planned for v2.2
 
 ---

@@ -198,7 +198,7 @@ Agent has completed PHASE 0 if:
 ### Day 1: Agent Joins Project
 
 ```
-Agent: "I'm assigned to rpg-narrative-server"
+Agent: "I'm assigned to [PROJECT_NAME]"
 
 Agent reads: .github/copilot-instructions.md
   → "Check .spec.config first"

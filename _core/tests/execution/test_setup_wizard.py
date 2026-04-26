@@ -74,8 +74,8 @@ class TestSetupWizardDocumentLoading:
         
         path_a_docs = [
             "docs/ia/CANONICAL/specifications/architecture.md",
-            "docs/ia/custom/rpg-narrative-server/reality/current-system-state/known_issues.md",
-            "docs/ia/custom/rpg-narrative-server/reality/current-system-state/services.md",
+            "docs/ia/custom/_TEMPLATE/reality/current-system-state/known_issues.md",
+            "docs/ia/custom/_TEMPLATE/reality/current-system-state/services.md",
         ]
         
         docs = essential + path_a_docs
@@ -96,7 +96,7 @@ class TestSetupWizardDocumentLoading:
             "docs/ia/CANONICAL/rules/conventions.md",
             "docs/ia/CANONICAL/specifications/architecture.md",
             "docs/ia/CANONICAL/specifications/feature-checklist.md",
-            "docs/ia/custom/rpg-narrative-server/reality/current-system-state/contracts.md",
+            "docs/ia/custom/_TEMPLATE/reality/current-system-state/contracts.md",
         ]
         
         docs = essential + path_b_docs
@@ -133,7 +133,7 @@ class TestSetupWizardDocumentLoading:
         ]
         
         path_d_docs = [
-            "docs/ia/custom/rpg-narrative-server/development/execution-state/_current.md",
+            "docs/ia/custom/_TEMPLATE/development/execution-state/_current.md",
             "docs/ia/CANONICAL/rules/ENFORCEMENT_RULES.md",
             "docs/ia/CANONICAL/decisions/ADR-005-thread-isolation-mandatory.md",
         ]

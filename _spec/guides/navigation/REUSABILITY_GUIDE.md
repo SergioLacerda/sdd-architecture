@@ -116,8 +116,8 @@ cp -r docs/ia/custom/_TEMPLATE docs/ia/custom/my-new-project
 
 ### Regra 2: Cada projeto tem seu custom/
 ```
-❌ NÃO faça: custom/rpg-narrative-server/reality/another-project-notes.md
-✅ FAÇA: custom/rpg-narrative-server/reality/ SOMENTE rpg-narrative-server
+❌ NÃO faça: custom/[PROJECT_NAME]/reality/another-project-notes.md
+✅ FAÇA: custom/[PROJECT_NAME]/reality/ SOMENTE [PROJECT_NAME]
 ```
 
 ### Regra 3: Template é sagrado
@@ -134,23 +134,23 @@ cp -r docs/ia/custom/_TEMPLATE docs/ia/custom/my-new-project
 
 ### Regra 5: Melhorias vão em CANONICAL primeiro
 ```
-❌ NÃO faça: Adicionar observability.md em custom/rpg-narrative-server/
+❌ NÃO faça: Adicionar observability.md em custom/[PROJECT_NAME]/
 ✅ FAÇA: Adicionar CANONICAL/specifications/observability.md (todos herdam)
 ```
 
 ## 🎓 Exemplo: Integração Passo-a-Passo
 
-### Novo projeto: "game-master-api"
+### Novo projeto: "[PROJECT_NAME]"
 
 #### 1. Setup
 ```bash
-cd /home/my-projects/game-master-api
+cd /home/my-projects/[PROJECT_NAME]
 
 # Copiar SPEC
-cp -r /home/rpg-narrative-server/docs/ia /docs/ia
+cp -r /home/[PROJECT_NAME]/docs/ia /docs/ia
 
 # Estruturar para reutilização
-mkdir -p /EXECUTION/spec/custom/game-master-api/{development,reality}
+mkdir -p /EXECUTION/spec/custom/_TEMPLATE/{development,reality}
 ```
 
 #### 2. Herdar CANONICAL
@@ -163,16 +163,16 @@ ls /EXECUTION/spec/CANONICAL/
 #### 3. Especializar custom/
 ```bash
 # Documentar estado específico
-echo "Game Master API - Serviços..." > /EXECUTION/spec/custom/game-master-api/reality/current-system-state/services.md
+echo "Game Master API - Serviços..." > /EXECUTION/spec/custom/_TEMPLATE/reality/current-system-state/services.md
 
 # Documentar trabalho ativo
-echo "Thread 1: Implementar..." > /EXECUTION/spec/custom/game-master-api/development/execution-state/_current.md
+echo "Thread 1: Implementar..." > /EXECUTION/spec/custom/_TEMPLATE/development/execution-state/_current.md
 ```
 
 #### 4. Validar
 ```bash
 # Verificar que CANONICAL é igual
-diff /EXECUTION/spec/CANONICAL/ /path/to/rpg-narrative-server/EXECUTION/spec/CANONICAL/
+diff /EXECUTION/spec/CANONICAL/ /path/to/[PROJECT_NAME]/EXECUTION/spec/CANONICAL/
 # Resultado: devem ser idênticos!
 ```
 

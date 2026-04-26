@@ -60,7 +60,7 @@ Option B (AI Agents):
 
 ```
 READ IMMEDIATELY:
-  /EXECUTION/spec/custom/rpg-narrative-server/development/execution-state/_current.md
+  /EXECUTION/spec/custom/_TEMPLATE/development/execution-state/_current.md
   
 Answers these questions:
   - Is there active work I should know about?
@@ -128,7 +128,7 @@ Is this a...?
    1. /EXECUTION/spec/CANONICAL/rules/conventions.md
       └─ Code naming, file structure, patterns
       
-   2. /EXECUTION/spec/custom/rpg-narrative-server/reality/current-system-state/_INDEX.md
+   2. /EXECUTION/spec/custom/_TEMPLATE/reality/current-system-state/_INDEX.md
       └─ Master index of what exists
       └─ Which services? Which data models? Which contracts?
 ```
@@ -141,14 +141,14 @@ Is this a...?
    1. /EXECUTION/spec/CANONICAL/specifications/architecture.md
       └─ Section: Your affected layer only
       
-   2. /EXECUTION/spec/custom/rpg-narrative-server/reality/current-system-state/known_issues.md
+   2. /EXECUTION/spec/custom/_TEMPLATE/reality/current-system-state/known_issues.md
       └─ Bug might already be there!
       └─ Or known workarounds
       
    3. /EXECUTION/spec/CANONICAL/specifications/testing.md
       └─ How to test the layer you're fixing
       
-   4. /EXECUTION/spec/custom/rpg-narrative-server/reality/current-system-state/services.md
+   4. /EXECUTION/spec/custom/_TEMPLATE/reality/current-system-state/services.md
       └─ The service you're modifying
 ```
 
@@ -158,9 +158,9 @@ Is this a...?
    1. /EXECUTION/spec/CANONICAL/specifications/architecture.md (full)
    2. /EXECUTION/spec/CANONICAL/specifications/feature-checklist.md (layers 1-3 only)
    3. /EXECUTION/spec/CANONICAL/specifications/testing.md (your layers)
-   4. /EXECUTION/spec/custom/rpg-narrative-server/reality/current-system-state/contracts.md
+   4. /EXECUTION/spec/custom/_TEMPLATE/reality/current-system-state/contracts.md
       └─ Ports you'll use/implement
-   5. /EXECUTION/spec/custom/rpg-narrative-server/reality/current-system-state/data_models.md
+   5. /EXECUTION/spec/custom/_TEMPLATE/reality/current-system-state/data_models.md
       └─ DTOs, request/response contracts
 ```
 
@@ -171,22 +171,22 @@ Is this a...?
    2. /EXECUTION/spec/CANONICAL/decisions/ADR-*.md (relevant ADRs only)
    3. /EXECUTION/spec/CANONICAL/specifications/feature-checklist.md (full)
    4. /EXECUTION/spec/CANONICAL/specifications/testing.md (full)
-   5. /EXECUTION/spec/custom/rpg-narrative-server/reality/current-system-state/ (all files)
-   6. /EXECUTION/spec/custom/rpg-narrative-server/reality/limitations/ (all files)
+   5. /EXECUTION/spec/custom/_TEMPLATE/reality/current-system-state/ (all files)
+   6. /EXECUTION/spec/custom/_TEMPLATE/reality/limitations/ (all files)
       └─ Known constraints you'll hit
 ```
 
 **IF PATH D (Multi-Thread):**
 ```
 ✅ LOAD (10 min):
-   1. /EXECUTION/spec/custom/rpg-narrative-server/development/execution-state/threads/[YOUR_THREAD].md
+   1. /EXECUTION/spec/custom/_TEMPLATE/development/execution-state/threads/[YOUR_THREAD].md
       └─ What's already decided in your thread?
       └─ What are next steps?
       
    2. /EXECUTION/spec/CANONICAL/decisions/ADR-005-thread-isolation-mandatory.md
       └─ Thread rules
       
-   3. /EXECUTION/spec/custom/rpg-narrative-server/reality/limitations/threading_concurrency.md
+   3. /EXECUTION/spec/custom/_TEMPLATE/reality/limitations/threading_concurrency.md
       └─ Concurrency constraints
 ```
 
@@ -268,7 +268,7 @@ If you hit ANY confusion:
 #### Step 6.2: Update Checkpoint
 
 ```
-✅ EDIT: /EXECUTION/spec/custom/rpg-narrative-server/development/execution-state/_current.md
+✅ EDIT: /EXECUTION/spec/custom/_TEMPLATE/development/execution-state/_current.md
 
 Add (or update if already exists):
   - What you implemented
@@ -328,7 +328,7 @@ DESCRIPTION:
 
 ```
 Add to PR description:
-  "Checkpoint: /EXECUTION/spec/custom/rpg-narrative-server/development/execution-state/_current.md"
+  "Checkpoint: /EXECUTION/spec/custom/_TEMPLATE/development/execution-state/_current.md"
   
 Reviewers can then see:
   - What you decided
