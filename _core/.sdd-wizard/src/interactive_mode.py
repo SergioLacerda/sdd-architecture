@@ -83,7 +83,7 @@ class InteractiveWizard:
         if repo_root.name == '_core':
             repo_root = repo_root.parent
         
-        config_dir = repo_root / '_core' / 'sdd-generated'
+        config_dir = repo_root / 'sdd-generated'
         config_dir.mkdir(parents=True, exist_ok=True)
         
         config_path = config_dir / 'wizard-config.json'
@@ -253,7 +253,7 @@ Phase 3 will:
                 repo_root = repo_root.parent
             
             # Load config from wizard-config.json
-            config_path = repo_root / '_core' / 'sdd-generated' / 'wizard-config.json'
+            config_path = repo_root / 'sdd-generated' / 'wizard-config.json'
             
             if not config_path.exists():
                 print(f"\n❌ Configuration not found!")

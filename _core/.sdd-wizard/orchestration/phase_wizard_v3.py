@@ -354,13 +354,13 @@ No need to convert to YAML or move files - edit in place!
 
 
 class Phase3Compiler:
-    """Compile edited markdown templates to governance JSON"""
+    """Compile edited markdown templates to governance JSON with complete project structure"""
     
     def __init__(self, markdown_input_path: Path, output_path: Path, repo_root: Path, verbose: bool = False):
         """
         Args:
-            markdown_input_path: Path to phase-1-choices/ folder with edited markdown files
-            output_path: Where to write governance JSON
+            markdown_input_path: Path to phase-2-input/ folder with edited markdown files
+            output_path: Base output path (sdd-generated/final-output)
             repo_root: Root of sdd-architecture repo
             verbose: Print detailed logs
         """
@@ -368,10 +368,129 @@ class Phase3Compiler:
         self.output_path = output_path
         self.repo_root = repo_root
         self.verbose = verbose
+        self.language = 'Python'  # default
+        self.config = {}
     
     def log(self, message: str):
         if self.verbose:
             print(f"  ℹ️  {message}")
+    
+    def load_wizard_config(self) -> bool:
+        """Load wizard configuration to get selected language"""
+        try:
+            config_path = self.repo_root / 'sdd-generated' / 'wizard-config.json'
+            if config_path.exists():
+                with open(config_path, 'r', encoding='utf-8') as f:
+                    self.config = json.load(f)
+                    self.language = self.config.get('language', 'Python')
+                    self.log(f"Loaded config: language={self.language}")
+                    return True
+            else:
+                self.log(f"Config not found at {config_path}, using default language: Python")
+                return True
+        except Exception as e:
+            print(f"  ❌ Error loading config: {e}")
+            return False
+    
+    def create_sdd_structure(self) -> bool:
+        """Create .sdd/source and .sdd/runtime directories"""
+        try:
+            sdd_dir = self.output_path / '.sdd'
+            source_dir = sdd_dir / 'source'
+            runtime_dir = sdd_dir / 'runtime'
+            
+            source_dir.mkdir(parents=True, exist_ok=True)
+            runtime_dir.mkdir(parents=True, exist_ok=True)
+            
+            self.log(f"Created .sdd structure: {sdd_dir}")
+            return True
+        except Exception as e:
+            print(f"  ❌ Error creating .sdd structure: {e}")
+            return False
+    
+    def copy_language_templates(self) -> bool:
+        """Copy language-specific templates to .sdd/source"""
+        try:
+            templates_dir = self.repo_root / '_core' / '.sdd-wizard' / 'templates'
+            language_lower = self.language.lower()
+            
+            # Copy language-specific templates
+            language_template_dir = templates_dir / 'languages' / language_lower
+            if language_template_dir.exists():
+                target_dir = self.output_path / '.sdd' / 'source' / 'templates'
+                target_dir.mkdir(parents=True, exist_ok=True)
+                
+                import shutil
+                for item in language_template_dir.rglob('*'):
+                    if item.is_file():
+                        rel_path = item.relative_to(language_template_dir)
+                        target_file = target_dir / rel_path
+                        target_file.parent.mkdir(parents=True, exist_ok=True)
+                        shutil.copy2(item, target_file)
+                
+                self.log(f"Copied {language_lower} language templates to .sdd/source")
+            
+            # Copy base templates
+            base_template_dir = templates_dir / 'base'
+            if base_template_dir.exists():
+                target_dir = self.output_path / '.sdd' / 'source' / 'templates'
+                target_dir.mkdir(parents=True, exist_ok=True)
+                
+                import shutil
+                for item in base_template_dir.rglob('*'):
+                    if item.is_file():
+                        rel_path = item.relative_to(base_template_dir)
+                        target_file = target_dir / rel_path
+                        target_file.parent.mkdir(parents=True, exist_ok=True)
+                        # Don't overwrite language-specific templates
+                        if not target_file.exists():
+                            shutil.copy2(item, target_file)
+                
+                self.log(f"Copied base templates to .sdd/source")
+            
+            return True
+        except Exception as e:
+            print(f"  ❌ Error copying language templates: {e}")
+            import traceback
+            traceback.print_exc()
+            return False
+    
+    def copy_seedlings(self) -> bool:
+        """Copy seedling templates from .sdd-integration/templates to seedling/ directory"""
+        try:
+            # Look for seedling templates in .sdd-integration
+            source_seedling_dir = self.repo_root / '_core' / '.sdd-integration' / 'templates'
+            
+            if not source_seedling_dir.exists():
+                self.log(f"Seedling templates directory not found at {source_seedling_dir}, skipping")
+                return True
+            
+            target_seedling_dir = self.output_path / 'seedling'
+            target_seedling_dir.mkdir(parents=True, exist_ok=True)
+            
+            import shutil
+            
+            # Copy .ia, .github, .vscode, .cursor directories if they exist
+            for seedling_type in ['.ia', '.github', '.vscode', '.cursor']:
+                source_path = source_seedling_dir / seedling_type
+                if source_path.exists():
+                    target_path = target_seedling_dir / seedling_type
+                    target_path.mkdir(parents=True, exist_ok=True)
+                    
+                    for item in source_path.rglob('*'):
+                        if item.is_file():
+                            rel_path = item.relative_to(source_path)
+                            target_file = target_path / rel_path
+                            target_file.parent.mkdir(parents=True, exist_ok=True)
+                            shutil.copy2(item, target_file)
+            
+            self.log(f"Copied seedling templates (.ia, .github, .vscode, .cursor) to final-output/seedling")
+            return True
+        except Exception as e:
+            print(f"  ❌ Error copying seedlings: {e}")
+            import traceback
+            traceback.print_exc()
+            return False
     
     def parse_markdown_status(self, content: str) -> str:
         """Extract status from markdown content"""
@@ -382,12 +501,12 @@ class Phase3Compiler:
         return 'required'  # Default if not found
     
     def parse_markdown_items(self) -> Dict[str, List[Dict[str, Any]]]:
-        """Parse edited markdown files from phase-1-choices"""
+        """Parse edited markdown files from phase-2-input"""
         mandates = []
         guidelines = []
         
         try:
-            # Find all .md files in phase-1-choices
+            # Find all .md files in phase-2-input
             md_files = list(self.markdown_input_path.glob('*.md'))
             
             if not md_files:
@@ -433,7 +552,7 @@ class Phase3Compiler:
             return {'mandates': [], 'guidelines': []}
     
     def compile_with_pipeline_builder(self, items: Dict[str, List[Dict]]) -> bool:
-        """Use existing pipeline_builder to compile"""
+        """Use existing pipeline_builder to compile governance to .sdd/source"""
         try:
             import sys
             builder_path = self.repo_root / '_core' / 'build_scripts'
@@ -449,10 +568,13 @@ class Phase3Compiler:
             result = builder.build()
             self.log("Build complete")
             
-            self.output_path.mkdir(parents=True, exist_ok=True)
+            # Create directories
+            sdd_source = self.output_path / '.sdd' / 'source'
+            sdd_source.mkdir(parents=True, exist_ok=True)
             
-            core_file = self.output_path / 'governance-core.json'
-            client_file = self.output_path / 'governance-client.json'
+            # Write to .sdd/source/
+            core_file = sdd_source / 'governance-core.json'
+            client_file = sdd_source / 'governance-client.json'
             
             with open(core_file, 'w', encoding='utf-8') as f:
                 json.dump(result['governance_core'], f, indent=2)
@@ -470,10 +592,18 @@ class Phase3Compiler:
             return False
     
     def run(self) -> Dict[str, Any]:
-        """Execute Phase 3: Read edited markdown and compile"""
+        """Execute Phase 3: Read edited markdown and compile with complete structure"""
         print("\n⚙️  PHASE 3: Compile Governance from Edited Templates")
         print("=" * 70)
         print(f"  📂 Reading from: {self.markdown_input_path}")
+        
+        # Load configuration
+        if not self.load_wizard_config():
+            return {'success': False, 'error': 'Failed to load config'}
+        
+        # Create .sdd structure
+        if not self.create_sdd_structure():
+            return {'success': False, 'error': 'Failed to create .sdd structure'}
         
         # Parse edited markdown files
         items = self.parse_markdown_items()
@@ -487,13 +617,23 @@ class Phase3Compiler:
         if not self.compile_with_pipeline_builder(items):
             return {'success': False, 'error': 'Failed to compile'}
         
+        # Copy language-specific templates
+        if not self.copy_language_templates():
+            return {'success': False, 'error': 'Failed to copy language templates'}
+        
+        # Copy seedlings
+        if not self.copy_seedlings():
+            return {'success': False, 'error': 'Failed to copy seedlings'}
+        
         print(f"  ✅ Compiled governance artifacts")
+        print(f"  ✅ Generated complete .sdd structure")
         print(f"  📂 Output: {self.output_path}")
         
         return {
             'success': True,
             'output_path': str(self.output_path),
-            'files': ['governance-core.json', 'governance-client.json'],
+            'language': self.language,
+            'files': ['governance-core.json', 'governance-client.json', 'templates/', 'seedling/'],
             'mandates': mandates_count,
             'guidelines': guidelines_count
         }
