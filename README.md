@@ -148,7 +148,7 @@ See [WIZARD_INTERACTIVE_GUIDE.md](WIZARD_INTERACTIVE_GUIDE.md) for a detailed wa
 **Quick navigation:**
 - 🔤 **Code & Implementation:** See [_core/README.md](_core/README.md)
 - 📖 **Specs & Documentation:** See [_spec/README.md](_spec/README.md)
-- 📋 **Full Index:** See [_spec/docs/INDEX.md](_spec/docs/INDEX.md)
+- 📋 **Full Index:** See [docs/INDEX.md](docs/INDEX.md)
 - 🧙 **Wizard Guide:** See [WIZARD_DOCUMENTATION_INDEX.md](WIZARD_DOCUMENTATION_INDEX.md)
 
 ### 🧙 Wizard Documentation (New!)
@@ -156,11 +156,11 @@ Start here if you want to create a new project with the SDD Wizard:
 
 | Document | Duration | Best For |
 |----------|----------|----------|
-| [WIZARD_QUICK_START.md](WIZARD_QUICK_START.md) | 2 min | Get started immediately |
-| [WIZARD_MAPPING.md](WIZARD_MAPPING.md) | 10 min | Understand the complete flow |
-| [WIZARD_INTERACTIVE_GUIDE.md](WIZARD_INTERACTIVE_GUIDE.md) | 15 min | Learn every detail |
-| [WIZARD_EXAMPLE_SESSION.md](WIZARD_EXAMPLE_SESSION.md) | 10 min | See a real example |
-| [WIZARD_DOCUMENTATION_INDEX.md](WIZARD_DOCUMENTATION_INDEX.md) | Navigation | Find what you need |
+| [docs/WIZARD_QUICK_START.md](docs/WIZARD_QUICK_START.md) | 2 min | Get started immediately |
+| [docs/WIZARD_MAPPING.md](docs/WIZARD_MAPPING.md) | 10 min | Understand the complete flow |
+| [docs/WIZARD_INTERACTIVE_GUIDE.md](docs/WIZARD_INTERACTIVE_GUIDE.md) | 15 min | Learn every detail |
+| [docs/WIZARD_EXAMPLE_SESSION.md](docs/WIZARD_EXAMPLE_SESSION.md) | 10 min | See a real example |
+| [docs/WIZARD_DOCUMENTATION_INDEX.md](docs/WIZARD_DOCUMENTATION_INDEX.md) | Navigation | Find what you need |
 
 ---
 
@@ -185,7 +185,7 @@ python3 run-all-tests.py --list-layers
 python3 run-all-tests.py --layer "Wizard"
 ```
 
-**See:** [_spec/docs/TEST_RUNNER_GUIDE.md](_spec/docs/TEST_RUNNER_GUIDE.md) for complete guide
+**See:** [docs/TEST_RUNNER_GUIDE.md](docs/TEST_RUNNER_GUIDE.md) for complete guide
 
 ### CLI Commands
 

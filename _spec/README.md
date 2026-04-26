@@ -1,117 +1,93 @@
-# _spec/ - Specification & Documentation
+# _spec/ - Formal Specifications & Architecture
 
-This directory contains all specification documents, design decisions, guides, and governance items documentation for the SDD framework.
+This directory contains all formal specification documents, architecture decisions, guides, and governance definitions for the SDD framework.
+
+**Note:** Implementation context, project history, and workflow documentation has been moved to `/docs` for cleaner separation between "what we should do" (spec) and "how we're doing it" (docs).
 
 ## Structure
 
 ```
 _spec/
-├── docs/                   # Main documentation
-│   ├── INDEX.md
-│   ├── TEST_RUNNER_GUIDE.md
-│   ├── CHANGELOG.md (moved from root)
+├── architecture/                    # Architecture & Design
+│   ├── decisions/                  # Architecture Decision Records (ADRs)
+│   └── specifications/             # Detailed specifications
+│
+├── custom/                          # Project Specializations
+│   └── _TEMPLATE/                  # Template for new projects
+│
+├── guides/                          # Implementation Guides
+│   ├── adoption/                   # Adoption guides
+│   ├── emergency/                  # Emergency procedures
+│   ├── onboarding/                 # Getting started guides
+│   ├── operational/                # Operational guides
+│   ├── reference/                  # API/command reference
+│   └── troubleshooting/            # Common issues & fixes
+│
+├── indices/                         # Search indices
+│   ├── spec-canonical-index.md
+│   ├── spec-guides-index.md
+│   └── search-keywords.md
+│
+├── .ai/                             # AI Agent Configuration
+│   ├── context-aware/              # Context-aware patterns
 │   └── ...
 │
-├── Workflow Documentation
-│   ├── PHASE_2_OUTPUT_ANALYSIS.md
-│   ├── PHASE_2_VALIDATION_CHECKLIST.md
-│   ├── PHASE_3_WIZARD_INTEGRATION.md
-│   └── CHECKPOINT_DOCUMENTATION_RESTRUCTURING.md
-│
-├── Architecture & Design
-│   ├── ARCHITECTURE.md
-│   ├── DESIGN.md
-│   └── decisions/
-│
-├── Governance Items Spec
-│   ├── governance_specification.md
-│   ├── CONSTITUTION.md
-│   └── ...
-│
-├── Guides (onboarding, troubleshooting, reference)
-│   ├── guides/
-│   ├── onboarding/
-│   ├── troubleshooting/
-│   └── reference/
-│
-├── AI & Agent Configuration
-│   ├── .ai/                # AI agent configuration
-│   ├── .ai-index.md        # AI index for agent onboarding
-│   └── copilot-instructions.md
-│
-└── Context & History
-    ├── context/            # Historical analysis
-    ├── CHANGELOG.md        # Version history
-    └── RELEASE_NOTES.md
+├── .ai-index.md                    # AI index for agent onboarding
+├── guidelines.dsl                  # DSL for governance guidelines
+├── mandate.spec                    # Governance mandate specification
+├── INDEX.md                        # Index of specifications
+└── README.md                       # This file
 ```
 
-## Quick Start (Documentation)
+## Quick Start
 
 ```bash
-# View main documentation index
-cat docs/INDEX.md
-
-# AI agent entry point
+# View AI agent index (entry point for AI agents)
 cat .ai-index.md
 
-# View phase documentation
-cat PHASE_3_WIZARD_INTEGRATION.md
+# View architecture decisions
+cat architecture/decisions/
 
 # View guides
 cat guides/README.md
+
+# View governance specifications
+cat guidelines.dsl mandate.spec
 ```
 
 ## Key Documents
 
 | Document | Purpose | Audience |
 |----------|---------|----------|
-| [docs/INDEX.md](docs/INDEX.md) | Main docs index | Everyone |
 | [.ai-index.md](.ai-index.md) | AI agent guide | AI Agents |
-| [PHASE_3_WIZARD_INTEGRATION.md](PHASE_3_WIZARD_INTEGRATION.md) | Wizard integration | Developers |
-| [CHANGELOG.md](CHANGELOG.md) | Version history | Everyone |
-| [TEST_RUNNER_GUIDE.md](docs/TEST_RUNNER_GUIDE.md) | Testing guide | Developers |
+| [guidelines.dsl](guidelines.dsl) | Governance guidelines specification | Architects |
+| [mandate.spec](mandate.spec) | Governance mandates | Everyone |
+| [architecture/decisions/](architecture/decisions/) | Architecture decisions | Developers |
+| [guides/](guides/) | Implementation guides | Developers |
 
 ## Sections
 
-### 📚 Documentation (`docs/`)
-- Main documentation index
-- API documentation
-- User guides
-- Testing guides
-
 ### 🏗️ Architecture & Design
-- Architecture specifications
-- Design decisions (ADRs)
-- System diagrams
-- Design patterns
+- Architecture specifications in `architecture/specifications/`
+- Architecture decisions (ADRs) in `architecture/decisions/`
+- System design patterns and principles
 
-### 📋 Workflow Documentation
-- PHASE_*.md files documenting each phase
-- Analysis of outputs
-- Validation checklists
-- Implementation guides
+### 🎯 Custom Projects
+- `custom/_TEMPLATE/` - Template for creating new project specializations
+- Shows how to extend SPEC for project-specific needs
 
 ### 📖 Guides
-- **Onboarding/** - Getting started guides
-- **Troubleshooting/** - Common issues and fixes
-- **Reference/** - API reference, command reference
-- **Guides/** - How-to guides and tutorials
+- **adoption/** - Adoption strategies (LITE, FULL, ULTRA-LITE)
+- **emergency/** - Emergency procedures and recovery
+- **onboarding/** - Getting started guides
+- **operational/** - Operational procedures
+- **reference/** - API/command reference
+- **troubleshooting/** - Common issues & solutions
 
 ### 🤖 AI & Agent Configuration
-- AI agent configuration files
-- Instruction sets for agents
-- AI context and prompts
-
-### 📊 Governance Items
-- Governance specifications (mandates, guidelines, rules)
-- Constitution templates
-- Governance item documentation
-
-### 📈 Context & History
-- Changelog documenting all releases
-- Historical analysis and decisions
-- Release notes
-- Previous implementation notes
+- AI agent configuration files in `.ai/`
+- `.ai-index.md` - Master index for AI agent operations
+- Context-aware patterns and instructions
 
 ## Documentation Standards
 
@@ -139,9 +115,12 @@ All documentation follows **IA-FIRST** format:
 
 ### 👨‍💻 For Developers
 Start with:
-1. [docs/INDEX.md](docs/INDEX.md) - Overview (5 min)
-2. [PHASE_3_WIZARD_INTEGRATION.md](PHASE_3_WIZARD_INTEGRATION.md) - Current work (10 min)
-3. [docs/TEST_RUNNER_GUIDE.md](docs/TEST_RUNNER_GUIDE.md) - Running tests (5 min)
+1. [_spec/README.md](README.md) - Overview (this file)
+2. [architecture/decisions/](architecture/decisions/) - Architecture decisions (10 min)
+3. [guides/adoption/](guides/adoption/) - Adoption guide for your team (15 min)
+4. [guides/operational/](guides/operational/) - Operational procedures (10 min)
+
+For implementation context and workflow history, see `/docs/`.
 
 ### 🤖 For AI Agents
 Start with:
@@ -150,14 +129,16 @@ Start with:
 
 ### 📦 For Integration
 Start with:
-1. [PHASE_3_WIZARD_INTEGRATION.md](PHASE_3_WIZARD_INTEGRATION.md) - Integration overview
-2. [docs/INDEX.md](docs/INDEX.md) - Full documentation
+1. [guides/adoption/](guides/adoption/) - Adoption options
+2. [architecture/decisions/](architecture/decisions/) - Architecture decisions
+
+For implementation history and workflow documentation, see `/docs/`.
 
 ## Navigation
 
-- **What's the current status?** → [PHASE_3_WIZARD_INTEGRATION.md](PHASE_3_WIZARD_INTEGRATION.md)
-- **How do I run tests?** → [docs/TEST_RUNNER_GUIDE.md](docs/TEST_RUNNER_GUIDE.md)
-- **What changed?** → [CHANGELOG.md](CHANGELOG.md)
+- **What's the current status?** → See [/docs/](../docs/) for workflow documentation
+- **How do I run tests?** → See [/docs/TEST_RUNNER_GUIDE.md](../docs/TEST_RUNNER_GUIDE.md)
+- **What changed?** → [/docs/CHANGELOG.md](../docs/CHANGELOG.md)
 - **I'm an AI agent** → [.ai-index.md](.ai-index.md)
 - **I need help** → [guides/troubleshooting/](guides/troubleshooting/)
 - **I want to learn** → [guides/onboarding/](guides/onboarding/)
@@ -173,6 +154,6 @@ Start with:
 
 ## See Also
 
-- [Root README.md](../README.md) - Main documentation
-- [_core/ README.md](_core/README.md) - Code/implementation structure
-- [Implementation docs](docs/) - Full documentation
+- [Root README.md](../README.md) - Main project documentation
+- [docs/ README.md](../docs/README.md) - Implementation context and workflow documentation
+- [_core/ README.md](../_core/README.md) - Code/implementation structure

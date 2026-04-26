@@ -147,4 +147,4 @@ python run-all-tests.py --fail-fast
 
 - [Root README.md](../README.md) - Main documentation
 - [_spec/ README.md](_spec/README.md) - Specification documentation
-- [Phase 3 Integration](../_spec/PHASE_3_WIZARD_INTEGRATION.md) - Wizard integration details
+- [Phase 3 Integration](../docs/PHASE_3_WIZARD_INTEGRATION.md) - Wizard integration details
