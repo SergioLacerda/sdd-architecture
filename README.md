@@ -2,7 +2,7 @@
 
 **Specification-Driven Development with Autonomous Governance**
 
-[![Version](https://img.shields.io/badge/v3.0-✅%20Production-brightgreen?style=flat-square&logo=github)](.) [![Tests](https://img.shields.io/badge/Tests-124%2F124%20✅-brightgreen?style=flat-square&logo=pytest)](docs/TEST_RUNNER_GUIDE.md) [![Python](https://img.shields.io/badge/Python-3.8%2B-blue?style=flat-square&logo=python)](.) [![CI/CD](https://img.shields.io/badge/GitHub%20Actions-Active-blue?style=flat-square&logo=github-actions)](.) [![Code Coverage](https://img.shields.io/badge/Coverage-100%25-brightgreen?style=flat-square&logo=codecov)](.) [![License](https://img.shields.io/badge/License-MIT-green?style=flat-square)](.) [![Governance](https://img.shields.io/badge/Governance-16%20Rules-orange?style=flat-square)](.) [![Status](https://img.shields.io/badge/Status-Production%20Ready-success?style=flat-square&logo=checkmarx)](.) [![Code Quality](https://img.shields.io/badge/Code%20Quality-Enterprise-blue?style=flat-square)](.) [![Architecture](https://img.shields.io/badge/Architecture-4%2BLayer%20Validation-purple?style=flat-square)](.)
+[![Version](https://img.shields.io/badge/v3.0-✅%20Production-brightgreen?style=flat-square&logo=github)](.) [![Tests](https://img.shields.io/badge/Tests-124%2F124%20✅-brightgreen?style=flat-square&logo=pytest)](docs/TEST_RUNNER_GUIDE.md) [![Python](https://img.shields.io/badge/Python-3.8%2B-blue?style=flat-square&logo=python)](.) [![GitHub Actions](https://img.shields.io/badge/CI%2FCD-10%20Workflows-blue?style=flat-square&logo=github-actions)](https://github.com/SergioLacerda/sdd-architecture/actions) [![Code Coverage](https://img.shields.io/badge/Coverage-100%25-brightgreen?style=flat-square&logo=codecov)](.) [![License](https://img.shields.io/badge/License-MIT-green?style=flat-square)](.) [![Governance](https://img.shields.io/badge/Governance-16%20Rules-orange?style=flat-square)](.) [![Status](https://img.shields.io/badge/Status-Production%20Ready-success?style=flat-square&logo=checkmarx)](.) [![Code Quality](https://img.shields.io/badge/Code%20Quality-Enterprise-blue?style=flat-square)](.) [![Architecture](https://img.shields.io/badge/Architecture-4%2BLayer%20Validation-purple?style=flat-square)](.)
 
 ---
 
@@ -218,7 +218,112 @@ PHASE 7: Checkpoint (document + PR) — 10 min
 
 ---
 
-## 🔗 Key Files
+## � CI/CD Automation (10 Workflows)
+
+The SDD Architecture uses **GitHub Actions** for continuous integration, testing, and deployment.
+
+### Framework Workflows (SDD Development)
+
+| Workflow | Trigger | Purpose | Status |
+|----------|---------|---------|--------|
+| **🏥 Health Check** | Push, PR, Daily | Validates 10 health checks (Git, structure, governance, Python, dependencies) | ✅ Active |
+| **🧪 Tests** | Push, PR | Runs 124 test suite across Python 3.8-3.12 | ✅ Active |
+| **🔍 Lint** | Push, PR | Code quality checks (pylint, type hints, formatting) | ✅ Active |
+| **📊 Compliance Report** | Daily | Governance compliance dashboard + enforcement checks | ✅ Active |
+| **⚖️ Governance Enforce** | Push, PR | Validates mandatory policies before merge | ✅ Active |
+| **📚 Docs** | Push to main | Auto-generates documentation and API references | ✅ Active |
+| **🔗 Integration** | Push, PR | Tests wizard, compiler, and CLI integration | ✅ Active |
+| **📦 Dependencies** | Weekly | Checks dependency security and updates | ✅ Active |
+| **🏷️ Release** | Tag push | Builds releases, publishes to PyPI, creates changelogs | ✅ Active |
+| **✅ Validate Workflows** | Push, PR | Validates all workflow YAML syntax and structure | ✅ Active |
+
+### How Workflows Work Together
+
+```
+Developer Push
+    ↓
+├─→ [Validate Workflows] (syntax check)
+│   ↓
+├─→ [Health Check] (10-point validation)
+│   ├─→ Git status, core structure, docs, seedlings
+│   ├─→ Python version, modules, governance files
+│   └─→ Wizard state
+│   ↓
+├─→ [Tests] (124 tests across Python 3.8-3.12)
+│   ├─→ Unit tests (governance, compiler, wizard)
+│   ├─→ Integration tests (e2e workflows)
+│   └─→ Coverage report (100% target)
+│   ↓
+├─→ [Lint] (code quality)
+│   ├─→ pylint, mypy, black
+│   ├─→ Type hints validation
+│   └─→ Security checks
+│   ↓
+├─→ [Governance Enforce] (mandatory policies)
+│   ├─→ Check 4 immutable mandates
+│   ├─→ Verify 151 guidelines
+│   └─→ Compliance score
+│   ↓
+├─→ [Compliance Report] (dashboard)
+│   └─→ Generates compliance metrics
+│   ↓
+├─→ [Integration] (wizard + compiler test)
+│   ├─→ Phase 1-7 validation
+│   ├─→ Template generation
+│   └─→ Project creation
+│   ↓
+└─→ [Dependencies] (weekly security check)
+    └─→ Updates and vulnerability scan
+```
+
+### Pushing to Main
+
+**Before merge is allowed:**
+- ✅ All 10 workflows must pass
+- ✅ No security vulnerabilities
+- ✅ 100% test coverage maintained
+- ✅ Governance compliance verified
+
+**Post-merge to main:**
+- 📚 Documentation auto-updated
+- 📊 Compliance report generated
+- 🔗 Integration tests run
+- 📦 Dependencies checked
+
+### Running Workflows Locally
+
+**Pre-commit validation (local):**
+```bash
+# Health check (same as CI/CD)
+python3 _core/health_check.py --verbose
+
+# Tests (same as CI/CD)
+cd _core && python3 run-all-tests.py
+
+# Lint (local pylint)
+python3 -m pylint _core/**/*.py
+
+# Governance (same as CI/CD)
+python3 _core/governance_compliance.py --verify
+```
+
+**View workflow logs:**
+- GitHub → Actions tab → Click workflow
+- Recent runs show status, timing, logs
+
+### Continuous Monitoring
+
+| Check | Frequency | Dashboard |
+|-------|-----------|-----------|
+| Health | On push + daily | GitHub Actions → Health Check |
+| Tests | On push | GitHub Actions → Tests |
+| Compliance | Daily | GitHub Actions → Compliance Report |
+| Dependencies | Weekly | GitHub Actions → Dependencies |
+| Workflows | On push | GitHub Actions → Validate Workflows |
+
+---
+
+## �🔗 Key Files
 
 | File | Use When |
 |------|----------|

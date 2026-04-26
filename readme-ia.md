@@ -403,10 +403,83 @@ success = wizard.run_full_pipeline(
 
 ---
 
+## 🤖 How to Work with CI/CD Automation
+
+The SDD Framework runs **10 GitHub Actions workflows** that validate every push and PR. As an AI agent, you should understand these workflows when helping with development.
+
+### The 10 Workflows (For AI Understanding)
+
+**Quality Gates (must pass before merge):**
+1. **Health Check** - Validates 10 system checks (Git, structure, governance, Python, dependencies)
+2. **Tests** - Runs 124 tests across Python 3.8-3.12 (must have 100% pass rate)
+3. **Lint** - Code quality checks (pylint, mypy, black, type hints)
+4. **Governance Enforce** - Validates 4 immutable mandates + 151 guidelines
+5. **Validate Workflows** - Ensures all workflow YAML is syntactically correct
+
+**Monitoring & Reporting:**
+6. **Compliance Report** - Daily dashboard of governance metrics
+7. **Integration** - Tests wizard, compiler, CLI integration end-to-end
+8. **Dependencies** - Weekly security scan for package vulnerabilities
+
+**Deployment:**
+9. **Docs** - Auto-generates documentation (pushed to main only)
+10. **Release** - Builds releases, publishes to PyPI (tag-based)
+
+### When You Suggest Code Changes
+
+**Check these before suggesting code:**
+1. Will it break any of the 10 workflows?
+2. Does it maintain 100% test coverage?
+3. Does it comply with 4 immutable mandates?
+4. Does it follow the 151 guidelines for the language?
+
+**Example concern:**
+```
+❌ BAD: Suggesting code that disables tests
+   "Skip this test for now with @skip"
+   
+✅ GOOD: Fix the root cause first
+   "Let's make the test pass by fixing the logic"
+```
+
+### How CI/CD Integrates with Wizard
+
+The wizard system passes through CI/CD gates:
+1. **Development** - You write code locally, run pre-commit checks
+2. **Push** - All 10 workflows run automatically
+3. **PR Review** - Workflows show status (all must pass)
+4. **Merge** - Code integrated only if all workflows pass
+5. **Production** - Docs and releases auto-generated
+
+### Pre-Push Hook (Local)
+
+Before pushing, users see:
+```
+[PRE-PUSH] Starting final validation before push...
+→ Running full health check (fresh, no cache)...
+✓ Health check passed (10/10)
+→ Verifying governance enforcement level...
+✓ Enforcement mode: STRICT
+→ Checking compliance percentage...
+✓ Fully compliant (100%)
+[PRE-PUSH] All checks passed. Push allowed.
+```
+
+**If it fails, suggest:**
+```bash
+# Run locally to see what failed
+python3 _core/health_check.py --verbose
+python3 _core/run-all-tests.py
+python3 _core/governance_compliance.py --verify
+```
+
+---
+
 ## 📚 Related Documentation
 
 - [README.md](README.md) — Main entry point
 - [readme-detailed.md](readme-detailed.md) — 7-phase technical details
+- [.github/workflows/](.github/workflows/) — All 10 workflow definitions
 - [_core/.sdd-wizard/WORKFLOW_FLOW.md](_core/.sdd-wizard/WORKFLOW_FLOW.md) — Complete orchestration
 - [_core/.sdd-wizard/AI_AGENT_GUIDE.md](_core/.sdd-wizard/AI_AGENT_GUIDE.md) — Detailed AI guide
 - [.cursor/README.md](.cursor/README.md) — Cursor IDE integration

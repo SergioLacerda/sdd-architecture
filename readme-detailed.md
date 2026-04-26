@@ -522,6 +522,118 @@ python3 _core/governance_compliance.py --verify
 
 ---
 
+## 🚀 CI/CD Integration (GitHub Actions)
+
+### How the Wizard Interacts with CI/CD
+
+The 7-phase wizard runs within the context of **10 GitHub Actions workflows** that validate and enforce quality:
+
+```
+Wizard Execution (Local)
+    ↓
+    └─→ Pre-push Hook validates
+        ├─→ Health Check (10 points)
+        ├─→ Governance Compliance (4 mandates)
+        └─→ Allow or block push
+    ↓
+Git Push to GitHub
+    ↓
+GitHub Actions Workflows Trigger
+    ├─→ Validate Workflows (YAML syntax)
+    ├─→ Health Check (same 10 checks)
+    ├─→ Tests (124 tests, Python 3.8-3.12)
+    ├─→ Lint (code quality, type hints)
+    ├─→ Governance Enforce (compliance)
+    ├─→ Integration (wizard e2e test)
+    ├─→ Compliance Report (dashboard)
+    ├─→ Dependencies (security scan)
+    └─→ Merge Allowed? (all must pass)
+    ↓
+Success: Merge to main
+    ├─→ Docs auto-generated
+    ├─→ Compliance metrics updated
+    └─→ Release pipeline ready
+```
+
+### The 10 Workflows Explained for Developers
+
+| Workflow | Runs | Checks | Blocks Merge? |
+|----------|------|--------|---------------|
+| Health Check | Push, PR, Daily | 10 system checks | ✅ Yes |
+| Tests | Push, PR | 124 tests, 100% coverage | ✅ Yes |
+| Lint | Push, PR | Code quality, types, format | ✅ Yes |
+| Governance Enforce | Push, PR | 4 mandates, 151 guidelines | ✅ Yes |
+| Validate Workflows | Push, PR | YAML syntax, structure | ✅ Yes |
+| Compliance Report | Daily | Governance dashboard | ⚠️ Info only |
+| Integration | Push, PR | Wizard, compiler, CLI | ⚠️ Warning |
+| Dependencies | Weekly | Security vulnerabilities | ⚠️ Warning |
+| Docs | Main push | Auto-generate docs | 🔄 Post-merge |
+| Release | Tag push | Build, publish, changelog | 🔄 Post-merge |
+
+### Relationship Between Wizard Phases and Workflows
+
+```
+Phase 1-2 (Validate & Load)
+    ↓
+    └─→ Tests must cover validation logic
+    └─→ Lint must approve code quality
+    └─→ Governance must allow specs
+    
+Phase 3-4 (Filter)
+    ↓
+    └─→ Integration test filters correctly
+    └─→ No hardcoded selections
+    
+Phase 5 (Template Application)
+    ↓
+    └─→ Generated templates pass lint
+    └─→ Generated code has tests
+    
+Phase 6-7 (Generate & Validate)
+    ↓
+    └─→ Output project runs through same CI/CD
+    └─→ Metadata correctly formatted
+```
+
+### Pre-Push Hook Strategy
+
+**SDD Architecture includes `.git/hooks/pre-push` that runs locally:**
+
+```bash
+#!/bin/bash
+# Runs before push to catch issues early
+
+[PRE-PUSH] Starting final validation...
+→ Running full health check (fresh, no cache)...
+  ✓ Health check passed (10/10)
+→ Verifying governance enforcement level...
+  ✓ Enforcement mode: STRICT
+→ Checking compliance percentage...
+  ✓ Fully compliant (100%)
+[PRE-PUSH] All checks passed. Push allowed.
+```
+
+**If pre-push fails:**
+```bash
+# Run individually to debug
+python3 _core/health_check.py --verbose
+cd _core && python3 run-all-tests.py
+python3 _core/governance_compliance.py --verify
+
+# Force push if absolutely necessary (not recommended)
+git push --no-verify
+```
+
+### Continuous Monitoring Post-Merge
+
+After merging to main:
+- 📚 **Docs** auto-generated and committed
+- 📊 **Compliance Report** updates governance dashboard
+- 🔗 **Integration** runs full wizard test
+- 📦 **Dependencies** checked for security issues
+
+---
+
 ## 🧪 Testing Strategy
 
 ### Unit Tests (per phase)
