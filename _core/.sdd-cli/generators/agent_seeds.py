@@ -75,7 +75,7 @@ Before implementing any feature:
 ## Customizable Items
 Your project can customize {len(customizable_items)} governance items.
 
-See `.sdd-wizard/CANONICAL/` for complete specification.
+See `_spec/architecture/` for complete specification.
 
 ## Integration Points
 - Load governance: `from sdd_wizard.governance_runtime_loader import GovernanceRuntimeLoader`
@@ -110,9 +110,8 @@ This codebase follows a Self-Documented Domain (SDD) architecture with governanc
 4. Use provided templates from `.sdd-wizard/templates/`
 
 ## Key Resources
-- Specifications: `.sdd-wizard/CANONICAL/specifications/`
-- Rules: `.sdd-wizard/CANONICAL/rules/`
-- Decisions: `.sdd-wizard/CANONICAL/decisions/`
+- Specifications: `_spec/architecture/specifications/`
+- Decisions: `_spec/architecture/decisions/`
 
 ## Governance Validation
 Run `sdd governance validate` to ensure compliance before commits.
@@ -171,14 +170,17 @@ Salt-Based:         Core fingerprint embedded in client metadata
 
 ## Directory Structure
 ```
-.sdd-wizard/
-  ├── compiled/           # Compiled artifacts (msgpack + metadata)
-  ├── CANONICAL/          # Source of truth
-  │   ├── specifications/ # Core specifications
-  │   ├── rules/         # Governance rules
-  │   └── decisions/     # Architecture decisions
-  ├── templates/         # Customization templates
-  └── governance_runtime_loader.py
+Framework:
+  ├── _spec/             # Specification authority
+  │   ├── architecture/  # Architecture decisions & specs
+  │   │   ├── decisions/     # Architecture Decision Records
+  │   │   └── specifications/ # Technical specifications
+  │   ├── guides/        # Adoption, operational guides
+  │   ├── custom/        # Project specializations
+  │   └── SCRIPTS/       # Validation scripts
+  ├── _core/            # Core infrastructure
+  │   └── .sdd-wizard/  # Wizard runtime
+  └── sdd-generated/    # User output
 ```
 
 ## Key Commands
@@ -194,8 +196,8 @@ sdd governance generate
 ```
 
 ## Resources
-- Full Specification: `.sdd-wizard/CANONICAL/`
-- Runtime Loader: `.sdd-wizard/governance_runtime_loader.py`
+- Full Specification: `_spec/architecture/`
+- Runtime Loader: `_core/.sdd-wizard/governance_runtime_loader.py`
 - CLI: `sdd --help`
 """
 
