@@ -1,15 +1,13 @@
 import msgpack
 from pathlib import Path
 import json
-import sys
-sys.path.insert(0, '_core')
 
 from architecture.pipeline_builder import PipelineBuilder
 from architecture.governance_compiler import GovernanceCompiler
 
 # Build and compile
 print("Building pipeline...")
-builder = PipelineBuilder("../../_spec")
+builder = PipelineBuilder("../_spec")
 builder.save_outputs(".sdd-compiled")
 
 print("Compiling...")
