@@ -1,0 +1,73 @@
+{
+  "state": "NOT_CONNECTED",
+  "confidence": 81.8,
+  "last_check": "2026-04-26T09:12:33.376154",
+  "checks": [
+    {
+      "name": ".spec.config",
+      "passed": false,
+      "message": "Not found",
+      "layer": "DISCOVERY"
+    },
+    {
+      "name": ".sdd/ directory",
+      "passed": true,
+      "message": "Not initialized (optional)",
+      "layer": "DISCOVERY"
+    },
+    {
+      "name": "governance files",
+      "passed": true,
+      "message": "Not compiled (optional)",
+      "layer": "DISCOVERY"
+    },
+    {
+      "name": "spec config readable",
+      "passed": false,
+      "message": "Config invalid or missing",
+      "layer": "LINK_VALIDATION"
+    },
+    {
+      "name": "spec_path valid",
+      "passed": true,
+      "message": "Invalid path (optional)",
+      "layer": "LINK_VALIDATION"
+    },
+    {
+      "name": "_core framework",
+      "passed": true,
+      "message": "Framework accessible",
+      "layer": "LINK_VALIDATION"
+    },
+    {
+      "name": ".ai/runtime/",
+      "passed": true,
+      "message": "Initialized",
+      "layer": "RUNTIME_VALIDATION"
+    },
+    {
+      "name": "state cache",
+      "passed": true,
+      "message": "Cache initialized",
+      "layer": "RUNTIME_VALIDATION"
+    },
+    {
+      "name": "PHASE 0 setup",
+      "passed": true,
+      "message": "Not run yet",
+      "layer": "RUNTIME_VALIDATION"
+    },
+    {
+      "name": "governance integrity",
+      "passed": true,
+      "message": "Not compiled",
+      "layer": "GOVERNANCE_HEALTH"
+    },
+    {
+      "name": "critical subsystems",
+      "passed": true,
+      "message": "Present (4/4)",
+      "layer": "GOVERNANCE_HEALTH"
+    }
+  ]
+}
