@@ -44,13 +44,9 @@ class InteractiveWizard:
   [3] Phase 3: Compile governance
               (Reads edited markdown → final JSON)
               ✅ Use after editing Phase 1 output
-
-  [4] Phase 4-6: Generate project structure
-              (Creates ready-to-use project output)
-              ✅ Use after Phase 3 is complete
 """)
         
-        choice = input("Select phase (1-4): ").strip()
+        choice = input("Select phase (1-3): ").strip()
         return choice
     
     def ask_user_preferences(self) -> dict:
@@ -400,10 +396,8 @@ YOUR GOVERNANCE IS READY TO DEPLOY
                 return self.phase_2_show_instructions()
             elif choice == '3':
                 return self.phase_3_compile_templates()
-            elif choice == '4':
-                return self.phase_4_generate_project()
             else:
-                print("\n❌ Invalid choice. Please select 1, 2, 3, or 4.")
+                print("\n❌ Invalid choice. Please select 1, 2, or 3.")
                 return False
         
         except KeyboardInterrupt:
