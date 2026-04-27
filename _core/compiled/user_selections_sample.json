@@ -1,0 +1,8 @@
+{
+  "version": "3.0",
+  "description": "Sample selection residue for audit tests",
+  "selections": {
+    "M001": { "choice": "CORE", "customizable": false },
+    "G01": { "choice": "CLIENT", "customizable": true }
+  }
+}

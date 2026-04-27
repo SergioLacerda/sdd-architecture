@@ -93,42 +93,42 @@ main() {
     [ "$fail_fast" = true ] && [ $passed -ne $total ] && exit 1
     
     # Wizard tests
-    if run_layer "Wizard" ".sdd-wizard/tests" "Orquestração 7-fases"; then
+    if run_layer "Wizard" "wizard/tests" "Orquestração 7-fases"; then
         ((passed++))
     fi
     ((total++))
     [ "$fail_fast" = true ] && [ $passed -ne $total ] && exit 1
     
     # Migration tests
-    if run_layer "Migration" ".sdd-migration/tests" "Migração v2→v3"; then
+    if run_layer "Migration" "migration/tests" "Migração v2→v3"; then
         ((passed++))
     fi
     ((total++))
     [ "$fail_fast" = true ] && [ $passed -ne $total ] && exit 1
     
     # Core Extensions
-    if run_layer "Extensions" ".sdd-cli/extensions/tests" "Extensões"; then
+    if run_layer "Extensions" "cli/extensions/tests" "Extensões"; then
         ((passed++))
     fi
     ((total++))
     [ "$fail_fast" = true ] && [ $passed -ne $total ] && exit 1
     
     # Core Execution
-    if run_layer "Execution" ".sdd-core/execution_tests" "Testes de execução"; then
+    if run_layer "Execution" "core/execution_tests" "Testes de execução"; then
         ((passed++))
     fi
     ((total++))
     [ "$fail_fast" = true ] && [ $passed -ne $total ] && exit 1
     
     # Compiler
-    if run_layer "Compiler" ".sdd-compiler/tests" "Compilador"; then
+    if run_layer "Compiler" "compiler/tests" "Compilador"; then
         ((passed++))
     fi
     ((total++))
     [ "$fail_fast" = true ] && [ $passed -ne $total ] && exit 1
     
     # RTK
-    if run_layer "RTK" ".sdd-compiler/src/runtime_telemetry_kit" "Telemetria"; then
+    if run_layer "RTK" "compiler/src/runtime_telemetry_kit" "Telemetria"; then
         ((passed++))
     fi
     ((total++))
@@ -149,12 +149,12 @@ main() {
 list_layers() {
     echo -e "${BLUE}📋 Camadas de Teste SDD v3.0:${NC}\n"
     echo "1. Core Root      - tests"
-    echo "2. Wizard         - .sdd-wizard/tests"
-    echo "3. Migration      - .sdd-migration/tests"
-    echo "4. Extensions     - .sdd-cli/extensions/tests"
-    echo "5. Execution      - .sdd-core/execution_tests"
-    echo "6. Compiler       - .sdd-compiler/tests"
-    echo "7. RTK            - .sdd-compiler/src/runtime_telemetry_kit"
+    echo "2. Wizard         - wizard/tests"
+    echo "3. Migration      - migration/tests"
+    echo "4. Extensions     - cli/extensions/tests"
+    echo "5. Execution      - core/execution_tests"
+    echo "6. Compiler       - compiler/tests"
+    echo "7. RTK            - compiler/src/runtime_telemetry_kit"
     echo ""
 }
 

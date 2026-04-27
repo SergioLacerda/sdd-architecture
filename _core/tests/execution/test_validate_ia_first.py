@@ -114,7 +114,8 @@ class TestValidateLinks:
 
         # Should match markdown link pattern
         import re
-        pattern = r'\[.+?\]\(.+?\)'
+
+        pattern = r"\[.+?\]\(.+?\)"
         assert re.search(pattern, valid_link)
 
     def test_backtick_links_invalid(self):
@@ -201,7 +202,6 @@ Some content without IA-FIRST.
 
     def test_fix_invalid_links(self):
         """Should fix backtick links."""
-        broken_content = "See [`guide`](guide.md) for details"
 
         # Auto-fix: remove backticks
         fixed_content = "See [guide](guide.md) for details"
@@ -251,12 +251,7 @@ class TestValidateCommandLine:
         """Should run basic validation."""
         validator_path = Path("docs/ia/SCRIPTS/validate-ia-first.py")
         if validator_path.exists():
-            result = subprocess.run(
-                [sys.executable, str(validator_path)],
-                capture_output=True,
-                text=True,
-                timeout=10
-            )
+            result = subprocess.run([sys.executable, str(validator_path)], capture_output=True, text=True, timeout=10)
             # Should not crash
             assert result.returncode in [0, 1, 3]  # Possible exit codes
 
@@ -265,10 +260,7 @@ class TestValidateCommandLine:
         validator_path = Path("docs/ia/SCRIPTS/validate-ia-first.py")
         if validator_path.exists():
             result = subprocess.run(
-                [sys.executable, str(validator_path), "--audit", "docs/ia/"],
-                capture_output=True,
-                text=True,
-                timeout=30
+                [sys.executable, str(validator_path), "--audit", "docs/ia/"], capture_output=True, text=True, timeout=30
             )
             # Should run and produce output
             assert len(result.stdout) > 0 or len(result.stderr) > 0
@@ -278,16 +270,13 @@ class TestValidateCommandLine:
         validator_path = Path("docs/ia/SCRIPTS/validate-ia-first.py")
         if validator_path.exists():
             # Create temp doc for testing
-            with tempfile.NamedTemporaryFile(mode='w', suffix='.md', delete=False) as f:
+            with tempfile.NamedTemporaryFile(mode="w", suffix=".md", delete=False) as f:
                 f.write("# Test\nContent without IA-FIRST\n")
                 temp_path = f.name
 
             try:
                 result = subprocess.run(
-                    [sys.executable, str(validator_path), "--fix", temp_path],
-                    capture_output=True,
-                    text=True,
-                    timeout=5
+                    [sys.executable, str(validator_path), "--fix", temp_path], capture_output=True, text=True, timeout=5
                 )
                 # Should complete without error
                 assert result.returncode in [0, 1, 3]
@@ -325,14 +314,15 @@ class TestValidatePerformance:
         if validator_path.exists():
             start = time.time()
             subprocess.run(
-                [sys.executable, str(validator_path), "--test"] if "--test" in subprocess.run(
-                    [sys.executable, str(validator_path), "--help"],
-                    capture_output=True,
-                    text=True
-                ).stdout else [sys.executable, str(validator_path)],
+                (
+                    [sys.executable, str(validator_path), "--test"]
+                    if "--test"
+                    in subprocess.run([sys.executable, str(validator_path), "--help"], capture_output=True, text=True).stdout
+                    else [sys.executable, str(validator_path)]
+                ),
                 capture_output=True,
                 text=True,
-                timeout=30
+                timeout=30,
             )
             elapsed = time.time() - start
 
@@ -372,10 +362,7 @@ class TestValidateIntegration:
         validator_path = Path("docs/ia/SCRIPTS/validate-ia-first.py")
         if validator_path.exists():
             result = subprocess.run(
-                [sys.executable, str(validator_path), "--audit", "docs/ia/"],
-                capture_output=True,
-                text=True,
-                timeout=30
+                [sys.executable, str(validator_path), "--audit", "docs/ia/"], capture_output=True, text=True, timeout=30
             )
 
             # Should complete without crashing

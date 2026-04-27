@@ -44,8 +44,9 @@ format: validate-deps
 
 lint: validate-deps
 	$(PYTHON) -m ruff check $(CORE_DIR)
-	$(PYTHON) -m mypy $(CORE_DIR)
-	$(PYTHON) -m pylint $(CORE_DIR) --fail-under=9.0
+	$(PYTHON) -m mypy --config-file $(CORE_DIR)/pyproject.toml --explicit-package-bases $(CORE_DIR)
+	PYTHONPATH="$(CURDIR)/$(CORE_DIR):$(CURDIR)/$(CORE_DIR)/build_scripts:$(CURDIR)/$(CORE_DIR)/core:$(CURDIR)/$(CORE_DIR)/compiler:$(CURDIR)/$(CORE_DIR)/compiler/src:$(CURDIR)/$(CORE_DIR)/compiler/src/runtime_telemetry_kit:$(CURDIR)/$(CORE_DIR)/wizard:$(CURDIR)/$(CORE_DIR)/wizard/src:$(CURDIR)/$(CORE_DIR)/wizard/.sdd-runtime:$(CURDIR)/$(CORE_DIR)/migration/tooling:$(CURDIR)/$(CORE_DIR)/cli/extensions/framework" \
+		$(PYTHON) -m pylint --rcfile $(CORE_DIR)/pyproject.toml $(CORE_DIR) --fail-under=9.0
 
 test: validate-deps
 	cd $(CORE_DIR) && $(PYTHON) tools/run-all-tests.py --fail-fast
@@ -57,7 +58,7 @@ test-immutability: validate-deps
 	$(PYTHON) _core/tests/test_governance_immutability.py $(ENFORCEMENT)
 
 verify: validate-deps
-	$(PYTHON) $(CORE_DIR)/governance_compliance.py --verify --check-integrity
+	$(PYTHON) $(CORE_DIR)/governance_compliance.py --verify --check-integrity .
 
 check: validate-deps format lint verify test test-wizard test-immutability
 	@echo "✅ All quality and governance checks passed!"

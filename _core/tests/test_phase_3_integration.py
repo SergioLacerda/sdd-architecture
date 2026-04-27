@@ -15,11 +15,9 @@ from pathlib import Path
 
 import msgpack
 import pytest
-
 from governance_compiler import GovernanceCompiler
-from pipeline_builder import PipelineBuilder
-
 from governance_orchestrator import GovernanceOrchestrator
+from pipeline_builder import PipelineBuilder
 
 
 class TestPhase3Integration:
@@ -48,48 +46,42 @@ class TestPhase3Integration:
         phase1_client_fp = phase1_result["governance_client"]["fingerprint"]
 
         # Save outputs
-        builder.save_outputs(".sdd-compiled")
+        builder.save_outputs("compiled")
 
         # Run PHASE 2
-        compiler = GovernanceCompiler(".sdd-compiled")
-        phase2_result = compiler.compile(".sdd-compiled")
+        compiler = GovernanceCompiler("compiled")
+        phase2_result = compiler.compile("compiled")
 
         # Verify fingerprints preserved
-        assert phase1_core_fp == phase2_result["core_fingerprint"], \
-            "Core fingerprint changed in compiler"
-        assert phase1_client_fp == phase2_result["client_fingerprint"], \
-            "Client fingerprint changed in compiler"
+        assert phase1_core_fp == phase2_result["core_fingerprint"], "Core fingerprint changed in compiler"
+        assert phase1_client_fp == phase2_result["client_fingerprint"], "Client fingerprint changed in compiler"
 
     def test_core_fingerprint_salt_strategy(self):
         """Test that core fingerprint is properly used as salt for client"""
         # Build and compile
         builder = PipelineBuilder("_spec")
-        builder.save_outputs(".sdd-compiled")
+        builder.save_outputs("compiled")
 
-        compiler = GovernanceCompiler(".sdd-compiled")
-        result = compiler.compile(".sdd-compiled")
+        compiler = GovernanceCompiler("compiled")
+        result = compiler.compile("compiled")
 
         core_fp = result["core_fingerprint"]
         core_salt = result["core_fingerprint_salt"]
 
-        assert core_fp == core_salt, \
-            "Core fingerprint not used as salt"
+        assert core_fp == core_salt, "Core fingerprint not used as salt"
 
     def test_msgpack_deserializes_correctly(self):
         """Test that msgpack files deserialize to valid data"""
         # Build and compile
         builder = PipelineBuilder("_spec")
-        builder.save_outputs(".sdd-compiled")
+        builder.save_outputs("compiled")
 
-        compiler = GovernanceCompiler(".sdd-compiled")
-        result = compiler.compile(".sdd-compiled")
+        compiler = GovernanceCompiler("compiled")
+        result = compiler.compile("compiled")
 
         # Deserialize core msgpack
         core_msgpack_file = result["core_msgpack_file"]
-        core_data = msgpack.unpackb(
-            Path(core_msgpack_file).read_bytes(),
-            raw=False
-        )
+        core_data = msgpack.unpackb(Path(core_msgpack_file).read_bytes(), raw=False)
 
         assert core_data["category"] == "CORE"
         assert "items" in core_data
@@ -98,10 +90,7 @@ class TestPhase3Integration:
 
         # Deserialize client msgpack
         client_msgpack_file = result["client_msgpack_file"]
-        client_data = msgpack.unpackb(
-            Path(client_msgpack_file).read_bytes(),
-            raw=False
-        )
+        client_data = msgpack.unpackb(Path(client_msgpack_file).read_bytes(), raw=False)
 
         assert client_data["category"] == "CLIENT"
         assert "items" in client_data
@@ -112,16 +101,13 @@ class TestPhase3Integration:
         """Test msgpack can be deserialized and converted back to JSON"""
         # Build and compile
         builder = PipelineBuilder("_spec")
-        builder.save_outputs(".sdd-compiled")
+        builder.save_outputs("compiled")
 
-        compiler = GovernanceCompiler(".sdd-compiled")
-        result = compiler.compile(".sdd-compiled")
+        compiler = GovernanceCompiler("compiled")
+        result = compiler.compile("compiled")
 
         # Load msgpack
-        core_msgpack_data = msgpack.unpackb(
-            Path(result["core_msgpack_file"]).read_bytes(),
-            raw=False
-        )
+        core_msgpack_data = msgpack.unpackb(Path(result["core_msgpack_file"]).read_bytes(), raw=False)
 
         # Convert to JSON and back
         json_str = json.dumps(core_msgpack_data)
@@ -154,16 +140,16 @@ class TestPhase3Integration:
         """Test compiler produces same output when run twice"""
         # Prepare
         builder = PipelineBuilder("_spec")
-        builder.save_outputs(".sdd-compiled")
+        builder.save_outputs("compiled")
 
         # First compile
-        compiler1 = GovernanceCompiler(".sdd-compiled")
-        result1 = compiler1.compile(".sdd-compiled")
+        compiler1 = GovernanceCompiler("compiled")
+        result1 = compiler1.compile("compiled")
         size1_core = Path(result1["core_msgpack_file"]).stat().st_size
 
         # Second compile
-        compiler2 = GovernanceCompiler(".sdd-compiled")
-        result2 = compiler2.compile(".sdd-compiled")
+        compiler2 = GovernanceCompiler("compiled")
+        result2 = compiler2.compile("compiled")
         size2_core = Path(result2["core_msgpack_file"]).stat().st_size
 
         # Should be identical
@@ -174,42 +160,37 @@ class TestPhase3Integration:
         """Test that items are correctly categorized by customizable flag"""
         # Build
         builder = PipelineBuilder("_spec")
-        builder.save_outputs(".sdd-compiled")
+        builder.save_outputs("compiled")
 
         # Load JSONs
-        with open(".sdd-compiled/governance-core.json") as f:
+        with open("compiled/governance-core.json") as f:
             core_data = json.load(f)
-        with open(".sdd-compiled/governance-client.json") as f:
+        with open("compiled/governance-client.json") as f:
             client_data = json.load(f)
 
         # All core items should have customizable=false
         for item in core_data["items"]:
-            assert item["customizable"] is False, \
-                f"Item {item['id']} in CORE with customizable=true"
+            assert item["customizable"] is False, f"Item {item['id']} in CORE with customizable=true"
 
         # All client items should have customizable=true
         for item in client_data["items"]:
-            assert item["customizable"] is True, \
-                f"Item {item['id']} in CLIENT with customizable=false"
+            assert item["customizable"] is True, f"Item {item['id']} in CLIENT with customizable=false"
 
     def test_metadata_reflects_content(self):
         """Test that metadata accurately reflects msgpack content"""
         # Build and compile
         builder = PipelineBuilder("_spec")
-        builder.save_outputs(".sdd-compiled")
+        builder.save_outputs("compiled")
 
-        compiler = GovernanceCompiler(".sdd-compiled")
-        result = compiler.compile(".sdd-compiled")
+        compiler = GovernanceCompiler("compiled")
+        result = compiler.compile("compiled")
 
         # Load metadata
         with open(result["core_metadata"]) as f:
             core_meta = json.load(f)
 
         # Load msgpack
-        core_msgpack_data = msgpack.unpackb(
-            Path(result["core_msgpack_file"]).read_bytes(),
-            raw=False
-        )
+        core_msgpack_data = msgpack.unpackb(Path(result["core_msgpack_file"]).read_bytes(), raw=False)
 
         # Verify counts match
         assert core_meta["item_count"] == len(core_msgpack_data["items"])
@@ -222,10 +203,10 @@ class TestPhase3Integration:
         # Build and compile
         builder = PipelineBuilder("_spec")
         phase1_result = builder.build()
-        builder.save_outputs(".sdd-compiled")
+        builder.save_outputs("compiled")
 
-        compiler = GovernanceCompiler(".sdd-compiled")
-        phase2_result = compiler.compile(".sdd-compiled")
+        compiler = GovernanceCompiler("compiled")
+        phase2_result = compiler.compile("compiled")
 
         # Verify separation
         phase1_core_count = len(phase1_result["core_items"])
@@ -233,10 +214,8 @@ class TestPhase3Integration:
         phase2_core_count = phase2_result["core_item_count"]
         phase2_client_count = phase2_result["client_item_count"]
 
-        assert phase1_core_count == phase2_core_count, \
-            "Core item count changed"
-        assert phase1_client_count == phase2_client_count, \
-            "Client item count changed"
+        assert phase1_core_count == phase2_core_count, "Core item count changed"
+        assert phase1_client_count == phase2_client_count, "Client item count changed"
 
     def test_criticality_ordering_preserved(self):
         """Test that criticality ordering is preserved through compilation"""
@@ -244,18 +223,17 @@ class TestPhase3Integration:
 
         # Build
         builder = PipelineBuilder("_spec")
-        builder.save_outputs(".sdd-compiled")
+        builder.save_outputs("compiled")
 
         # Load JSON
-        with open(".sdd-compiled/governance-core.json") as f:
+        with open("compiled/governance-core.json") as f:
             core_data = json.load(f)
 
         # Check ordering
         prev_level = -1
         for item in core_data["items"]:
             current_level = criticality_order.get(item["criticality"], 99)
-            assert current_level >= prev_level, \
-                f"Items not ordered by criticality: {item['criticality']}"
+            assert current_level >= prev_level, f"Items not ordered by criticality: {item['criticality']}"
             prev_level = current_level
 
     def test_no_data_loss_through_pipeline(self):
@@ -263,21 +241,16 @@ class TestPhase3Integration:
         # Build
         builder = PipelineBuilder("_spec")
         phase1_result = builder.build()
-        total_items_phase1 = (
-            len(phase1_result["core_items"]) + len(phase1_result["client_items"])
-        )
+        total_items_phase1 = len(phase1_result["core_items"]) + len(phase1_result["client_items"])
 
         # Compile
-        builder.save_outputs(".sdd-compiled")
-        compiler = GovernanceCompiler(".sdd-compiled")
-        phase2_result = compiler.compile(".sdd-compiled")
-        total_items_phase2 = (
-            phase2_result["core_item_count"] + phase2_result["client_item_count"]
-        )
+        builder.save_outputs("compiled")
+        compiler = GovernanceCompiler("compiled")
+        phase2_result = compiler.compile("compiled")
+        total_items_phase2 = phase2_result["core_item_count"] + phase2_result["client_item_count"]
 
         # Should be same count
-        assert total_items_phase1 == total_items_phase2, \
-            f"Data lost: {total_items_phase1} → {total_items_phase2}"
+        assert total_items_phase1 == total_items_phase2, f"Data lost: {total_items_phase1} → {total_items_phase2}"
 
     def test_orchestrator_summary_is_valid(self):
         """Test that orchestrator provides valid deployment summary"""
@@ -297,16 +270,16 @@ class TestPhase3Integration:
         """Test that msgpack is more compact than JSON"""
         # Build and save JSONs
         builder = PipelineBuilder("_spec")
-        builder.save_outputs(".sdd-compiled")
+        builder.save_outputs("compiled")
 
         # Get JSON sizes
-        core_json_size = Path(".sdd-compiled/governance-core.json").stat().st_size
-        client_json_size = Path(".sdd-compiled/governance-client.json").stat().st_size
+        core_json_size = Path("compiled/governance-core.json").stat().st_size
+        client_json_size = Path("compiled/governance-client.json").stat().st_size
         total_json_size = core_json_size + client_json_size
 
         # Compile to msgpack
-        compiler = GovernanceCompiler(".sdd-compiled")
-        result = compiler.compile(".sdd-compiled")
+        compiler = GovernanceCompiler("compiled")
+        result = compiler.compile("compiled")
 
         # Get msgpack sizes
         core_msgpack_size = Path(result["core_msgpack_file"]).stat().st_size
@@ -314,8 +287,7 @@ class TestPhase3Integration:
         total_msgpack_size = core_msgpack_size + client_msgpack_size
 
         # msgpack should be more compact (at least for large files)
-        assert total_msgpack_size < total_json_size, \
-            "msgpack not more compact than JSON"
+        assert total_msgpack_size < total_json_size, "msgpack not more compact than JSON"
 
     def test_complete_workflow_summary(self):
         """Test complete workflow with all validations"""

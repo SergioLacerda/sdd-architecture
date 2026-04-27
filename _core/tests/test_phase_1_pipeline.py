@@ -10,10 +10,9 @@ Validates:
 """
 
 import json
-import hashlib
 from pathlib import Path
-import pytest
 
+import pytest
 from pipeline_builder import PipelineBuilder
 
 
@@ -23,7 +22,7 @@ class TestPhase1Pipeline:
     @pytest.fixture
     def pipeline(self):
         """Create a pipeline builder instance"""
-        return PipelineBuilder(".sdd-core")
+        return PipelineBuilder("core")
 
     @pytest.fixture
     def output_dir(self, tmp_path):
@@ -98,8 +97,7 @@ class TestPhase1Pipeline:
         core_fingerprint = core_data["fingerprint"]
         core_fingerprint_salt = client_data["fingerprint_core_salt"]
 
-        assert core_fingerprint == core_fingerprint_salt, \
-            "Core fingerprint not used as salt for client"
+        assert core_fingerprint == core_fingerprint_salt, "Core fingerprint not used as salt for client"
 
     def test_fingerprints_are_different(self, pipeline, output_dir):
         """Test that core and client fingerprints are different"""
@@ -115,8 +113,15 @@ class TestPhase1Pipeline:
         result = pipeline.save_outputs(output_dir)
 
         required_fields = [
-            "id", "title", "type", "criticality", "customizable",
-            "optional", "category", "source_file", "content"
+            "id",
+            "title",
+            "type",
+            "criticality",
+            "customizable",
+            "optional",
+            "category",
+            "source_file",
+            "content",
         ]
 
         with open(result["governance_core"]) as f:
@@ -138,8 +143,7 @@ class TestPhase1Pipeline:
 
         for item in core_data["items"]:
             current_level = criticality_order.get(item["criticality"], 99)
-            assert current_level >= prev_criticality_level, \
-                f"Items not properly ordered by criticality: {item['criticality']}"
+            assert current_level >= prev_criticality_level, f"Items not properly ordered by criticality: {item['criticality']}"
             prev_criticality_level = current_level
 
     def test_fingerprint_consistency(self, pipeline, output_dir):
@@ -147,13 +151,11 @@ class TestPhase1Pipeline:
         result1 = pipeline.save_outputs(output_dir)
 
         # Create new pipeline and run again (in same dir)
-        pipeline2 = PipelineBuilder(".sdd-core")
+        pipeline2 = PipelineBuilder("core")
         result2 = pipeline2.save_outputs(output_dir)
 
-        assert result1["core_fingerprint"] == result2["core_fingerprint"], \
-            "Core fingerprint not consistent between runs"
-        assert result1["client_fingerprint"] == result2["client_fingerprint"], \
-            "Client fingerprint not consistent between runs"
+        assert result1["core_fingerprint"] == result2["core_fingerprint"], "Core fingerprint not consistent between runs"
+        assert result1["client_fingerprint"] == result2["client_fingerprint"], "Client fingerprint not consistent between runs"
 
     def test_at_least_one_core_item_exists(self, pipeline, output_dir):
         """Test that core has at least one item (mandate or decision)"""
@@ -182,8 +184,7 @@ class TestPhase1Pipeline:
 
         for item in core_data["items"]:
             assert item["source_file"], f"Item {item['id']} has no source_file"
-            assert isinstance(item["source_file"], str), \
-                f"Item {item['id']} source_file is not a string"
+            assert isinstance(item["source_file"], str), f"Item {item['id']} source_file is not a string"
 
 
 if __name__ == "__main__":

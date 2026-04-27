@@ -31,44 +31,34 @@ class TestSpecializationsConfigValidation:
 
     def test_config_project_name_required(self):
         """PROJECT_NAME field is required."""
-        valid_config = {
-            "PROJECT_NAME": "rpg-narrative-server"
-        }
+        valid_config = {"PROJECT_NAME": "rpg-narrative-server"}
 
         assert "PROJECT_NAME" in valid_config
         assert valid_config["PROJECT_NAME"] != ""
 
     def test_config_language_required(self):
         """LANGUAGE field is required."""
-        valid_config = {
-            "LANGUAGE": "python"
-        }
+        valid_config = {"LANGUAGE": "python"}
 
         assert "LANGUAGE" in valid_config
         assert valid_config["LANGUAGE"] in ["python", "typescript", "go", "rust"]
 
     def test_config_async_framework_specified(self):
         """ASYNC_FRAMEWORK should be specified."""
-        valid_config = {
-            "ASYNC_FRAMEWORK": "fastapi"
-        }
+        valid_config = {"ASYNC_FRAMEWORK": "fastapi"}
 
         assert "ASYNC_FRAMEWORK" in valid_config
 
     def test_config_concurrent_entities_specified(self):
         """MAX_CONCURRENT_ENTITIES should be a number."""
-        valid_config = {
-            "MAX_CONCURRENT_ENTITIES": 50
-        }
+        valid_config = {"MAX_CONCURRENT_ENTITIES": 50}
 
         assert isinstance(valid_config["MAX_CONCURRENT_ENTITIES"], int)
         assert valid_config["MAX_CONCURRENT_ENTITIES"] > 0
 
     def test_config_primary_domain_objects_list(self):
         """PRIMARY_DOMAIN_OBJECTS should be a list."""
-        valid_config = {
-            "PRIMARY_DOMAIN_OBJECTS": ["campaign", "session", "narrative"]
-        }
+        valid_config = {"PRIMARY_DOMAIN_OBJECTS": ["campaign", "session", "narrative"]}
 
         assert isinstance(valid_config["PRIMARY_DOMAIN_OBJECTS"], list)
         assert len(valid_config["PRIMARY_DOMAIN_OBJECTS"]) > 0
@@ -172,12 +162,7 @@ Content: Same
         # Verify --force flag works
         generator_path = Path("docs/ia/SCRIPTS/generate-specializations.py")
         if generator_path.exists():
-            result = subprocess.run(
-                [sys.executable, str(generator_path), "--help"],
-                capture_output=True,
-                text=True,
-                timeout=5
-            )
+            result = subprocess.run([sys.executable, str(generator_path), "--help"], capture_output=True, text=True, timeout=5)
             # Should mention --force if it exists
             result.stdout.lower()
             # Not asserting on --force presence, just that script works
@@ -205,15 +190,9 @@ class TestSpecializationsMultiProject:
 
     def test_different_domains_handled(self):
         """Should handle different domains (narrative vs orchestration)."""
-        narrative_domain = {
-            "project": "rpg-narrative-server",
-            "primary_entities": ["campaign", "narrative", "response"]
-        }
+        narrative_domain = {"project": "rpg-narrative-server", "primary_entities": ["campaign", "narrative", "response"]}
 
-        orchestration_domain = {
-            "project": "game-master-api",
-            "primary_entities": ["campaign", "encounter", "npc", "quest"]
-        }
+        orchestration_domain = {"project": "game-master-api", "primary_entities": ["campaign", "encounter", "npc", "quest"]}
 
         # Both should have valid entity lists
         assert len(narrative_domain["primary_entities"]) > 0
@@ -237,17 +216,9 @@ class TestSpecializationsScaling:
 
     def test_constraint_generation_per_scale(self):
         """Should generate appropriate constraints based on scale."""
-        small_scale_constraints = {
-            "cache_ttl": 3600,
-            "batch_size": 10,
-            "connection_pool": 5
-        }
+        small_scale_constraints = {"cache_ttl": 3600, "batch_size": 10, "connection_pool": 5}
 
-        large_scale_constraints = {
-            "cache_ttl": 1800,
-            "batch_size": 100,
-            "connection_pool": 50
-        }
+        large_scale_constraints = {"cache_ttl": 1800, "batch_size": 100, "connection_pool": 50}
 
         # Larger scale should have smaller TTL (more frequent refreshes)
         assert small_scale_constraints["cache_ttl"] > large_scale_constraints["cache_ttl"]
@@ -260,12 +231,7 @@ class TestSpecializationsCommandLine:
         """Should generate specializations."""
         generator_path = Path("docs/ia/SCRIPTS/generate-specializations.py")
         if generator_path.exists():
-            result = subprocess.run(
-                [sys.executable, str(generator_path), "--help"],
-                capture_output=True,
-                text=True,
-                timeout=5
-            )
+            result = subprocess.run([sys.executable, str(generator_path), "--help"], capture_output=True, text=True, timeout=5)
             assert result.returncode == 0
 
     def test_generate_with_project_flag(self):
@@ -276,7 +242,7 @@ class TestSpecializationsCommandLine:
                 [sys.executable, str(generator_path), "--project", "rpg-narrative-server"],
                 capture_output=True,
                 text=True,
-                timeout=10
+                timeout=10,
             )
             # Should complete without critical errors
             assert result.returncode in [0, 1]
@@ -289,7 +255,7 @@ class TestSpecializationsCommandLine:
                 [sys.executable, str(generator_path), "--project", "rpg-narrative-server", "--force"],
                 capture_output=True,
                 text=True,
-                timeout=10
+                timeout=10,
             )
             # Should complete without critical errors
             assert result.returncode in [0, 1]
@@ -383,11 +349,11 @@ class TestSpecializationsPerformance:
         generator_path = Path("docs/ia/SCRIPTS/generate-specializations.py")
         if generator_path.exists():
             start = time.time()
-            result = subprocess.run(
+            subprocess.run(
                 [sys.executable, str(generator_path), "--project", "rpg-narrative-server"],
                 capture_output=True,
                 text=True,
-                timeout=30
+                timeout=30,
             )
             elapsed = time.time() - start
 
@@ -407,7 +373,7 @@ class TestSpecializationsPerformance:
                 [sys.executable, str(generator_path), "--project", "rpg-narrative-server"],
                 capture_output=True,
                 text=True,
-                timeout=10
+                timeout=10,
             )
 
             # Generate for project 2
@@ -415,7 +381,7 @@ class TestSpecializationsPerformance:
                 [sys.executable, str(generator_path), "--project", "game-master-api"],
                 capture_output=True,
                 text=True,
-                timeout=10
+                timeout=10,
             )
 
             elapsed = time.time() - start
@@ -462,7 +428,7 @@ class TestSpecializationsIntegration:
                 [sys.executable, str(generator_path), "--project", "rpg-narrative-server"],
                 capture_output=True,
                 text=True,
-                timeout=10
+                timeout=10,
             )
 
             # Should complete successfully
@@ -473,12 +439,7 @@ class TestSpecializationsIntegration:
         # Verify script can be run in subprocess (CI/CD context)
         generator_path = Path("docs/ia/SCRIPTS/generate-specializations.py")
         if generator_path.exists():
-            result = subprocess.run(
-                [sys.executable, str(generator_path)],
-                capture_output=True,
-                text=True,
-                timeout=10
-            )
+            result = subprocess.run([sys.executable, str(generator_path)], capture_output=True, text=True, timeout=10)
 
             # Should handle missing project gracefully
             assert result.returncode in [0, 1, 3]

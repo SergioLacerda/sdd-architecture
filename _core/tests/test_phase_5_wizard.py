@@ -9,10 +9,8 @@ Validates:
 """
 
 import json
-from pathlib import Path
 
 import pytest
-
 from customization_template_generator import CustomizationTemplateGenerator
 from governance_runtime_loader import GovernanceRuntimeLoader
 from wizard_integrator import WizardIntegrator
@@ -398,7 +396,7 @@ class TestPhase5Runtime:
         assert core_fp != client_fp, "Fingerprints should differ"
 
         # Export and re-load
-        loader.export_governance_json.__self__
+        assert loader.export_governance_json.__self__ is loader
 
         # Verify fingerprints unchanged
         assert loader.get_core_fingerprint() == core_fp

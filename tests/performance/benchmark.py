@@ -31,7 +31,7 @@ root = Path(__file__).resolve().parents[2]
 if str(root / "_core") not in sys.path:
     sys.path.insert(0, str(root / "_core"))
 
-from tests.path_config import REPO_ROOT
+REPO_ROOT = root
 
 
 @dataclass

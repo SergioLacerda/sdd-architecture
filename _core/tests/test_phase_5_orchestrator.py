@@ -13,7 +13,7 @@ from pathlib import Path
 
 import pytest
 
-sys.path.insert(0, str(Path(__file__).parent.parent / ".sdd-wizard"))
+sys.path.insert(0, str(Path(__file__).parent.parent / "wizard"))
 
 from wizard_orchestrator import WizardOrchestrator
 

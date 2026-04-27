@@ -33,7 +33,7 @@ class AgentConfidenceEvaluator:
             "evaluations": {},
             "safety_markers": [],
             "risk_factors": [],
-            "recommendations": []
+            "recommendations": [],
         }
 
     def log(self, message: str):
@@ -46,7 +46,7 @@ class AgentConfidenceEvaluator:
     def evaluate_model(self, model_name: Optional[str]) -> Tuple[int, str]:
         """
         Evaluate model type for determinism
-        
+
         Scoring:
         - GPT-4/Claude-3-Opus: 95 (most confident)
         - GPT-4-Turbo/Claude-3-Sonnet: 90
@@ -91,7 +91,7 @@ class AgentConfidenceEvaluator:
     def evaluate_temperature(self, temperature: Optional[float]) -> Tuple[int, str]:
         """
         Evaluate temperature setting for determinism
-        
+
         Scoring:
         - 0.0 (deterministic): 100
         - 0.0-0.5 (low): 90
@@ -124,7 +124,7 @@ class AgentConfidenceEvaluator:
     def evaluate_token_budget(self, max_tokens: Optional[int]) -> Tuple[int, str]:
         """
         Evaluate token budget sufficiency
-        
+
         Scoring:
         - 4000+ tokens: 100
         - 2000-4000: 90
@@ -154,7 +154,7 @@ class AgentConfidenceEvaluator:
     def evaluate_response_safety(self, response_text: Optional[str]) -> Tuple[int, str]:
         """
         Evaluate response for safety markers
-        
+
         Looks for:
         - Confidence indicators ("confident", "certain", "sure")
         - Uncertainty markers ("uncertain", "might", "could")
@@ -166,16 +166,30 @@ class AgentConfidenceEvaluator:
         text_lower = response_text.lower()
 
         safe_markers = [
-            "confirmed", "verified", "validated",
-            "confident", "certain", "sure",
-            "completed successfully", "working correctly"
+            "confirmed",
+            "verified",
+            "validated",
+            "confident",
+            "certain",
+            "sure",
+            "completed successfully",
+            "working correctly",
         ]
 
         risk_markers = [
-            "uncertain", "might fail", "could be wrong",
-            "not sure", "possibly", "maybe",
-            "error", "failed", "problem", "issue",
-            "warning", "deprecated", "broken"
+            "uncertain",
+            "might fail",
+            "could be wrong",
+            "not sure",
+            "possibly",
+            "maybe",
+            "error",
+            "failed",
+            "problem",
+            "issue",
+            "warning",
+            "deprecated",
+            "broken",
         ]
 
         safe_count = sum(1 for marker in safe_markers if marker in text_lower)
@@ -194,15 +208,15 @@ class AgentConfidenceEvaluator:
 
         return min(100, score), status
 
-    def evaluate_context_awareness(self, has_sdd_context: bool) -> Tuple[int, str]:
+    def evaluate_context_awareness(self, has_context: bool) -> Tuple[int, str]:
         """
         Evaluate if agent is aware of SDD Architecture context
-        
+
         Scoring:
         - With SDD context loaded: 90
         - Without SDD context: 50
         """
-        if has_sdd_context:
+        if has_context:
             return 90, "Agent has SDD Architecture context loaded"
         return 50, "No SDD context detected (neutral awareness)"
 
@@ -214,7 +228,7 @@ class AgentConfidenceEvaluator:
         temperature: Optional[float] = None,
         max_tokens: Optional[int] = None,
         response_text: Optional[str] = None,
-        has_sdd_context: bool = False
+        has_context: bool = False,
     ) -> Dict[str, Any]:
         """Execute all confidence evaluations"""
 
@@ -223,7 +237,7 @@ class AgentConfidenceEvaluator:
         temp_score, temp_msg = self.evaluate_temperature(temperature)
         token_score, token_msg = self.evaluate_token_budget(max_tokens)
         safety_score, safety_msg = self.evaluate_response_safety(response_text)
-        context_score, context_msg = self.evaluate_context_awareness(has_sdd_context)
+        context_score, context_msg = self.evaluate_context_awareness(has_context)
 
         # Store results
         self.metrics["evaluations"] = {
@@ -231,7 +245,7 @@ class AgentConfidenceEvaluator:
             "temperature": {"score": temp_score, "message": temp_msg},
             "token_budget": {"score": token_score, "message": token_msg},
             "response_safety": {"score": safety_score, "message": safety_msg},
-            "context_awareness": {"score": context_score, "message": context_msg}
+            "context_awareness": {"score": context_score, "message": context_msg},
         }
 
         # Calculate overall confidence (average)
@@ -278,31 +292,12 @@ def main():
     """Main entry point"""
     import argparse
 
-    parser = argparse.ArgumentParser(
-        description="Evaluate AI agent confidence and safety"
-    )
-    parser.add_argument(
-        "--model",
-        help="Model name (e.g., gpt-4, claude-opus)"
-    )
-    parser.add_argument(
-        "--temperature",
-        type=float,
-        help="Temperature setting (0.0-2.0)"
-    )
-    parser.add_argument(
-        "--max-tokens",
-        type=int,
-        help="Maximum tokens available"
-    )
-    parser.add_argument(
-        "--verbose", "-v",
-        action="store_true"
-    )
-    parser.add_argument(
-        "--json",
-        action="store_true"
-    )
+    parser = argparse.ArgumentParser(description="Evaluate AI agent confidence and safety")
+    parser.add_argument("--model", help="Model name (e.g., gpt-4, claude-opus)")
+    parser.add_argument("--temperature", type=float, help="Temperature setting (0.0-2.0)")
+    parser.add_argument("--max-tokens", type=int, help="Maximum tokens available")
+    parser.add_argument("--verbose", "-v", action="store_true")
+    parser.add_argument("--json", action="store_true")
 
     args = parser.parse_args()
 
@@ -311,7 +306,7 @@ def main():
         model=args.model,
         temperature=args.temperature,
         max_tokens=args.max_tokens,
-        has_sdd_context=os.environ.get("SDD_CONTEXT_LOADED") == "true"
+        has_context=os.environ.get("CONTEXT_LOADED") == "true",
     )
 
     if args.json:

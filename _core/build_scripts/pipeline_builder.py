@@ -1,6 +1,6 @@
 """
 PHASE 1: Pipeline Builder
-Consolidates governance files from .sdd-core/ into 2 separate JSON structures:
+Consolidates governance files from core/ into 2 separate JSON structures:
 - governance-core.json (customizable=false items)
 - governance-client.json (customizable=true items)
 
@@ -22,6 +22,7 @@ import yaml
 @dataclass
 class GovernanceItem:
     """Represents a single governance item (mandate, guideline, decision, rule, guardrail)"""
+
     id: str
     title: str
     type: str  # MANDATE, GUIDELINE, DECISION, RULE, GUARDRAIL
@@ -36,8 +37,8 @@ class GovernanceItem:
 class PipelineBuilder:
     """Consolidates governance files into 2 JSON structures"""
 
-    def __init__(self, sdd_core_path: str = ".sdd-core"):
-        path = Path(sdd_core_path)
+    def __init__(self, core_path: str = "core"):
+        path = Path(core_path)
 
         # Compat: when tests run from `_core/`, "_spec" lives in the parent dir.
         if not path.exists() and not path.is_absolute():
@@ -45,7 +46,7 @@ class PipelineBuilder:
             if parent_candidate.exists():
                 path = parent_candidate
 
-        self.sdd_core_path = path
+        self.core_path = path
         self.items: List[GovernanceItem] = []
 
     def build(self) -> Dict[str, Any]:
@@ -75,9 +76,7 @@ class PipelineBuilder:
         governance_core["fingerprint"] = core_fingerprint
 
         # Client fingerprint uses core fingerprint as salt
-        client_fingerprint = self.calculate_fingerprint(
-            {**governance_client, "fingerprint_core_salt": core_fingerprint}
-        )
+        client_fingerprint = self.calculate_fingerprint({**governance_client, "fingerprint_core_salt": core_fingerprint})
         governance_client["fingerprint"] = client_fingerprint
         governance_client["fingerprint_core_salt"] = core_fingerprint
 
@@ -90,13 +89,13 @@ class PipelineBuilder:
 
     def _parse_mandate_spec(self) -> None:
         """Parse mandate.spec file"""
-        mandate_file = self.sdd_core_path / "mandate.spec"
+        mandate_file = self.core_path / "mandate.spec"
         if not mandate_file.exists():
             return
 
         content = mandate_file.read_text(encoding="utf-8")
         # Parse mandate blocks: mandate M001 { ... }
-        pattern = r'mandate\s+(\w+)\s*\{([^}]+)\}'
+        pattern = r"mandate\s+(\w+)\s*\{([^}]+)\}"
         for match in re.finditer(pattern, content, re.MULTILINE | re.DOTALL):
             mandate_id = match.group(1)
             mandate_content = match.group(2)
@@ -104,7 +103,7 @@ class PipelineBuilder:
             # Extract title and description
             title_match = re.search(r'title:\s*"([^"]+)"', mandate_content)
             desc_match = re.search(r'description:\s*"([^"]+)"', mandate_content)
-            category_match = re.search(r'category:\s*(\w+)', mandate_content)
+            category_match = re.search(r"category:\s*(\w+)", mandate_content)
 
             title = title_match.group(1) if title_match else mandate_id
             description = desc_match.group(1) if desc_match else ""
@@ -125,13 +124,13 @@ class PipelineBuilder:
 
     def _parse_guidelines_dsl(self) -> None:
         """Parse guidelines.dsl file"""
-        guidelines_file = self.sdd_core_path / "guidelines.dsl"
+        guidelines_file = self.core_path / "guidelines.dsl"
         if not guidelines_file.exists():
             return
 
         content = guidelines_file.read_text(encoding="utf-8")
         # Parse guideline blocks: guideline G01 { ... }
-        pattern = r'guideline\s+(\w+)\s*\{([^}]+)\}'
+        pattern = r"guideline\s+(\w+)\s*\{([^}]+)\}"
         for match in re.finditer(pattern, content, re.MULTILINE | re.DOTALL):
             guideline_id = match.group(1)
             guideline_content = match.group(2)
@@ -139,7 +138,7 @@ class PipelineBuilder:
             # Extract title and description
             title_match = re.search(r'title:\s*"([^"]+)"', guideline_content)
             desc_match = re.search(r'description:\s*"([^"]+)"', guideline_content)
-            category_match = re.search(r'category:\s*(\w+)', guideline_content)
+            category_match = re.search(r"category:\s*(\w+)", guideline_content)
 
             title = title_match.group(1) if title_match else guideline_id
             description = desc_match.group(1) if desc_match else ""
@@ -166,12 +165,12 @@ class PipelineBuilder:
         content = file_path.read_text(encoding="utf-8")
 
         # Extract front-matter (YAML between --- markers)
-        frontmatter_match = re.match(r'^---\s*\n(.*?)\n---\s*\n', content, re.DOTALL)
+        frontmatter_match = re.match(r"^---\s*\n(.*?)\n---\s*\n", content, re.DOTALL)
         if not frontmatter_match:
             return None
 
         frontmatter_text = frontmatter_match.group(1)
-        body = content[frontmatter_match.end():]
+        body = content[frontmatter_match.end() :]
 
         try:
             frontmatter = yaml.safe_load(frontmatter_text)
@@ -185,7 +184,7 @@ class PipelineBuilder:
 
     def _parse_decisions(self) -> None:
         """Parse decisions/ directory"""
-        decisions_dir = self.sdd_core_path / "decisions"
+        decisions_dir = self.core_path / "decisions"
         if not decisions_dir.exists():
             return
 
@@ -212,7 +211,7 @@ class PipelineBuilder:
 
     def _parse_rules(self) -> None:
         """Parse rules/ directory"""
-        rules_dir = self.sdd_core_path / "rules"
+        rules_dir = self.core_path / "rules"
         if not rules_dir.exists():
             return
 
@@ -239,7 +238,7 @@ class PipelineBuilder:
 
     def _parse_guardrails(self) -> None:
         """Parse guardrails/ directory"""
-        guardrails_dir = self.sdd_core_path / "guardrails"
+        guardrails_dir = self.core_path / "guardrails"
         if not guardrails_dir.exists():
             return
 
@@ -297,7 +296,7 @@ class PipelineBuilder:
         json_str = json.dumps(data, sort_keys=True, ensure_ascii=True)
         return hashlib.sha256(json_str.encode("utf-8")).hexdigest()
 
-    def save_outputs(self, output_dir: str = ".sdd-compiled") -> Dict[str, str]:
+    def save_outputs(self, output_dir: str = "compiled") -> Dict[str, str]:
         """Save governance-core.json and governance-client.json"""
         result = self.build()
 
@@ -326,8 +325,8 @@ class PipelineBuilder:
 
 if __name__ == "__main__":
     # Example usage
-    builder = PipelineBuilder(".sdd-core")
-    result = builder.save_outputs(".sdd-compiled")
+    builder = PipelineBuilder("core")
+    result = builder.save_outputs("compiled")
 
     print("✅ PHASE 1: Pipeline completed")
     print(f"  governance-core.json: {result['governance_core']}")

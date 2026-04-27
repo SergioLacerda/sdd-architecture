@@ -9,6 +9,9 @@ import sys
 from dataclasses import dataclass
 from pathlib import Path
 
+# Base directory is _core/ (parent of the tools/ directory where this script lives)
+BASE_DIR = Path(__file__).parent.parent.resolve()
+
 
 @dataclass
 class TestLayer:
@@ -16,38 +19,39 @@ class TestLayer:
     path: str
     description: str
 
+
 # Define all test layers
 TEST_LAYERS = [
     TestLayer("Core Root", "tests", "Testes de pipeline, compilador e integração"),
-    TestLayer("Wizard", ".sdd-wizard/tests", "Testes de orquestração 7-fases"),
-    TestLayer("Migration", ".sdd-migration/tests", "Testes de migração v2→v3"),
-    TestLayer("Core Extensions", ".sdd-cli/extensions/tests", "Testes de extensões"),
-    TestLayer("Core Execution", ".sdd-core/execution_tests", "Testes de execução"),
-    TestLayer("Compiler", ".sdd-compiler/tests", "Testes do compilador"),
-    TestLayer("RTK", ".sdd-compiler/src/runtime_telemetry_kit", "Testes de telemetria"),
+    TestLayer("Wizard", "wizard/tests", "Testes de orquestração 7-fases"),
+    TestLayer("Migration", "migration/tests", "Testes de migração v2→v3"),
+    TestLayer("Core Extensions", "cli/extensions/tests", "Testes de extensões"),
+    TestLayer("Core Execution", "core/execution_tests", "Testes de execução"),
+    TestLayer("Compiler", "compiler/tests", "Testes do compilador"),
+    TestLayer("RTK", "compiler/src/runtime_telemetry_kit", "Testes de telemetria"),
 ]
 
-def run_tests_for_layer(layer: TestLayer, verbose: bool = False,
-                        fail_fast: bool = False) -> tuple[bool, str]:
+
+def run_tests_for_layer(layer: TestLayer, verbose: bool = False, fail_fast: bool = False) -> tuple[bool, str]:
     """
     Executar testes para uma camada específica
     Retorna: (success, output_summary)
     """
-    layer_path = Path(layer.path)
+    layer_path = BASE_DIR / layer.path
 
     if not layer_path.exists():
         return True, f"⊘ {layer.name}: Diretório não encontrado (skip)"
 
     print(f"\n{'='*70}")
     print(f"🧪 {layer.name} - {layer.description}")
-    print(f"📁 {layer.path}")
-    print('='*70)
+    print(f"📁 {layer_path}")
+    print("=" * 70)
 
     cmd = [
         sys.executable,
         "-m",
         "pytest",
-        layer.path,
+        str(layer_path),
         "-q",
         "--tb=short",
         "--ignore-glob=**/test_cli_typer.py",
@@ -70,33 +74,16 @@ def run_tests_for_layer(layer: TestLayer, verbose: bool = False,
         print(f"\n❌ ERRO: {e}")
         return False, f"{layer.name}: ERRO - {e}"
 
+
 def main():
     """Main entry point"""
     import argparse
 
-    parser = argparse.ArgumentParser(
-        description="Executar todos os testes SDD v3.0 de todas as camadas"
-    )
-    parser.add_argument(
-        "-v", "--verbose",
-        action="store_true",
-        help="Modo verbose (mostra cada teste)"
-    )
-    parser.add_argument(
-        "-x", "--fail-fast",
-        action="store_true",
-        help="Para na primeira falha"
-    )
-    parser.add_argument(
-        "-l", "--layer",
-        type=str,
-        help="Executar apenas uma camada (ex: 'Wizard', 'Core Root')"
-    )
-    parser.add_argument(
-        "--list-layers",
-        action="store_true",
-        help="Listar todas as camadas de teste"
-    )
+    parser = argparse.ArgumentParser(description="Executar todos os testes SDD v3.0 de todas as camadas")
+    parser.add_argument("-v", "--verbose", action="store_true", help="Modo verbose (mostra cada teste)")
+    parser.add_argument("-x", "--fail-fast", action="store_true", help="Para na primeira falha")
+    parser.add_argument("-l", "--layer", type=str, help="Executar apenas uma camada (ex: 'Wizard', 'Core Root')")
+    parser.add_argument("--list-layers", action="store_true", help="Listar todas as camadas de teste")
 
     args = parser.parse_args()
 
@@ -111,15 +98,15 @@ def main():
     # Filtrar camadas se especificado
     layers_to_run = TEST_LAYERS
     if args.layer:
-        layers_to_run = [l for l in TEST_LAYERS if args.layer.lower() in l.name.lower()]
+        layers_to_run = [layer_item for layer_item in TEST_LAYERS if args.layer.lower() in layer_item.name.lower()]
         if not layers_to_run:
             print(f"❌ Camada '{args.layer}' não encontrada")
             print("\nUse --list-layers para ver camadas disponíveis")
             return 1
 
-    print("\n" + "="*70)
+    print("\n" + "=" * 70)
     print("🚀 SDD v3.0 - Test Runner (Todas as Camadas)")
-    print("="*70)
+    print("=" * 70)
     print(f"Camadas a executar: {len(layers_to_run)}")
     print(f"Verbose: {'✅' if args.verbose else '❌'}")
     print(f"Fail-Fast: {'✅' if args.fail_fast else '❌'}")
@@ -137,9 +124,9 @@ def main():
             break
 
     # Sumário final
-    print("\n" + "="*70)
+    print("\n" + "=" * 70)
     print("📊 SUMÁRIO FINAL")
-    print("="*70)
+    print("=" * 70)
 
     for success, summary in results:
         status_icon = "✅" if success else "❌"
@@ -155,6 +142,7 @@ def main():
     else:
         print("\n❌ ALGUNS TESTES FALHARAM")
         return 1
+
 
 if __name__ == "__main__":
     sys.exit(main())

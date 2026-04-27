@@ -65,7 +65,7 @@ Changes: 8 files changed, 653 insertions(+), 920 deletions(-)
 │   ├── .sdd-migration/
 │   ├── .sdd-runtime/
 │   ├── .sdd-wizard/
-│   ├── sdd_cli/
+│   ├── cli/
 │   ├── tests/
 │   └── README.md
 │
@@ -93,7 +93,7 @@ Changes: 8 files changed, 653 insertions(+), 920 deletions(-)
     ├── .sdd-migration → _core/.sdd-migration
     ├── .sdd-integration → _core/.sdd-integration
     ├── .sdd-runtime → _core/.sdd-runtime
-    ├── sdd_cli → _core/sdd_cli
+    ├── cli → _core/cli
     ├── tests → _core/tests
     ├── docs → _spec/docs          # ✅ NOVO
     ├── INDEX.md → _spec/INDEX.md  # ✅ NOVO

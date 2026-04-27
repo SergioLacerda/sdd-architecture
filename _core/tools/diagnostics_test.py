@@ -31,12 +31,7 @@ class DiagnosticTestSuite:
             "timestamp": datetime.now().isoformat(),
             "project_root": str(self.project_root),
             "tests": [],
-            "summary": {
-                "total": 0,
-                "passed": 0,
-                "failed": 0,
-                "skipped": 0
-            }
+            "summary": {"total": 0, "passed": 0, "failed": 0, "skipped": 0},
         }
         self.test_count = 0
 
@@ -55,20 +50,10 @@ class DiagnosticTestSuite:
     def log(self, message: str, level: str = "info"):
         """Log message"""
         if self.verbose:
-            prefix = {
-                "info": "ℹ️ ",
-                "pass": "✅ ",
-                "fail": "❌ ",
-                "skip": "⏭️ "
-            }.get(level, "• ")
+            prefix = {"info": "ℹ️ ", "pass": "✅ ", "fail": "❌ ", "skip": "⏭️ "}.get(level, "• ")
             print(f"{prefix} {message}")
 
-    def run_test(
-        self,
-        test_name: str,
-        test_func,
-        category: str = "general"
-    ) -> bool:
+    def run_test(self, test_name: str, test_func, category: str = "general") -> bool:
         """Execute a single test"""
         self.test_count += 1
 
@@ -76,13 +61,9 @@ class DiagnosticTestSuite:
             passed, message = test_func()
 
             status = "PASS" if passed else "FAIL"
-            self.results["tests"].append({
-                "id": self.test_count,
-                "name": test_name,
-                "category": category,
-                "status": status,
-                "message": message
-            })
+            self.results["tests"].append(
+                {"id": self.test_count, "name": test_name, "category": category, "status": status, "message": message}
+            )
 
             self.results["summary"]["total"] += 1
             if passed:
@@ -95,13 +76,9 @@ class DiagnosticTestSuite:
             return passed
 
         except Exception as e:
-            self.results["tests"].append({
-                "id": self.test_count,
-                "name": test_name,
-                "category": category,
-                "status": "ERROR",
-                "message": str(e)
-            })
+            self.results["tests"].append(
+                {"id": self.test_count, "name": test_name, "category": category, "status": "ERROR", "message": str(e)}
+            )
             self.results["summary"]["total"] += 1
             self.results["summary"]["failed"] += 1
             self.log(f"{test_name}: ERROR - {str(e)}", "fail")
@@ -118,10 +95,7 @@ class DiagnosticTestSuite:
 
     def test_core_subsystems(self) -> Tuple[bool, str]:
         """Test: All core subsystems exist"""
-        subsystems = [
-            ".sdd-core", ".sdd-cli", ".sdd-wizard",
-            ".sdd-compiler", ".sdd-migration"
-        ]
+        subsystems = ["core", "cli", "wizard", "compiler", "migration"]
 
         core_dir = self.project_root / "_core"
         missing = []
@@ -141,13 +115,13 @@ class DiagnosticTestSuite:
             return True, f"Found at {docs_dir}"
         return False, "Not found"
 
-    def test_sdd_source_exists(self) -> Tuple[bool, str]:
+    def test_source_exists(self) -> Tuple[bool, str]:
         """Test: .sdd/source/ exists"""
-        sdd_dir = self.project_root / ".sdd"
-        if not sdd_dir.exists():
+        dir = self.project_root / ".sdd"
+        if not dir.exists():
             return True, ".sdd/ not initialized (optional)"
 
-        source_dir = sdd_dir / "source"
+        source_dir = dir / "source"
         if source_dir.exists():
             return True, f"Found at {source_dir}"
         return True, ".sdd/source not yet created (optional)"
@@ -183,11 +157,7 @@ class DiagnosticTestSuite:
 
     def test_python_scripts_exist(self) -> Tuple[bool, str]:
         """Test: Key Python scripts exist"""
-        scripts = [
-            "_core/health_check.py",
-            "_core/agent_confidence.py",
-            "_core/diagnostics_test.py"
-        ]
+        scripts = ["_core/health_check.py", "_core/agent_confidence.py", "_core/diagnostics_test.py"]
 
         missing = []
         for script in scripts:
@@ -201,11 +171,7 @@ class DiagnosticTestSuite:
 
     def test_ai_instructions_exist(self) -> Tuple[bool, str]:
         """Test: AI instruction files exist"""
-        instructions = [
-            "AI_INSTRUCTIONS.md",
-            ".copilot-instructions.md",
-            ".cursorrules"
-        ]
+        instructions = ["AI_INSTRUCTIONS.md", ".copilot-instructions.md", ".cursorrules"]
 
         found = []
         for instr in instructions:
@@ -251,13 +217,7 @@ class DiagnosticTestSuite:
     def test_git_status_clean(self) -> Tuple[bool, str]:
         """Test: Git repository exists and is readable"""
         try:
-            result = subprocess.run(
-                ["git", "status"],
-                cwd=self.project_root,
-                capture_output=True,
-                text=True,
-                timeout=5
-            )
+            result = subprocess.run(["git", "status"], cwd=self.project_root, capture_output=True, text=True, timeout=5)
             if result.returncode == 0:
                 return True, "Git repository is healthy"
             return False, "Git command failed"
@@ -267,13 +227,7 @@ class DiagnosticTestSuite:
     def test_git_main_branch(self) -> Tuple[bool, str]:
         """Test: main branch exists"""
         try:
-            result = subprocess.run(
-                ["git", "branch", "-a"],
-                cwd=self.project_root,
-                capture_output=True,
-                text=True,
-                timeout=5
-            )
+            result = subprocess.run(["git", "branch", "-a"], cwd=self.project_root, capture_output=True, text=True, timeout=5)
 
             branches = result.stdout.lower()
             if "main" in branches or "master" in branches:
@@ -291,7 +245,7 @@ class DiagnosticTestSuite:
         self.run_test("Core _core/ directory", self.test_core_root_exists, "structure")
         self.run_test("Core subsystems", self.test_core_subsystems, "structure")
         self.run_test("Documentation root", self.test_docs_root_exists, "structure")
-        self.run_test("SDD source", self.test_sdd_source_exists, "structure")
+        self.run_test("SDD source", self.test_source_exists, "structure")
         self.run_test("Seedling directories", self.test_seedling_dirs, "structure")
         self.run_test("Git directory", self.test_git_dir_exists, "structure")
 
@@ -354,19 +308,9 @@ def main():
     """Main entry point"""
     import argparse
 
-    parser = argparse.ArgumentParser(
-        description="Run diagnostic tests for SDD Architecture"
-    )
-    parser.add_argument(
-        "--verbose", "-v",
-        action="store_true",
-        help="Verbose output"
-    )
-    parser.add_argument(
-        "--json",
-        action="store_true",
-        help="Output as JSON"
-    )
+    parser = argparse.ArgumentParser(description="Run diagnostic tests for SDD Architecture")
+    parser.add_argument("--verbose", "-v", action="store_true", help="Verbose output")
+    parser.add_argument("--json", action="store_true", help="Output as JSON")
 
     args = parser.parse_args()
 

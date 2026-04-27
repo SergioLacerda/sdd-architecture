@@ -3,7 +3,7 @@
 PHASE 2: Compile governance from source/ → governance-core.json + governance-client.json
 
 Reads:
-  - .sdd-core/source/{mandates,guidelines,decisions,rules,guardrails}/*.md
+  - core/source/{mandates,guidelines,decisions,rules,guardrails}/*.md
   - user_selections.json (which items go to CORE vs CLIENT)
 
 Outputs:
@@ -28,9 +28,9 @@ import yaml
 
 
 class GovernanceCompiler:
-    def __init__(self, sdd_core_path: str = ".sdd-core"):
-        self.sdd_core_path = Path(sdd_core_path)
-        self.source_path = self.sdd_core_path / "source"
+    def __init__(self, core_path: str = "core"):
+        self.core_path = Path(core_path)
+        self.source_path = self.core_path / "source"
         self.selections: Dict[str, Any] = {}
         self.all_items: List[Dict[str, Any]] = []
         self.core_items: List[Dict[str, Any]] = []
@@ -68,7 +68,7 @@ class GovernanceCompiler:
             print(f"   Reading source/{item_type}/ ({len(md_files)} items)")
 
             for md_file in md_files:
-                item = self._parse_markdown_item(md_file, item_type.rstrip('s').upper())
+                item = self._parse_markdown_item(md_file, item_type.rstrip("s").upper())
                 if item:
                     self.all_items.append(item)
 
@@ -80,7 +80,7 @@ class GovernanceCompiler:
         content = md_file.read_text(encoding="utf-8")
 
         # Extract YAML frontmatter
-        yaml_match = re.match(r'^---\s*\n(.*?)\n---', content, re.DOTALL)
+        yaml_match = re.match(r"^---\s*\n(.*?)\n---", content, re.DOTALL)
         if not yaml_match:
             print(f"      ⚠️  No YAML in {md_file.name}")
             return None
@@ -99,7 +99,7 @@ class GovernanceCompiler:
             "customizable": frontmatter.get("customizable", False),
             "optional": frontmatter.get("optional", True),
             "category": frontmatter.get("category", "general"),
-            "source_file": str(md_file.relative_to(self.sdd_core_path)),
+            "source_file": str(md_file.relative_to(self.core_path)),
         }
 
         return item
@@ -135,11 +135,10 @@ class GovernanceCompiler:
     def calculate_fingerprint(self, data: Dict[str, Any]) -> str:
         """Calculate SHA256 fingerprint"""
         # Create copy without fingerprint fields
-        data_copy = {k: v for k, v in data.items()
-                    if k not in ["fingerprint", "fingerprint_core_salt"]}
+        data_copy = {k: v for k, v in data.items() if k not in ["fingerprint", "fingerprint_core_salt"]}
 
         # Hash as sorted JSON
-        hash_input = json.dumps(data_copy, sort_keys=True).encode('utf-8')
+        hash_input = json.dumps(data_copy, sort_keys=True).encode("utf-8")
         return hashlib.sha256(hash_input).hexdigest()
 
     def generate_governance_files(self) -> None:
@@ -154,10 +153,7 @@ class GovernanceCompiler:
             "readonly": True,
             "compiled_at": datetime.now().isoformat(),
             "items": self.core_items,
-            "metadata": {
-                "total_items": len(self.core_items),
-                "customizable": False
-            }
+            "metadata": {"total_items": len(self.core_items), "customizable": False},
         }
 
         # Create client structure
@@ -167,10 +163,7 @@ class GovernanceCompiler:
             "readonly": False,
             "compiled_at": datetime.now().isoformat(),
             "items": self.client_items,
-            "metadata": {
-                "total_items": len(self.client_items),
-                "customizable": True
-            }
+            "metadata": {"total_items": len(self.client_items), "customizable": True},
         }
 
         # Calculate fingerprints
@@ -178,27 +171,24 @@ class GovernanceCompiler:
         governance_core["fingerprint"] = fingerprint_core
 
         # Client fingerprint uses core fingerprint as salt
-        combined_for_client = {
-            **governance_client,
-            "fingerprint_core_salt": fingerprint_core
-        }
+        combined_for_client = {**governance_client, "fingerprint_core_salt": fingerprint_core}
         fingerprint_client = self.calculate_fingerprint(combined_for_client)
         governance_client["fingerprint"] = fingerprint_client
         governance_client["fingerprint_core_salt"] = fingerprint_core
 
         # Save files
-        output_dir = self.sdd_core_path.parent / ".sdd-compiled"
+        output_dir = self.core_path.parent / "compiled"
         output_dir.mkdir(parents=True, exist_ok=True)
 
         # Save core JSON
         core_path = output_dir / "governance-core.json"
         core_path.write_text(json.dumps(governance_core, indent=2, ensure_ascii=False))
-        print(f"   ✓ {core_path.relative_to(self.sdd_core_path.parent)}")
+        print(f"   ✓ {core_path.relative_to(self.core_path.parent)}")
 
         # Save client JSON
         client_path = output_dir / "governance-client.json"
         client_path.write_text(json.dumps(governance_client, indent=2, ensure_ascii=False))
-        print(f"   ✓ {client_path.relative_to(self.sdd_core_path.parent)}")
+        print(f"   ✓ {client_path.relative_to(self.core_path.parent)}")
 
         # Save metadata files
         metadata_core = {
@@ -212,7 +202,7 @@ class GovernanceCompiler:
 
         metadata_core_path = output_dir / "metadata-core.json"
         metadata_core_path.write_text(json.dumps(metadata_core, indent=2))
-        print(f"   ✓ {metadata_core_path.relative_to(self.sdd_core_path.parent)}")
+        print(f"   ✓ {metadata_core_path.relative_to(self.core_path.parent)}")
 
         metadata_client = {
             "version": "3.0",
@@ -226,7 +216,7 @@ class GovernanceCompiler:
 
         metadata_client_path = output_dir / "metadata-client.json"
         metadata_client_path.write_text(json.dumps(metadata_client, indent=2))
-        print(f"   ✓ {metadata_client_path.relative_to(self.sdd_core_path.parent)}")
+        print(f"   ✓ {metadata_client_path.relative_to(self.core_path.parent)}")
 
         print()
         print("=" * 100)
@@ -258,7 +248,7 @@ class GovernanceCompiler:
 
         print("📁 FILES GENERATED")
         print("-" * 100)
-        output_dir = self.sdd_core_path.parent / ".sdd-compiled"
+        output_dir = self.core_path.parent / "compiled"
         print(f"  {output_dir}/")
         print("  ├── governance-core.json")
         print("  ├── governance-client.json")
@@ -303,13 +293,14 @@ if __name__ == "__main__":
 
     # Determine correct path
     from pathlib import Path
-    current_dir = Path.cwd()
-    if current_dir.name == ".sdd-core":
-        sdd_core_path = current_dir
-    else:
-        sdd_core_path = current_dir / ".sdd-core"
 
-    compiler = GovernanceCompiler(str(sdd_core_path))
+    current_dir = Path.cwd()
+    if current_dir.name == "core":
+        core_path = current_dir
+    else:
+        core_path = current_dir / "core"
+
+    compiler = GovernanceCompiler(str(core_path))
 
     # Allow custom selections file as argument
     selections_file = sys.argv[1] if len(sys.argv) > 1 else "user_selections_sample.json"

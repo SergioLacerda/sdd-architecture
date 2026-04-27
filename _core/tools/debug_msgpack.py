@@ -1,18 +1,25 @@
+import importlib
 import json
+import sys
 from pathlib import Path
 
 import msgpack
-from architecture.governance_compiler import GovernanceCompiler
-from architecture.pipeline_builder import PipelineBuilder
+
+ROOT = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(ROOT / "compiler"))
+sys.path.insert(0, str(ROOT / "build_scripts"))
+
+GovernanceCompiler = importlib.import_module("governance_compiler").GovernanceCompiler
+PipelineBuilder = importlib.import_module("pipeline_builder").PipelineBuilder
 
 # Build and compile
 print("Building pipeline...")
 builder = PipelineBuilder("../_spec")
-builder.save_outputs(".sdd-compiled")
+builder.save_outputs("compiled")
 
 print("Compiling...")
-compiler = GovernanceCompiler(".sdd-compiled")
-result = compiler.compile(".sdd-compiled")
+compiler = GovernanceCompiler("compiled")
+result = compiler.compile("compiled")
 
 # Deserialize core msgpack
 core_msgpack_file = result["core_msgpack_file"]
@@ -21,10 +28,7 @@ print(f"File exists: {Path(core_msgpack_file).exists()}")
 if Path(core_msgpack_file).exists():
     print(f"File size: {Path(core_msgpack_file).stat().st_size} bytes")
 
-core_data = msgpack.unpackb(
-    Path(core_msgpack_file).read_bytes(),
-    raw=False
-)
+core_data = msgpack.unpackb(Path(core_msgpack_file).read_bytes(), raw=False)
 
 print(f"\nCore data keys: {list(core_data.keys())}")
 print(f"Core data category: {core_data.get('category')}")

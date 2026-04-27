@@ -20,7 +20,7 @@ class TestSetupWizardPath:
         """PATH A should be selected for bug fixes."""
         # Simulate user choosing "Fix a bug"
         mock_choice = "0"  # First option (index 0)
-        with patch('builtins.input', return_value=mock_choice):
+        with patch("builtins.input", return_value=mock_choice):
             # In real test, would call determine_path()
             # For now, just verify PATH mapping exists
             path_map = {
@@ -215,12 +215,7 @@ class TestSetupWizardTestMode:
         """Test mode should run without user input."""
         wizard_path = Path("docs/ia/SCRIPTS/setup-wizard.py")
         if wizard_path.exists():
-            result = subprocess.run(
-                [sys.executable, str(wizard_path), "--test"],
-                capture_output=True,
-                text=True,
-                timeout=5
-            )
+            result = subprocess.run([sys.executable, str(wizard_path), "--test"], capture_output=True, text=True, timeout=5)
             assert result.returncode == 0
             assert "Test Mode" in result.stdout or "test" in result.stdout.lower()
 
@@ -229,10 +224,7 @@ class TestSetupWizardTestMode:
         wizard_path = Path("docs/ia/SCRIPTS/setup-wizard.py")
         if wizard_path.exists():
             result = subprocess.run(
-                [sys.executable, str(wizard_path), "--test", "--verbose"],
-                capture_output=True,
-                text=True,
-                timeout=5
+                [sys.executable, str(wizard_path), "--test", "--verbose"], capture_output=True, text=True, timeout=5
             )
             assert result.returncode == 0
             # Should contain timing information
@@ -294,12 +286,7 @@ class TestSetupWizardIntegration:
         """Full workflow should complete in test mode."""
         wizard_path = Path("docs/ia/SCRIPTS/setup-wizard.py")
         if wizard_path.exists():
-            result = subprocess.run(
-                [sys.executable, str(wizard_path), "--test"],
-                capture_output=True,
-                text=True,
-                timeout=5
-            )
+            result = subprocess.run([sys.executable, str(wizard_path), "--test"], capture_output=True, text=True, timeout=5)
             assert result.returncode == 0
 
     def test_all_paths_produce_valid_output(self):
@@ -317,6 +304,7 @@ class TestSetupWizardMetrics:
     def test_timing_measurement_works(self):
         """Should measure setup time in seconds."""
         import time
+
         start = time.time()
         time.sleep(0.1)
         elapsed = time.time() - start
@@ -329,10 +317,7 @@ class TestSetupWizardMetrics:
         wizard_path = Path("docs/ia/SCRIPTS/setup-wizard.py")
         if wizard_path.exists():
             result = subprocess.run(
-                [sys.executable, str(wizard_path), "--test", "--verbose"],
-                capture_output=True,
-                text=True,
-                timeout=5
+                [sys.executable, str(wizard_path), "--test", "--verbose"], capture_output=True, text=True, timeout=5
             )
             # Should have metrics output
             assert "Duration" in result.stdout or "seconds" in result.stdout

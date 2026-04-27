@@ -18,10 +18,10 @@ def read_dsl_file(file_path: Path) -> Dict[str, str]:
     if not file_path.exists():
         return entries
 
-    content = file_path.read_text(encoding='utf-8')
+    content = file_path.read_text(encoding="utf-8")
 
     # Pattern: id:Title { properties }
-    pattern = r'(\w+):([^{]+)\{([^}]+)\}'
+    pattern = r"(\w+):([^{]+)\{([^}]+)\}"
 
     for match in re.finditer(pattern, content):
         item_id = match.group(1).strip()
@@ -35,12 +35,10 @@ def read_dsl_file(file_path: Path) -> Dict[str, str]:
             prop_value = prop_match.group(2)
             properties[prop_key] = prop_value
 
-        entries[item_id] = {
-            'title': title,
-            'properties': properties
-        }
+        entries[item_id] = {"title": title, "properties": properties}
 
     return entries
+
 
 def regenerate_guideline_files(source_path: Path) -> None:
     """Regenerate all guideline markdown files with proper YAML"""
@@ -63,7 +61,7 @@ def regenerate_guideline_files(source_path: Path) -> None:
     count = 0
     for md_file in sorted(guidelines_dir.glob("*.md")):
         # Extract ID from filename: G01--name.md → G01
-        id_match = re.match(r'^([A-Z]\d+)', md_file.stem)
+        id_match = re.match(r"^([A-Z]\d+)", md_file.stem)
         if not id_match:
             continue
 
@@ -73,23 +71,22 @@ def regenerate_guideline_files(source_path: Path) -> None:
             continue
 
         entry = dsl_entries[item_id]
-        title = entry['title']
-        properties = entry['properties']
+        title = entry["title"]
+        properties = entry["properties"]
 
         # Create frontmatter dict
         frontmatter = {
-            'id': item_id,
-            'title': title,
-            'type': 'GUIDELINE',
-            'criticality': properties.get('criticality', 'OPCIONAL'),
-            'customizable': properties.get('customizable', 'true').lower() == 'true',
-            'optional': properties.get('optional', 'true').lower() == 'true',
-            'category': properties.get('category', 'general'),
+            "id": item_id,
+            "title": title,
+            "type": "GUIDELINE",
+            "criticality": properties.get("criticality", "OPCIONAL"),
+            "customizable": properties.get("customizable", "true").lower() == "true",
+            "optional": properties.get("optional", "true").lower() == "true",
+            "category": properties.get("category", "general"),
         }
 
         # Create markdown content
-        yaml_frontmatter = yaml.dump(frontmatter, default_flow_style=False,
-                                     allow_unicode=True, sort_keys=False)
+        yaml_frontmatter = yaml.dump(frontmatter, default_flow_style=False, allow_unicode=True, sort_keys=False)
         markdown_content = f"""---
 {yaml_frontmatter}---
 
@@ -105,7 +102,7 @@ See guidelines.dsl for full specification.
 """
 
         # Write file
-        md_file.write_text(markdown_content, encoding='utf-8')
+        md_file.write_text(markdown_content, encoding="utf-8")
         count += 1
 
         if count % 10 == 0:
@@ -113,6 +110,7 @@ See guidelines.dsl for full specification.
 
     print(f"   ✓ Regenerated {count} guideline files with proper YAML")
     print()
+
 
 def regenerate_mandate_files(source_path: Path) -> None:
     """Regenerate mandate markdown files with proper YAML"""
@@ -133,9 +131,9 @@ def regenerate_mandate_files(source_path: Path) -> None:
 
     # Parse mandate.spec
     mandates = {}
-    content = spec_path.read_text(encoding='utf-8')
+    content = spec_path.read_text(encoding="utf-8")
 
-    pattern = r'(\w+):([^{]+)\{([^}]+)\}'
+    pattern = r"(\w+):([^{]+)\{([^}]+)\}"
     for match in re.finditer(pattern, content):
         mandate_id = match.group(1).strip()
         title = match.group(2).strip()
@@ -147,14 +145,14 @@ def regenerate_mandate_files(source_path: Path) -> None:
             prop_value = prop_match.group(2)
             properties[prop_key] = prop_value
 
-        mandates[mandate_id] = {'title': title, 'properties': properties}
+        mandates[mandate_id] = {"title": title, "properties": properties}
 
     print(f"   ✓ Loaded {len(mandates)} mandates from mandate.spec")
     print()
 
     # Regenerate each mandate file
     for md_file in sorted(mandates_dir.glob("*.md")):
-        id_match = re.match(r'^([A-Z]\d+)', md_file.stem)
+        id_match = re.match(r"^([A-Z]\d+)", md_file.stem)
         if not id_match:
             continue
 
@@ -164,21 +162,20 @@ def regenerate_mandate_files(source_path: Path) -> None:
             continue
 
         mandate = mandates[mandate_id]
-        title = mandate['title']
-        properties = mandate['properties']
+        title = mandate["title"]
+        properties = mandate["properties"]
 
         frontmatter = {
-            'id': mandate_id,
-            'title': title,
-            'type': 'MANDATE',
-            'criticality': 'OBRIGATÓRIO',
-            'customizable': False,
-            'optional': False,
-            'category': properties.get('category', 'general'),
+            "id": mandate_id,
+            "title": title,
+            "type": "MANDATE",
+            "criticality": "OBRIGATÓRIO",
+            "customizable": False,
+            "optional": False,
+            "category": properties.get("category", "general"),
         }
 
-        yaml_frontmatter = yaml.dump(frontmatter, default_flow_style=False,
-                                     allow_unicode=True, sort_keys=False)
+        yaml_frontmatter = yaml.dump(frontmatter, default_flow_style=False, allow_unicode=True, sort_keys=False)
         markdown_content = f"""---
 {yaml_frontmatter}---
 
@@ -193,22 +190,23 @@ This is a mandatory governance item generated from mandate.spec.
 See mandate.spec for full specification.
 """
 
-        md_file.write_text(markdown_content, encoding='utf-8')
+        md_file.write_text(markdown_content, encoding="utf-8")
 
     print(f"   ✓ Regenerated {len(mandates)} mandate files with proper YAML")
     print()
+
 
 def main():
     from pathlib import Path
 
     # Determine correct path
     current_dir = Path.cwd()
-    if current_dir.name == ".sdd-core":
-        sdd_core_path = current_dir
+    if current_dir.name == "core":
+        core_path = current_dir
     else:
-        sdd_core_path = current_dir / ".sdd-core"
+        core_path = current_dir / "core"
 
-    source_path = sdd_core_path / "source"
+    source_path = core_path / "source"
 
     if not source_path.exists():
         print("❌ source/ directory not found")
@@ -227,6 +225,7 @@ def main():
     print("✅ YAML FRONTMATTER FIXED")
     print("=" * 100)
     print()
+
 
 if __name__ == "__main__":
     main()

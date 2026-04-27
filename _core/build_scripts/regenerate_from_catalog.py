@@ -11,23 +11,33 @@ from typing import Any, Dict
 import yaml
 
 
-def regenerate_from_catalog(sdd_core_path: Path) -> None:
+def _to_type_key(item_type: str) -> str:
+    """Normalize item type to plural directory key."""
+    if not item_type:
+        return "guidelines"
+    if item_type.endswith("s"):
+        return item_type
+    return f"{item_type}s"
+
+
+def regenerate_from_catalog(core_path: Path) -> None:
     """Regenerate source/ from catalog JSON"""
 
     # Load catalog
-    catalog_path = sdd_core_path.parent / "governance_items_catalog.json"
+    catalog_path = core_path.parent / "governance_items_catalog.json"
     if not catalog_path.exists():
         print(f"❌ {catalog_path} not found")
         return
 
     catalog = json.loads(catalog_path.read_text())
-    total_items = catalog.get('total_items', len(catalog.get('all_items', [])))
+    total_items = catalog.get("total_items", len(catalog.get("all_items", [])))
     print(f"📖 Loaded {total_items} items from catalog")
     print()
 
     # Clear and recreate source/
-    source_path = sdd_core_path / "source"
+    source_path = core_path / "source"
     import shutil
+
     if source_path.exists():
         shutil.rmtree(source_path)
     source_path.mkdir(parents=True, exist_ok=True)
@@ -43,9 +53,9 @@ def regenerate_from_catalog(sdd_core_path: Path) -> None:
     total = 0
     items_by_type_count = {}
 
-    for item in catalog.get('all_items', []):
-        item_type = item.get('type', '').lower()
-        type_key = item_type + 's' if item_type and not item_type.endswith('s') else (item_type + 's' if item_type else 'guidelines')
+    for item in catalog.get("all_items", []):
+        item_type = item.get("type", "").lower()
+        type_key = _to_type_key(item_type)
 
         type_dir = type_dirs.get(type_key)
         if type_dir:
@@ -61,6 +71,7 @@ def regenerate_from_catalog(sdd_core_path: Path) -> None:
     print(f"   ✓ Total files written: {total}")
     print()
 
+
 def count_type_items(items_data: Any) -> int:
     """Count items in structure (could be list or dict)"""
     if isinstance(items_data, list):
@@ -75,32 +86,32 @@ def count_type_items(items_data: Any) -> int:
         return total
     return 0
 
+
 def write_markdown_file(type_dir: Path, item: Dict[str, Any]) -> None:
     """Write item as markdown file with proper YAML frontmatter"""
 
-    item_id = item.get('id', 'UNKNOWN')
-    title = item.get('title', 'Untitled')
+    item_id = item.get("id", "UNKNOWN")
+    title = item.get("title", "Untitled")
 
     # Create frontmatter dict
     frontmatter = {
-        'id': item_id,
-        'title': title,
-        'type': item.get('type', ''),
-        'criticality': item.get('criticality', ''),
-        'customizable': item.get('customizable', False),
-        'optional': item.get('optional', False),
-        'category': item.get('category', 'general'),
+        "id": item_id,
+        "title": title,
+        "type": item.get("type", ""),
+        "criticality": item.get("criticality", ""),
+        "customizable": item.get("customizable", False),
+        "optional": item.get("optional", False),
+        "category": item.get("category", "general"),
     }
 
     # Generate YAML with proper escaping
-    yaml_str = yaml.dump(frontmatter, default_flow_style=False,
-                        allow_unicode=True, sort_keys=False)
+    yaml_str = yaml.dump(frontmatter, default_flow_style=False, allow_unicode=True, sort_keys=False)
 
     # Create markdown filename
     title_slug = title.lower()
-    title_slug = re.sub(r'[^a-z0-9\s-]', '', title_slug)  # Remove special chars
-    title_slug = re.sub(r'\s+', '-', title_slug)  # Replace spaces with dashes
-    title_slug = title_slug.strip('-')[:50]  # Limit length
+    title_slug = re.sub(r"[^a-z0-9\s-]", "", title_slug)  # Remove special chars
+    title_slug = re.sub(r"\s+", "-", title_slug)  # Replace spaces with dashes
+    title_slug = title_slug.strip("-")[:50]  # Limit length
 
     filename = f"{item_id}-{title_slug}.md"
 
@@ -121,20 +132,21 @@ See the relevant specification file for full information.
 
     # Write file
     file_path = type_dir / filename
-    file_path.write_text(markdown_content, encoding='utf-8')
+    file_path.write_text(markdown_content, encoding="utf-8")
+
 
 def main():
     from pathlib import Path
 
     # Determine paths
     current_dir = Path.cwd()
-    if current_dir.name == ".sdd-core":
-        sdd_core_path = current_dir
+    if current_dir.name == "core":
+        core_path = current_dir
     else:
-        sdd_core_path = current_dir / ".sdd-core"
+        core_path = current_dir / "core"
 
-    if not sdd_core_path.exists():
-        print(f"❌ {sdd_core_path} not found")
+    if not core_path.exists():
+        print(f"❌ {core_path} not found")
         return
 
     print()
@@ -143,12 +155,13 @@ def main():
     print("=" * 100)
     print()
 
-    regenerate_from_catalog(sdd_core_path)
+    regenerate_from_catalog(core_path)
 
     print("=" * 100)
     print("✅ source/ REGENERATED FROM CATALOG")
     print("=" * 100)
     print()
+
 
 if __name__ == "__main__":
     main()

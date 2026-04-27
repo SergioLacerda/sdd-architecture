@@ -2,7 +2,7 @@
 Tests for PHASE 4: Deployment
 
 Validates:
-1. Deployment files copied to .sdd-compiler/runtime/
+1. Deployment files copied to compiler/runtime/
 2. All required files present
 3. Metadata valid
 4. Deployment checklist generated
@@ -13,7 +13,6 @@ import json
 from pathlib import Path
 
 import pytest
-
 from deployment_manager import DeploymentManager
 
 
@@ -48,10 +47,7 @@ class TestPhase4Deployment:
         result = manager.deploy()
 
         location = result.get("deployment_location")
-        assert (
-            ".sdd-runtime/compiled" in location
-            or ".sdd-compiler/runtime" in location
-        )
+        assert "runtime/compiled" in location or "compiler/runtime" in location
         assert Path(location).exists()
 
     def test_checklist_all_passed(self, manager):
@@ -89,7 +85,7 @@ class TestPhase4Deployment:
 
     def test_core_msgpack_deployed(self, manager):
         """Test that core msgpack is deployed"""
-        result = manager.deploy()
+        manager.deploy()
 
         core_msgpack = manager.runtime_compiled / "governance-core.compiled.msgpack"
         assert core_msgpack.exists(), "Core msgpack not deployed"
@@ -100,11 +96,9 @@ class TestPhase4Deployment:
 
     def test_client_msgpack_deployed(self, manager):
         """Test that client msgpack is deployed"""
-        result = manager.deploy()
+        manager.deploy()
 
-        client_msgpack = (
-            manager.runtime_compiled / "governance-client-template.compiled.msgpack"
-        )
+        client_msgpack = manager.runtime_compiled / "governance-client-template.compiled.msgpack"
         assert client_msgpack.exists(), "Client msgpack not deployed"
 
         # Should have size > 0 and larger than core

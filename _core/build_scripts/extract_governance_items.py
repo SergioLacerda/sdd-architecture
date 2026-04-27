@@ -15,8 +15,8 @@ import yaml
 
 
 class GovernanceItemExtractor:
-    def __init__(self, sdd_core_path: str = "."):
-        self.sdd_core_path = Path(sdd_core_path)
+    def __init__(self, core_path: str = "."):
+        self.core_path = Path(core_path)
         self.items: List[Dict[str, Any]] = []
 
     def extract_all(self) -> List[Dict[str, Any]]:
@@ -62,7 +62,7 @@ class GovernanceItemExtractor:
 
     def _extract_mandates(self) -> List[Dict]:
         """Extract mandates from mandate.spec"""
-        mandate_file = self.sdd_core_path / "mandate.spec"
+        mandate_file = self.core_path / "mandate.spec"
         if not mandate_file.exists():
             return []
 
@@ -70,7 +70,7 @@ class GovernanceItemExtractor:
         mandates = []
 
         # Parse: mandate M001 { ... } with proper bracket matching
-        pattern = r'mandate\s+(\w+)\s*\{'
+        pattern = r"mandate\s+(\w+)\s*\{"
 
         for match in re.finditer(pattern, content):
             mandate_id = match.group(1)
@@ -80,18 +80,18 @@ class GovernanceItemExtractor:
             brace_count = 1
             pos = start_pos
             while pos < len(content) and brace_count > 0:
-                if content[pos] == '{':
+                if content[pos] == "{":
                     brace_count += 1
-                elif content[pos] == '}':
+                elif content[pos] == "}":
                     brace_count -= 1
                 pos += 1
 
             if brace_count == 0:
-                mandate_content = content[start_pos:pos-1]
+                mandate_content = content[start_pos : pos - 1]
 
                 # Extract title and other fields
                 title_match = re.search(r'title:\s*"([^"]+)"', mandate_content)
-                category_match = re.search(r'category:\s*(\w+)', mandate_content)
+                category_match = re.search(r"category:\s*(\w+)", mandate_content)
 
                 title = title_match.group(1) if title_match else mandate_id
                 category = category_match.group(1) if category_match else "general"
@@ -105,7 +105,7 @@ class GovernanceItemExtractor:
                     "optional": False,
                     "category": category,
                     "source_file": "mandate.spec",
-                    "tag": "[CRITICAL]"  # For user display
+                    "tag": "[CRITICAL]",  # For user display
                 }
                 mandates.append(mandate)
 
@@ -113,7 +113,7 @@ class GovernanceItemExtractor:
 
     def _extract_guidelines(self) -> List[Dict]:
         """Extract guidelines from guidelines.dsl"""
-        guidelines_file = self.sdd_core_path / "guidelines.dsl"
+        guidelines_file = self.core_path / "guidelines.dsl"
         if not guidelines_file.exists():
             return []
 
@@ -121,7 +121,7 @@ class GovernanceItemExtractor:
         guidelines = []
 
         # Parse: guideline G01 { ... } with proper bracket matching
-        pattern = r'guideline\s+(\w+)\s*\{'
+        pattern = r"guideline\s+(\w+)\s*\{"
 
         for match in re.finditer(pattern, content):
             guideline_id = match.group(1)
@@ -131,23 +131,23 @@ class GovernanceItemExtractor:
             brace_count = 1
             pos = start_pos
             while pos < len(content) and brace_count > 0:
-                if content[pos] == '{':
+                if content[pos] == "{":
                     brace_count += 1
-                elif content[pos] == '}':
+                elif content[pos] == "}":
                     brace_count -= 1
                 pos += 1
 
             if brace_count == 0:
-                guideline_content = content[start_pos:pos-1]
+                guideline_content = content[start_pos : pos - 1]
 
                 # Extract title and other fields
                 title_match = re.search(r'title:\s*"([^"]+)"', guideline_content)
-                category_match = re.search(r'category:\s*(\w+)', guideline_content)
-                type_match = re.search(r'type:\s*(\w+)', guideline_content)
+                category_match = re.search(r"category:\s*(\w+)", guideline_content)
+                type_match = re.search(r"type:\s*(\w+)", guideline_content)
 
                 title = title_match.group(1) if title_match else guideline_id
                 category = category_match.group(1) if category_match else "general"
-                type_val = type_match.group(1) if type_match else "SOFT"
+                type_match.group(1) if type_match else "SOFT"
 
                 # Guidelines are typically customizable by default
                 guideline = {
@@ -159,7 +159,7 @@ class GovernanceItemExtractor:
                     "optional": True,
                     "category": category,
                     "source_file": "guidelines.dsl",
-                    "tag": "[OPTIONAL/CUSTOMIZABLE]"  # Can be CORE or CLIENT
+                    "tag": "[OPTIONAL/CUSTOMIZABLE]",  # Can be CORE or CLIENT
                 }
                 guidelines.append(guideline)
 
@@ -167,7 +167,7 @@ class GovernanceItemExtractor:
 
     def _extract_markdown_items(self, subdir: str, item_type: str) -> List[Dict]:
         """Extract items from markdown files with YAML frontmatter"""
-        items_dir = self.sdd_core_path / subdir
+        items_dir = self.core_path / subdir
         if not items_dir.exists():
             return []
 
@@ -177,7 +177,7 @@ class GovernanceItemExtractor:
             content = md_file.read_text(encoding="utf-8")
 
             # Extract YAML frontmatter
-            yaml_match = re.match(r'^---\s*\n(.*?)\n---', content, re.DOTALL)
+            yaml_match = re.match(r"^---\s*\n(.*?)\n---", content, re.DOTALL)
             if not yaml_match:
                 continue
 
@@ -209,8 +209,8 @@ class GovernanceItemExtractor:
                 "customizable": customizable,
                 "optional": optional,
                 "category": category,
-                "source_file": str(md_file.relative_to(self.sdd_core_path)),
-                "tag": tag
+                "source_file": str(md_file.relative_to(self.core_path)),
+                "tag": tag,
             }
             items.append(item)
 
@@ -238,10 +238,10 @@ class GovernanceItemExtractor:
                 "GUIDELINE": len(items_by_type.get("GUIDELINE", [])),
                 "DECISION": len(items_by_type.get("DECISION", [])),
                 "RULE": len(items_by_type.get("RULE", [])),
-                "GUARDRAIL": len(items_by_type.get("GUARDRAIL", []))
+                "GUARDRAIL": len(items_by_type.get("GUARDRAIL", [])),
             },
             "items_by_type": items_by_type,
-            "all_items": self.items
+            "all_items": self.items,
         }
 
         output_path.write_text(json.dumps(output, indent=2, ensure_ascii=False))
@@ -291,19 +291,19 @@ class GovernanceItemExtractor:
 
 if __name__ == "__main__":
 
-    # Determine the correct path to .sdd-core
-    # If running from .sdd-core/ dir, use parent dir
-    # If running from root, use .sdd-core/
+    # Determine the correct path to core
+    # If running from core/ dir, use parent dir
+    # If running from root, use core/
     current_dir = Path.cwd()
-    if current_dir.name == ".sdd-core":
-        sdd_core_path = current_dir
+    if current_dir.name == "core":
+        core_path = current_dir
     else:
-        sdd_core_path = current_dir / ".sdd-core"
+        core_path = current_dir / "core"
 
-    print(f"📍 Using .sdd-core path: {sdd_core_path}")
+    print(f"📍 Using core path: {core_path}")
     print()
 
-    extractor = GovernanceItemExtractor(sdd_core_path)
+    extractor = GovernanceItemExtractor(core_path)
     items = extractor.extract_all()
     extractor.print_summary()
 

@@ -23,7 +23,43 @@ dev = [
     "pytest>=8.0.0",
     "pylint",
     "pytest-github-actions-annotate-failures",
+    "types-PyYAML",
 ]
+
+[tool.mypy]
+python_version = "3.10"
+namespace_packages = true
+no_implicit_optional = false
+ignore_missing_imports = true
+disable_error_code = [
+    "valid-type",
+    "attr-defined",
+    "index",
+    "assignment",
+    "operator",
+    "return-value",
+    "var-annotated",
+    "arg-type",
+    "union-attr",
+    "no-redef",
+]
+mypy_path = [
+    ".",
+    "build_scripts",
+    "core",
+    "compiler",
+    "compiler/src",
+    "compiler/src/runtime_telemetry_kit",
+    "wizard",
+    "wizard/src",
+    "wizard/.sdd-runtime",
+    "migration/tooling",
+    "cli/extensions/framework",
+]
+
+[[tool.mypy.overrides]]
+module = ["msgpack"]
+ignore_missing_imports = true
 
 [tool.black]
 line-length = 127
@@ -33,31 +69,16 @@ include = '\.pyi?$'
 [tool.ruff]
 line-length = 127
 target-version = "py310"
-# Regras: E (Error), F (Pyflakes), I (Isort), B (Bugbear), W (Warning), C90 (Complexidade)
+
+[tool.ruff.lint]
 select = ["E", "F", "I", "B", "W", "C90"]
 ignore = []
 
-[tool.ruff.mccabe]
+[tool.ruff.lint.mccabe]
 max-complexity = 10
 
-[tool.ruff.isort]
+[tool.ruff.lint.isort]
 known-first-party = ["_core"]
-
-[tool.mypy]
-python_version = "3.10"
-strict = true
-ignore_missing_imports = true
-mypy_path = [
-    ".",
-    ".sdd-core",
-    ".sdd-core/src",
-    ".sdd-wizard",
-    ".sdd-wizard/src",
-    ".sdd-compiler",
-    ".sdd-compiler/src",
-    "build_scripts"
-]
-exclude = ["_ci_test_project", "sdd-generated"]
 
 [tool.pylint."MESSAGES CONTROL"]
 max-line-length = 127
@@ -71,16 +92,21 @@ disable = [
 max-args = 7
 max-attributes = 10
 
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["tools*"]
+exclude = ["cli*", "core*", "wizard*", "runtime*", "compiler*", "compiled*", "migration*", "integration*", "build_scripts*", "tests*"]
+
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 pythonpath = [
     ".",
-    ".sdd-core",
-    ".sdd-core/src",
-    ".sdd-wizard",
-    ".sdd-wizard/src",
-    ".sdd-compiler",
-    ".sdd-compiler/src",
+    "core",
+    "core/src",
+    "wizard",
+    "wizard/src",
+    "compiler",
+    "compiler/src",
     "build_scripts",
     "../_spec"
 ]

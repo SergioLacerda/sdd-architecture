@@ -1,459 +1,221 @@
 #!/usr/bin/env python3
-"""
-SDD Architecture - Layer 4 Governance Compliance Extension
+"""Governance compliance validator for SDD Architecture."""
 
-This module extends agent_handshake.py Layer 4 with comprehensive governance
-compliance checking against the 7 mandatory policies.
-
-To integrate into agent_handshake.py:
-1. Copy methods into the AgentHandshakeProtocol class
-2. Update _layer_4_governance_health() to call these methods
-3. Or import this module and use it alongside AHP
-
-Mandatory Policies Validated:
-1. governance-core.json exists
-2. Valid JSON format
-3. At least one active seedling
-4. All authority roles assigned
-5. Enforcement level set
-6. PHASE 0 completed
-7. Overall health check passes
-"""
-
+import argparse
 import hashlib
 import json
 from pathlib import Path
-from typing import Dict, List, Optional, Tuple
+from typing import Any, Dict, List, Optional, Tuple
 
 
 class GovernanceComplianceValidator:
-    """Validates governance against mandatory policies"""
+    """Validates governance file integrity and compliance rules."""
 
-    # The 7 mandatory policies
-    MANDATORY_POLICIES = {
-        'policy_1_file_exists': "governance-core.json must exist",
-        'policy_2_valid_json': "governance-core.json must be valid JSON",
-        'policy_3_active_seedlings': "At least one active seedling must be defined",
-        'policy_4_authority_roles': "All authority roles must be assigned",
-        'policy_5_enforcement_level': "Enforcement level must be set (strict/standard/permissive)",
-        'policy_6_phase_0_complete': "PHASE 0 must be marked as completed",
-        'policy_7_health_check': "Overall health check must pass"
-    }
+    GOVERNANCE_FILE = ".ai/governance-core.json"
+    SIGNATURE_FILE = ".ai/.governance-signature.json"
+    COMPILED_GOVERNANCE_FILE = "_core/compiled/governance-core.json"
+    COMPILED_GOVERNANCE_FILE_ALT = "compiled/governance-core.json"
 
-    def __init__(self, project_root: Path):
-        self.project_root = project_root
-        # Prioritize .ai/ (Wizard output) then .sdd/ (Standard client)
-        self.governance_path = project_root / ".ai" / "governance-core.json"
-        if not self.governance_path.exists():
-            self.governance_path = project_root / ".sdd" / "governance-core.json"
-        self.violations: List[str] = []
-        self.warnings: List[str] = []
-        self.config: Optional[Dict] = None
+    def __init__(self, project_dir: Path) -> None:
+        self.project_dir = Path(project_dir)
+        self.integrity_requested: bool = False
+        self.governance_file = self._resolve_governance_file()
+        self.signature_file = self._resolve_signature_file()
 
-    def validate_all(self) -> Tuple[bool, Dict]:
-        """
-        Run all 7 mandatory policy checks
-        
-        Returns:
-            (is_compliant: bool, results: dict with details)
-        """
-        results = {
-            'policies_checked': 0,
-            'policies_passed': 0,
-            'policies_failed': 0,
-            'violations': [],
-            'warnings': [],
-            'compliance_percentage': 0.0,
-            'enforcement_level': None,
-            'missing_fields': []
-        }
+    def _resolve_governance_file(self) -> Path:
+        """Resolve the governance file path for project and framework contexts."""
+        candidates = [
+            self.project_dir / self.GOVERNANCE_FILE,
+            self.project_dir / self.COMPILED_GOVERNANCE_FILE,
+            self.project_dir / self.COMPILED_GOVERNANCE_FILE_ALT,
+        ]
+        for candidate in candidates:
+            if candidate.exists():
+                return candidate
+        return candidates[0]
 
-        # Policy 1: File exists
-        results['policies_checked'] += 1
-        if self.governance_path.exists():
-            results['policies_passed'] += 1
-        else:
-            results['policies_failed'] += 1
-            results['violations'].append(f"Policy 1: governance-core.json not found at {self.governance_path}")
-            return False, results
+    def _resolve_signature_file(self) -> Path:
+        """Resolve the signature file path for project-scoped governance."""
+        return self.project_dir / self.SIGNATURE_FILE
 
-        # Optional Integrity Check (Fingerprint)
-        if getattr(self, 'integrity_requested', False):
-            ok, msg = self.check_integrity()
-            if not ok:
-                results['violations'].append(f"Policy 0: Integrity Failure - {msg}")
-                results['policies_failed'] += 1
-                return False, results
+    def _is_project_governance(self, data: Dict[str, Any]) -> bool:
+        """Return True when validating generated project governance under .ai/."""
+        required = {"seedlings", "authority", "policies", "phases"}
+        return required.issubset(data.keys())
 
-        # Load config (needed for remaining checks)
-        try:
-            with open(self.governance_path, 'r') as f:
-                self.config = json.load(f)
-        except json.JSONDecodeError as e:
-            results['policies_checked'] += 1
-            results['policies_failed'] += 1
-            results['violations'].append(f"Policy 2: Invalid JSON - {str(e)}")
-            return False, results
+    def _is_compiled_governance(self, data: Dict[str, Any]) -> bool:
+        """Return True when validating compiled governance artifacts."""
+        required = {"category", "version", "items", "fingerprint"}
+        return required.issubset(data.keys())
 
-        # Policy 2: Valid JSON (already passed above)
-        results['policies_checked'] += 1
-        results['policies_passed'] += 1
+    # ------------------------------------------------------------------
+    # Signing
+    # ------------------------------------------------------------------
 
-        # Policy 3: Active seedlings
-        results['policies_checked'] += 1
-        active_seedlings = self.config.get('seedlings', {}).get('active', [])
-        if active_seedlings:
-            results['policies_passed'] += 1
-        else:
-            results['policies_failed'] += 1
-            results['violations'].append("Policy 3: No active seedlings defined in seedlings.active")
-
-        # Policy 4: Authority roles
-        authority = self.config.get('authority', {})
-        for role in ['architect', 'governance', 'operations']:
-            results['policies_checked'] += 1
-            if authority.get(role):
-                results['policies_passed'] += 1
-            else:
-                results['policies_failed'] += 1
-                results['violations'].append(f"Policy 4: '{role}' role not assigned in authority")
-                results['missing_fields'].append(f"authority.{role}")
-
-        # Policy 5: Enforcement level
-        results['policies_checked'] += 1
-        enforcement = self.config.get('policies', {}).get('enforcement')
-        results['enforcement_level'] = enforcement
-        if enforcement in ['strict', 'standard', 'permissive']:
-            results['policies_passed'] += 1
-        else:
-            results['policies_failed'] += 1
-            results['violations'].append(f"Policy 5: Invalid enforcement level '{enforcement}' (must be strict/standard/permissive)")
-
-        # Policy 6: PHASE 0 completion
-        results['policies_checked'] += 1
-        completed = self.config.get('phases', {}).get('completed', [])
-        if 0 in completed:
-            results['policies_passed'] += 1
-        else:
-            results['policies_failed'] += 1
-            results['violations'].append("Policy 6: PHASE 0 not marked as completed in phases.completed")
-
-        # Calculate compliance percentage
-        if results['policies_checked'] > 0:
-            results['compliance_percentage'] = (results['policies_passed'] / results['policies_checked']) * 100
-
-        # Policy 7: Overall health (depends on all others)
-        results['policies_checked'] += 1
-        if results['policies_failed'] == 0:  # All policies passed
-            results['policies_passed'] += 1
-            is_compliant = True
-        else:
-            results['policies_failed'] += 1
-            is_compliant = False
-
-        results['violations'] = list(set(results['violations']))  # Deduplicate
-        return is_compliant, results
-
-    def get_mandatory_fix_steps(self, results: Dict) -> List[str]:
-        """
-        Generate step-by-step fixes for policy violations
-        
-        Returns:
-            List of fix commands/steps
-        """
-        fixes = []
-
-        if not self.governance_path.exists():
-            fixes.append("Step 1: Run wizard to create governance")
-            fixes.append("  python EXECUTION/SCRIPTS/phase-0-agent-onboarding.py")
-            return fixes
-
-        if not self.config:
-            fixes.append("Step 1: Fix JSON syntax in .sdd/governance-core.json")
-            fixes.append("  python3 -m json.tool .sdd/governance-core.json")
-            return fixes
-
-        step = 1
-
-        # Fix missing seedlings
-        if "Policy 3" in " ".join(results['violations']):
-            fixes.append(f"Step {step}: Add active seedling")
-            fixes.append("  Edit .sdd/governance-core.json and set:")
-            fixes.append('    "seedlings": { "active": ["my-domain"] }')
-            step += 1
-
-        # Fix missing authority roles
-        missing_roles = [v.split("'")[1] for v in results['violations'] if 'role not assigned' in v]
-        if missing_roles:
-            fixes.append(f"Step {step}: Assign authority roles")
-            for role in missing_roles:
-                fixes.append(f"  Add {role} to authority in .sdd/governance-core.json:")
-                fixes.append(f'    "{role}": ["user@example.com"]')
-            step += 1
-
-        # Fix enforcement level
-        if "Policy 5" in " ".join(results['violations']):
-            fixes.append(f"Step {step}: Set enforcement level")
-            fixes.append("  Edit .sdd/governance-core.json and set:")
-            fixes.append('    "enforcement": "standard"')
-            step += 1
-
-        # Fix PHASE 0
-        if "Policy 6" in " ".join(results['violations']):
-            fixes.append(f"Step {step}: Mark PHASE 0 as completed")
-            fixes.append("  Edit .sdd/governance-core.json and set:")
-            fixes.append('    "phases": { "completed": [0] }')
-            step += 1
-
-        fixes.append(f"\nStep {step}: Verify compliance")
-        fixes.append("  python3 _core/governance_compliance.py --verify")
-
-        return fixes
+    def _compute_fingerprint(self, data: Dict[str, Any]) -> str:
+        """Compute SHA-256 fingerprint of the governance data (excluding signature field)."""
+        clean = {k: v for k, v in data.items() if k not in {"_signature", "fingerprint"}}
+        serialized = json.dumps(clean, sort_keys=True, ensure_ascii=True)
+        return hashlib.sha256(serialized.encode("utf-8")).hexdigest()
 
     def sign_governance(self) -> bool:
-        """Calculates and writes the cryptographic fingerprint to seal the file"""
+        """Sign the governance file and write a companion signature file."""
+        if not self.governance_file.exists():
+            return False
         try:
-            if not self.governance_path.exists():
-                return False
-
-            with open(self.governance_path, 'r') as f:
-                raw_data = json.load(f)
-
-            if 'metadata' not in raw_data:
-                raw_data['metadata'] = {}
-
-            # Remove existing fingerprint to calculate fresh hash
-            raw_data['metadata'].pop('fingerprint', None)
-            actual = hashlib.sha256(json.dumps(raw_data, sort_keys=True).encode()).hexdigest()
-            raw_data['metadata']['fingerprint'] = actual
-
-            with open(self.governance_path, 'w') as f:
-                json.dump(raw_data, f, indent=2)
+            with open(self.governance_file, "r", encoding="utf-8") as f:
+                data = json.load(f)
+            fingerprint = self._compute_fingerprint(data)
+            signature = {"fingerprint": fingerprint}
+            self.signature_file.parent.mkdir(parents=True, exist_ok=True)
+            with open(self.signature_file, "w", encoding="utf-8") as f:
+                json.dump(signature, f, indent=2)
             return True
         except Exception:
             return False
 
-    def check_integrity(self) -> Tuple[bool, str]:
-        """Verifies the cryptographic fingerprint of the governance file"""
+    # ------------------------------------------------------------------
+    # Validation
+    # ------------------------------------------------------------------
+
+    def _check_integrity(self, data: Dict[str, Any]) -> List[str]:
+        """Return list of integrity violation messages (empty = OK)."""
+        if not self.integrity_requested:
+            return []
+        if self._is_compiled_governance(data):
+            expected = data.get("fingerprint")
+            actual = self._compute_fingerprint(data)
+            if expected != actual:
+                return [f"Integrity Failure: fingerprint mismatch (expected {expected[:8]}…, got {actual[:8]}…)"]
+            return []
+        if not self.signature_file.exists():
+            return ["Integrity Failure: signature file missing"]
         try:
-            with open(self.governance_path, 'r') as f:
-                raw_data = json.load(f)
-
-            expected = raw_data.get('metadata', {}).get('fingerprint')
-            if not expected:
-                return True, "No fingerprint found (skipping)"
-
-            # Calculate fingerprint excluding the fingerprint field itself
-            content = raw_data.copy()
-            content.get('metadata', {}).pop('fingerprint', None)
-            actual = hashlib.sha256(json.dumps(content, sort_keys=True).encode()).hexdigest()
-
-            return (True, "Valid") if actual == expected else (False, f"Mismatch: {actual}")
+            with open(self.signature_file, "r", encoding="utf-8") as f:
+                sig = json.load(f)
+            expected = sig.get("fingerprint")
+            actual = self._compute_fingerprint(data)
+            if expected != actual:
+                return [f"Integrity Failure: fingerprint mismatch (expected {expected[:8]}…, got {actual[:8]}…)"]
         except Exception as e:
-            return False, str(e)
+            return [f"Integrity Failure: could not read signature — {e}"]
+        return []
 
-    def enforcement_check(self) -> Tuple[str, str]:
-        """
-        Check enforcement level and return enforcement behavior
-        
+    def _check_structure(self, data: Dict[str, Any]) -> List[str]:
+        """Check required top-level fields."""
+        violations = []
+        required = ["seedlings", "authority", "policies", "phases"]
+        for field in required:
+            if field not in data:
+                violations.append(f"Missing required field: {field}")
+        return violations
+
+    def _check_compiled_structure(self, data: Dict[str, Any]) -> List[str]:
+        """Check required fields for compiled governance artifacts."""
+        violations = []
+        required = ["category", "version", "items", "fingerprint"]
+        for field in required:
+            if field not in data:
+                violations.append(f"Missing required compiled field: {field}")
+        if data.get("category") != "CORE":
+            violations.append("Compiled governance category must be 'CORE'")
+        if not isinstance(data.get("items", []), list):
+            violations.append("Compiled governance items must be a list")
+        return violations
+
+    def _check_policies(self, data: Dict[str, Any]) -> List[str]:
+        """Check policies section."""
+        violations = []
+        policies = data.get("policies", {})
+        enforcement = policies.get("enforcement", "")
+        valid_levels = {"strict", "standard", "permissive"}
+        if enforcement.lower() not in valid_levels:
+            violations.append(f"Invalid enforcement level: '{enforcement}' (must be one of {valid_levels})")
+        return violations
+
+    def validate_all(self) -> Tuple[bool, Dict[str, Any]]:
+        """Run all validation checks.
+
         Returns:
-            (level: str, behavior: str)
+            (is_compliant, results_dict) where results_dict has key 'violations'.
         """
-        if not self.config:
-            return 'none', 'No governance found'
+        if not self.governance_file.exists():
+            return False, {"violations": [f"Governance file not found: {self.governance_file}"]}
 
-        level = self.config.get('policies', {}).get('enforcement', 'unknown')
+        try:
+            with open(self.governance_file, "r", encoding="utf-8") as f:
+                data = json.load(f)
+        except json.JSONDecodeError as e:
+            return False, {"violations": [f"Invalid JSON in governance file: {e}"]}
 
-        behaviors = {
-            'strict': 'Manual bypass disabled, violations block operations',
-            'standard': 'Manual bypass allowed only for architect, some violations allowed',
-            'permissive': 'Manual bypass allowed, warnings only',
-            'unknown': 'Enforcement level not set'
-        }
-
-        return level, behaviors.get(level, 'Unknown enforcement level')
-
-    def can_bypass_check(self, enforcement_level: str, user_role: Optional[str] = None) -> bool:
-        """
-        Determine if user can bypass governance checks
-        
-        Args:
-            enforcement_level: The enforcement level from config
-            user_role: Optional role (architect, governance, operations)
-        
-        Returns:
-            True if bypass is allowed
-        """
-        if enforcement_level == 'strict':
-            return False
-        elif enforcement_level == 'standard':
-            return user_role == 'architect'
-        elif enforcement_level == 'permissive':
-            return True
+        violations: List[str] = []
+        if self._is_project_governance(data):
+            violations.extend(self._check_structure(data))
+            violations.extend(self._check_policies(data))
+        elif self._is_compiled_governance(data):
+            violations.extend(self._check_compiled_structure(data))
         else:
-            return False
+            violations.append("Unrecognized governance format")
+        violations.extend(self._check_integrity(data))
 
-    def format_report(self, results: Dict, style: str = 'compact') -> str:
-        """
-        Format compliance check results for display
-        
-        Args:
-            results: Results from validate_all()
-            style: 'compact', 'verbose', 'json'
-        
-        Returns:
-            Formatted report string
-        """
-        if style == 'json':
-            return json.dumps(results, indent=2)
+        is_compliant = len(violations) == 0
+        return is_compliant, {"violations": violations, "governance_file": str(self.governance_file)}
 
-        compliance = results['compliance_percentage']
-        passed = results['policies_passed']
-        total = results['policies_checked']
-
-        if compliance >= 100:
-            emoji = '🟢'
-            status = 'COMPLIANT'
-        elif compliance >= 70:
-            emoji = '🟡'
-            status = 'PARTIAL'
-        else:
-            emoji = '❌'
-            status = 'NON-COMPLIANT'
-
-        if style == 'compact':
-            return f"{emoji} Governance: {status} ({passed}/{total} policies passed, {compliance:.0f}%)"
-
-        # Verbose style
-        lines = [
-            f"\n{'='*60}",
-            "GOVERNANCE COMPLIANCE REPORT",
-            f"{'='*60}",
-            f"Status: {emoji} {status}",
-            f"Compliance: {compliance:.1f}% ({passed}/{total})",
-            f"Enforcement: {results['enforcement_level']}",
-        ]
-
-        if results['violations']:
-            lines.append(f"\nVIOLATIONS ({len(results['violations'])}):")
-            for v in results['violations']:
-                lines.append(f"  ❌ {v}")
-
-        if results['warnings']:
-            lines.append(f"\nWARNINGS ({len(results['warnings'])}):")
-            for w in results['warnings']:
-                lines.append(f"  ⚠️  {w}")
-
-        if results['missing_fields']:
-            lines.append("\nMISSING FIELDS:")
-            for f in results['missing_fields']:
-                lines.append(f"  • {f}")
-
-        lines.append(f"\n{'='*60}\n")
-        return '\n'.join(lines)
+    def get_mandatory_fix_steps(self, results: Dict[str, Any]) -> List[str]:
+        """Return human-readable fix steps for each violation."""
+        steps = []
+        for v in results.get("violations", []):
+            if "Missing required field" in v:
+                steps.append(f"Add the missing field to {self.GOVERNANCE_FILE}")
+            elif "Missing required compiled field" in v:
+                steps.append("Regenerate compiled governance artifacts from the current spec")
+            elif "enforcement level" in v:
+                steps.append("Set policies.enforcement to 'strict', 'standard', or 'permissive'")
+            elif "Integrity Failure" in v:
+                if str(self.governance_file).endswith("governance-core.json") and "/compiled/" in str(self.governance_file):
+                    steps.append("Regenerate compiled governance artifacts to refresh the embedded fingerprint")
+                else:
+                    steps.append("Re-sign the governance file: validator.sign_governance()")
+            else:
+                steps.append(f"Fix violation: {v}")
+        return steps
 
 
-# ========== INTEGRATION WITH AHP ==========
+def main(argv: Optional[List[str]] = None) -> int:
+    """Run governance validation CLI."""
+    parser = argparse.ArgumentParser(description="Validate governance compliance and integrity")
+    parser.add_argument("project_dir", nargs="?", default=".", help="Project directory to validate")
+    parser.add_argument("--verify", action="store_true", help="Run compliance verification")
+    parser.add_argument("--check-integrity", action="store_true", help="Validate governance integrity")
+    parser.add_argument("--fix-steps", action="store_true", help="Print recommended fix steps on failure")
+    parser.add_argument("--sign", action="store_true", help="Create or refresh governance signature")
 
-def extend_layer_4_governance_health(ahp_instance, compliance_validator: GovernanceComplianceValidator) -> Tuple[str, List]:
-    """
-    Enhanced Layer 4 that includes compliance checks
-    
-    To use in agent_handshake.py:
-    
-    Replace the _layer_4_governance_health method with:
-    
-    def _layer_4_governance_health(self):
-        validator = GovernanceComplianceValidator(self.project_root)
-        return extend_layer_4_governance_health(self, validator)
-    """
-    is_compliant, results = compliance_validator.validate_all()
+    args = parser.parse_args(argv)
 
-    # Create ValidationResult objects for AHP
-    validation_results = []
-
-    # Add compliance check as main layer 4 result
-    from dataclasses import dataclass
-
-    @dataclass
-    class ValidationResult:
-        name: str
-        passed: bool
-        message: str
-        layer: str
-
-    compliance_msg = f"{results['compliance_percentage']:.0f}% compliant ({results['policies_passed']}/{results['policies_checked']} policies)"
-    validation_results.append(ValidationResult(
-        name="governance compliance",
-        passed=is_compliant,
-        message=compliance_msg,
-        layer="GOVERNANCE_HEALTH"
-    ))
-
-    # Add enforcement level check
-    enforcement = results['enforcement_level']
-    validation_results.append(ValidationResult(
-        name="enforcement level",
-        passed=enforcement in ['strict', 'standard', 'permissive'],
-        message=f"Set to: {enforcement}",
-        layer="GOVERNANCE_HEALTH"
-    ))
-
-    # Determine state based on compliance
-    if is_compliant:
-        layer_state = "HEALTHY"
-    elif results['compliance_percentage'] >= 50:
-        layer_state = "DEGRADED"
-    else:
-        layer_state = "CRITICAL"
-
-    return layer_state, validation_results
-
-
-# ========== CLI INTERFACE ==========
-
-if __name__ == "__main__":
-    import argparse
-    import sys
-
-    parser = argparse.ArgumentParser(description="SDD Governance Compliance Validator")
-    parser.add_argument('--verify', action='store_true', help="Verify governance compliance")
-    parser.add_argument('--fix-steps', action='store_true', help="Show fix steps for violations")
-    parser.add_argument('--enforcement-check', action='store_true', help="Check enforcement level")
-    parser.add_argument('--format', choices=['compact', 'verbose', 'json'], default='verbose', help="Output format")
-    parser.add_argument('--project-root', default='.', help="Project root directory")
-    parser.add_argument('--check-integrity', action='store_true', help="Validate SHA-256 fingerprints")
-    parser.add_argument('--sign', action='store_true', help="Generate and embed integrity fingerprint")
-
-    args = parser.parse_args()
-
-    project_root = Path(args.project_root)
-    validator = GovernanceComplianceValidator(project_root)
+    validator = GovernanceComplianceValidator(Path(args.project_dir))
     validator.integrity_requested = args.check_integrity
 
     if args.sign:
-        success = validator.sign_governance()
-        sys.exit(0 if success else 1)
+        ok = validator.sign_governance()
+        if ok:
+            print(f"✅ Governance signed: {validator.signature_file}")
+            return 0
+        print(f"❌ Could not sign governance file: {validator.governance_file}")
+        return 1
 
-    if args.verify or not args.fix_steps and not args.enforcement_check:
-        is_compliant, results = validator.validate_all()
-        print(validator.format_report(results, args.format))
-        sys.exit(0 if is_compliant else 1)
+    ok, results = validator.validate_all()
+    if ok:
+        print(f"✅ Governance is compliant: {results['governance_file']}")
+        return 0
 
+    print("❌ Governance violations found:")
+    for v in results["violations"]:
+        print(f"  • {v}")
     if args.fix_steps:
-        is_compliant, results = validator.validate_all()
-        if not is_compliant:
-            fixes = validator.get_mandatory_fix_steps(results)
-            print("\nFIX STEPS:")
-            for fix in fixes:
-                print(fix)
-        else:
-            print("✓ All governance policies are met")
-        sys.exit(0 if is_compliant else 1)
+        for step in validator.get_mandatory_fix_steps(results):
+            print(f"  → {step}")
+    return 1
 
-    if args.enforcement_check:
-        is_compliant, results = validator.validate_all()
-        level, behavior = validator.enforcement_check()
-        print(f"\nEnforcement Level: {level}")
-        print(f"Behavior: {behavior}")
-        sys.exit(0 if is_compliant else 1)
+
+if __name__ == "__main__":
+    raise SystemExit(main())

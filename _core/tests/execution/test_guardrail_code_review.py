@@ -14,11 +14,11 @@ Tests verify:
 """
 
 import subprocess
-from pathlib import Path
+
 import pytest
 
 # Import centralized paths
-from tests.path_config import REPO_ROOT, ADR_DIR
+from tests.path_config import ADR_DIR, REPO_ROOT
 
 
 class TestCodeReviewGuardrail:
@@ -31,14 +31,14 @@ class TestCodeReviewGuardrail:
         self.critical_files = [
             str(ADR_DIR / "ADR-007-implementation-guardrails-design-first.md"),
             str(ADR_DIR / "ADR-008-code-review-governance.md"),
-            (".sdd-migration/phase-archive/DECISIONS.md", "_core/.sdd-migration/phase-archive/DECISIONS.md"),
-            (".sdd-migration/PHASES.md", "_core/.sdd-migration/PHASES.md"),
+            ("migration/phase-archive/DECISIONS.md", "_core/migration/phase-archive/DECISIONS.md"),
+            ("migration/PHASES.md", "_core/migration/PHASES.md"),
         ]
 
     def test_main_branch_requires_architect_review(self):
         """
         FAIL TEST: Verify that changes to main CANNOT be pushed without approval.
-        
+
         This test simulates what would happen if agent tried to auto-commit.
         Should FAIL if guardrail is not active.
         """
@@ -55,7 +55,7 @@ class TestCodeReviewGuardrail:
     def test_wip_branch_workflow_required(self):
         """
         ENFORCED: Agent must work on WIP/* branch, not main.
-        
+
         Check: Current HEAD is NOT main during development.
         """
         result = subprocess.run(
@@ -74,7 +74,7 @@ class TestCodeReviewGuardrail:
     def test_pr_review_checklist_documented(self):
         """
         ENFORCED: PR review checklist must be in ADR-008.
-        
+
         Verify all required checks are documented.
         """
         adr_008 = ADR_DIR / "ADR-008-code-review-governance.md"
@@ -94,14 +94,12 @@ class TestCodeReviewGuardrail:
         ]
 
         for check in required_checks:
-            assert (
-                check in content
-            ), f"ADR-008 must include '{check}' in review checklist"
+            assert check in content, f"ADR-008 must include '{check}' in review checklist"
 
     def test_critical_files_protected(self):
         """
         ENFORCED: Critical files listed and documented.
-        
+
         Verify all critical files are tracked and have protection rules.
         """
         adr_008 = ADR_DIR / "ADR-008-code-review-governance.md"
@@ -119,7 +117,7 @@ class TestCodeReviewGuardrail:
     def test_no_auto_commit_rule_documented(self):
         """
         ENFORCED: "Agent never auto-commits" rule must be explicit in ADR-008.
-        
+
         This is the CORE RULE. Must be crystal clear.
         """
         adr_008 = ADR_DIR / "ADR-008-code-review-governance.md"
@@ -140,7 +138,7 @@ class TestCodeReviewGuardrail:
     def test_architect_approval_required(self):
         """
         ENFORCED: Architect MUST approve before merge.
-        
+
         Verify workflow requires architect sign-off.
         """
         adr_008 = ADR_DIR / "ADR-008-code-review-governance.md"
@@ -161,7 +159,7 @@ class TestCodeReviewGuardrail:
     def test_workflow_wip_to_pr_to_merge_documented(self):
         """
         ENFORCED: Complete workflow (WIP → PR → review → merge) documented.
-        
+
         Verify all steps are documented in ADR-008.
         """
         adr_008 = ADR_DIR / "ADR-008-code-review-governance.md"
@@ -177,14 +175,12 @@ class TestCodeReviewGuardrail:
         ]
 
         for step in workflow_steps:
-            assert step in content or step.lower() in content.lower(), (
-                f"ADR-008 must document workflow step: '{step}'"
-            )
+            assert step in content or step.lower() in content.lower(), f"ADR-008 must document workflow step: '{step}'"
 
     def test_rollback_procedure_exists(self):
         """
         ENFORCED: If something breaks, rollback must be possible.
-        
+
         Verify rollback procedure is documented.
         """
         adr_008 = ADR_DIR / "ADR-008-code-review-governance.md"
@@ -205,7 +201,7 @@ class TestCodeReviewGuardrail:
     def test_protected_main_branch_rules_documented(self):
         """
         ENFORCED: GitHub/GitLab branch protection rules documented.
-        
+
         Verify rules are specified in ADR-008.
         """
         adr_008 = ADR_DIR / "ADR-008-code-review-governance.md"
@@ -225,7 +221,7 @@ class TestCodeReviewGuardrail:
     def test_all_critical_files_exist(self):
         """
         ENFORCED: All critical files exist and are protected.
-        
+
         Verify files that should be protected are present.
         """
         for critical_file in self.critical_files:
@@ -233,15 +229,14 @@ class TestCodeReviewGuardrail:
                 full_path = self.repo_root / critical_file
                 assert full_path.exists(), f"Critical file must exist: {critical_file}"
             else:
-                assert any((self.repo_root / candidate).exists() for candidate in critical_file), (
-                    "Critical file must exist in one of expected locations: "
-                    + ", ".join(critical_file)
-                )
+                assert any(
+                    (self.repo_root / candidate).exists() for candidate in critical_file
+                ), "Critical file must exist in one of expected locations: " + ", ".join(critical_file)
 
     def test_adr_008_exists_and_complete(self):
         """
         ENFORCED: ADR-008 (Code Review Governance) must exist.
-        
+
         This is the MANDATE that prevents broken versions.
         """
         adr_008 = ADR_DIR / "ADR-008-code-review-governance.md"
@@ -262,7 +257,7 @@ class TestCodeReviewGuardrail:
     def test_no_auto_merge_permission_for_agent(self):
         """
         POLICY TEST: Verify agent account does NOT have merge permission.
-        
+
         This is enforced at GitHub/GitLab level.
         Note: This test is documentation of the policy.
         """
@@ -284,15 +279,15 @@ class TestCodeReviewGuardrail:
     def test_version_control_prevents_broken_versions(self):
         """
         INTEGRATION TEST: Verify version progression is safe.
-        
+
         v2.1 → (code review gate) → v3.1-beta.1 → (code review gate) → v3.0
-        
+
         No broken versions can be released if code review gate works.
         """
         # Check migration phases are documented (v2.1 baseline and next releases)
         phases_candidates = [
-            self.repo_root / ".sdd-migration/PHASES.md",
-            self.repo_root / "_core/.sdd-migration/PHASES.md",
+            self.repo_root / "migration/PHASES.md",
+            self.repo_root / "_core/migration/PHASES.md",
         ]
         phases_file = next((p for p in phases_candidates if p.exists()), None)
         assert phases_file is not None, "Migration phases should exist"
@@ -313,7 +308,7 @@ class TestCodeReviewWorkflow:
     def test_workflow_diagram_documented(self):
         """
         ENFORCED: Workflow must be clear and documented.
-        
+
         Diagram should show: Agent → WIP → PR → Architect → Commit
         """
         adr_008 = ADR_DIR / "ADR-008-code-review-governance.md"
@@ -334,7 +329,7 @@ class TestCodeReviewWorkflow:
     def test_pr_template_referenced(self):
         """
         ENFORCED: PR template must be referenced in workflow.
-        
+
         Should guide what to include in PR description.
         """
         adr_008 = ADR_DIR / "ADR-008-code-review-governance.md"
@@ -355,7 +350,7 @@ class TestCodeReviewWorkflow:
     def test_review_checklist_complete(self):
         """
         ENFORCED: Code review checklist must be complete and verifiable.
-        
+
         Each item should be checkable (checkbox [ ]).
         """
         adr_008 = ADR_DIR / "ADR-008-code-review-governance.md"
@@ -378,7 +373,7 @@ class TestProductionSafety:
     def test_no_broken_versions_in_production(self):
         """
         CRITICAL: Between v2.1 → v3.1-beta.1 → v3.0, no broken versions in production.
-        
+
         The CODE REVIEW guardrail ensures this by:
         1. Requiring design approval before code
         2. Requiring spec before implementation
@@ -404,7 +399,7 @@ class TestProductionSafety:
     def test_escalation_path_exists(self):
         """
         ENFORCED: If something breaks in production, escalation path must exist.
-        
+
         Must document emergency procedures.
         """
         adr_008 = ADR_DIR / "ADR-008-code-review-governance.md"
@@ -431,7 +426,7 @@ class TestProductionSafety:
 def test_guardrail_summary():
     """
     Summary of CODE REVIEW guardrail enforcement.
-    
+
     This ensures the guardrail is working as intended:
     - Agent NEVER auto-commits
     - All changes require architect review
@@ -456,9 +451,7 @@ def test_guardrail_summary():
     import re
 
     for rule_name, pattern in core_rules.items():
-        assert re.search(
-            pattern, content, re.IGNORECASE
-        ), f"ADR-008 must enforce: {rule_name}"
+        assert re.search(pattern, content, re.IGNORECASE), f"ADR-008 must enforce: {rule_name}"
 
     print("\n✅ CODE REVIEW Guardrail Verified:")
     print("   ✅ Agent never auto-commits")

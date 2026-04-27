@@ -2,9 +2,10 @@
 
 from pathlib import Path
 
-from sdd_cli.generators.agent_seeds import generate_agent_seeds
-from sdd_cli.main import app
 from typer.testing import CliRunner
+
+from cli.generators.agent_seeds import generate_agent_seeds
+from cli.main import app
 
 runner = CliRunner()
 
@@ -62,9 +63,9 @@ class TestLoadCommand:
     """Test load command functionality."""
 
     def test_load_with_valid_path(self):
-        """Test load with valid .sdd-wizard path."""
-        result = runner.invoke(app, ["governance", "load", "--path", ".sdd-wizard"])
-        # Should succeed if .sdd-wizard exists, or fail gracefully if not
+        """Test load with valid wizard path."""
+        result = runner.invoke(app, ["governance", "load", "--path", "wizard"])
+        # Should succeed if wizard exists, or fail gracefully if not
         assert result.exit_code in [0, 1]
 
     def test_load_with_invalid_path(self):
@@ -78,9 +79,9 @@ class TestValidateCommand:
     """Test validate command functionality."""
 
     def test_validate_with_valid_path(self):
-        """Test validate with valid .sdd-wizard path."""
-        result = runner.invoke(app, ["governance", "validate", "--path", ".sdd-wizard"])
-        # Should succeed if .sdd-wizard is valid, or fail gracefully if not
+        """Test validate with valid wizard path."""
+        result = runner.invoke(app, ["governance", "validate", "--path", "wizard"])
+        # Should succeed if wizard is valid, or fail gracefully if not
         assert result.exit_code in [0, 1]
 
     def test_validate_with_invalid_path(self):
@@ -93,9 +94,9 @@ class TestGenerateCommand:
     """Test generate command functionality."""
 
     def test_generate_with_valid_path(self):
-        """Test generate with valid .sdd-wizard path."""
-        result = runner.invoke(app, ["governance", "generate", "--path", ".sdd-wizard"])
-        # Should succeed if .sdd-wizard is valid, or fail gracefully if not
+        """Test generate with valid wizard path."""
+        result = runner.invoke(app, ["governance", "generate", "--path", "wizard"])
+        # Should succeed if wizard is valid, or fail gracefully if not
         assert result.exit_code in [0, 1]
 
     def test_generate_with_invalid_path(self):
@@ -109,19 +110,20 @@ class TestLoaderIntegration:
 
     def test_loader_module_exists(self):
         """Test that loader module imports correctly."""
-        from sdd_cli.utils import loader
-        assert hasattr(loader, 'load_governance_config')
-        assert hasattr(loader, 'validate_governance_path')
-        assert hasattr(loader, 'get_governance_summary')
+        from cli.utils import loader
+
+        assert hasattr(loader, "load_governance_config")
+        assert hasattr(loader, "validate_governance_path")
+        assert hasattr(loader, "get_governance_summary")
 
     def test_loader_imports_runtime(self):
-        """Test that loader imports .sdd-wizard runtime modules."""
+        """Test that loader imports wizard runtime modules."""
         # This test checks that the import path is correct
-        # but doesn't require .sdd-wizard to be fully functional
+        # but doesn't require wizard to be fully functional
         from pathlib import Path
 
-        sdd_wizard_path = Path(__file__).parent.parent / ".sdd-wizard"
-        assert sdd_wizard_path.exists() or True  # Pass if doesn't exist (import will fail gracefully)
+        wizard_path = Path(__file__).parent.parent / "wizard"
+        assert wizard_path.exists() or True  # Pass if doesn't exist (import will fail gracefully)
 
 
 class TestAgentSeedsGenerator:
@@ -139,6 +141,7 @@ class TestAgentSeedsGenerator:
 
         # Test with temporary directory
         import tempfile
+
         with tempfile.TemporaryDirectory() as tmpdir:
             results = generate_agent_seeds(Path(tmpdir), mock_config)
             assert len(results) == 3
@@ -146,7 +149,7 @@ class TestAgentSeedsGenerator:
 
     def test_agent_seeds_content_cursor(self):
         """Test that Cursor seed contains required content."""
-        from sdd_cli.generators.agent_seeds import _generate_cursor_seed
+        from cli.generators.agent_seeds import _generate_cursor_seed
 
         mock_config = {"core_fingerprint": "test123", "items": []}
         content = _generate_cursor_seed(mock_config, [], [])
@@ -154,7 +157,7 @@ class TestAgentSeedsGenerator:
 
     def test_agent_seeds_content_copilot(self):
         """Test that Copilot seed contains required content."""
-        from sdd_cli.generators.agent_seeds import _generate_copilot_seed
+        from cli.generators.agent_seeds import _generate_copilot_seed
 
         mock_config = {"core_fingerprint": "test123", "items": []}
         content = _generate_copilot_seed(mock_config, [], [])
@@ -162,7 +165,7 @@ class TestAgentSeedsGenerator:
 
     def test_agent_seeds_content_generic(self):
         """Test that Generic seed contains required content."""
-        from sdd_cli.generators.agent_seeds import _generate_generic_seed
+        from cli.generators.agent_seeds import _generate_generic_seed
 
         mock_config = {"core_fingerprint": "test123", "items": []}
         content = _generate_generic_seed(mock_config, [], [])

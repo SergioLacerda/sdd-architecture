@@ -27,7 +27,7 @@ repository/
 ├── _core/              # 💻 Implementation & Code (82+ tests)
 │   ├── .sdd-core/      # Governance compiler
 │   ├── .sdd-wizard/    # Wizard orchestration
-│   ├── sdd_cli/        # CLI interface
+│   ├── cli/        # CLI interface
 │   ├── tests/          # All tests
 │   └── run-all-tests.py
 │
@@ -161,13 +161,13 @@ make check         # Linting + Type Check + Governance + Tests
 cd _core
 
 # Load governance
-python3 -m sdd_cli governance load
+python3 -m cli governance load
 
 # Validate integrity
-python3 -m sdd_cli governance validate
+python3 -m cli governance validate
 
 # Generate templates
-python3 -m sdd_cli governance generate
+python3 -m cli governance generate
 ```
 
 ### Development Workflow

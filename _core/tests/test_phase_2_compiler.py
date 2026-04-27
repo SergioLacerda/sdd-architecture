@@ -17,8 +17,8 @@ from pathlib import Path
 import msgpack
 import pytest
 
-# Add .sdd-compiler to path
-sys.path.insert(0, str(Path(__file__).parent.parent / ".sdd-compiler"))
+# Add compiler to path
+sys.path.insert(0, str(Path(__file__).parent.parent / "compiler"))
 
 from governance_compiler import GovernanceCompiler
 
@@ -29,7 +29,7 @@ class TestPhase2Compiler:
     @pytest.fixture
     def compiler(self):
         """Create a compiler instance"""
-        return GovernanceCompiler(".sdd-compiled")
+        return GovernanceCompiler("compiled")
 
     @pytest.fixture
     def output_dir(self, tmp_path):
@@ -40,19 +40,15 @@ class TestPhase2Compiler:
         """Test that compiler generates both msgpack files"""
         result = compiler.compile(output_dir)
 
-        assert Path(result["core_msgpack_file"]).exists(), \
-            "governance-core.compiled.msgpack not generated"
-        assert Path(result["client_msgpack_file"]).exists(), \
-            "governance-client-template.compiled.msgpack not generated"
+        assert Path(result["core_msgpack_file"]).exists(), "governance-core.compiled.msgpack not generated"
+        assert Path(result["client_msgpack_file"]).exists(), "governance-client-template.compiled.msgpack not generated"
 
     def test_compiler_generates_metadata_files(self, compiler, output_dir):
         """Test that compiler generates metadata files"""
         result = compiler.compile(output_dir)
 
-        assert Path(result["core_metadata"]).exists(), \
-            "metadata-core.json not generated"
-        assert Path(result["client_metadata"]).exists(), \
-            "metadata-client-template.json not generated"
+        assert Path(result["core_metadata"]).exists(), "metadata-core.json not generated"
+        assert Path(result["client_metadata"]).exists(), "metadata-client-template.json not generated"
 
     def test_core_metadata_structure(self, compiler, output_dir):
         """Test core metadata has correct structure"""
@@ -92,9 +88,9 @@ class TestPhase2Compiler:
     def test_fingerprints_preserved_from_pipeline(self, compiler, output_dir):
         """Test that fingerprints from pipeline are preserved"""
         # Load original JSONs
-        with open(".sdd-compiled/governance-core.json") as f:
+        with open("compiled/governance-core.json") as f:
             core_json = json.load(f)
-        with open(".sdd-compiled/governance-client.json") as f:
+        with open("compiled/governance-client.json") as f:
             client_json = json.load(f)
 
         original_core_fp = core_json["fingerprint"]
@@ -103,10 +99,8 @@ class TestPhase2Compiler:
         # Compile and check
         result = compiler.compile(output_dir)
 
-        assert result["core_fingerprint"] == original_core_fp, \
-            "Core fingerprint changed during compilation"
-        assert result["client_fingerprint"] == original_client_fp, \
-            "Client fingerprint changed during compilation"
+        assert result["core_fingerprint"] == original_core_fp, "Core fingerprint changed during compilation"
+        assert result["client_fingerprint"] == original_client_fp, "Client fingerprint changed during compilation"
 
     def test_core_fingerprint_used_as_salt(self, compiler, output_dir):
         """Test that core fingerprint is salt for client"""
@@ -115,15 +109,13 @@ class TestPhase2Compiler:
         core_fp = result["core_fingerprint"]
         core_salt = result["core_fingerprint_salt"]
 
-        assert core_fp == core_salt, \
-            "Core fingerprint not used as salt for client"
+        assert core_fp == core_salt, "Core fingerprint not used as salt for client"
 
     def test_fingerprints_different(self, compiler, output_dir):
         """Test that core and client fingerprints are different"""
         result = compiler.compile(output_dir)
 
-        assert result["core_fingerprint"] != result["client_fingerprint"], \
-            "Core and client fingerprints should be different"
+        assert result["core_fingerprint"] != result["client_fingerprint"], "Core and client fingerprints should be different"
 
     def test_msgpack_files_valid_format(self, compiler, output_dir):
         """Test that msgpack files are valid and can be loaded"""
@@ -131,19 +123,13 @@ class TestPhase2Compiler:
 
         # Load core msgpack
         core_msgpack_file = result["core_msgpack_file"]
-        core_data = msgpack.unpackb(
-            Path(core_msgpack_file).read_bytes(),
-            raw=False
-        )
+        core_data = msgpack.unpackb(Path(core_msgpack_file).read_bytes(), raw=False)
         assert "items" in core_data, "Core msgpack invalid"
         assert isinstance(core_data["items"], list), "Items not a list in core msgpack"
 
         # Load client msgpack
         client_msgpack_file = result["client_msgpack_file"]
-        client_data = msgpack.unpackb(
-            Path(client_msgpack_file).read_bytes(),
-            raw=False
-        )
+        client_data = msgpack.unpackb(Path(client_msgpack_file).read_bytes(), raw=False)
         assert "items" in client_data, "Client msgpack invalid"
         assert isinstance(client_data["items"], list), "Items not a list in client msgpack"
 
@@ -152,20 +138,13 @@ class TestPhase2Compiler:
         result = compiler.compile(output_dir)
 
         # Load core msgpack
-        core_data = msgpack.unpackb(
-            Path(result["core_msgpack_file"]).read_bytes(),
-            raw=False
-        )
+        core_data = msgpack.unpackb(Path(result["core_msgpack_file"]).read_bytes(), raw=False)
         assert "fingerprint" in core_data, "Fingerprint missing from core msgpack"
 
         # Load client msgpack
-        client_data = msgpack.unpackb(
-            Path(result["client_msgpack_file"]).read_bytes(),
-            raw=False
-        )
+        client_data = msgpack.unpackb(Path(result["client_msgpack_file"]).read_bytes(), raw=False)
         assert "fingerprint" in client_data, "Fingerprint missing from client msgpack"
-        assert "fingerprint_core_salt" in client_data, \
-            "Fingerprint_core_salt missing from client msgpack"
+        assert "fingerprint_core_salt" in client_data, "Fingerprint_core_salt missing from client msgpack"
 
     def test_item_counts_correct(self, compiler, output_dir):
         """Test that item counts in metadata are correct"""
@@ -232,10 +211,7 @@ class TestPhase2Compiler:
         result = compiler.compile(output_dir)
 
         # Load msgpack
-        core_msgpack_data = msgpack.unpackb(
-            Path(result["core_msgpack_file"]).read_bytes(),
-            raw=False
-        )
+        core_msgpack_data = msgpack.unpackb(Path(result["core_msgpack_file"]).read_bytes(), raw=False)
 
         # Should be serializable back to JSON
         json_str = json.dumps(core_msgpack_data)

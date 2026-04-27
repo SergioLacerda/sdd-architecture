@@ -9,8 +9,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 WORKDIR /app
 
 COPY _core/pyproject.toml /app/_core/
-RUN mkdir -p /app/_core/sdd_cli && \
-    touch /app/_core/sdd_cli/__init__.py && \
+RUN mkdir -p /app/_core/cli && \
+    touch /app/_core/cli/__init__.py && \
     touch /app/_core/README.md
 
 # Instala dependências em um prefixo separado

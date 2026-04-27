@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-PHASE 1c: Reorganize .sdd-core/source/
+PHASE 1c: Reorganize core/source/
 Creates clean source structure with all governance items organized by type.
 Metadata (CRITICAL/OPTIONAL/CUSTOMIZABLE) stays in YAML frontmatter, not folder structure.
 """
@@ -12,9 +12,9 @@ from shutil import copy2
 
 
 class SourceReorganizer:
-    def __init__(self, sdd_core_path: str = ".sdd-core"):
-        self.sdd_core_path = Path(sdd_core_path)
-        self.source_path = self.sdd_core_path / "source"
+    def __init__(self, core_path: str = "core"):
+        self.core_path = Path(core_path)
+        self.source_path = self.core_path / "source"
         self.source_categories = ["mandates", "guidelines", "decisions", "rules", "guardrails"]
 
     def setup_directories(self) -> None:
@@ -29,7 +29,7 @@ class SourceReorganizer:
         for category in self.source_categories:
             category_path = self.source_path / category
             category_path.mkdir(parents=True, exist_ok=True)
-            print(f"   ✓ {category_path.relative_to(self.sdd_core_path)}/")
+            print(f"   ✓ {category_path.relative_to(self.core_path)}/")
 
         print()
 
@@ -39,7 +39,7 @@ class SourceReorganizer:
         print()
 
         for source_type in ["decisions", "rules", "guardrails"]:
-            source_dir = self.sdd_core_path / source_type
+            source_dir = self.core_path / source_type
             if not source_dir.exists():
                 print(f"   ⚠️  {source_type}/ not found, skipping")
                 continue
@@ -63,7 +63,7 @@ class SourceReorganizer:
         print("📝 Generating mandate files from mandate.spec...")
         print()
 
-        mandate_file = self.sdd_core_path / "mandate.spec"
+        mandate_file = self.core_path / "mandate.spec"
         if not mandate_file.exists():
             print("   ⚠️  mandate.spec not found, skipping")
             print()
@@ -73,7 +73,7 @@ class SourceReorganizer:
         mandates_dir = self.source_path / "mandates"
 
         # Parse mandates
-        pattern = r'mandate\s+(\w+)\s*\{'
+        pattern = r"mandate\s+(\w+)\s*\{"
 
         for match in re.finditer(pattern, content):
             mandate_id = match.group(1)
@@ -83,18 +83,18 @@ class SourceReorganizer:
             brace_count = 1
             pos = start_pos
             while pos < len(content) and brace_count > 0:
-                if content[pos] == '{':
+                if content[pos] == "{":
                     brace_count += 1
-                elif content[pos] == '}':
+                elif content[pos] == "}":
                     brace_count -= 1
                 pos += 1
 
             if brace_count == 0:
-                mandate_content = content[start_pos:pos-1]
+                mandate_content = content[start_pos : pos - 1]
 
                 # Extract fields
                 title_match = re.search(r'title:\s*"([^"]+)"', mandate_content)
-                category_match = re.search(r'category:\s*(\w+)', mandate_content)
+                category_match = re.search(r"category:\s*(\w+)", mandate_content)
 
                 title = title_match.group(1) if title_match else mandate_id
                 category = category_match.group(1) if category_match else "general"
@@ -134,7 +134,7 @@ See mandate.spec for full specification.
         print("📝 Generating guideline files from guidelines.dsl...")
         print()
 
-        guidelines_file = self.sdd_core_path / "guidelines.dsl"
+        guidelines_file = self.core_path / "guidelines.dsl"
         if not guidelines_file.exists():
             print("   ⚠️  guidelines.dsl not found, skipping")
             print()
@@ -144,7 +144,7 @@ See mandate.spec for full specification.
         guidelines_dir = self.source_path / "guidelines"
 
         # Parse guidelines
-        pattern = r'guideline\s+(\w+)\s*\{'
+        pattern = r"guideline\s+(\w+)\s*\{"
 
         count = 0
         for match in re.finditer(pattern, content):
@@ -155,25 +155,25 @@ See mandate.spec for full specification.
             brace_count = 1
             pos = start_pos
             while pos < len(content) and brace_count > 0:
-                if content[pos] == '{':
+                if content[pos] == "{":
                     brace_count += 1
-                elif content[pos] == '}':
+                elif content[pos] == "}":
                     brace_count -= 1
                 pos += 1
 
             if brace_count == 0:
-                guideline_content = content[start_pos:pos-1]
+                guideline_content = content[start_pos : pos - 1]
 
                 # Extract fields
                 title_match = re.search(r'title:\s*"([^"]+)"', guideline_content)
-                category_match = re.search(r'category:\s*(\w+)', guideline_content)
+                category_match = re.search(r"category:\s*(\w+)", guideline_content)
 
                 title = title_match.group(1) if title_match else guideline_id
                 category = category_match.group(1) if category_match else "general"
 
                 # Create markdown file with YAML frontmatter
-                title_clean = title.lower().replace(' ', '-').replace('🛠️', '').strip()
-                title_clean = re.sub(r'[^a-z0-9-]', '', title_clean)  # Clean up special chars
+                title_clean = title.lower().replace(" ", "-").replace("🛠️", "").strip()
+                title_clean = re.sub(r"[^a-z0-9-]", "", title_clean)  # Clean up special chars
                 md_filename = f"{guideline_id}-{title_clean}.md"
                 md_path = guidelines_dir / md_filename
 
@@ -221,7 +221,7 @@ See guidelines.dsl for full specification.
             "version": "3.0",
             "source_structure": "Flat categorization by type (no CRITICAL/OPTIONAL/CUSTOMIZABLE subfolders)",
             "metadata_location": "YAML frontmatter in each file",
-            "categories": {}
+            "categories": {},
         }
 
         # Count items in each category
@@ -232,7 +232,7 @@ See guidelines.dsl for full specification.
                 manifest["categories"][category] = {
                     "path": f"source/{category}",
                     "item_count": len(md_files),
-                    "items": [f.stem for f in sorted(md_files)]
+                    "items": [f.stem for f in sorted(md_files)],
                 }
 
         # Save manifest
@@ -270,7 +270,7 @@ See guidelines.dsl for full specification.
         """Execute full reorganization"""
         print()
         print("=" * 100)
-        print("🔧 PHASE 1c: REORGANIZE .sdd-core/source/")
+        print("🔧 PHASE 1c: REORGANIZE core/source/")
         print("=" * 100)
         print()
 
@@ -287,7 +287,7 @@ See guidelines.dsl for full specification.
         print()
         print("Next steps:")
         print("  1. Review source/ structure")
-        print("  2. Verify compiler still works: python .sdd-core/pipeline_builder.py")
+        print("  2. Verify compiler still works: python core/pipeline_builder.py")
         print("  3. Proceed to PHASE 1c-test")
         print()
 
@@ -297,10 +297,10 @@ if __name__ == "__main__":
 
     # Determine correct path
     current_dir = Path.cwd()
-    if current_dir.name == ".sdd-core":
-        sdd_core_path = current_dir
+    if current_dir.name == "core":
+        core_path = current_dir
     else:
-        sdd_core_path = current_dir / ".sdd-core"
+        core_path = current_dir / "core"
 
-    reorganizer = SourceReorganizer(str(sdd_core_path))
+    reorganizer = SourceReorganizer(str(core_path))
     reorganizer.run()

@@ -38,7 +38,7 @@ _spec/     # Specification & Documentation
 - `.sdd-migration/` - Migration scripts
 - `.sdd-integration/` - Integration tools
 - `.sdd-runtime/` - Runtime compiled governance
-- `sdd_cli/` - CLI interface
+- `cli/` - CLI interface
 - `tests/` - All 82+ test files
 - `run-all-tests.py` - Test runner
 - `run-all-tests.sh` - Test runner (shell)
@@ -75,7 +75,7 @@ All old import paths still work via symlinks:
 .sdd-migration → _core/.sdd-migration
 .sdd-integration → _core/.sdd-integration
 .sdd-runtime → _core/.sdd-runtime
-sdd_cli → _core/sdd_cli
+cli → _core/cli
 tests → _core/tests
 ```
 
@@ -106,7 +106,7 @@ repository/
 │  ├─ .sdd-migration/              # Migration tools
 │  ├─ .sdd-integration/            # Integration framework
 │  ├─ .sdd-runtime/                # Runtime governance
-│  ├─ sdd_cli/                     # CLI interface
+│  ├─ cli/                     # CLI interface
 │  ├─ tests/                       # 82+ test files
 │  ├─ sdd-generated/               # Generated projects
 │  ├─ Configuration
@@ -156,7 +156,7 @@ repository/
 │     ├─ .sdd-migration → _core/.sdd-migration
 │     ├─ .sdd-integration → _core/.sdd-integration
 │     ├─ .sdd-runtime → _core/.sdd-runtime
-│     ├─ sdd_cli → _core/sdd_cli
+│     ├─ cli → _core/cli
 │     └─ tests → _core/tests
 ```
 
@@ -170,7 +170,7 @@ repository/
 # Old imports (via symlinks)
 from .sdd-core import compile_governance
 from .sdd-wizard.src import wizard
-import sdd_cli
+import cli
 ```
 
 **New recommended paths:**
@@ -179,7 +179,7 @@ import sdd_cli
 # New imports (direct)
 from _core.sdd-core import compile_governance
 from _core.sdd-wizard.src import wizard
-from _core import sdd_cli
+from _core import cli
 ```
 
 **Tests still work:**
@@ -250,7 +250,7 @@ python3 run-all-tests.py --verbose
 cd .sdd-core && python3 compile_governance.py
 
 # Use CLI
-python3 -m sdd_cli governance load
+python3 -m cli governance load
 ```
 
 ### For Documentation Users
@@ -352,7 +352,7 @@ ln -s _core/.sdd-compiler .sdd-compiler
 ln -s _core/.sdd-migration .sdd-migration
 ln -s _core/.sdd-integration .sdd-integration
 ln -s _core/.sdd-runtime .sdd-runtime
-ln -s _core/sdd_cli sdd_cli
+ln -s _core/cli cli
 ln -s _core/tests tests
 ```
 

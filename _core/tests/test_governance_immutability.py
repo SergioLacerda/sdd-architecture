@@ -1,3 +1,4 @@
+import importlib
 import json
 import shutil
 import sys
@@ -8,7 +9,7 @@ REPO_ROOT = Path(__file__).resolve().parents[2]
 if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
-from _core.governance_compliance import GovernanceComplianceValidator
+GovernanceComplianceValidator = importlib.import_module("_core.tools.governance_compliance").GovernanceComplianceValidator
 
 
 def _create_valid_governance_file(project_dir: Path, enforcement: str = "strict") -> Path:
@@ -64,6 +65,7 @@ def test_core_governance_immutability(target_level="strict"):
 
     print("✅ Immutability Test Passed")
     shutil.rmtree(test_dir)
+
 
 if __name__ == "__main__":
     test_core_governance_immutability()

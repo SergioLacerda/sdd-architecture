@@ -4,7 +4,6 @@ SDD Architecture - Health Check Engine (Relocated to tools/)
 """
 
 import json
-import os
 import subprocess
 import sys
 from datetime import datetime
@@ -23,7 +22,7 @@ class HealthCheckEngine:
             "project_root": str(self.project_root),
             "checks": {},
             "summary": {"total": 0, "passed": 0, "failed": 0, "warnings": 0},
-            "status": "UNKNOWN"
+            "status": "UNKNOWN",
         }
 
     def _find_project_root(self) -> Path:
@@ -33,7 +32,7 @@ class HealthCheckEngine:
         for parent in [current] + list(current.parents):
             if (parent / "_core").exists() and (parent / "_spec").exists():
                 return parent
-        return current.parent.parent # Fallback
+        return current.parent.parent  # Fallback
 
     def log(self, message: str, level: str = "info"):
         if self.verbose:
@@ -43,8 +42,7 @@ class HealthCheckEngine:
     def check_git_status(self) -> Tuple[bool, str]:
         try:
             result = subprocess.run(
-                ["git", "rev-parse", "--git-dir"],
-                cwd=self.project_root, capture_output=True, text=True, timeout=5
+                ["git", "rev-parse", "--git-dir"], cwd=self.project_root, capture_output=True, text=True, timeout=5
             )
             if result.returncode != 0:
                 return False, "Not a git repository"
@@ -53,7 +51,7 @@ class HealthCheckEngine:
             return False, f"Git check failed: {str(e)}"
 
     def check_core_structure(self) -> Tuple[bool, str]:
-        required = [".sdd-core", ".sdd-wizard", ".sdd-compiler"]
+        required = ["core", "wizard", "compiler"]
         core_dir = self.project_root / "_core"
         missing = [s for s in required if not (core_dir / s).exists()]
         if missing:
@@ -76,18 +74,22 @@ class HealthCheckEngine:
             passed, msg = func()
             self.results["checks"][name] = {"status": "PASS" if passed else "FAIL", "message": msg}
             self.results["summary"]["total"] += 1
-            if passed: self.results["summary"]["passed"] += 1
-            else: self.results["summary"]["failed"] += 1
-        
+            if passed:
+                self.results["summary"]["passed"] += 1
+            else:
+                self.results["summary"]["failed"] += 1
+
         self.results["status"] = "OPERATIONAL ✅" if self.results["summary"]["failed"] == 0 else "FAILED ❌"
         return self.results
+
 
 if __name__ == "__main__":
     engine = HealthCheckEngine(verbose="--verbose" in sys.argv)
     res = engine.run_all_checks()
-    if "--json" in sys.argv: print(json.dumps(res, indent=2))
+    if "--json" in sys.argv:
+        print(json.dumps(res, indent=2))
     else:
         print(f"\n🎯 Overall Status: {res['status']}\n")
-        for k, v in res['checks'].items():
+        for k, v in res["checks"].items():
             print(f"  {'✅' if v['status'] == 'PASS' else '❌'} {k}: {v['message']}")
     sys.exit(0 if res["summary"]["failed"] == 0 else 1)
