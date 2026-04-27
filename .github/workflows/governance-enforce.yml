@@ -62,7 +62,7 @@ jobs:
         if: always()
         run: |
           echo "::group::Enforcement Level"
-          python _core/governance_compliance.py --enforcement-check
+          python _core/tools/governance_compliance.py --enforcement-check
           echo "::endgroup::"
       
       - name: Determine Merge Blocking

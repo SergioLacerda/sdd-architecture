@@ -29,7 +29,7 @@ class TestPhase2Compiler:
     @pytest.fixture
     def compiler(self):
         """Create a compiler instance"""
-        return GovernanceCompiler("compiled")
+        return GovernanceCompiler("compiler/compiled")
 
     @pytest.fixture
     def output_dir(self, tmp_path):
@@ -88,9 +88,9 @@ class TestPhase2Compiler:
     def test_fingerprints_preserved_from_pipeline(self, compiler, output_dir):
         """Test that fingerprints from pipeline are preserved"""
         # Load original JSONs
-        with open("compiled/governance-core.json") as f:
+        with open("compiler/compiled/governance-core.json") as f:
             core_json = json.load(f)
-        with open("compiled/governance-client.json") as f:
+        with open("compiler/compiled/governance-client.json") as f:
             client_json = json.load(f)
 
         original_core_fp = core_json["fingerprint"]

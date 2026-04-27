@@ -46,11 +46,11 @@ class TestPhase3Integration:
         phase1_client_fp = phase1_result["governance_client"]["fingerprint"]
 
         # Save outputs
-        builder.save_outputs("compiled")
+        builder.save_outputs("compiler/compiled")
 
         # Run PHASE 2
-        compiler = GovernanceCompiler("compiled")
-        phase2_result = compiler.compile("compiled")
+        compiler = GovernanceCompiler("compiler/compiled")
+        phase2_result = compiler.compile("compiler/compiled")
 
         # Verify fingerprints preserved
         assert phase1_core_fp == phase2_result["core_fingerprint"], "Core fingerprint changed in compiler"
@@ -60,10 +60,10 @@ class TestPhase3Integration:
         """Test that core fingerprint is properly used as salt for client"""
         # Build and compile
         builder = PipelineBuilder("_spec")
-        builder.save_outputs("compiled")
+        builder.save_outputs("compiler/compiled")
 
-        compiler = GovernanceCompiler("compiled")
-        result = compiler.compile("compiled")
+        compiler = GovernanceCompiler("compiler/compiled")
+        result = compiler.compile("compiler/compiled")
 
         core_fp = result["core_fingerprint"]
         core_salt = result["core_fingerprint_salt"]
@@ -74,10 +74,10 @@ class TestPhase3Integration:
         """Test that msgpack files deserialize to valid data"""
         # Build and compile
         builder = PipelineBuilder("_spec")
-        builder.save_outputs("compiled")
+        builder.save_outputs("compiler/compiled")
 
-        compiler = GovernanceCompiler("compiled")
-        result = compiler.compile("compiled")
+        compiler = GovernanceCompiler("compiler/compiled")
+        result = compiler.compile("compiler/compiled")
 
         # Deserialize core msgpack
         core_msgpack_file = result["core_msgpack_file"]
@@ -101,10 +101,10 @@ class TestPhase3Integration:
         """Test msgpack can be deserialized and converted back to JSON"""
         # Build and compile
         builder = PipelineBuilder("_spec")
-        builder.save_outputs("compiled")
+        builder.save_outputs("compiler/compiled")
 
-        compiler = GovernanceCompiler("compiled")
-        result = compiler.compile("compiled")
+        compiler = GovernanceCompiler("compiler/compiled")
+        result = compiler.compile("compiler/compiled")
 
         # Load msgpack
         core_msgpack_data = msgpack.unpackb(Path(result["core_msgpack_file"]).read_bytes(), raw=False)
@@ -140,16 +140,16 @@ class TestPhase3Integration:
         """Test compiler produces same output when run twice"""
         # Prepare
         builder = PipelineBuilder("_spec")
-        builder.save_outputs("compiled")
+        builder.save_outputs("compiler/compiled")
 
         # First compile
-        compiler1 = GovernanceCompiler("compiled")
-        result1 = compiler1.compile("compiled")
+        compiler1 = GovernanceCompiler("compiler/compiled")
+        result1 = compiler1.compile("compiler/compiled")
         size1_core = Path(result1["core_msgpack_file"]).stat().st_size
 
         # Second compile
-        compiler2 = GovernanceCompiler("compiled")
-        result2 = compiler2.compile("compiled")
+        compiler2 = GovernanceCompiler("compiler/compiled")
+        result2 = compiler2.compile("compiler/compiled")
         size2_core = Path(result2["core_msgpack_file"]).stat().st_size
 
         # Should be identical
@@ -160,12 +160,12 @@ class TestPhase3Integration:
         """Test that items are correctly categorized by customizable flag"""
         # Build
         builder = PipelineBuilder("_spec")
-        builder.save_outputs("compiled")
+        builder.save_outputs("compiler/compiled")
 
         # Load JSONs
-        with open("compiled/governance-core.json") as f:
+        with open("compiler/compiled/governance-core.json") as f:
             core_data = json.load(f)
-        with open("compiled/governance-client.json") as f:
+        with open("compiler/compiled/governance-client.json") as f:
             client_data = json.load(f)
 
         # All core items should have customizable=false
@@ -180,10 +180,10 @@ class TestPhase3Integration:
         """Test that metadata accurately reflects msgpack content"""
         # Build and compile
         builder = PipelineBuilder("_spec")
-        builder.save_outputs("compiled")
+        builder.save_outputs("compiler/compiled")
 
-        compiler = GovernanceCompiler("compiled")
-        result = compiler.compile("compiled")
+        compiler = GovernanceCompiler("compiler/compiled")
+        result = compiler.compile("compiler/compiled")
 
         # Load metadata
         with open(result["core_metadata"]) as f:
@@ -203,10 +203,10 @@ class TestPhase3Integration:
         # Build and compile
         builder = PipelineBuilder("_spec")
         phase1_result = builder.build()
-        builder.save_outputs("compiled")
+        builder.save_outputs("compiler/compiled")
 
-        compiler = GovernanceCompiler("compiled")
-        phase2_result = compiler.compile("compiled")
+        compiler = GovernanceCompiler("compiler/compiled")
+        phase2_result = compiler.compile("compiler/compiled")
 
         # Verify separation
         phase1_core_count = len(phase1_result["core_items"])
@@ -223,10 +223,10 @@ class TestPhase3Integration:
 
         # Build
         builder = PipelineBuilder("_spec")
-        builder.save_outputs("compiled")
+        builder.save_outputs("compiler/compiled")
 
         # Load JSON
-        with open("compiled/governance-core.json") as f:
+        with open("compiler/compiled/governance-core.json") as f:
             core_data = json.load(f)
 
         # Check ordering
@@ -244,9 +244,9 @@ class TestPhase3Integration:
         total_items_phase1 = len(phase1_result["core_items"]) + len(phase1_result["client_items"])
 
         # Compile
-        builder.save_outputs("compiled")
-        compiler = GovernanceCompiler("compiled")
-        phase2_result = compiler.compile("compiled")
+        builder.save_outputs("compiler/compiled")
+        compiler = GovernanceCompiler("compiler/compiled")
+        phase2_result = compiler.compile("compiler/compiled")
         total_items_phase2 = phase2_result["core_item_count"] + phase2_result["client_item_count"]
 
         # Should be same count
@@ -270,16 +270,16 @@ class TestPhase3Integration:
         """Test that msgpack is more compact than JSON"""
         # Build and save JSONs
         builder = PipelineBuilder("_spec")
-        builder.save_outputs("compiled")
+        builder.save_outputs("compiler/compiled")
 
         # Get JSON sizes
-        core_json_size = Path("compiled/governance-core.json").stat().st_size
-        client_json_size = Path("compiled/governance-client.json").stat().st_size
+        core_json_size = Path("compiler/compiled/governance-core.json").stat().st_size
+        client_json_size = Path("compiler/compiled/governance-client.json").stat().st_size
         total_json_size = core_json_size + client_json_size
 
         # Compile to msgpack
-        compiler = GovernanceCompiler("compiled")
-        result = compiler.compile("compiled")
+        compiler = GovernanceCompiler("compiler/compiled")
+        result = compiler.compile("compiler/compiled")
 
         # Get msgpack sizes
         core_msgpack_size = Path(result["core_msgpack_file"]).stat().st_size

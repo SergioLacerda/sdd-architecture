@@ -13,8 +13,8 @@ class GovernanceComplianceValidator:
 
     GOVERNANCE_FILE = ".ai/governance-core.json"
     SIGNATURE_FILE = ".ai/.governance-signature.json"
-    COMPILED_GOVERNANCE_FILE = "_core/compiled/governance-core.json"
-    COMPILED_GOVERNANCE_FILE_ALT = "compiled/governance-core.json"
+    COMPILED_GOVERNANCE_FILE = "_core/compiler/compiled/governance-core.json"
+    COMPILED_GOVERNANCE_FILE_ALT = "compiler/compiled/governance-core.json"
 
     def __init__(self, project_dir: Path) -> None:
         self.project_dir = Path(project_dir)

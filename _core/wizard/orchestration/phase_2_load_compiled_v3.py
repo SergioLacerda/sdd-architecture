@@ -30,7 +30,7 @@ class GovernanceLoader:
 
     def __init__(self, repo_root: Path | None = None, verbose: bool = False):
         self.repo_root = Path(repo_root or Path.cwd())
-        self.compiled_dir = self.repo_root / "compiled"
+        self.compiled_dir = self.repo_root / "compiler" / "compiled"
         self.verbose = verbose
         self.core_data = None
         self.client_data = None

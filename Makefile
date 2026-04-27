@@ -58,7 +58,7 @@ test-immutability: validate-deps
 	$(PYTHON) _core/tests/test_governance_immutability.py $(ENFORCEMENT)
 
 verify: validate-deps
-	$(PYTHON) $(CORE_DIR)/governance_compliance.py --verify --check-integrity .
+	$(PYTHON) $(CORE_DIR)/tools/governance_compliance.py --verify --check-integrity .
 
 check: validate-deps format lint verify test test-wizard test-immutability
 	@echo "✅ All quality and governance checks passed!"

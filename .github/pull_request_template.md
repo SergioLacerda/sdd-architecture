@@ -11,7 +11,7 @@
 ### Health & Compliance
 
 - [ ] Health check passes: `python3 _core/health_check.py --force-recheck` → 10/10
-- [ ] Governance compliant: `python3 _core/governance_compliance.py --verify` → 100%
+- [ ] Governance compliant: `python3 _core/tools/governance_compliance.py --verify` → 100%
 - [ ] Performance acceptable: `python3 tests/performance/benchmark.py`
 - [ ] No governance violations or policy breaks
 

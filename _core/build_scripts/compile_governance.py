@@ -177,7 +177,7 @@ class GovernanceCompiler:
         governance_client["fingerprint_core_salt"] = fingerprint_core
 
         # Save files
-        output_dir = self.core_path.parent / "compiled"
+        output_dir = self.core_path.parent / "compiler" / "compiled"
         output_dir.mkdir(parents=True, exist_ok=True)
 
         # Save core JSON
@@ -248,7 +248,7 @@ class GovernanceCompiler:
 
         print("📁 FILES GENERATED")
         print("-" * 100)
-        output_dir = self.core_path.parent / "compiled"
+        output_dir = self.core_path.parent / "compiler" / "compiled"
         print(f"  {output_dir}/")
         print("  ├── governance-core.json")
         print("  ├── governance-client.json")

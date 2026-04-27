@@ -38,7 +38,7 @@ class GovernanceOrchestrator:
             parent_spec = repo_root.parent / "_spec"
             if parent_spec.exists():
                 self.spec = parent_spec
-        self.compiled_dir = repo_root / "compiled"
+        self.compiled_dir = repo_root / "compiler" / "compiled"
 
     def run_full_pipeline(self) -> Dict[str, Any]:
         """

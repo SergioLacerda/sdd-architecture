@@ -1,5 +1,6 @@
 #!/bin/bash
-# Post-merge Hook - Refresh local governance cache after merge
+# Post-merge Hook - SDD Architecture Framework
+# Refresh local governance cache after merge
 
 set -u
 set -o pipefail

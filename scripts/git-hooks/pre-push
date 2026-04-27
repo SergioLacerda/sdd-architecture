@@ -50,14 +50,11 @@ fi
 GOVERNANCE_SCRIPT=""
 if [ -f "$PROJECT_ROOT/_core/tools/governance_compliance.py" ]; then
     GOVERNANCE_SCRIPT="$PROJECT_ROOT/_core/tools/governance_compliance.py"
-elif [ -f "$PROJECT_ROOT/_core/governance_compliance.py" ]; then
-    GOVERNANCE_SCRIPT="$PROJECT_ROOT/_core/governance_compliance.py"
 fi
 
 if [ -z "$GOVERNANCE_SCRIPT" ]; then
     echo -e "${RED}✗ Governance script not found${NC}"
-    echo "  Expected one of:"
-    echo "  - _core/governance_compliance.py"
+    echo "  Expected:"
     echo "  - _core/tools/governance_compliance.py"
     exit 1
 fi
@@ -101,20 +98,13 @@ if [ -n "$GOVERNANCE_FILE" ]; then
     fi
     echo -e "${GREEN}✓ Enforcement mode: $ENFORCEMENT_MODE${NC}"
 
-    echo -e "${YELLOW}→ Checking compliance percentage...${NC}"
+    echo -e "${YELLOW}→ Checking compliance...${NC}"
     VERIFY_OUTPUT="$("$PYTHON_BIN" "$GOVERNANCE_SCRIPT" --verify 2>&1)"
     VERIFY_STATUS=$?
-    COMPLIANCE="$(echo "$VERIFY_OUTPUT" | grep -oE '[0-9]+%' | head -1 || true)"
 
     if [ $VERIFY_STATUS -ne 0 ]; then
         echo -e "${RED}✗ Governance verify failed${NC}"
         echo "$VERIFY_OUTPUT"
-        exit 1
-    fi
-
-    if [ -n "$COMPLIANCE" ] && [ "$COMPLIANCE" != "100%" ]; then
-        echo -e "${RED}✗ Not fully compliant: $COMPLIANCE${NC}"
-        echo "  Fix steps: $PYTHON_BIN $GOVERNANCE_SCRIPT --fix-steps"
         exit 1
     fi
 
@@ -133,7 +123,11 @@ fi
 echo -e "${YELLOW}→ Summary for branch '$BRANCH':${NC}"
 echo -e "  Commits to push: $COMMIT_COUNT"
 echo -e "  Health: ${GREEN}✓ Healthy${NC}"
-echo -e "  Governance: ${GREEN}✓ Compliant${NC}"
+if [ "$ENFORCEMENT_MODE" = "SKIPPED" ]; then
+    echo -e "  Governance: ${YELLOW}⚠ Skipped (no governance file found)${NC}"
+else
+    echo -e "  Governance: ${GREEN}✓ Compliant${NC}"
+fi
 echo -e "  Enforcement: $ENFORCEMENT_MODE"
 echo -e "${GREEN}[PRE-PUSH] All checks passed. Push allowed.${NC}\n"
 

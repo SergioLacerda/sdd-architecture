@@ -1,6 +1,8 @@
 # SDD v3.0 - Makefile Test Commands
 # Dispara testes de todas as camadas a partir da raiz
 
+MAKEFILE_DIR := $(dir $(abspath $(lastword $(MAKEFILE_LIST))))
+
 .PHONY: test test-all test-core test-wizard test-migration test-extensions test-execution test-compiler test-rtk test-verbose test-fast test-list help
 
 help:
@@ -30,18 +32,18 @@ test: test-all
 
 test-all:
 	@echo "🚀 Executando testes de TODAS as camadas..."
-	@python3 run-all-tests.py
+	@python3 $(MAKEFILE_DIR)run-all-tests.py
 
 test-verbose:
 	@echo "🚀 Executando testes em modo VERBOSE..."
-	@python3 run-all-tests.py --verbose
+	@python3 $(MAKEFILE_DIR)run-all-tests.py --verbose
 
 test-fast:
 	@echo "🚀 Executando testes com FAIL-FAST..."
-	@python3 run-all-tests.py --fail-fast
+	@python3 $(MAKEFILE_DIR)run-all-tests.py --fail-fast
 
 test-list:
-	@python3 run-all-tests.py --list-layers
+	@python3 $(MAKEFILE_DIR)run-all-tests.py --list-layers
 
 # Layer-specific tests
 test-core:

@@ -64,36 +64,36 @@ done
 echo ""
 
 # Summary
-if [ $success_count -eq 3 ]; then
+if [ $success_count -eq ${#hooks[@]} ]; then
     echo -e "${GREEN}═════════════════════════════════════════${NC}"
     echo -e "${GREEN}  Installation Successful!                ${NC}"
     echo -e "${GREEN}═════════════════════════════════════════${NC}\n"
     
-    echo "Installed hooks:"
-    echo "  ✓ pre-commit   - Validates governance before commit"
-    echo "  ✓ pre-push     - Full health check before push"
-    echo "  ✓ post-merge   - Updates cache after merge\n"
+    echo -e "Installed hooks:"
+    echo -e "  \u2713 pre-commit   - Validates governance before commit"
+    echo -e "  \u2713 pre-push     - Full health check before push"
+    echo -e "  \u2713 post-merge   - Updates cache after merge\n"
     
-    echo "What happens next:"
-    echo "  • git commit    → Runs pre-commit hook"
-    echo "  • git push      → Runs pre-push hook"
-    echo "  • git merge     → Runs post-merge hook\n"
+    echo -e "What happens next:"
+    echo -e "  \u2022 git commit    \u2192 Runs pre-commit hook"
+    echo -e "  \u2022 git push      \u2192 Runs pre-push hook"
+    echo -e "  \u2022 git merge     \u2192 Runs post-merge hook\n"
     
-    echo "To skip hooks (if absolutely necessary):"
-    echo "  git commit --no-verify      (skip pre-commit)"
-    echo "  git push --no-verify        (skip pre-push)"
-    echo "  git merge --no-verify       (skip post-merge)\n"
+    echo -e "To skip hooks (if absolutely necessary):"
+    echo -e "  git commit --no-verify      (skip pre-commit)"
+    echo -e "  git push --no-verify        (skip pre-push)"
+    echo -e "  git merge --no-verify       (skip post-merge)\n"
     
-    echo "To uninstall hooks:"
-    echo "  bash scripts/uninstall-git-hooks.sh\n"
+    echo -e "To uninstall hooks:"
+    echo -e "  bash scripts/uninstall-git-hooks.sh\n"
     
     exit 0
 else
     echo -e "${YELLOW}═════════════════════════════════════════${NC}"
     echo -e "${YELLOW}  Installation Partial                    ${NC}"
     echo -e "${YELLOW}═════════════════════════════════════════${NC}\n"
-    echo "Success: $success_count/3 hooks installed"
-    echo "Failed: $failed_count/3 hooks\n"
-    echo "Check that all hook files exist in .git/hooks/\n"
+    echo -e "Success: $success_count/${#hooks[@]} hooks installed"
+    echo -e "Failed: $failed_count/${#hooks[@]} hooks\n"
+    echo -e "Check that all hook files exist in .git/hooks/\n"
     exit 1
 fi

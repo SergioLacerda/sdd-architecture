@@ -15,7 +15,7 @@ This project enforces governance policies. Before suggesting code changes:
 - Check if changes violate policies in `.sdd/governance-core.json`
 - Suggest code that follows the enforcement level (STRICT/STANDARD/PERMISSIVE)
 - Reference mandatory policies from `MANDATORY_POLICIES.md`
-- Run compliance check before finalizing: `python3 _core/governance_compliance.py --verify`
+- Run compliance check before finalizing: `python3 _core/tools/governance_compliance.py --verify`
 
 ### 2. Health-Aware Suggestions
 
@@ -74,7 +74,7 @@ def check_something(self):
 
 #### Governance Validation Pattern
 ```python
-from _core.governance_compliance import GovernanceComplianceValidator
+from _core.tools.governance_compliance import GovernanceComplianceValidator
 
 validator = GovernanceComplianceValidator()
 is_compliant, results = validator.validate_all()
@@ -146,8 +146,8 @@ If suggesting code that might impact these, recommend benchmarking first.
 
 1. **Policy**: Quote the specific policy from MANDATORY_POLICIES.md
 2. **Violation**: Explain which rule is broken
-3. **Fix**: Use `python3 _core/governance_compliance.py --fix-steps`
-4. **Verify**: Run `python3 _core/governance_compliance.py --verify`
+3. **Fix**: Use `python3 _core/tools/governance_compliance.py --fix-steps`
+4. **Verify**: Run `python3 _core/tools/governance_compliance.py --verify`
 
 ### When Helping with Agent Code
 
@@ -187,7 +187,7 @@ if results["status"] != "healthy":
 
 ### Governance Validation
 ```python
-from _core.governance_compliance import GovernanceComplianceValidator
+from _core.tools.governance_compliance import GovernanceComplianceValidator
 
 validator = GovernanceComplianceValidator()
 is_compliant, results = validator.validate_all()
@@ -304,7 +304,7 @@ When suggestions are vague, ask:
 ### Key Files
 - `_core/health_check.py` - 400 LOC, 10 checks
 - `_core/agent_handshake.py` - 658 LOC, 4-layer validation
-- `_core/governance_compliance.py` - 400 LOC, policy validator
+- `_core/tools/governance_compliance.py` - 400 LOC, policy validator
 - `_core/quiz_executor.py` - 450 LOC, knowledge validation
 - `tests/performance/benchmark.py` - 400 LOC, performance measurement
 
@@ -345,7 +345,7 @@ Verify:
 python3 _core/health_check.py
 
 Then:
-python3 _core/governance_compliance.py --verify
+python3 _core/tools/governance_compliance.py --verify
 
 This ensures your governance config is ready.
 ```
@@ -356,7 +356,7 @@ This ensures your governance config is ready.
 
 ### Before Making Changes
 1. Check health: `python3 _core/health_check.py`
-2. Check governance: `python3 _core/governance_compliance.py --verify`
+2. Check governance: `python3 _core/tools/governance_compliance.py --verify`
 3. Understand impact: Will this break anything?
 4. Plan tests: What needs to be tested?
 
@@ -368,13 +368,13 @@ This ensures your governance config is ready.
 
 ### Before Committing
 1. Run health check: `python3 _core/health_check.py --force-recheck`
-2. Verify governance: `python3 _core/governance_compliance.py --verify`
+2. Verify governance: `python3 _core/tools/governance_compliance.py --verify`
 3. Run tests: `python3 -m pytest tests/`
 4. Check performance: Compare against baseline
 
 ### Before Pushing
 1. Fresh health check: `python3 _core/health_check.py --force-recheck`
-2. Full compliance: `python3 _core/governance_compliance.py --verify`
+2. Full compliance: `python3 _core/tools/governance_compliance.py --verify`
 3. Log summary: Document what changed
 4. Notify team: (if needed)
 

@@ -50,13 +50,13 @@ assignees: ''
 
 ```bash
 # Check compliance
-python3 _core/governance_compliance.py --verify
+python3 _core/tools/governance_compliance.py --verify
 
 # Get fix steps
-python3 _core/governance_compliance.py --fix-steps
+python3 _core/tools/governance_compliance.py --fix-steps
 
 # Check enforcement
-python3 _core/governance_compliance.py --enforcement-check
+python3 _core/tools/governance_compliance.py --enforcement-check
 ```
 
 ## 📞 Reviewer
@@ -75,6 +75,6 @@ python3 _core/governance_compliance.py --enforcement-check
 ---
 
 **Reviewers**: 
-1. Verify compliance: `python3 _core/governance_compliance.py --verify`
-2. Check proposed fix: `python3 _core/governance_compliance.py --fix-steps`
+1. Verify compliance: `python3 _core/tools/governance_compliance.py --verify`
+2. Check proposed fix: `python3 _core/tools/governance_compliance.py --fix-steps`
 3. Approve with label: `governance-approved`

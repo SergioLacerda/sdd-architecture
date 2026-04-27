@@ -13,7 +13,7 @@ class QuizExecutor:
         if quiz_file is None:
             # Aponta para o novo local em compiled
             self.project_root = Path(__file__).resolve().parents[2]
-            quiz_file = self.project_root / "_core" / "compiled" / "quiz_questions.json"
+            quiz_file = self.project_root / "_core" / "compiler" / "compiled" / "quiz_questions.json"
 
         self.quiz_file = quiz_file
         try:

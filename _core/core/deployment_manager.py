@@ -30,7 +30,7 @@ class DeploymentManager:
             repo_root = Path(repo_root)
 
         self.repo_root = Path(repo_root)
-        self.compiled_dir = self.repo_root / "compiled"
+        self.compiled_dir = self.repo_root / "compiler" / "compiled"
         self.runtime_dir = self.repo_root / "runtime"
         self.runtime_compiled = self.runtime_dir / "compiled"
 

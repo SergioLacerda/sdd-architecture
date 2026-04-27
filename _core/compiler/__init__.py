@@ -15,5 +15,10 @@ Example:
     >>> print(f"Compressed to {metrics.compression_ratio:.1%}")
 """
 
+from pathlib import Path
+
 __version__ = "3.1.0-dev"
 __author__ = "SDD Development Team"
+
+# Central path to the compiled governance artifacts
+COMPILED_DIR = Path(__file__).parent / "compiled"

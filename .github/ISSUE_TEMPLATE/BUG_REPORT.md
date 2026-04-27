@@ -36,7 +36,7 @@ assignees: ''
 python3 _core/health_check.py --verbose
 
 # Governance compliance
-python3 _core/governance_compliance.py --verify
+python3 _core/tools/governance_compliance.py --verify
 
 # Agent handshake
 python3 _core/agent_handshake.py --verbose
@@ -62,7 +62,7 @@ git status && git log --oneline -3
 ## ✅ Troubleshooting Attempted
 
 - [ ] Ran: `python3 _core/health_check.py --force-recheck`
-- [ ] Ran: `python3 _core/governance_compliance.py --fix-steps`
+- [ ] Ran: `python3 _core/tools/governance_compliance.py --fix-steps`
 - [ ] Cleared cache: `rm -f _core/.sdd/agent_state.json`
 - [ ] Pulled latest: `git pull origin main`
 - [ ] Checked docs: TROUBLESHOOTING.md

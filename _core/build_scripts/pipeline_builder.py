@@ -326,7 +326,7 @@ class PipelineBuilder:
 if __name__ == "__main__":
     # Example usage
     builder = PipelineBuilder("core")
-    result = builder.save_outputs("compiled")
+    result = builder.save_outputs("compiler/compiled")
 
     print("✅ PHASE 1: Pipeline completed")
     print(f"  governance-core.json: {result['governance_core']}")

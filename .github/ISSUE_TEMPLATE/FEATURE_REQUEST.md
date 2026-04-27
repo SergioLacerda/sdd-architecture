@@ -23,7 +23,7 @@ assignees: ''
 
 - [ ] Feature is implemented
 - [ ] Health checks pass (`python3 _core/health_check.py`)
-- [ ] Governance compliant (`python3 _core/governance_compliance.py --verify`)
+- [ ] Governance compliant (`python3 _core/tools/governance_compliance.py --verify`)
 - [ ] Tests added and passing
 - [ ] Documentation updated
 - [ ] Performance benchmarked (if applicable)

@@ -81,7 +81,7 @@
     "D": "Delete governance-core.json and start fresh"
   },
   "correct": "B",
-  "explanation": "At 43% compliance, 4 policies are failing. The correct action is to identify which policies are violated using: python3 _core/governance_compliance.py --verify --fix-steps. This shows exactly what needs to be fixed. Answer B is correct."
+  "explanation": "At 43% compliance, 4 policies are failing. The correct action is to identify which policies are violated using: python3 _core/tools/governance_compliance.py --verify --fix-steps. This shows exactly what needs to be fixed. Answer B is correct."
 }
 ```
 
@@ -167,7 +167,7 @@ new_questions = [
             "D": "Delete governance-core.json and start fresh"
         },
         "correct": "B",
-        "explanation": "At 43% compliance, 4 policies are failing. The correct action is to identify which policies are violated using: python3 _core/governance_compliance.py --verify --fix-steps. This shows exactly what needs to be fixed. Answer B is correct."
+        "explanation": "At 43% compliance, 4 policies are failing. The correct action is to identify which policies are violated using: python3 _core/tools/governance_compliance.py --verify --fix-steps. This shows exactly what needs to be fixed. Answer B is correct."
     }
 ]
 

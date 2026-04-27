@@ -35,9 +35,14 @@ for hook_name in "${hooks[@]}"; do
     hook_file="$HOOKS_DIR/$hook_name"
     
     if [ -f "$hook_file" ]; then
-        rm -f "$hook_file"
-        echo -e "${GREEN}✓ Removed: $hook_name${NC}"
-        removed_count=$((removed_count + 1))
+        # Only remove hooks that were installed by SDD Architecture
+        if grep -q "SDD Architecture" "$hook_file" 2>/dev/null; then
+            rm -f "$hook_file"
+            echo -e "${GREEN}✓ Removed: $hook_name${NC}"
+            removed_count=$((removed_count + 1))
+        else
+            echo -e "${YELLOW}⚠ Skipped: $hook_name (not an SDD hook)${NC}"
+        fi
     fi
 done
 

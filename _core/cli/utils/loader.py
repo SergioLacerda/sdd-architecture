@@ -33,10 +33,10 @@ def validate_governance_path(path: str) -> bool:
     path_obj = Path(path)
 
     required_files = [
-        path_obj / "compiled" / "governance-core.compiled.msgpack",
-        path_obj / "compiled" / "governance-client-template.compiled.msgpack",
-        path_obj / "compiled" / "metadata-core.json",
-        path_obj / "compiled" / "metadata-client-template.json",
+        path_obj / "compiler" / "compiled" / "governance-core.compiled.msgpack",
+        path_obj / "compiler" / "compiled" / "governance-client-template.compiled.msgpack",
+        path_obj / "compiler" / "compiled" / "metadata-core.json",
+        path_obj / "compiler" / "compiled" / "metadata-client-template.json",
     ]
 
     return all(f.exists() for f in required_files)

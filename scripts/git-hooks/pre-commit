@@ -1,5 +1,6 @@
 #!/bin/bash
 # Pre-commit Hook: CODE REVIEW Guardrail (ADR-008) - INFORMATIVE ONLY
+# SDD Architecture Framework
 #
 # Non-blocking local guidance. Branch protection remains the hard gate.
 

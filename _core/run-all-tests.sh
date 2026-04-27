@@ -2,7 +2,7 @@
 # SDD v3.0 - Test Dispatcher
 # Dispara todos os testes de todas as camadas
 
-set -e
+set -eu
 
 # Cores
 RED='\033[0;31m'
@@ -34,7 +34,10 @@ run_layer() {
     
     print_header "🧪 $name - $desc"
     
-    if pytest "$path" -q --tb=short; then
+    local pytest_args="-q --tb=short"
+    [ "${verbose:-false}" = true ] && pytest_args="-v --tb=short"
+    
+    if pytest "$path" $pytest_args; then
         echo -e "\n${GREEN}✅ $name: PASSOU${NC}"
         return 0
     else
@@ -114,7 +117,7 @@ main() {
     [ "$fail_fast" = true ] && [ $passed -ne $total ] && exit 1
     
     # Core Execution
-    if run_layer "Execution" "core/execution_tests" "Testes de execução"; then
+    if run_layer "Execution" "tests/execution" "Testes de execução"; then
         ((passed++))
     fi
     ((total++))
@@ -152,7 +155,7 @@ list_layers() {
     echo "2. Wizard         - wizard/tests"
     echo "3. Migration      - migration/tests"
     echo "4. Extensions     - cli/extensions/tests"
-    echo "5. Execution      - core/execution_tests"
+    echo "5. Execution      - tests/execution"
     echo "6. Compiler       - compiler/tests"
     echo "7. RTK            - compiler/src/runtime_telemetry_kit"
     echo ""

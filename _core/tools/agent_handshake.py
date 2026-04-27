@@ -248,7 +248,7 @@ class AgentHandshakeProtocol:
         )
 
         # Check governance-core.json
-        governance_path = self.project_root / "compiled" / "governance-core.json"
+        governance_path = self.project_root / "compiler" / "compiled" / "governance-core.json"
         governance_exists = governance_path.exists()
         results.append(
             ValidationResult(
@@ -412,7 +412,7 @@ class AgentHandshakeProtocol:
         results = []
 
         # Check governance-core.json integrity
-        governance_path = self.project_root / "_core" / "compiled" / "governance-core.json"
+        governance_path = self.project_root / "_core" / "compiler" / "compiled" / "governance-core.json"
         governance_valid = False
         governance_items = 0
 

@@ -496,7 +496,7 @@ python3 _core/agent_handshake.py --mode=silent
 **What:** Ensures mandates are immutable + valid
 
 ```bash
-python3 _core/governance_compliance.py --verify
+python3 _core/tools/governance_compliance.py --verify
 # Output: ✅ All 4 mandates verified
 ```
 
@@ -621,7 +621,7 @@ Phase 6-7 (Generate & Validate)
 # Run individually to debug
 python3 _core/health_check.py --verbose
 cd _core && python3 run-all-tests.py
-python3 _core/governance_compliance.py --verify
+python3 _core/tools/governance_compliance.py --verify
 
 # Force push if absolutely necessary (not recommended)
 git push --no-verify
