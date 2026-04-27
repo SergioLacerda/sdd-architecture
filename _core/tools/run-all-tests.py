@@ -26,7 +26,7 @@ TEST_LAYERS = [
     TestLayer("Wizard", "wizard/tests", "Testes de orquestração 7-fases"),
     TestLayer("Migration", "migration/tests", "Testes de migração v2→v3"),
     TestLayer("Core Extensions", "cli/extensions/tests", "Testes de extensões"),
-    TestLayer("Core Execution", "core/execution_tests", "Testes de execução"),
+    TestLayer("Core Execution", "tests/execution", "Testes de execução"),
     TestLayer("Compiler", "compiler/tests", "Testes do compilador"),
     TestLayer("RTK", "compiler/src/runtime_telemetry_kit", "Testes de telemetria"),
 ]

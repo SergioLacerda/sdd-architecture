@@ -50,24 +50,24 @@ test-core:
 
 test-wizard:
 	@echo "🧪 Wizard - Testes de orquestração..."
-	@pytest .sdd-wizard/tests -q
+	@pytest wizard/tests -q
 
 test-migration:
 	@echo "🧪 Migration - Testes de migração v2→v3..."
-	@pytest .sdd-migration/tests -q 2>/dev/null || echo "⊘ Diretório não encontrado"
+	@pytest migration/tests -q 2>/dev/null || echo "⊘ Diretório não encontrado"
 
 test-extensions:
 	@echo "🧪 Extensions - Testes de extensões..."
-	@pytest .sdd-cli/extensions/tests -q 2>/dev/null || echo "⊘ Diretório não encontrado"
+	@pytest cli/extensions/tests -q 2>/dev/null || echo "⊘ Diretório não encontrado"
 
 test-execution:
 	@echo "🧪 Execution - Testes de execução..."
-	@pytest .sdd-core/execution_tests -q 2>/dev/null || echo "⊘ Diretório não encontrado"
+	@pytest tests/execution -q 2>/dev/null || echo "⊘ Diretório não encontrado"
 
 test-compiler:
 	@echo "🧪 Compiler - Testes do compilador..."
-	@pytest .sdd-compiler/tests -q 2>/dev/null || echo "⊘ Diretório não encontrado"
+	@pytest compiler/tests -q 2>/dev/null || echo "⊘ Diretório não encontrado"
 
 test-rtk:
 	@echo "🧪 RTK - Testes de telemetria..."
-	@pytest .sdd-compiler/src/runtime_telemetry_kit -q 2>/dev/null || echo "⊘ Diretório não encontrado"
+	@pytest compiler/src/runtime_telemetry_kit -q 2>/dev/null || echo "⊘ Diretório não encontrado"
