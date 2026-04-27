@@ -178,7 +178,7 @@ jobs:
 
       - name: Deploy to GitHub Pages
         if: success()
-        uses: actions/upload-pages-artifact@v2
+        uses: actions/upload-pages-artifact@v5
         with:
           path: site/
 
