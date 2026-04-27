@@ -180,6 +180,32 @@ class GovernanceComplianceValidator:
                 steps.append(f"Fix violation: {v}")
         return steps
 
+    def get_enforcement_level(self) -> Tuple[str, str]:
+        """Return governance enforcement level and context message."""
+        valid_levels = {"strict", "standard", "permissive"}
+
+        if not self.governance_file.exists():
+            return "UNKNOWN", f"Governance file not found: {self.governance_file}"
+
+        try:
+            with open(self.governance_file, "r", encoding="utf-8") as f:
+                data = json.load(f)
+        except Exception as e:
+            return "UNKNOWN", f"Could not read governance file: {e}"
+
+        if self._is_project_governance(data):
+            enforcement = str(data.get("policies", {}).get("enforcement", "permissive")).lower()
+            if enforcement not in valid_levels:
+                return "UNKNOWN", f"Invalid enforcement level in governance file: {enforcement}"
+            return enforcement.upper(), f"Source: {self.governance_file}"
+
+        if self._is_compiled_governance(data):
+            # Compiled artifacts do not carry full policy metadata.
+            # Default to PERMISSIVE for reporting compatibility.
+            return "PERMISSIVE", f"Source: {self.governance_file} (compiled artifact default)"
+
+        return "UNKNOWN", f"Unrecognized governance format: {self.governance_file}"
+
 
 def main(argv: Optional[List[str]] = None) -> int:
     """Run governance validation CLI."""
@@ -189,6 +215,7 @@ def main(argv: Optional[List[str]] = None) -> int:
     parser.add_argument("--check-integrity", action="store_true", help="Validate governance integrity")
     parser.add_argument("--fix-steps", action="store_true", help="Print recommended fix steps on failure")
     parser.add_argument("--sign", action="store_true", help="Create or refresh governance signature")
+    parser.add_argument("--enforcement-check", action="store_true", help="Print current enforcement level")
 
     args = parser.parse_args(argv)
 
@@ -202,6 +229,12 @@ def main(argv: Optional[List[str]] = None) -> int:
             return 0
         print(f"❌ Could not sign governance file: {validator.governance_file}")
         return 1
+
+    if args.enforcement_check:
+        level, context = validator.get_enforcement_level()
+        print(f"Enforcement level: {level}")
+        print(context)
+        return 0 if level in {"STRICT", "STANDARD", "PERMISSIVE"} else 1
 
     ok, results = validator.validate_all()
     if ok:

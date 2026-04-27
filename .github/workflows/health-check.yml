@@ -163,21 +163,22 @@ jobs:
             };
             const emoji = stateEmoji[ahpState] || (failed === 0 ? '✅' : '❌');
 
-            const comment = `## 🧠 SDD Architecture Health Check
-
-**State**: ${emoji} ${ahpState}
-**Confidence**: ${ahpConfidence}%
-**Checks Passed**: ${passed}/${total}
-
-### Health Summary
-${health.status}
-
-### Next Steps
-${ahpActions.length > 0 ? ahpActions.map(a => `- ${a}`).join('\n') : 'No actions required'}
-
----
-**Validation Time**: ${new Date().toISOString()}
-`;
+            const comment = [
+              '## 🧠 SDD Architecture Health Check',
+              '',
+              `**State**: ${emoji} ${ahpState}`,
+              `**Confidence**: ${ahpConfidence}%`,
+              `**Checks Passed**: ${passed}/${total}`,
+              '',
+              '### Health Summary',
+              `${health.status}`,
+              '',
+              '### Next Steps',
+              ahpActions.length > 0 ? ahpActions.map(a => `- ${a}`).join('\n') : 'No actions required',
+              '',
+              '---',
+              `**Validation Time**: ${new Date().toISOString()}`,
+            ].join('\n');
 
             github.rest.issues.createComment({
               issue_number: context.issue.number,
