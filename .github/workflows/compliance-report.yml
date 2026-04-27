@@ -13,10 +13,10 @@ jobs:
     
     steps:
       - name: Checkout code
-        uses: actions/checkout@v6
+        uses: actions/checkout@v4
       
       - name: Setup Python
-        uses: actions/setup-python@v6
+        uses: actions/setup-python@v5
         with:
           python-version: "3.10"
       
@@ -34,7 +34,7 @@ jobs:
           echo "COMPLIANCE=$COMPLIANCE" >> $GITHUB_ENV
           
           # Run health check
-          python3 _core/health_check.py --verbose > health.txt 2>&1
+          python3 _core/tools/health_check.py --verbose > health.txt 2>&1
           HEALTH_CODE=$?
           
           echo "::endgroup::"
@@ -46,7 +46,7 @@ jobs:
           echo "::group::Health Metrics"
           
           # Extract health check summary
-          python3 _core/health_check.py --mode compact
+          python3 _core/tools/health_check.py --verbose
           
           echo "::endgroup::"
       
@@ -79,7 +79,7 @@ jobs:
       
       - name: Upload Compliance Report
         if: always()
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: compliance-reports
           path: |

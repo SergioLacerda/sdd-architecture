@@ -27,12 +27,12 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v6
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
       - name: Setup Python
-        uses: actions/setup-python@v6
+        uses: actions/setup-python@v5
         with:
           python-version: '3.10'
           cache: 'pip'
@@ -61,23 +61,35 @@ jobs:
         run: |
           python << 'EOF'
           import json
-          
+          import os
+
           with open('health-report.json', 'r') as f:
               health_data = json.load(f)
-          
+
           status = health_data.get('status', 'unknown')
-          checks_passed = health_data.get('checks_passed', 0)
-          checks_total = health_data.get('checks_total', 10)
-          
+          summary = health_data.get('summary', {})
+          checks_passed = summary.get('passed', 0)
+          checks_total = summary.get('total', 0)
+          checks_failed = summary.get('failed', 0)
+
           print(f"Status: {status}")
           print(f"Checks: {checks_passed}/{checks_total}")
           print(f"::notice::Health Check: {checks_passed}/{checks_total} passed")
-          
-          # Determine outcome
-          if status == 'healthy':
+
+          # Write structured outputs for subsequent steps
+          github_output = os.environ.get('GITHUB_OUTPUT', '')
+          if github_output:
+              with open(github_output, 'a') as f:
+                  if checks_failed == 0:
+                      f.write('outcome=success\n')
+                  else:
+                      f.write('outcome=failure\n')
+                  f.write(f'checks_passed={checks_passed}\n')
+                  f.write(f'checks_total={checks_total}\n')
+                  f.write(f'checks_failed={checks_failed}\n')
+
+          if checks_failed == 0:
               exit(0)
-          elif status == 'degraded':
-              exit(0)  # Warning, but allows CI to continue
           else:
               exit(1)  # Fail CI
           EOF
@@ -89,10 +101,14 @@ jobs:
           script: |
             const fs = require('fs');
             const health = JSON.parse(fs.readFileSync('health-report.json', 'utf8'));
-            
-            const status = health.status === 'healthy' ? '✅' : '⚠️';
-            const comment = `${status} **Health Check**: ${health.checks_passed}/${health.checks_total} checks passed`;
-            
+
+            const summary = health.summary || {};
+            const passed = summary.passed ?? 0;
+            const total = summary.total ?? 0;
+            const failed = summary.failed ?? 0;
+            const emoji = failed === 0 ? '✅' : '⚠️';
+            const comment = `${emoji} **Health Check**: ${passed}/${total} checks passed`;
+
             github.rest.issues.createComment({
               issue_number: context.issue.number,
               owner: context.repo.owner,
@@ -122,39 +138,47 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
             const fs = require('fs');
-            
-            // Load reports
+
+            // Load health report (always present)
             const health = JSON.parse(fs.readFileSync('health-report.json'));
-            const ahp = JSON.parse(fs.readFileSync('ahp-report.json'));
-            const confidence = JSON.parse(fs.readFileSync('confidence-report.json'));
-            
-            // Build comment
+            const summary = health.summary || {};
+            const passed = summary.passed ?? 0;
+            const total = summary.total ?? 0;
+            const failed = summary.failed ?? 0;
+
+            // AHP/confidence reports are optional (may not exist)
+            let ahpState = 'N/A';
+            let ahpConfidence = 'N/A';
+            let ahpActions = [];
+            if (fs.existsSync('ahp-report.json')) {
+              const ahp = JSON.parse(fs.readFileSync('ahp-report.json'));
+              ahpState = ahp.state || 'N/A';
+              ahpConfidence = ahp.confidence ?? 'N/A';
+              ahpActions = ahp.actions || [];
+            }
+
             const stateEmoji = {
-              'HEALTHY': '🟢',
-              'PARTIAL': '🟡',
-              'NOT_INITIALIZED': '⚠️',
-              'MISCONFIGURED': '⚠️',
-              'NOT_CONNECTED': '❌'
+              'HEALTHY': '🟢', 'PARTIAL': '🟡',
+              'NOT_INITIALIZED': '⚠️', 'MISCONFIGURED': '⚠️', 'NOT_CONNECTED': '❌'
             };
-            
-            const emoji = stateEmoji[ahp.state] || '❓';
-            
+            const emoji = stateEmoji[ahpState] || (failed === 0 ? '✅' : '❌');
+
             const comment = `## 🧠 SDD Architecture Health Check
-            
-            **State**: ${emoji} ${ahp.state}  
-            **Confidence**: ${ahp.confidence}%  
-            **Checks Passed**: ${health.checks_passed}/${health.checks_total}
-            
-            ### Health Summary
-            ${health.summary}
-            
-            ### Next Steps
-            ${ahp.actions ? ahp.actions.map(a => `- ${a}`).join('\n') : 'No actions required'}
-            
-            ---
-            **Validation Time**: ${new Date().toISOString()}
-            `;
-            
+
+**State**: ${emoji} ${ahpState}
+**Confidence**: ${ahpConfidence}%
+**Checks Passed**: ${passed}/${total}
+
+### Health Summary
+${health.status}
+
+### Next Steps
+${ahpActions.length > 0 ? ahpActions.map(a => `- ${a}`).join('\n') : 'No actions required'}
+
+---
+**Validation Time**: ${new Date().toISOString()}
+`;
+
             github.rest.issues.createComment({
               issue_number: context.issue.number,
               owner: context.repo.owner,
@@ -165,25 +189,13 @@ jobs:
       - name: Fail if not healthy
         if: steps.status.outputs.outcome == 'failure'
         run: |
-          echo "❌ Project health check failed"
-          echo "State: ${{ steps.status.outputs.state }}"
-          echo "Confidence: ${{ steps.status.outputs.confidence }}%"
+          echo "❌ Project health check failed (${{ steps.status.outputs.checks_failed }} checks failed)"
           exit 1
-
-      - name: Warn if partial
-        if: steps.status.outputs.outcome == 'warning'
-        run: |
-          echo "⚠️ Project health is partial or not initialized"
-          echo "State: ${{ steps.status.outputs.state }}"
-          echo "Confidence: ${{ steps.status.outputs.confidence }}%"
-          echo "Recommended: Run EXECUTION/SCRIPTS/phase-0-agent-onboarding.py"
 
       - name: Success
         if: steps.status.outputs.outcome == 'success'
         run: |
-          echo "✅ Project health check passed"
-          echo "State: ${{ steps.status.outputs.state }}"
-          echo "Confidence: ${{ steps.status.outputs.confidence }}%"
+          echo "✅ Project health check passed (${{ steps.status.outputs.checks_passed }}/${{ steps.status.outputs.checks_total }} checks)"
 
   integration-test:
     name: Verify AHP Integration
@@ -193,10 +205,10 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v6
+        uses: actions/checkout@v4
 
       - name: Setup Python
-        uses: actions/setup-python@v6
+        uses: actions/setup-python@v5
         with:
           python-version: '3.10'
 

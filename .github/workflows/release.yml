@@ -27,7 +27,7 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v6
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
@@ -103,7 +103,7 @@ jobs:
           name: release-v${{ steps.version.outputs.version }}
           path: |
             README.md
-            CHANGELOG.md
+            docs/CHANGELOG.md
             docs/
           retention-days: 90
 
@@ -125,9 +125,11 @@ jobs:
           EOF
 
       - name: Comment on pull requests
+        if: github.event_name == 'pull_request'
         uses: actions/github-script@v9
         with:
           script: |
+            if (!context.issue || !context.issue.number) return;
             github.rest.issues.createComment({
               issue_number: context.issue.number,
               owner: context.repo.owner,
