@@ -1,0 +1,12 @@
+{
+  "venvPath": ".",
+  "venv": ".venv",
+  "extraPaths": [
+    "packages/core/sdd_compiler/src",
+    "packages/core/sdd_core/src",
+    "packages/features/sdd_integration/src",
+    "packages/interfaces/sdd_cli/src",
+    "packages/interfaces/sdd_wizard/src",
+    "tests"
+  ]
+}

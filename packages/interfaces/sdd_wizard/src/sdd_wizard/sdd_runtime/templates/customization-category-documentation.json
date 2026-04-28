@@ -1,0 +1,63 @@
+{
+  "version": "3.0",
+  "type": "category-customization-template",
+  "generated": "2026-04-28T20:54:38.912966Z",
+  "category": "documentation",
+  "metadata": {
+    "total_items": 5,
+    "customizable": 5,
+    "immutable": 0
+  },
+  "items": [
+    {
+      "id": "G20",
+      "title": "Step 4: Document Your Deviations",
+      "type": "GUIDELINE",
+      "category": "documentation",
+      "criticality": "OPCIONAL",
+      "customizable": true,
+      "content": "For each customization, explain: 1. **What** \u2014 What principle/rule did you change? 2. **Why** \u2014 Why was the standard version not suitable? 3. **How** \u2014 What's your alternative? 4. **Validation** \u2014...",
+      "_status": "\u270f\ufe0f Can be customized"
+    },
+    {
+      "id": "G68",
+      "title": "Main Title (H1 \u2014 One per document)",
+      "type": "GUIDELINE",
+      "category": "documentation",
+      "criticality": "OPCIONAL",
+      "customizable": true,
+      "content": "",
+      "_status": "\u270f\ufe0f Can be customized"
+    },
+    {
+      "id": "G83",
+      "title": "Document Title",
+      "type": "GUIDELINE",
+      "category": "documentation",
+      "criticality": "OPCIONAL",
+      "customizable": true,
+      "content": "",
+      "_status": "\u270f\ufe0f Can be customized"
+    },
+    {
+      "id": "G87",
+      "title": "My Document",
+      "type": "GUIDELINE",
+      "category": "documentation",
+      "criticality": "OPCIONAL",
+      "customizable": true,
+      "content": "",
+      "_status": "\u270f\ufe0f Can be customized"
+    },
+    {
+      "id": "G143",
+      "title": "\ud83d\uddfa\ufe0f Documentation Map",
+      "type": "GUIDELINE",
+      "category": "documentation",
+      "criticality": "OPCIONAL",
+      "customizable": true,
+      "content": "",
+      "_status": "\u270f\ufe0f Can be customized"
+    }
+  ]
+}

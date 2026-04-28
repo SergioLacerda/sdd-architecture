@@ -22,8 +22,8 @@ assignees: ''
 ## ✅ Acceptance Criteria
 
 - [ ] Feature is implemented
-- [ ] Health checks pass (`python3 _core/health_check.py`)
-- [ ] Governance compliant (`python3 _core/tools/governance_compliance.py --verify`)
+- [ ] Health checks pass (`python3 packages/health_check.py`)
+- [ ] Governance compliant (`python3 packages/tools/governance_compliance.py --verify`)
 - [ ] Tests added and passing
 - [ ] Documentation updated
 - [ ] Performance benchmarked (if applicable)
@@ -40,7 +40,7 @@ assignees: ''
 Link to relevant docs:
 - [Health Check Guide](../../docs/HEALTH_CHECK_GUIDE.md)
 - [Troubleshooting Guide](../../docs/TROUBLESHOOTING.md)
-- [Governance Implementation](../../_core/.sdd-wizard/templates/governance/base-seedling/GOVERNANCE_IMPLEMENTATION.md)
+- [Governance Implementation](../../packages/.sdd-wizard/templates/governance/base-seedling/GOVERNANCE_IMPLEMENTATION.md)
 
 ## 🚀 Implementation Notes
 

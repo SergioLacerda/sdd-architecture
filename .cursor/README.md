@@ -57,11 +57,11 @@ Once AHP runs, Cursor adapts response based on project health:
 
 ```bash
 # Check health (used by rule)
-python _core/agent_handshake.py --mode=silent
+python packages/agent_handshake.py --mode=silent
 # Output: 🧠 SDD: [status]
 
 # See detailed validation
-python _core/agent_handshake.py --mode=compact
+python packages/agent_handshake.py --mode=compact
 # Output: Summary with 4-layer check results
 ```
 
@@ -82,7 +82,7 @@ python _core/agent_handshake.py --mode=compact
 
 3. **Cursor runs health check**
    ```bash
-   python _core/agent_handshake.py --mode=silent
+   python packages/agent_handshake.py --mode=silent
    State: HEALTHY | Confidence: 92%
    ```
 
@@ -111,17 +111,17 @@ python _core/agent_handshake.py --mode=compact
 Health checks are cached for **30 minutes**:
 ```bash
 # Uses cache (fast, <10ms)
-python _core/agent_handshake.py --mode=silent
+python packages/agent_handshake.py --mode=silent
 💾 Cached (5m old)
 
 # Forces fresh validation
-python _core/agent_handshake.py --force --mode=silent
+python packages/agent_handshake.py --force --mode=silent
 ```
 
 ## Documentation
 
 - **Full Rule Details**: `rules/health-check.md`
-- **AHP Specification**: `_core/agent_handshake.py` (658 lines, documented)
+- **AHP Specification**: `packages/agent_handshake.py` (658 lines, documented)
 - **Configuration**: `.spec.config` or `.sdd-core/spec.config`
 - **Architecture Reference**: `context/INDEX.md`
 
@@ -129,10 +129,10 @@ python _core/agent_handshake.py --force --mode=silent
 
 | Action | Command | Purpose |
 |--------|---------|---------|
-| Check Health | `python _core/agent_handshake.py --mode=compact` | See detailed status |
-| Force Recheck | `python _core/agent_handshake.py --force --mode=compact` | Bypass 30min cache |
-| See Full Report | `python _core/agent_handshake.py --mode=verbose` | 4-layer analysis |
-| Silent Check | `python _core/agent_handshake.py --mode=silent` | Minimal output |
+| Check Health | `python packages/agent_handshake.py --mode=compact` | See detailed status |
+| Force Recheck | `python packages/agent_handshake.py --force --mode=compact` | Bypass 30min cache |
+| See Full Report | `python packages/agent_handshake.py --mode=verbose` | 4-layer analysis |
+| Silent Check | `python packages/agent_handshake.py --mode=silent` | Minimal output |
 
 ---
 

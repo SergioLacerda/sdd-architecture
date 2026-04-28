@@ -22,7 +22,7 @@ The SDD Wizard executes a **7-phase pipeline** to transform governance specifica
 
 **Input Files:**
 ```
-_core/.sdd-core/
+packages/.sdd-core/
 ├── mandate.spec          ← Architect's mandate definitions
 └── guidelines.dsl        ← Architect's guideline definitions
 ```
@@ -49,7 +49,7 @@ _core/.sdd-core/
 - ❌ Syntax error → "Unbalanced braces"
 - ❌ Empty file → "File is empty"
 
-**Code Location:** `_core/.sdd-wizard/src/validator.py`
+**Code Location:** `packages/.sdd-wizard/src/validator.py`
 
 ---
 
@@ -105,7 +105,7 @@ _core/.sdd-core/
 - ❌ Invalid JSON → "JSON decode error"
 - ❌ Fingerprint mismatch → "Integrity check failed"
 
-**Code Location:** `_core/.sdd-wizard/src/loader.py`
+**Code Location:** `packages/.sdd-wizard/src/loader.py`
 
 ---
 
@@ -155,7 +155,7 @@ filtered = {m: all_mandates[m] for m in selected}
 - ❌ Invalid mandate ID → "M999 not found"
 - ❌ No mandates selected → "Must select at least M001"
 
-**Code Location:** `_core/.sdd-wizard/orchestration/phase_3_filter_mandates.py`
+**Code Location:** `packages/.sdd-wizard/orchestration/phase_3_filter_mandates.py`
 
 ---
 
@@ -211,7 +211,7 @@ filtered = {
 - ⚠️ No guidelines for language → Returns empty (not fatal)
 - ⚠️ All guidelines filtered out → Warns but continues
 
-**Code Location:** `_core/.sdd-wizard/orchestration/phase_4_filter_guidelines.py`
+**Code Location:** `packages/.sdd-wizard/orchestration/phase_4_filter_guidelines.py`
 
 ---
 
@@ -274,7 +274,7 @@ for file in walk(template_dir):
 - ❌ Template not found → "templates/unknown_lang/ not found"
 - ❌ Permission denied → "Cannot write to output directory"
 
-**Code Location:** `_core/.sdd-wizard/orchestration/phase_5_apply_template.py`
+**Code Location:** `packages/.sdd-wizard/orchestration/phase_5_apply_template.py`
 
 ---
 
@@ -339,7 +339,7 @@ Configuration:
 - ❌ Permission denied → "Cannot create directory"
 - ❌ Disk full → "Not enough space"
 
-**Code Location:** `_core/.sdd-wizard/orchestration/phase_6_generate_project.py`
+**Code Location:** `packages/.sdd-wizard/orchestration/phase_6_generate_project.py`
 
 ---
 
@@ -392,7 +392,7 @@ Expected Structure: From template + manifest
 - ⚠️ Invalid JSON → "metadata.json not valid JSON"
 - ⚠️ Corrupted → Rollback and remove generated files
 
-**Code Location:** `_core/.sdd-wizard/orchestration/phase_7_validate_output.py`
+**Code Location:** `packages/.sdd-wizard/orchestration/phase_7_validate_output.py`
 
 ---
 
@@ -474,7 +474,7 @@ echo "Or: ./wizard.sh --dry-run"
 **What:** Validates SDD structure exists
 
 ```bash
-python3 _core/health_check.py
+python3 packages/health_check.py
 # Output: 🟢 HEALTHY | All 10 checks pass
 ```
 
@@ -486,7 +486,7 @@ python3 _core/health_check.py
 **What:** 4-layer validation (Discovery → Link → Runtime → Health)
 
 ```bash
-python3 _core/agent_handshake.py --mode=silent
+python3 packages/agent_handshake.py --mode=silent
 # Output: HEALTHY | Confidence: 92%
 ```
 
@@ -496,7 +496,7 @@ python3 _core/agent_handshake.py --mode=silent
 **What:** Ensures mandates are immutable + valid
 
 ```bash
-python3 _core/tools/governance_compliance.py --verify
+python3 packages/tools/governance_compliance.py --verify
 # Output: ✅ All 4 mandates verified
 ```
 
@@ -619,9 +619,9 @@ Phase 6-7 (Generate & Validate)
 **If pre-push fails:**
 ```bash
 # Run individually to debug
-python3 _core/health_check.py --verbose
-cd _core && python3 run-all-tests.py
-python3 _core/tools/governance_compliance.py --verify
+python3 packages/health_check.py --verbose
+cd packages && python3 run-all-tests.py
+python3 packages/tools/governance_compliance.py --verify
 
 # Force push if absolutely necessary (not recommended)
 git push --no-verify
@@ -645,14 +645,14 @@ After merging to main:
 
 ### Unit Tests (per phase)
 ```bash
-pytest _core/tests/test_phase_1.py  # Validate
-pytest _core/tests/test_phase_2.py  # Load
+pytest packages/tests/test_phase_1.py  # Validate
+pytest packages/tests/test_phase_2.py  # Load
 # ... etc
 ```
 
 ### Integration Tests (full pipeline)
 ```bash
-pytest _core/tests/test_wizard_integration.py
+pytest packages/tests/test_wizard_integration.py
 # Runs all 7 phases together
 ```
 
@@ -682,8 +682,8 @@ pytest _core/tests/test_wizard_integration.py
 
 - [README.md](README.md) — Quick start
 - [readme-ia.md](readme-ia.md) — AI integration
-- [_core/.sdd-wizard/WORKFLOW_FLOW.md](_core/.sdd-wizard/WORKFLOW_FLOW.md) — Complete orchestration
-- [_core/.sdd-wizard/AI_AGENT_GUIDE.md](_core/.sdd-wizard/AI_AGENT_GUIDE.md) — AI-focused guide
+- [packages/.sdd-wizard/WORKFLOW_FLOW.md](packages/.sdd-wizard/WORKFLOW_FLOW.md) — Complete orchestration
+- [packages/.sdd-wizard/AI_AGENT_GUIDE.md](packages/.sdd-wizard/AI_AGENT_GUIDE.md) — AI-focused guide
 
 ---
 

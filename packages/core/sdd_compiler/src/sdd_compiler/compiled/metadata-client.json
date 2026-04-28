@@ -1,0 +1,9 @@
+{
+  "version": "3.0",
+  "type": "GOVERNANCE_CLIENT",
+  "readonly": false,
+  "compiled_at": "2026-04-23T11:02:07.148369",
+  "fingerprint": "0093b7a85158cd6589c23d8eaacdf459ff32395a4230cc6f9b73aa8a398d3d8d",
+  "fingerprintpackages_salt": "82106b0c441b311e73d03e114e5330ea38f30beff65f356dc30b9c37d862bbec",
+  "items_count": 121
+}

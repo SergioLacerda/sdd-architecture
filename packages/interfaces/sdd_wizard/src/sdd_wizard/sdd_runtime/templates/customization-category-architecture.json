@@ -1,0 +1,23 @@
+{
+  "version": "3.0",
+  "type": "category-customization-template",
+  "generated": "2026-04-28T20:54:38.915893Z",
+  "category": "architecture",
+  "metadata": {
+    "total_items": 1,
+    "customizable": 0,
+    "immutable": 1
+  },
+  "items": [
+    {
+      "id": "M001",
+      "title": "Clean Architecture",
+      "type": "MANDATE",
+      "category": "architecture",
+      "criticality": "OBRIGAT\u00d3RIO",
+      "customizable": false,
+      "content": "All systems must implement 8-layer Clean Architecture",
+      "_status": "\ud83d\udd12 Immutable (core governance)"
+    }
+  ]
+}

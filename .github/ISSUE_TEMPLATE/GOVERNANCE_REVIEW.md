@@ -50,13 +50,13 @@ assignees: ''
 
 ```bash
 # Check compliance
-python3 _core/tools/governance_compliance.py --verify
+python3 packages/tools/governance_compliance.py --verify
 
 # Get fix steps
-python3 _core/tools/governance_compliance.py --fix-steps
+python3 packages/tools/governance_compliance.py --fix-steps
 
 # Check enforcement
-python3 _core/tools/governance_compliance.py --enforcement-check
+python3 packages/tools/governance_compliance.py --enforcement-check
 ```
 
 ## 📞 Reviewer
@@ -68,13 +68,13 @@ python3 _core/tools/governance_compliance.py --enforcement-check
 
 ## 📚 Related Docs
 
-- [MANDATORY_POLICIES.md](../../_core/.sdd-wizard/templates/governance/adoption-rules/MANDATORY_POLICIES.md)
-- [ENFORCEMENT_GUIDE.md](../../_core/.sdd-wizard/templates/governance/adoption-rules/ENFORCEMENT_GUIDE.md)
-- [Governance Implementation](../../_core/.sdd-wizard/templates/governance/base-seedling/GOVERNANCE_IMPLEMENTATION.md)
+- [MANDATORY_POLICIES.md](../../packages/.sdd-wizard/templates/governance/adoption-rules/MANDATORY_POLICIES.md)
+- [ENFORCEMENT_GUIDE.md](../../packages/.sdd-wizard/templates/governance/adoption-rules/ENFORCEMENT_GUIDE.md)
+- [Governance Implementation](../../packages/.sdd-wizard/templates/governance/base-seedling/GOVERNANCE_IMPLEMENTATION.md)
 
 ---
 
 **Reviewers**: 
-1. Verify compliance: `python3 _core/tools/governance_compliance.py --verify`
-2. Check proposed fix: `python3 _core/tools/governance_compliance.py --fix-steps`
+1. Verify compliance: `python3 packages/tools/governance_compliance.py --verify`
+2. Check proposed fix: `python3 packages/tools/governance_compliance.py --fix-steps`
 3. Approve with label: `governance-approved`

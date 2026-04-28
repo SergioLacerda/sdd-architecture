@@ -1,0 +1,711 @@
+.
+├── Dockerfile
+├── docs
+│   ├── agents
+│   │   ├── CHANGELOG.md
+│   │   ├── E2E_TESTING_GUIDE.md
+│   │   ├── GIT_HOOKS_ARCHITECTURE.md
+│   │   ├── GIT_HOOKS_GUIDE.md
+│   │   ├── GIT_HOOKS_TEST_REPORT.md
+│   │   ├── GITHUB_ACTIONS_EXECUTIVE_SUMMARY.md
+│   │   ├── GITHUB_ACTIONS_FINAL_REPORT.md
+│   │   ├── GITHUB_ACTIONS_GUIDE.md
+│   │   ├── GITHUB_ACTIONS_SETUP.md
+│   │   ├── GOVERNANCE_QUIZ_EXTENSION.md
+│   │   ├── guides
+│   │   │   ├── README.md
+│   │   │   └── TEST_RUNNER_GUIDE.md
+│   │   ├── HEALTH_CHECK_GUIDE.md
+│   │   ├── INDEX.md
+│   │   ├── integration
+│   │   │   ├── CHECKLIST.md
+│   │   │   ├── README_INTEGRATION.md
+│   │   │   ├── README.md
+│   │   │   ├── STEP_1.md
+│   │   │   ├── STEP_2.md
+│   │   │   ├── STEP_3.md
+│   │   │   ├── STEP_4.md
+│   │   │   ├── STEP_5.md
+│   │   │   └── STEP_6.md
+│   │   ├── LAYER_4_INTEGRATION.md
+│   │   ├── migration
+│   │   │   ├── CUTOVER.md
+│   │   │   ├── README.md
+│   │   │   ├── SPRINT_FINAL_REPORT.md
+│   │   │   └── START_HERE_MIGRATION.md
+│   │   ├── operations
+│   │   │   ├── DEPLOYMENT.md
+│   │   │   ├── DESIGN.md
+│   │   │   ├── MAINTENANCE.md
+│   │   │   ├── MONITORING.md
+│   │   │   ├── NAVIGATION.md
+│   │   │   ├── OPERATIONS.md
+│   │   │   └── README.md
+│   │   ├── PERFORMANCE_OPTIMIZATION.md
+│   │   ├── PHASE_4_COMPLETION.md
+│   │   ├── PHASE_4_SUMMARY.md
+│   │   ├── PHASE_5_COMPLETION.md
+│   │   ├── phases
+│   │   │   ├── audit
+│   │   │   │   └── AUDIT_PLANNED_VS_IMPLEMENTED.md
+│   │   │   ├── generated
+│   │   │   │   ├── final-output
+│   │   │   │   ├── phase-1-choices
+│   │   │   │   │   ├── guidelines-.md
+│   │   │   │   │   ├── mandates-.md
+│   │   │   │   │   └── README.md
+│   │   │   │   └── phase-2-input
+│   │   │   │       ├── guidelines-.md
+│   │   │   │       ├── mandates-.md
+│   │   │   │       └── README.md
+│   │   │   ├── PHASE_2_OUTPUT_ANALYSIS.md
+│   │   │   ├── PHASE_2_VALIDATION_CHECKLIST.md
+│   │   │   ├── PHASE_3_WIZARD_INTEGRATION.md
+│   │   │   ├── PHASE_4_AUDIT_REPORT.md
+│   │   │   ├── PHASE_4_CODE_DOCS_SEPARATION.md
+│   │   │   ├── PHASE_4_COMPLETION_SUMMARY.md
+│   │   │   ├── PHASE_4_REFINEMENT_REVIEW.md
+│   │   │   ├── PHASES.md
+│   │   │   └── README.md
+│   │   ├── project-status
+│   │   │   ├── CHECKPOINT_DOCUMENTATION_RESTRUCTURING.md
+│   │   │   ├── README.md
+│   │   │   ├── V3.1_BETA1_IMPLEMENTATION_PLAN.md
+│   │   │   └── V3_LAUNCH_READINESS.md
+│   │   ├── QUICK_TROUBLESHOOT.md
+│   │   ├── TROUBLESHOOTING.md
+│   │   └── wizard
+│   │       ├── AI_AGENT_GUIDE.md
+│   │       ├── ARCHITECTURE_ALIGNMENT.md
+│   │       ├── DOCUMENTATION_INDEX.md
+│   │       ├── FINAL_STATUS.md
+│   │       ├── IMPLEMENTATION_STATUS_v3.0.md
+│   │       ├── IMPLEMENTATION_SUMMARY.md
+│   │       ├── NAVIGATION.md
+│   │       ├── NEXT_STEPS.md
+│   │       ├── ORCHESTRATION.md
+│   │       ├── README.md
+│   │       ├── START_HERE_FOR_DOCUMENTATION.md
+│   │       ├── WIZARD_DOCUMENTATION_INDEX.md
+│   │       ├── WIZARD_EXAMPLE_SESSION.md
+│   │       ├── WIZARD_INTERACTIVE_GUIDE.md
+│   │       ├── WIZARD_MAPPING.md
+│   │       ├── WIZARD_QUICK_START.md
+│   │       ├── WORK_COMPLETION_SUMMARY.md
+│   │       └── WORKFLOW_FLOW.md
+│   └── README.md
+├── INDEX.md -> _spec/INDEX.md
+├── packages
+│   ├── core
+│   │   ├── sdd_compiler
+│   │   │   ├── pyproject.toml
+│   │   │   └── src
+│   │   │       ├── sdd_compiler
+│   │   │       │   ├── compiled
+│   │   │       │   │   ├── governance-client.json
+│   │   │       │   │   ├── governance-client-template.compiled.msgpack
+│   │   │       │   │   ├── governance-core.compiled.msgpack
+│   │   │       │   │   ├── governance-core.json
+│   │   │       │   │   ├── governance_items_catalog.json
+│   │   │       │   │   ├── guidelines.compiled.json
+│   │   │       │   │   ├── guidelines.dsl.compiled.json
+│   │   │       │   │   ├── mandate.compiled.json
+│   │   │       │   │   ├── mandate.spec.compiled.json
+│   │   │       │   │   ├── metadata-client.json
+│   │   │       │   │   ├── metadata-client-template.json
+│   │   │       │   │   ├── metadata-core.json
+│   │   │       │   │   └── user_selections_sample.json
+│   │   │       │   ├── compiler.py
+│   │   │       │   ├── docs
+│   │   │       │   │   └── DESIGN.md
+│   │   │       │   ├── dsl_compiler.py
+│   │   │       │   ├── governance_compiler.py
+│   │   │       │   ├── guidelines.dsl.compiled.json
+│   │   │       │   ├── __init__.py
+│   │   │       │   ├── integrate.py
+│   │   │       │   ├── __main__.py
+│   │   │       │   ├── mandate.spec.compiled.json
+│   │   │       │   ├── msgpack_encoder.py
+│   │   │       │   ├── README.md
+│   │   │       │   ├── runtime
+│   │   │       │   │   ├── backup
+│   │   │       │   │   │   ├── governance-client-template.compiled.msgpack.backup
+│   │   │       │   │   │   ├── governance-core.compiled.msgpack.backup
+│   │   │       │   │   │   ├── metadata-client-template.json.backup
+│   │   │       │   │   │   └── metadata-core.json.backup
+│   │   │       │   │   ├── DEPLOYMENT_MANIFEST.json
+│   │   │       │   │   ├── governance-client-template.compiled.msgpack
+│   │   │       │   │   ├── governance-core.compiled.msgpack
+│   │   │       │   │   ├── metadata-client-template.json
+│   │   │       │   │   ├── metadata-core.json
+│   │   │       │   │   └── runtime -> /home/sergio/dev/sdd-architecture/_core/.sdd-compiler/runtime
+│   │   │       │   ├── runtime_telemetry_kit
+│   │   │       │   │   ├── engine.py
+│   │   │       │   │   ├── __init__.py
+│   │   │       │   │   ├── patterns.py
+│   │   │       │   │   ├── test_expanded_patterns.py
+│   │   │       │   │   └── test_rtk_engine.py
+│   │   │       │   └── user_selections_sample.json
+│   │   │       └── sdd_compiler.egg-info
+│   │   │           ├── dependency_links.txt
+│   │   │           ├── PKG-INFO
+│   │   │           ├── requires.txt
+│   │   │           ├── SOURCES.txt
+│   │   │           └── top_level.txt
+│   │   └── sdd_core
+│   │       ├── pyproject.toml
+│   │       ├── spec.CANONICAL.link -> ../../_spec/CANONICAL
+│   │       └── src
+│   │           ├── sdd_core
+│   │           │   ├── context
+│   │           │   │   └── HONEST-CRITIQUE-CONSTITUTION.md
+│   │           │   ├── deployment_manager.py
+│   │           │   ├── docs
+│   │           │   │   ├── DEPLOYMENT.md
+│   │           │   │   ├── INDEX.md
+│   │           │   │   ├── MAINTENANCE.md
+│   │           │   │   ├── MONITORING.md
+│   │           │   │   ├── NAVIGATION.md
+│   │           │   │   ├── OPERATIONS-INDEX.md
+│   │           │   │   ├── OPERATIONS.md
+│   │           │   │   └── _START_HERE.md
+│   │           │   ├── extensions
+│   │           │   ├── git-hooks
+│   │           │   │   └── GUARDRAIL_SETUP.md
+│   │           │   ├── governance_orchestrator.py
+│   │           │   ├── guidelines.dsl -> ../../_spec/guidelines.dsl
+│   │           │   ├── guidelines.dsl.link -> ../../_spec/guidelines.dsl
+│   │           │   ├── __init__.py
+│   │           │   ├── mandate.spec -> ../../_spec/mandate.spec
+│   │           │   ├── mandate.spec.link -> ../../_spec/mandate.spec
+│   │           │   ├── README.md
+│   │           │   └── tools
+│   │           │       ├── context_optimizer.py
+│   │           │       └── generate-specializations.py
+│   │           └── sdd_core.egg-info
+│   │               ├── dependency_links.txt
+│   │               ├── PKG-INFO
+│   │               ├── SOURCES.txt
+│   │               └── top_level.txt
+│   ├── features
+│   │   ├── migration
+│   │   │   ├── AUDIT_PLANNED_VS_IMPLEMENTED.md
+│   │   │   ├── CUTOVER.md
+│   │   │   ├── docs
+│   │   │   │   ├── ARCHITECTURE_OVERVIEW.md
+│   │   │   │   └── USER_GUIDE.md
+│   │   │   ├── INDEX.md
+│   │   │   ├── __init__.py
+│   │   │   ├── input
+│   │   │   │   ├── SOURCES.md
+│   │   │   │   └── sources.txt
+│   │   │   ├── output
+│   │   │   │   ├── guidelines.dsl
+│   │   │   │   ├── guidelines.dsl.compiled.json
+│   │   │   │   ├── mandate.spec
+│   │   │   │   └── mandate.spec.compiled.json
+│   │   │   ├── PHASE_4_REFINEMENT_REVIEW.md
+│   │   │   ├── phase-archive
+│   │   │   │   ├── ARCHITECTURE_SOURCE_COMPILE_TEMPLATE.md
+│   │   │   │   ├── ARCHITECTURE_SOURCE_VS_COMPILED.md
+│   │   │   │   ├── ARCHITECTURE_v3.0.md
+│   │   │   │   ├── ARCHITECTURE_VISION_9_PILLARS.md
+│   │   │   │   ├── CONTINUATION_PLAN.md
+│   │   │   │   ├── DECISIONS.md
+│   │   │   │   ├── IMPLEMENTATION_PHASES_6.md
+│   │   │   │   ├── IMPLEMENTATION_STATUS_REPORT.md
+│   │   │   │   ├── INDEX.md
+│   │   │   │   ├── MIGRATION_COMPLETE.md
+│   │   │   │   ├── PHASE_6A_COMPLETE.md
+│   │   │   │   ├── PHASE_8_AMBIGUITIES_RESOLVED.md
+│   │   │   │   ├── PHASE_8_PLANNING.md
+│   │   │   │   ├── README.md
+│   │   │   │   └── START_HERE_EXECUTIVE_SUMMARY.md
+│   │   │   ├── PHASES.md
+│   │   │   ├── README.md
+│   │   │   ├── reports
+│   │   │   │   ├── extraction_report.json
+│   │   │   │   └── validation_report.json
+│   │   │   ├── SPRINT_FINAL_REPORT.md
+│   │   │   ├── START_HERE.md
+│   │   │   ├── tests
+│   │   │   │   ├── conftest.py
+│   │   │   │   ├── fixtures
+│   │   │   │   │   ├── v2_sample.md
+│   │   │   │   │   └── v3_expected.spec
+│   │   │   │   ├── __init__.py
+│   │   │   │   └── test_migration_v2_to_v3.py
+│   │   │   └── tooling
+│   │   │       ├── constitution_parser.py
+│   │   │       ├── dsl_converter.py
+│   │   │       ├── guidelines_extractor.py
+│   │   │       ├── __init__.py
+│   │   │       ├── migrate.py
+│   │   │       ├── migration_validator.py
+│   │   │       └── requirements.txt
+│   │   └── sdd_integration
+│   │       ├── pyproject.toml
+│   │       └── src
+│   │           ├── sdd_integration
+│   │           │   ├── assertions
+│   │           │   │   ├── base.py
+│   │           │   │   ├── config.py
+│   │           │   │   ├── filesystem.py
+│   │           │   │   ├── git.py
+│   │           │   │   ├── __init__.py
+│   │           │   │   ├── process.py
+│   │           │   │   ├── registry.py
+│   │           │   │   └── result.py
+│   │           │   ├── docs
+│   │           │   │   ├── CHECKLIST.md
+│   │           │   │   ├── INDEX.md
+│   │           │   │   ├── STEP_1.md
+│   │           │   │   ├── STEP_2.md
+│   │           │   │   ├── STEP_3.md
+│   │           │   │   ├── STEP_4.md
+│   │           │   │   ├── STEP_5.md
+│   │           │   │   └── STEP_6.md
+│   │           │   ├── engine
+│   │           │   │   ├── context.py
+│   │           │   │   ├── __init__.py
+│   │           │   │   ├── integration_engine.py
+│   │           │   │   └── step_executor.py
+│   │           │   ├── engine.py
+│   │           │   ├── guides
+│   │           │   │   ├── INDEX.md
+│   │           │   │   ├── INTENTION-DETECTION-CONCEPT.md
+│   │           │   │   └── V1-vs-V2-COMPARISON.md
+│   │           │   ├── __init__.py
+│   │           │   ├── protocol
+│   │           │   │   ├── execution_flow.yaml
+│   │           │   │   └── integration_flow.yaml
+│   │           │   ├── README.md
+│   │           │   ├── runners
+│   │           │   │   ├── command_runner.py
+│   │           │   │   ├── filesystem_runner.py
+│   │           │   │   └── git_runner.py
+│   │           │   ├── scenarios
+│   │           │   ├── templates
+│   │           │   │   ├── AI_CONTEXT_AWARE_TEMPLATE.md
+│   │           │   │   ├── CONTEXT_MANAGEMENT_STANDARDS.md
+│   │           │   │   ├── README.md
+│   │           │   │   ├── scripts
+│   │           │   │   │   └── setup-precommit-hook.sh
+│   │           │   │   └── tests
+│   │           │   │       ├── phase_5_examples
+│   │           │   │       │   ├── examples
+│   │           │   │       │   │   ├── bash
+│   │           │   │       │   │   │   ├── README.md
+│   │           │   │       │   │   │   └── test-integration-flow.sh
+│   │           │   │       │   │   ├── javascript
+│   │           │   │       │   │   │   ├── README.md
+│   │           │   │       │   │   │   └── test-integration-flow.js
+│   │           │   │       │   │   ├── python
+│   │           │   │       │   │   │   ├── README.md
+│   │           │   │       │   │   │   ├── test_execution_flow.py
+│   │           │   │       │   │   │   └── test_integration_flow.py
+│   │           │   │       │   │   └── README.md
+│   │           │   │       │   ├── README.md
+│   │           │   │       │   ├── run_all_tests.sh
+│   │           │   │       │   ├── SPEC_EXECUTION_FLOW.md
+│   │           │   │       │   ├── SPEC_INTEGRATION_FLOW.md
+│   │           │   │       │   ├── test_execution_flow.py
+│   │           │   │       │   └── test_integration_flow.py
+│   │           │   │       ├── README.md
+│   │           │   │       └── specs_ia_units
+│   │           │   │           ├── __init__.py
+│   │           │   │           ├── README.md
+│   │           │   │           ├── test_layer_isolation.py
+│   │           │   │           ├── test_layer_isolation_template.py
+│   │           │   │           ├── test_port_contracts_template.py
+│   │           │   │           └── test_thread_isolation_template.py
+│   │           │   ├── tests
+│   │           │   └── utils
+│   │           │       └── yaml_loader.py
+│   │           └── sdd_integration.egg-info
+│   │               ├── dependency_links.txt
+│   │               ├── PKG-INFO
+│   │               ├── requires.txt
+│   │               ├── SOURCES.txt
+│   │               └── top_level.txt
+│   ├── interfaces
+│   │   ├── sdd_cli
+│   │   │   ├── pyproject.toml
+│   │   │   └── src
+│   │   │       ├── sdd_cli
+│   │   │       │   ├── commands
+│   │   │       │   │   ├── bootstrap.py
+│   │   │       │   │   ├── doctor.py
+│   │   │       │   │   ├── governance.py
+│   │   │       │   │   ├── __init__.py
+│   │   │       │   │   ├── lint.py
+│   │   │       │   │   ├── setup.py
+│   │   │       │   │   ├── test.py
+│   │   │       │   │   └── wizard.py
+│   │   │       │   ├── extensions
+│   │   │       │   │   ├── examples
+│   │   │       │   │   │   └── __init__.py
+│   │   │       │   │   ├── framework
+│   │   │       │   │   │   ├── extension_framework.py
+│   │   │       │   │   │   ├── __init__.py
+│   │   │       │   │   │   └── plugin_loader.py
+│   │   │       │   │   ├── __init__.py
+│   │   │       │   │   ├── README.md
+│   │   │       │   │   └── tests
+│   │   │       │   │       ├── __init__.py
+│   │   │       │   │       └── test_extensions.py
+│   │   │       │   ├── generators
+│   │   │       │   │   ├── agent_seeds.py
+│   │   │       │   │   └── __init__.py
+│   │   │       │   ├── __init__.py
+│   │   │       │   ├── __main__.py
+│   │   │       │   ├── main.py
+│   │   │       │   └── utils
+│   │   │       │       ├── __init__.py
+│   │   │       │       └── loader.py
+│   │   │       └── sdd_cli.egg-info
+│   │   │           ├── dependency_links.txt
+│   │   │           ├── entry_points.txt
+│   │   │           ├── PKG-INFO
+│   │   │           ├── requires.txt
+│   │   │           ├── SOURCES.txt
+│   │   │           └── top_level.txt
+│   │   └── sdd_wizard
+│   │       ├── pyproject.toml
+│   │       └── src
+│   │           ├── sdd_wizard
+│   │           │   ├── compile_artifacts.py
+│   │           │   ├── demo_interactive.py
+│   │           │   ├── docs
+│   │           │   │   ├── AI_AGENT_GUIDE.md
+│   │           │   │   ├── ARCHITECTURE_ALIGNMENT.md
+│   │           │   │   ├── DOCUMENTATION_INDEX.md
+│   │           │   │   ├── FINAL_STATUS.md
+│   │           │   │   ├── IMPLEMENTATION_STATUS_v3.0.md
+│   │           │   │   ├── IMPLEMENTATION_SUMMARY.md
+│   │           │   │   ├── NEXT_STEPS.md
+│   │           │   │   ├── ORCHESTRATION.md
+│   │           │   │   ├── START_HERE_FOR_DOCUMENTATION.md
+│   │           │   │   ├── WORK_COMPLETION_SUMMARY.md
+│   │           │   │   └── WORKFLOW_FLOW.md
+│   │           │   ├── __init__.py
+│   │           │   ├── loader.py
+│   │           │   ├── orchestration
+│   │           │   │   ├── __init__.py
+│   │           │   │   ├── phase_1_validate.py
+│   │           │   │   ├── phase_2_load_compiled_NEW.py
+│   │           │   │   ├── phase_2_load_compiled.py
+│   │           │   │   ├── phase_2_load_compiled_v3.py
+│   │           │   │   ├── phase_3_filter_mandates.py
+│   │           │   │   ├── phase_4_5_6_generator.py
+│   │           │   │   ├── phase_4_filter_guidelines.py
+│   │           │   │   ├── phase_5_apply_template.py
+│   │           │   │   ├── phase_6_generate_project.py
+│   │           │   │   ├── phase_7_validate_output.py
+│   │           │   │   └── phase_wizard_v3.py
+│   │           │   ├── README.md
+│   │           │   ├── SCRIPTS
+│   │           │   │   ├── phase-0-agent-onboarding.py
+│   │           │   │   ├── README.md
+│   │           │   │   ├── setup-wizard.py
+│   │           │   │   ├── spec_validator.py
+│   │           │   │   ├── validate_adrs.py
+│   │           │   │   ├── validate_governance.py
+│   │           │   │   ├── validate-ia-first.py
+│   │           │   │   └── validate_quiz.py
+│   │           │   ├── sdd_runtime
+│   │           │   │   ├── compiled
+│   │           │   │   │   ├── DEPLOYMENT_MANIFEST.json
+│   │           │   │   │   ├── governance-client-template.compiled.msgpack
+│   │           │   │   │   ├── governance-core.compiled.msgpack
+│   │           │   │   │   ├── metadata-client-template.json
+│   │           │   │   │   └── metadata-core.json
+│   │           │   │   ├── customization_template_generator.py
+│   │           │   │   ├── governance_runtime_loader.py
+│   │           │   │   ├── guidelines.bin
+│   │           │   │   ├── __init__.py
+│   │           │   │   ├── mandate.bin
+│   │           │   │   ├── metadata.json
+│   │           │   │   ├── templates
+│   │           │   │   │   ├── customization-adoption-full.json
+│   │           │   │   │   ├── customization-adoption-lite.json
+│   │           │   │   │   ├── customization-adoption-ultra-lite.json
+│   │           │   │   │   ├── customization-basic.json
+│   │           │   │   │   ├── customization-category-architecture.json
+│   │           │   │   │   ├── customization-category-code.json
+│   │           │   │   │   ├── customization-category-documentation.json
+│   │           │   │   │   ├── customization-category-general.json
+│   │           │   │   │   ├── customization-category-git.json
+│   │           │   │   │   ├── customization-category-naming.json
+│   │           │   │   │   ├── customization-category-performance.json
+│   │           │   │   │   ├── customization-category-quality.json
+│   │           │   │   │   ├── customization-category-testing.json
+│   │           │   │   │   ├── customization-criticality-alerta.json
+│   │           │   │   │   ├── customization-criticality-obrigatório.json
+│   │           │   │   │   ├── customization-criticality-opcional.json
+│   │           │   │   │   └── customization-full.json
+│   │           │   │   ├── wizard
+│   │           │   │   │   ├── ARCHITECTURE_v3.0_CONSOLIDATED.md
+│   │           │   │   │   ├── QUICK_REFERENCE.md
+│   │           │   │   │   └── README.md
+│   │           │   │   ├── wizard_integrator.py
+│   │           │   │   └── wizard_orchestrator.py
+│   │           │   ├── src
+│   │           │   │   ├── __init__.py
+│   │           │   │   ├── interactive_mode.py
+│   │           │   │   ├── interactive_mode.py.new
+│   │           │   │   ├── validator.py
+│   │           │   │   └── wizard.py
+│   │           │   └── templates
+│   │           │       ├── base
+│   │           │       │   ├── metadata-template.json
+│   │           │       │   └── README-SDD.md
+│   │           │       ├── governance
+│   │           │       │   ├── adoption-rules
+│   │           │       │   │   ├── ADOPTION_CHECKLIST.md
+│   │           │       │   │   ├── ENFORCEMENT_GUIDE.md
+│   │           │       │   │   └── MANDATORY_POLICIES.md
+│   │           │       │   ├── base-seedling
+│   │           │       │   │   ├── GOVERNANCE_IMPLEMENTATION.md
+│   │           │       │   │   ├── QUICK_REFERENCE.md
+│   │           │       │   │   └── WIZARD_ADOPTION.md
+│   │           │       │   └── README.md
+│   │           │       └── languages
+│   │           │           ├── java
+│   │           │           │   ├── project.gradle
+│   │           │           │   └── README.md
+│   │           │           ├── js
+│   │           │           │   ├── eslint.config.js
+│   │           │           │   ├── jest.config.js
+│   │           │           │   ├── package.json
+│   │           │           │   ├── README.md
+│   │           │           │   └── tsconfig.json
+│   │           │           └── python
+│   │           │               ├── pyproject.toml
+│   │           │               └── README.md
+│   │           └── sdd_wizard.egg-info
+│   │               ├── dependency_links.txt
+│   │               ├── PKG-INFO
+│   │               ├── requires.txt
+│   │               ├── SOURCES.txt
+│   │               └── top_level.txt
+│   └── runtime
+│       ├── guidelines.bin
+│       ├── __init__.py
+│       ├── mandate.bin
+│       ├── metadata.json
+│       └── runtime
+│           ├── backup
+│           │   ├── governance-client-template.compiled.msgpack.backup
+│           │   ├── governance-core.compiled.msgpack.backup
+│           │   ├── metadata-client-template.json.backup
+│           │   └── metadata-core.json.backup
+│           ├── DEPLOYMENT_MANIFEST.json
+│           ├── governance-client-template.compiled.msgpack
+│           ├── governance-core.compiled.msgpack
+│           ├── metadata-client-template.json
+│           └── metadata-core.json
+├── pyproject.toml
+├── readme-detailed.md
+├── readme-ia.md
+├── README.md
+├── scripts
+│   ├── deployment_manager.py
+│   ├── git-hooks
+│   │   ├── post-merge
+│   │   ├── pre-commit
+│   │   └── pre-push
+│   ├── install-git-hooks.sh
+│   ├── refactor_imports.py
+│   ├── run-all-tests.sh
+│   └── uninstall-git-hooks.sh
+├── sdd-generated
+│   ├── final-output
+│   │   ├── seedling
+│   │   └── templates
+│   │       ├── metadata-template.json
+│   │       ├── pyproject.toml
+│   │       ├── README.md
+│   │       └── README-SDD.md
+│   ├── phase-1-choices
+│   │   ├── guidelines-.md
+│   │   ├── mandates-.md
+│   │   └── README.md
+│   ├── phase-2-input
+│   │   ├── guidelines-.md
+│   │   ├── mandates-.md
+│   │   └── README.md
+│   └── wizard-config.json
+├── sdd_workspace.egg-info
+│   ├── dependency_links.txt
+│   ├── PKG-INFO
+│   ├── requires.txt
+│   ├── SOURCES.txt
+│   └── top_level.txt
+├── setup.sh
+├── spec
+│   ├── architecture
+│   │   ├── decisions
+│   │   │   ├── ADR-001-clean-architecture-8-layer.md
+│   │   │   ├── ADR-002-async-first-no-blocking.md
+│   │   │   ├── ADR-003-ports-adapters-pattern.md
+│   │   │   ├── ADR-004-vector-index-strategy.md
+│   │   │   ├── ADR-005-thread-isolation-mandatory.md
+│   │   │   ├── ADR-006-append-only-storage.md
+│   │   │   ├── ADR-007-implementation-guardrails-design-first.md
+│   │   │   ├── ADR-008-code-review-governance.md
+│   │   │   └── ADR-008-INCIDENT-RESPONSE-2026-04-21.md
+│   │   └── specifications
+│   │       ├── architecture.md
+│   │       ├── communication.md
+│   │       ├── compliance.md
+│   │       ├── context-aware-agent-pattern.md
+│   │       ├── contracts.md
+│   │       ├── definition_of_done.md
+│   │       ├── feature-checklist.md
+│   │       ├── observability.md
+│   │       ├── performance.md
+│   │       ├── runtime-indices-specification.md
+│   │       ├── security-model.md
+│   │       └── testing.md
+│   ├── custom
+│   │   └── _TEMPLATE
+│   │       ├── development
+│   │       │   └── README.md
+│   │       ├── INTEGRATION_CHECKLIST.md
+│   │       ├── README.md
+│   │       └── reality
+│   │           └── README.md
+│   ├── guidelines.dsl
+│   ├── guides
+│   │   ├── adoption
+│   │   │   ├── FULL-ADOPTION.md
+│   │   │   ├── INDEX.md
+│   │   │   ├── LITE-ADOPTION.md
+│   │   │   ├── LITE-TO-FULL-MIGRATION.md
+│   │   │   ├── MULTI-LANGUAGE-EXPLORATION.md
+│   │   │   ├── ONBOARDING-FLOW.md
+│   │   │   ├── templates
+│   │   │   │   └── lite-constitution.yaml
+│   │   │   └── ULTRA-LITE-ADOPTION.md
+│   │   ├── CONSTITUTION-CUSTOMIZATION.md
+│   │   ├── emergency
+│   │   │   ├── AUTO_FIX_CORRUPTION_RECOVERY.md
+│   │   │   ├── CANONICAL_CORRUPTION_RECOVERY.md
+│   │   │   ├── CI_CD_GATE_FAILURE.md
+│   │   │   ├── METRICS_CORRUPTION_RECOVERY.md
+│   │   │   ├── PRE_COMMIT_HOOK_FAILURE.md
+│   │   │   └── README.md
+│   │   ├── IA_FIRST_SPECIFICATION.md
+│   │   ├── _INDEX.md
+│   │   ├── navigation
+│   │   │   ├── INDEX.md
+│   │   │   └── REUSABILITY_GUIDE.md
+│   │   ├── onboarding
+│   │   │   ├── AGENT_HARNESS.md
+│   │   │   ├── DEVELOPMENT_WORKFLOW_VALIDATION.md
+│   │   │   ├── ENTRY_POINTS_BY_TOOL.md
+│   │   │   ├── IMPLEMENTATION_NOTES.md
+│   │   │   ├── ONBOARDING_CONSOLIDATION.md
+│   │   │   ├── PHASE-0-AGENT-ONBOARDING.md
+│   │   │   ├── PHASE-0-FLOW.md
+│   │   │   ├── PHASE-7-VALIDATION.md
+│   │   │   ├── README.md
+│   │   │   ├── SESSION_QUICK_REFERENCE.md
+│   │   │   └── VALIDATION_QUIZ.md
+│   │   ├── operational
+│   │   │   ├── ADDING_NEW_PROJECT.md
+│   │   │   ├── ARCHITECTURE_VALIDATION.md
+│   │   │   ├── HANDLING_MERGE_CONFLICTS_IN_DOCS.md
+│   │   │   ├── MIGRATING_DOCS_BETWEEN_PROJECTS.md
+│   │   │   ├── REVOKING_DEPRECATED_RULES.md
+│   │   │   └── TROUBLESHOOTING_SPEC_VIOLATIONS.md
+│   │   ├── README.md
+│   │   ├── reference
+│   │   │   ├── FAQ.md
+│   │   │   ├── GLOSSARY.md
+│   │   │   ├── HOW_EACH_LAYER_WORKS.md
+│   │   │   ├── README.md
+│   │   │   ├── TESTING_EVALUATION_SUMMARY.md
+│   │   │   └── TESTING_STRATEGY_CLARIFICATION.md
+│   │   └── troubleshooting
+│   │       ├── SETUP_WIZARD_FAILURES.md
+│   │       └── VALIDATE_IA_FIRST_FAILURES.md
+│   ├── INDEX.md
+│   ├── indices
+│   │   ├── _INDEX.md
+│   │   ├── search-keywords.md
+│   │   ├── spec-canonical-index.md
+│   │   └── spec-guides-index.md
+│   ├── mandate.spec
+│   └── README.md
+├── tests
+│   ├── conftest.py
+│   ├── __init__.py
+│   ├── integration
+│   │   ├── cli
+│   │   │   ├── __init__.py
+│   │   │   └── test_cli_typer.py
+│   │   ├── deploy
+│   │   │   ├── __init__.py
+│   │   │   └── test_phase_4_deploy.py
+│   │   ├── pipeline
+│   │   │   ├── __init__.py
+│   │   │   ├── test_phase_1_pipeline.py
+│   │   │   ├── test_phase_2_compiler.py
+│   │   │   ├── test_phase_3_integration.py
+│   │   │   └── test_phase_5_orchestrator.py
+│   │   └── wizard
+│   │       ├── __init__.py
+│   │       └── test_phase_5_wizard.py
+│   ├── path_config.py
+│   ├── test_governance_immutability.py
+│   └── unit
+│       ├── compiler
+│       │   ├── __init__.py
+│       │   ├── test_compiler.py
+│       │   ├── test_compiler_real_data.py
+│       │   ├── test_msgpack.py
+│       │   ├── test_real_data.py
+│       │   └── test_rtk_integration.py
+│       ├── execution
+│       │   ├── __init__.py
+│       │   ├── test_generate_specializations.py
+│       │   ├── test_guardrail_code_review.py
+│       │   ├── test_setup_wizard.py
+│       │   └── test_validate_ia_first.py
+│       ├── governance
+│       │   └── __init__.py
+│       ├── __init__.py
+│       └── wizard
+│           ├── __init__.py
+│           ├── test_phases_1_2.py
+│           ├── test_phases_3_4.py
+│           └── test_phases_5_7.py
+└── tools
+    ├── architecture
+    │   ├── __init__.py
+    │   ├── score.py
+    │   └── validate_imports.py
+    ├── debug
+    │   ├── debug_msgpack.py
+    │   └── __init__.py
+    ├── governance
+    │   ├── agent_confidence.py
+    │   ├── agent_handshake.py
+    │   ├── compliance.py
+    │   └── __init__.py
+    ├── health
+    │   ├── health_check.py
+    │   └── __init__.py
+    ├── __init__.py
+    ├── quiz
+    │   ├── __init__.py
+    │   ├── quiz_executor.py
+    │   └── quiz_questions.json
+    └── testing
+        ├── diagnostics.py
+        ├── __init__.py
+        └── run-all-tests.py
+
+148 directories, 561 files

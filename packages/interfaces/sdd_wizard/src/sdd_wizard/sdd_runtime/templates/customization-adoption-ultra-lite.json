@@ -1,0 +1,40 @@
+{
+  "version": "3.0",
+  "type": "adoption-level-template",
+  "generated": "2026-04-28T20:54:38.918809Z",
+  "adoption_level": "ultra-lite",
+  "metadata": {
+    "setup_time": "5 minutes",
+    "ideal_for": "Solo developers, prototypes, MVPs",
+    "items_count": 5
+  },
+  "items": [
+    {
+      "id": "M001",
+      "title": "Clean Architecture",
+      "type": "MANDATE",
+      "category": "architecture",
+      "criticality": "OBRIGAT\u00d3RIO",
+      "customizable": false,
+      "content": "All systems must implement 8-layer Clean Architecture",
+      "_status": "\ud83d\udd12 Immutable (core governance)"
+    },
+    {
+      "id": "M002",
+      "title": "Test-Driven Development",
+      "type": "MANDATE",
+      "category": "testing",
+      "criticality": "OBRIGAT\u00d3RIO",
+      "customizable": false,
+      "content": "All code must be written using TDD (tests first)",
+      "_status": "\ud83d\udd12 Immutable (core governance)"
+    }
+  ],
+  "implementation_steps": [
+    "1. Review 5 core principles",
+    "2. Understand 3 essential rules",
+    "3. Define 5 DoD checkpoints",
+    "4. Start with basic customization",
+    "5. Upgrade to LITE anytime"
+  ]
+}

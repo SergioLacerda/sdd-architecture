@@ -1,0 +1,33 @@
+{
+  "version": "3.0",
+  "type": "category-customization-template",
+  "generated": "2026-04-27T22:35:26.553470Z",
+  "category": "quality",
+  "metadata": {
+    "total_items": 2,
+    "customizable": 1,
+    "immutable": 1
+  },
+  "items": [
+    {
+      "id": "RULE-001",
+      "title": "All handlers must implement error handling",
+      "type": "RULE",
+      "category": "quality",
+      "criticality": "OBRIGAT\u00d3RIO",
+      "customizable": false,
+      "content": "# RULE-001: All handlers must implement error handling\n\n## Description\n\nEvery request handler must explicitly handle errors and return appropriate HTTP status codes.\n\n## Specification\n\n1. Try-catch blocks must be present\n2. Errors must be logged\n3. HTTP status codes must be appropriate\n4. User-facing messages must not leak internal details\n\n## Validation\n\n```bash\npytest tests/contracts/test_error_handling.py -v\n```\n\n## Related\n\n- ADR-001 (Layer 5: Error Mapping)\n- GUARDRAIL-001 (No bare exceptions)\n",
+      "_status": "\ud83d\udd12 Immutable (core governance)"
+    },
+    {
+      "id": "GUARDRAIL-001",
+      "title": "No bare exceptions in production code",
+      "type": "GUARDRAIL",
+      "category": "quality",
+      "criticality": "ALERTA",
+      "customizable": true,
+      "content": "# GUARDRAIL-001: No bare exceptions in production code\n\n## Description\n\nBare `except:` or `except Exception:` clauses are forbidden in source code (except in tests).\nMust catch specific exceptions.\n\n## Implementation\n\n```python\n# \u274c BAD\ntry:\n    result = dangerous_operation()\nexcept:\n    print(\"Error!\")\n\n# \u2705 GOOD\ntry:\n    result = dangerous_operation()\nexcept ValueError as e:\n    logger.error(f\"Invalid value: {e}\")\n    raise CustomError(f\"Could not process: {e}\") from e\n```\n\n## Exceptions\n\n- Tests may use bare `except` if needed\n- Shell scripts may use catch-all\n\n## Validation\n\n```bash\ngrep -r \"except:\\|except Exception:\" src/ && exit 1\npytest tests/quality/test_bare_exceptions.py -v\n```\n\n## Criticality\n\n- OBRIGAT\u00d3RIO: In user-facing APIs\n- ALERTA: In internal utilities\n- OPCIONAL: In batch jobs\n",
+      "_status": "\u270f\ufe0f Can be customized"
+    }
+  ]
+}

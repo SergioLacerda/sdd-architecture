@@ -1,0 +1,18 @@
+{
+  "version": "3.0",
+  "type": "client-template",
+  "generated_at": "2026-04-23T17:48:17.628754Z",
+  "fingerprint": "2247922049fc14d93c174fb22a584e5640f3d456980ef57107a4083187591e38",
+  "item_count": 151,
+  "items_by_type": {
+    "GUARDRAIL": 1,
+    "GUIDELINE": 150
+  },
+  "items_by_criticality": {
+    "ALERTA": 1,
+    "OPCIONAL": 150
+  },
+  "readonly": false,
+  "customizable": true,
+  "fingerprintpackages_salt": "35efc54d3e353daaf633fad531562f1da97ec17814193b7ac44b2e9ef12daddd"
+}

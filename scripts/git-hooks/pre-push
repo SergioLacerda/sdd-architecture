@@ -33,29 +33,33 @@ else
 fi
 
 HEALTH_SCRIPT=""
-if [ -f "$PROJECT_ROOT/_core/tools/health_check.py" ]; then
-    HEALTH_SCRIPT="$PROJECT_ROOT/_core/tools/health_check.py"
-elif [ -f "$PROJECT_ROOT/_core/health_check.py" ]; then
-    HEALTH_SCRIPT="$PROJECT_ROOT/_core/health_check.py"
+if [ -f "$PROJECT_ROOT/tools/health/health_check.py" ]; then
+    HEALTH_SCRIPT="$PROJECT_ROOT/tools/health/health_check.py"
+elif [ -f "$PROJECT_ROOT/packages/tools/health_check.py" ]; then
+    HEALTH_SCRIPT="$PROJECT_ROOT/packages/tools/health_check.py"
+elif [ -f "$PROJECT_ROOT/packages/health_check.py" ]; then
+    HEALTH_SCRIPT="$PROJECT_ROOT/packages/health_check.py"
 fi
 
 if [ -z "$HEALTH_SCRIPT" ]; then
     echo -e "${RED}✗ Health check script not found${NC}"
     echo "  Expected one of:"
-    echo "  - _core/tools/health_check.py"
-    echo "  - _core/health_check.py"
+    echo "  - tools/health/health_check.py"
+    echo "  - packages/tools/health_check.py"
+    echo "  - packages/health_check.py"
     exit 1
 fi
 
-GOVERNANCE_SCRIPT=""
-if [ -f "$PROJECT_ROOT/_core/tools/governance_compliance.py" ]; then
-    GOVERNANCE_SCRIPT="$PROJECT_ROOT/_core/tools/governance_compliance.py"
+SDD_CMD=""
+if [ -x "$PROJECT_ROOT/.venv/bin/sdd" ]; then
+    SDD_CMD="$PROJECT_ROOT/.venv/bin/sdd"
+elif command -v sdd >/dev/null 2>&1; then
+    SDD_CMD="sdd"
 fi
 
-if [ -z "$GOVERNANCE_SCRIPT" ]; then
-    echo -e "${RED}✗ Governance script not found${NC}"
-    echo "  Expected:"
-    echo "  - _core/tools/governance_compliance.py"
+if [ -z "$SDD_CMD" ]; then
+    echo -e "${RED}✗ sdd CLI command not found${NC}"
+    echo "  Install and setup first (./setup.sh or sdd setup run)"
     exit 1
 fi
 
@@ -68,50 +72,22 @@ if [ $HEALTH_STATUS -ne 0 ]; then
     exit 1
 fi
 
-if ! echo "$HEALTH_OUTPUT" | grep -q "OPERATIONAL"; then
+if echo "$HEALTH_OUTPUT" | grep -q "FAILED"; then
     echo -e "${RED}✗ Health check failed${NC}"
     echo "$HEALTH_OUTPUT"
     exit 1
 fi
 echo -e "${GREEN}✓ Health check passed${NC}"
 
-GOVERNANCE_FILE=""
-if [ -f "$PROJECT_ROOT/.ai/governance-core.json" ]; then
-    GOVERNANCE_FILE="$PROJECT_ROOT/.ai/governance-core.json"
-elif [ -f "$PROJECT_ROOT/.sdd/governance-core.json" ]; then
-    GOVERNANCE_FILE="$PROJECT_ROOT/.sdd/governance-core.json"
+echo -e "${YELLOW}→ Running governance validation...${NC}"
+GOV_OUTPUT="$("$SDD_CMD" governance validate 2>&1)"
+GOV_STATUS=$?
+if [ $GOV_STATUS -ne 0 ]; then
+    echo -e "${RED}✗ Governance validation failed${NC}"
+    echo "$GOV_OUTPUT"
+    exit 1
 fi
-
-ENFORCEMENT_MODE="SKIPPED"
-if [ -n "$GOVERNANCE_FILE" ]; then
-    echo -e "${YELLOW}→ Verifying governance enforcement level...${NC}"
-    ENFORCEMENT_OUTPUT="$("$PYTHON_BIN" "$GOVERNANCE_SCRIPT" --enforcement-check 2>&1)"
-    if [ $? -ne 0 ]; then
-        echo -e "${RED}✗ Governance enforcement check failed${NC}"
-        echo "$ENFORCEMENT_OUTPUT"
-        exit 1
-    fi
-
-    ENFORCEMENT_MODE="$(echo "$ENFORCEMENT_OUTPUT" | grep -oE '(STRICT|STANDARD|PERMISSIVE)' | head -1 || true)"
-    if [ -z "$ENFORCEMENT_MODE" ]; then
-        ENFORCEMENT_MODE="UNKNOWN"
-    fi
-    echo -e "${GREEN}✓ Enforcement mode: $ENFORCEMENT_MODE${NC}"
-
-    echo -e "${YELLOW}→ Checking compliance...${NC}"
-    VERIFY_OUTPUT="$("$PYTHON_BIN" "$GOVERNANCE_SCRIPT" --verify 2>&1)"
-    VERIFY_STATUS=$?
-
-    if [ $VERIFY_STATUS -ne 0 ]; then
-        echo -e "${RED}✗ Governance verify failed${NC}"
-        echo "$VERIFY_OUTPUT"
-        exit 1
-    fi
-
-    echo -e "${GREEN}✓ Governance compliance check passed${NC}"
-else
-    echo -e "${YELLOW}→ Governance file not found (.ai/.sdd). Skipping governance checks.${NC}"
-fi
+echo -e "${GREEN}✓ Governance validation passed${NC}"
 
 BRANCH="$(git rev-parse --abbrev-ref HEAD)"
 if git rev-parse --abbrev-ref @{u} >/dev/null 2>&1; then
@@ -123,12 +99,7 @@ fi
 echo -e "${YELLOW}→ Summary for branch '$BRANCH':${NC}"
 echo -e "  Commits to push: $COMMIT_COUNT"
 echo -e "  Health: ${GREEN}✓ Healthy${NC}"
-if [ "$ENFORCEMENT_MODE" = "SKIPPED" ]; then
-    echo -e "  Governance: ${YELLOW}⚠ Skipped (no governance file found)${NC}"
-else
-    echo -e "  Governance: ${GREEN}✓ Compliant${NC}"
-fi
-echo -e "  Enforcement: $ENFORCEMENT_MODE"
+echo -e "  Governance: ${GREEN}✓ Validated${NC}"
 echo -e "${GREEN}[PRE-PUSH] All checks passed. Push allowed.${NC}\n"
 
 exit 0

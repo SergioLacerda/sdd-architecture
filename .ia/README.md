@@ -29,7 +29,7 @@ When you ask a technical question about the project, the AI:
 
 2. **Runs Validation**: Checks project health (cached for 30 min)
    ```bash
-   python _core/agent_handshake.py --mode=silent
+   python packages/agent_handshake.py --mode=silent
    ```
 
 3. **Adapts Response**: Uses confidence score (0-100%)
@@ -54,7 +54,7 @@ AI:     "Here's the recommended approach based on your SDD governance..."
 ## Documentation
 
 - **Full AHP Guide**: See `docs/guides/HEALTH_CHECK_GUIDE.md`
-- **AHP Source Code**: `_core/agent_handshake.py` (658 lines)
+- **AHP Source Code**: `packages/agent_handshake.py` (658 lines)
 - **System Prompt Details**: Read `system-prompt.md` in this directory
 
 ---

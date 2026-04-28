@@ -34,7 +34,7 @@
       "layer": "LINK_VALIDATION"
     },
     {
-      "name": "_core framework",
+      "name": "packages framework",
       "passed": true,
       "message": "Framework accessible",
       "layer": "LINK_VALIDATION"

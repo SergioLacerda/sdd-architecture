@@ -1,58 +1,160 @@
-#!/bin/bash
+#!/usr/bin/env bash
 set -euo pipefail
 
-echo "🚀 SDD Architecture - Initial Setup"
-echo "===================================="
-echo ""
+echo "🚀 SDD Workspace Setup"
+echo "======================"
 
-# Check Python version
-echo "✓ Checking Python version..."
-PYTHON_VERSION=$(python3 --version 2>&1 | awk '{print $2}')
-REQUIRED_VERSION="3.10"
-
-if [ "$(printf '%s\n' "$REQUIRED_VERSION" "$PYTHON_VERSION" | sort -V | head -n1)" = "$REQUIRED_VERSION" ]; then
-    echo "  Found Python $PYTHON_VERSION ✅"
+#######################################
+# 🧠 Detect Python
+#######################################
+if command -v python3 >/dev/null 2>&1; then
+    PYTHON=python3
+elif command -v python >/dev/null 2>&1; then
+    PYTHON=python
 else
-    echo "  ERROR: Python $REQUIRED_VERSION or higher required (found $PYTHON_VERSION)"
+    echo "❌ Python not found"
     exit 1
 fi
 
-# Check pip
-echo "✓ Checking pip..."
-if ! command -v pip3 &> /dev/null; then
-    echo "  ERROR: pip3 not found. Please install pip."
-    exit 1
-fi
-pip3 --version | sed 's/^/  /'
+echo "✓ Using Python: $PYTHON"
 
-# Create virtual environment if it doesn't exist
+#######################################
+# 🧠 Create venv
+#######################################
 if [ ! -d ".venv" ]; then
-    echo ""
-    echo "📦 Creating virtual environment (.venv)..."
-    python3 -m venv .venv
+    echo "✓ Creating virtual environment..."
+    $PYTHON -m venv .venv
 fi
 
-# Activate virtual environment
-echo "✓ Activating virtual environment..."
-source .venv/bin/activate 2>/dev/null || source .venv/Scripts/activate
-
-# Install CLI dependencies
-echo ""
-echo "✓ Installing dependencies into virtualenv from _core/pyproject.toml..."
-if [ -f "_core/pyproject.toml" ]; then
-    pip install --upgrade pip -q
-    pip install -q -e "./_core[dev]"
-    echo "  ✅ Installed runtime and dev dependencies"
+#######################################
+# 🧠 Activate venv
+#######################################
+if [ -f ".venv/bin/activate" ]; then
+    source .venv/bin/activate
+elif [ -f ".venv/Scripts/activate" ]; then
+    source .venv/Scripts/activate
 else
-    echo "  ERROR: _core/pyproject.toml not found"
+    echo "❌ Could not activate virtualenv"
     exit 1
 fi
 
+echo "✓ Virtualenv activated"
+
+#######################################
+# 🧠 Upgrade pip
+#######################################
+python -m pip install --upgrade pip -q
+
+#######################################
+# 🧠 Install packages (ordered)
+#######################################
 echo ""
-echo "✅ Setup complete!"
+echo "📦 Installing SDD packages..."
+
+# 🔥 ordem explícita (evita problemas de dependência)
+ORDERED_PACKAGES=(
+    "packages/core/sdd_core"
+    "packages/core/sdd_compiler"
+    "packages/features/sdd_integration"
+    "packages/interfaces/sdd_wizard"
+    "packages/interfaces/sdd_cli"
+)
+
+for pkg in "${ORDERED_PACKAGES[@]}"; do
+    if [ -f "$pkg/pyproject.toml" ]; then
+        echo "  → Installing $pkg"
+        python -m pip install -e "$pkg"
+    else
+        echo "  ⚠ Skipping $pkg (no pyproject.toml)"
+    fi
+done
+
+#######################################
+# 🧠 Install any remaining packages
+#######################################
+for pkg in packages/*/*; do
+    if [ -f "$pkg/pyproject.toml" ]; then
+        skip=false
+        for ordered in "${ORDERED_PACKAGES[@]}"; do
+            if [ "$pkg" = "$ordered" ]; then
+                skip=true
+                break
+            fi
+        done
+
+        if [ "$skip" = false ]; then
+            echo "  → Installing (extra) $pkg"
+            python -m pip install -e "$pkg"
+        fi
+    fi
+done
+
+#######################################
+# 🧠 Install dev dependencies (root)
+#######################################
+if [ -f "pyproject.toml" ]; then
+    echo ""
+    echo "🧪 Installing dev dependencies..."
+    python -m pip install -e ".[dev]"
+fi
+
+#######################################
+# 🧠 Validate imports
+#######################################
+echo ""
+echo "🔍 Validating Python imports..."
+
+check_import() {
+    MODULE=$1
+    if python -c "import $MODULE" >/dev/null 2>&1; then
+        echo "  ✓ $MODULE OK"
+    else
+        echo "  ❌ $MODULE FAILED"
+        exit 1
+    fi
+}
+
+check_import sdd_core
+check_import sdd_wizard
+check_import sdd_cli
+
+#######################################
+# 🧠 Validate CLI
+#######################################
+echo ""
+echo "🔍 Validating CLI..."
+
+if command -v sdd >/dev/null 2>&1; then
+    echo "  ✓ sdd command available"
+else
+    echo "  ❌ sdd CLI not found"
+    exit 1
+fi
+
+#######################################
+# 🧠 Validate CLI execution
+#######################################
+echo ""
+echo "🔍 Testing CLI..."
+
+if sdd --help >/dev/null 2>&1; then
+    echo "  ✓ CLI responding"
+else
+    echo "  ❌ CLI not responding"
+    exit 1
+fi
+
+#######################################
+# 🧠 Done
+#######################################
+echo ""
+echo "🎉 SDD setup completed successfully!"
 echo ""
 echo "Next steps:"
-echo "  1. Run the wizard:     ./wizard.sh"
-echo "  2. Run the tests:      make test"
-echo "  3. View docs:          cat _spec/README.md"
 echo ""
+echo "source .venv/bin/activate"
+echo ""
+echo "  sdd setup run"
+echo "  sdd test run"
+echo "  sdd lint run"
+echo "  sdd wizard run"

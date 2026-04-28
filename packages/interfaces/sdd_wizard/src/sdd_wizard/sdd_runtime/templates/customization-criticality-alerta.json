@@ -1,0 +1,11 @@
+{
+  "version": "3.0",
+  "type": "criticality-customization-template",
+  "generated": "2026-04-28T20:54:38.916354Z",
+  "criticality": "ALERTA",
+  "metadata": {
+    "total_items": 0,
+    "description": "Alert-level items that should be reviewed"
+  },
+  "items": []
+}

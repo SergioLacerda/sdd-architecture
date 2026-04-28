@@ -1,0 +1,32 @@
+{
+  "version": "3.0",
+  "type": "criticality-customization-template",
+  "generated": "2026-04-28T20:54:38.916141Z",
+  "criticality": "OBRIGAT\u00d3RIO",
+  "metadata": {
+    "total_items": 2,
+    "description": "Mandatory items that must be enforced"
+  },
+  "items": [
+    {
+      "id": "M001",
+      "title": "Clean Architecture",
+      "type": "MANDATE",
+      "category": "architecture",
+      "criticality": "OBRIGAT\u00d3RIO",
+      "customizable": false,
+      "content": "All systems must implement 8-layer Clean Architecture",
+      "_status": "\ud83d\udd12 Immutable (core governance)"
+    },
+    {
+      "id": "M002",
+      "title": "Test-Driven Development",
+      "type": "MANDATE",
+      "category": "testing",
+      "criticality": "OBRIGAT\u00d3RIO",
+      "customizable": false,
+      "content": "All code must be written using TDD (tests first)",
+      "_status": "\ud83d\udd12 Immutable (core governance)"
+    }
+  ]
+}

@@ -33,13 +33,13 @@ assignees: ''
 
 ```bash
 # Health status
-python3 _core/health_check.py --verbose
+python3 packages/health_check.py --verbose
 
 # Governance compliance
-python3 _core/tools/governance_compliance.py --verify
+python3 packages/tools/governance_compliance.py --verify
 
 # Agent handshake
-python3 _core/agent_handshake.py --verbose
+python3 packages/agent_handshake.py --verbose
 
 # Python version
 python3 --version
@@ -61,9 +61,9 @@ git status && git log --oneline -3
 
 ## ✅ Troubleshooting Attempted
 
-- [ ] Ran: `python3 _core/health_check.py --force-recheck`
-- [ ] Ran: `python3 _core/tools/governance_compliance.py --fix-steps`
-- [ ] Cleared cache: `rm -f _core/.sdd/agent_state.json`
+- [ ] Ran: `python3 packages/health_check.py --force-recheck`
+- [ ] Ran: `python3 packages/tools/governance_compliance.py --fix-steps`
+- [ ] Cleared cache: `rm -f packages/.sdd/agent_state.json`
 - [ ] Pulled latest: `git pull origin main`
 - [ ] Checked docs: TROUBLESHOOTING.md
 
@@ -76,4 +76,4 @@ git status && git log --oneline -3
 **Maintainers**: 
 - Use labels: `bug`, `priority: high/medium/low`
 - Reference related docs
-- Verify fix with: `python3 _core/health_check.py --force-recheck`
+- Verify fix with: `python3 packages/health_check.py --force-recheck`

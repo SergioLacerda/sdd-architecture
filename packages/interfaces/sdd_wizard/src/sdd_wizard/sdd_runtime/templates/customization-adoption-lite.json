@@ -1,0 +1,41 @@
+{
+  "version": "3.0",
+  "type": "adoption-level-template",
+  "generated": "2026-04-28T20:54:38.919075Z",
+  "adoption_level": "lite",
+  "metadata": {
+    "setup_time": "15 minutes",
+    "ideal_for": "Small teams (< 5 people), learning",
+    "items_count": 25
+  },
+  "items": [
+    {
+      "id": "M001",
+      "title": "Clean Architecture",
+      "type": "MANDATE",
+      "category": "architecture",
+      "criticality": "OBRIGAT\u00d3RIO",
+      "customizable": false,
+      "content": "All systems must implement 8-layer Clean Architecture",
+      "_status": "\ud83d\udd12 Immutable (core governance)"
+    },
+    {
+      "id": "M002",
+      "title": "Test-Driven Development",
+      "type": "MANDATE",
+      "category": "testing",
+      "criticality": "OBRIGAT\u00d3RIO",
+      "customizable": false,
+      "content": "All code must be written using TDD (tests first)",
+      "_status": "\ud83d\udd12 Immutable (core governance)"
+    }
+  ],
+  "implementation_steps": [
+    "1. Review all OBRIGAT\u00d3RIO items",
+    "2. Understand ALERTA items",
+    "3. Plan customizations",
+    "4. Apply category-specific rules",
+    "5. Set up basic enforcement",
+    "6. Upgrade to FULL for production"
+  ]
+}

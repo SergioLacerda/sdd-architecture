@@ -15,13 +15,13 @@ This project enforces governance policies. Before suggesting code changes:
 - Check if changes violate policies in `.sdd/governance-core.json`
 - Suggest code that follows the enforcement level (STRICT/STANDARD/PERMISSIVE)
 - Reference mandatory policies from `MANDATORY_POLICIES.md`
-- Run compliance check before finalizing: `python3 _core/tools/governance_compliance.py --verify`
+- Run compliance check before finalizing: `python3 packages/tools/governance_compliance.py --verify`
 
 ### 2. Health-Aware Suggestions
 
 Before suggesting major changes:
 
-- Understand the current health state: `python3 _core/health_check.py --verbose`
+- Understand the current health state: `python3 packages/health_check.py --verbose`
 - Don't suggest changes that would break health checks
 - Reference the 10 health check categories:
   1. Git (repository status)
@@ -74,7 +74,7 @@ def check_something(self):
 
 #### Governance Validation Pattern
 ```python
-from _core.tools.governance_compliance import GovernanceComplianceValidator
+from packages.tools.governance_compliance import GovernanceComplianceValidator
 
 validator = GovernanceComplianceValidator()
 is_compliant, results = validator.validate_all()
@@ -88,9 +88,9 @@ if not is_compliant:
 
 Suggest code in the correct location:
 
-- `_core/` - Core validation and infrastructure
-- `_core/.sdd/` - Governance configuration
-- `_core/.sdd-wizard/templates/` - Seedling templates
+- `packages/` - Core validation and infrastructure
+- `packages/.sdd/` - Governance configuration
+- `packages/.sdd-wizard/templates/` - Seedling templates
 - `tests/` - Test files
 - `tests/performance/` - Performance benchmarks
 - `docs/` - Documentation
@@ -137,7 +137,7 @@ If suggesting code that might impact these, recommend benchmarking first.
 
 ### When Helping with Health Checks
 
-1. **Problem**: Suggest running `python3 _core/health_check.py --verbose`
+1. **Problem**: Suggest running `python3 packages/health_check.py --verbose`
 2. **Diagnosis**: Parse output and identify which category failed
 3. **Solution**: Reference TROUBLESHOOTING.md for that issue
 4. **Verification**: Suggest re-running the check
@@ -146,8 +146,8 @@ If suggesting code that might impact these, recommend benchmarking first.
 
 1. **Policy**: Quote the specific policy from MANDATORY_POLICIES.md
 2. **Violation**: Explain which rule is broken
-3. **Fix**: Use `python3 _core/tools/governance_compliance.py --fix-steps`
-4. **Verify**: Run `python3 _core/tools/governance_compliance.py --verify`
+3. **Fix**: Use `python3 packages/tools/governance_compliance.py --fix-steps`
+4. **Verify**: Run `python3 packages/tools/governance_compliance.py --verify`
 
 ### When Helping with Agent Code
 
@@ -176,7 +176,7 @@ If suggesting code that might impact these, recommend benchmarking first.
 
 ### Health Check Integration
 ```python
-from _core.health_check import HealthCheck
+from packages.health_check import HealthCheck
 
 hc = HealthCheck()
 results = hc.run_checks()
@@ -187,7 +187,7 @@ if results["status"] != "healthy":
 
 ### Governance Validation
 ```python
-from _core.tools.governance_compliance import GovernanceComplianceValidator
+from packages.tools.governance_compliance import GovernanceComplianceValidator
 
 validator = GovernanceComplianceValidator()
 is_compliant, results = validator.validate_all()
@@ -200,7 +200,7 @@ if not is_compliant:
 
 ### Agent Handshake
 ```python
-from _core.agent_handshake import AgentHandshake
+from packages.agent_handshake import AgentHandshake
 
 handshake = AgentHandshake()
 state = handshake.validate()  # Returns 5-state machine value
@@ -211,7 +211,7 @@ state = handshake.validate()  # Returns 5-state machine value
 
 ### Quiz Execution
 ```python
-from _core.quiz_executor import QuizExecutor
+from packages.quiz_executor import QuizExecutor
 
 quiz = QuizExecutor()
 quiz.run(mode="silent", topic="governance")
@@ -238,7 +238,7 @@ except json.JSONDecodeError:
 import time
 import json
 
-cache_file = Path("_core/.sdd/agent_state.json")
+cache_file = Path("packages/.sdd/agent_state.json")
 cache_ttl = 1800  # 30 minutes
 
 if cache_file.exists() and age < cache_ttl:
@@ -290,7 +290,7 @@ with ThreadPoolExecutor(max_workers=4) as executor:
 
 When suggestions are vague, ask:
 
-1. **Health**: "What does `python3 _core/health_check.py --verbose` show?"
+1. **Health**: "What does `python3 packages/health_check.py --verbose` show?"
 2. **Governance**: "Which policy are you trying to follow?"
 3. **Intent**: "What are you trying to accomplish?"
 4. **Performance**: "What's your target latency?"
@@ -302,10 +302,10 @@ When suggestions are vague, ask:
 ## Helpful Context
 
 ### Key Files
-- `_core/health_check.py` - 400 LOC, 10 checks
-- `_core/agent_handshake.py` - 658 LOC, 4-layer validation
-- `_core/tools/governance_compliance.py` - 400 LOC, policy validator
-- `_core/quiz_executor.py` - 450 LOC, knowledge validation
+- `packages/health_check.py` - 400 LOC, 10 checks
+- `packages/agent_handshake.py` - 658 LOC, 4-layer validation
+- `packages/tools/governance_compliance.py` - 400 LOC, policy validator
+- `packages/quiz_executor.py` - 450 LOC, knowledge validation
 - `tests/performance/benchmark.py` - 400 LOC, performance measurement
 
 ### Key Docs
@@ -316,7 +316,7 @@ When suggestions are vague, ask:
 - `docs/QUICK_TROUBLESHOOT.md` - 1-page reference
 
 ### Key Config
-- `_core/.sdd/governance-core.json` - Governance config
+- `packages/.sdd/governance-core.json` - Governance config
 - `.sdd-wizard/templates/` - Seedling templates
 - `.github/workflows/health-check.yml` - CI/CD
 
@@ -336,16 +336,16 @@ Example response:
 ```
 I found the issue. Your health check failed because:
 
-✗ Config directory missing: _core/.sdd/ doesn't exist
+✗ Config directory missing: packages/.sdd/ doesn't exist
 
 Fix:
-mkdir -p _core/.sdd
+mkdir -p packages/.sdd
 
 Verify:
-python3 _core/health_check.py
+python3 packages/health_check.py
 
 Then:
-python3 _core/tools/governance_compliance.py --verify
+python3 packages/tools/governance_compliance.py --verify
 
 This ensures your governance config is ready.
 ```
@@ -355,8 +355,8 @@ This ensures your governance config is ready.
 ## Workflow Suggestions
 
 ### Before Making Changes
-1. Check health: `python3 _core/health_check.py`
-2. Check governance: `python3 _core/tools/governance_compliance.py --verify`
+1. Check health: `python3 packages/health_check.py`
+2. Check governance: `python3 packages/tools/governance_compliance.py --verify`
 3. Understand impact: Will this break anything?
 4. Plan tests: What needs to be tested?
 
@@ -367,14 +367,14 @@ This ensures your governance config is ready.
 4. Review performance (against targets)
 
 ### Before Committing
-1. Run health check: `python3 _core/health_check.py --force-recheck`
-2. Verify governance: `python3 _core/tools/governance_compliance.py --verify`
+1. Run health check: `python3 packages/health_check.py --force-recheck`
+2. Verify governance: `python3 packages/tools/governance_compliance.py --verify`
 3. Run tests: `python3 -m pytest tests/`
 4. Check performance: Compare against baseline
 
 ### Before Pushing
-1. Fresh health check: `python3 _core/health_check.py --force-recheck`
-2. Full compliance: `python3 _core/tools/governance_compliance.py --verify`
+1. Fresh health check: `python3 packages/health_check.py --force-recheck`
+2. Full compliance: `python3 packages/tools/governance_compliance.py --verify`
 3. Log summary: Document what changed
 4. Notify team: (if needed)
 

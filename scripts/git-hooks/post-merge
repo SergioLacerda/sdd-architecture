@@ -14,7 +14,7 @@ NC='\033[0m'
 
 echo -e "${YELLOW}[POST-MERGE] Updating governance cache...${NC}"
 
-CACHE_FILE="$PROJECT_ROOT/_core/.sdd/agent_state.json"
+CACHE_FILE="$PROJECT_ROOT/packages/.sdd/agent_state.json"
 if [ -f "$CACHE_FILE" ]; then
     rm -f "$CACHE_FILE"
     echo -e "${GREEN}✓ Cache cleared${NC}"
@@ -28,10 +28,12 @@ else
     PYTHON_BIN="python"
 fi
 
-if [ -f "$PROJECT_ROOT/_core/tools/health_check.py" ]; then
-    HEALTH_SCRIPT="$PROJECT_ROOT/_core/tools/health_check.py"
-elif [ -f "$PROJECT_ROOT/_core/health_check.py" ]; then
-    HEALTH_SCRIPT="$PROJECT_ROOT/_core/health_check.py"
+if [ -f "$PROJECT_ROOT/tools/health/health_check.py" ]; then
+    HEALTH_SCRIPT="$PROJECT_ROOT/tools/health/health_check.py"
+elif [ -f "$PROJECT_ROOT/packages/tools/health_check.py" ]; then
+    HEALTH_SCRIPT="$PROJECT_ROOT/packages/tools/health_check.py"
+elif [ -f "$PROJECT_ROOT/packages/health_check.py" ]; then
+    HEALTH_SCRIPT="$PROJECT_ROOT/packages/health_check.py"
 else
     HEALTH_SCRIPT=""
 fi

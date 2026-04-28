@@ -1,0 +1,107 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "sdd-workspace"
+version = "0.0.0"
+description = "SDD Architecture Workspace (multi-package orchestration)"
+requires-python = ">=3.10"
+
+[tool.setuptools]
+packages = []
+
+[tool.uv.workspace]
+members = [
+    "packages/core/sdd_core",
+    "packages/core/sdd_compiler",
+    "packages/features/sdd_integration",
+    "packages/interfaces/sdd_wizard",
+    "packages/interfaces/sdd_cli",
+]
+
+[tool.uv.sources]
+sdd-core        = { workspace = true }
+sdd-compiler    = { workspace = true }
+sdd-integration = { workspace = true }
+sdd-wizard      = { workspace = true }
+sdd-cli         = { workspace = true }
+
+[project.optional-dependencies]
+dev = [
+    "black>=24.0.0",
+    "ruff>=0.3.0",
+    "mypy>=1.9.0",
+    "pytest>=8.0.0",
+    "pytest-cov",
+    "pylint",
+    "types-PyYAML",
+]
+
+[tool.mypy]
+python_version = "3.10"
+strict = true
+
+warn_return_any = true
+warn_unused_configs = true
+no_implicit_optional = true
+
+ignore_missing_imports = false
+
+[[tool.mypy.overrides]]
+module = ["msgpack"]
+ignore_missing_imports = true
+disable_error_code = ["import-untyped"]
+
+[tool.black]
+line-length = 127
+target-version = ['py310']
+
+[tool.ruff]
+line-length = 127
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "W", "C90"]
+ignore = []
+
+[tool.ruff.lint.mccabe]
+max-complexity = 10
+
+[tool.ruff.lint.isort]
+known-first-party = ["sdd"]
+
+[tool.pylint.MASTER]
+ignore-paths = [
+    "^.*/tests/.*$",
+    "^.*/runtime/.*$",
+    "^.*/compiled/.*$",
+]
+
+[tool.pylint."MESSAGES CONTROL"]
+max-line-length = 127
+disable = [
+    "C0114",
+    "C0115",
+    "C0116",
+]
+
+[tool.pytest.ini_options]
+testpaths = [
+    "tests",
+    "packages"
+]
+
+python_files = ["test_*.py"]
+
+addopts = """
+--strict-markers
+--tb=short
+-q
+"""
+
+markers = [
+    "unit",
+    "integration",
+    "e2e"
+]

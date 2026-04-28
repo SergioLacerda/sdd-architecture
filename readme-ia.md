@@ -18,7 +18,7 @@ This guide explains how AI agents can **understand, invoke, and bridge** the wiz
 
 ## 📍 What is the Wizard?
 
-**Location:** `_core/.sdd-wizard/src/wizard.py`  
+**Location:** `packages/.sdd-wizard/src/wizard.py`  
 **Entry Point:** `./wizard.sh` (wrapper script)  
 **Purpose:** Transform governance specifications → Executable projects
 
@@ -123,9 +123,9 @@ else:
 **When AI tests phases:**
 ```bash
 # Test each phase individually
-python3 _core/.sdd-wizard/src/wizard.py --test-phases 1
-python3 _core/.sdd-wizard/src/wizard.py --test-phases 1-3
-python3 _core/.sdd-wizard/src/wizard.py --test-phases 1-7
+python3 packages/.sdd-wizard/src/wizard.py --test-phases 1
+python3 packages/.sdd-wizard/src/wizard.py --test-phases 1-3
+python3 packages/.sdd-wizard/src/wizard.py --test-phases 1-7
 ```
 
 ---
@@ -183,7 +183,7 @@ Seedling suggests: Next steps based on health
 ```
 When user types: "estou conectado?" (am I connected?)
 Cursor detects: "Technical context + project reference"
-Cursor runs: python _core/agent_handshake.py --mode=silent
+Cursor runs: python packages/agent_handshake.py --mode=silent
 Result: 🟢 HEALTHY | Confidence: 92%
 Cursor responds: "Yes, your SDD setup is fully operational"
 ```
@@ -352,13 +352,13 @@ if metadata_file.exists():
 
 ```bash
 # Phase 1 only: Validate
-python3 _core/.sdd-wizard/src/wizard.py --test-phases 1
+python3 packages/.sdd-wizard/src/wizard.py --test-phases 1
 
 # Phase 1-2: Validate + Load
-python3 _core/.sdd-wizard/src/wizard.py --test-phases 1-2
+python3 packages/.sdd-wizard/src/wizard.py --test-phases 1-2
 
 # All phases
-python3 _core/.sdd-wizard/src/wizard.py --test-phases 1-7
+python3 packages/.sdd-wizard/src/wizard.py --test-phases 1-7
 ```
 
 ### Debugging Phases
@@ -379,9 +379,9 @@ python3 _core/.sdd-wizard/src/wizard.py --test-phases 1-7
 ```python
 # Import wizard directly
 import sys
-sys.path.insert(0, "_core/.sdd-wizard/src")
+sys.path.insert(0, "packages/.sdd-wizard/src")
 
-from wizard import WizardOrchestrator
+from sdd_wizard import WizardOrchestrator
 
 # Create orchestrator
 wizard = WizardOrchestrator(repo_root="/path/to/sdd-architecture")
@@ -468,9 +468,9 @@ Before pushing, users see:
 **If it fails, suggest:**
 ```bash
 # Run locally to see what failed
-python3 _core/health_check.py --verbose
-python3 _core/run-all-tests.py
-python3 _core/tools/governance_compliance.py --verify
+python3 packages/health_check.py --verbose
+python3 packages/run-all-tests.py
+python3 packages/tools/governance_compliance.py --verify
 ```
 
 ### ⚠️ Git Hooks: Framework vs Client Projects
@@ -493,8 +493,8 @@ python3 _core/tools/governance_compliance.py --verify
 - [README.md](README.md) — Main entry point
 - [readme-detailed.md](readme-detailed.md) — 7-phase technical details
 - [.github/workflows/](.github/workflows/) — All 10 workflow definitions
-- [_core/.sdd-wizard/WORKFLOW_FLOW.md](_core/.sdd-wizard/WORKFLOW_FLOW.md) — Complete orchestration
-- [_core/.sdd-wizard/AI_AGENT_GUIDE.md](_core/.sdd-wizard/AI_AGENT_GUIDE.md) — Detailed AI guide
+- [packages/.sdd-wizard/WORKFLOW_FLOW.md](packages/.sdd-wizard/WORKFLOW_FLOW.md) — Complete orchestration
+- [packages/.sdd-wizard/AI_AGENT_GUIDE.md](packages/.sdd-wizard/AI_AGENT_GUIDE.md) — Detailed AI guide
 - [.cursor/README.md](.cursor/README.md) — Cursor IDE integration
 
 ---

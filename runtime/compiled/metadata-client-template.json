@@ -1,0 +1,16 @@
+{
+  "version": "3.0",
+  "type": "client-template",
+  "generated_at": "2026-04-28T20:54:36.833146Z",
+  "fingerprint": "5fc44e97aba7a375fc69e8404281a24316bb73d1eb16b352d6aaa113cf2a4c50",
+  "item_count": 151,
+  "items_by_type": {
+    "GUIDELINE": 151
+  },
+  "items_by_criticality": {
+    "OPCIONAL": 151
+  },
+  "readonly": false,
+  "customizable": true,
+  "fingerprintpackages_salt": "40c03e88d0efe299f85eb020f716685edaef79803d1d9e2cffa460dee968bcb6"
+}

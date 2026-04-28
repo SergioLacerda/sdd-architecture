@@ -1,0 +1,33 @@
+{
+  "version": "3.0",
+  "type": "category-customization-template",
+  "generated": "2026-04-28T20:54:38.912753Z",
+  "category": "naming",
+  "metadata": {
+    "total_items": 2,
+    "customizable": 2,
+    "immutable": 0
+  },
+  "items": [
+    {
+      "id": "G46",
+      "title": "[Project Name] Constitution",
+      "type": "GUIDELINE",
+      "category": "naming",
+      "criticality": "OPCIONAL",
+      "customizable": true,
+      "content": "",
+      "_status": "\u270f\ufe0f Can be customized"
+    },
+    {
+      "id": "G49",
+      "title": "Principle 1: [Name]",
+      "type": "GUIDELINE",
+      "category": "naming",
+      "criticality": "OPCIONAL",
+      "customizable": true,
+      "content": "[Repeat for 5 principles]",
+      "_status": "\u270f\ufe0f Can be customized"
+    }
+  ]
+}

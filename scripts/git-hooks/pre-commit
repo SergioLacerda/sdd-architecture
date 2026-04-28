@@ -23,10 +23,10 @@ fi
 CRITICAL_PATTERNS=(
     "_spec/architecture/decisions/ADR-007"
     "_spec/architecture/decisions/ADR-008"
-    ".sdd-migration/phase-archive/DECISIONS.md"
-    "_core/.sdd-migration/phase-archive/DECISIONS.md"
-    ".sdd-migration/PHASES.md"
-    "_core/.sdd-migration/PHASES.md"
+    "spec/architecture/decisions/ADR-007"
+    "spec/architecture/decisions/ADR-008"
+    "packages/features/migration/phase-archive/DECISIONS.md"
+    "packages/features/migration/PHASES.md"
 )
 
 for critical in "${CRITICAL_PATTERNS[@]}"; do

@@ -1,0 +1,23 @@
+{
+  "version": "3.0",
+  "type": "category-customization-template",
+  "generated": "2026-04-28T20:54:38.913505Z",
+  "category": "devops",
+  "metadata": {
+    "total_items": 1,
+    "customizable": 1,
+    "immutable": 0
+  },
+  "items": [
+    {
+      "id": "G151",
+      "title": "GitHub Actions SDD Validation",
+      "type": "GUIDELINE",
+      "category": "devops",
+      "criticality": "OPCIONAL",
+      "customizable": true,
+      "content": "Automated CI/CD workflow that validates code against M001 (Clean Architecture) and M002 (Test-Driven Development) on every push and PR. Includes linting, type checking, test execution, and governance rule compliance checks.",
+      "_status": "\u270f\ufe0f Can be customized"
+    }
+  ]
+}

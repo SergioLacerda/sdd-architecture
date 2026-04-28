@@ -24,7 +24,7 @@
 
 ```
 repository/
-├── _core/              # 💻 Implementation & Code (82+ tests)
+├── packages/              # 💻 Implementation & Code (82+ tests)
 │   ├── .sdd-core/      # Governance compiler
 │   ├── .sdd-wizard/    # Wizard orchestration
 │   ├── cli/        # CLI interface
@@ -40,10 +40,10 @@ repository/
 │   └── CHANGELOG.md    # Version history
 │
 ├── README.md (this file)
-└── Backward compatibility symlinks (.sdd-core → _core/.sdd-core, etc.)
+└── Backward compatibility symlinks (.sdd-core → packages/.sdd-core, etc.)
 ```
 
-**Note:** Old import paths still work via symlinks. See [_core/README.md](_core/README.md) and [_spec/README.md](_spec/README.md) for details.
+**Note:** Old import paths still work via symlinks. See [packages/README.md](packages/README.md) and [_spec/README.md](_spec/README.md) for details.
 
 ---
 
@@ -51,7 +51,7 @@ repository/
 
 ### 👨‍💻 For Developers
 - [README.md](README.md) — Overview (3 min)
-- [_core/README.md](_core/README.md) — Code structure (5 min)  
+- [packages/README.md](packages/README.md) — Code structure (5 min)  
 - [docs/TEST_RUNNER_GUIDE.md](docs/TEST_RUNNER_GUIDE.md) — Testing (10 min)
 
 ### 🤖 For AI Agents
@@ -60,7 +60,7 @@ repository/
 
 ### 🔬 For Technical Details
 - [readme-detailed.md](readme-detailed.md) — 7-phase workflow
-- [_core/.sdd-wizard/WORKFLOW_FLOW.md](_core/.sdd-wizard/WORKFLOW_FLOW.md) — Complete orchestration
+- [packages/.sdd-wizard/WORKFLOW_FLOW.md](packages/.sdd-wizard/WORKFLOW_FLOW.md) — Complete orchestration
 
 ---
 
@@ -73,7 +73,7 @@ repository/
 ./setup.sh
 
 # OR manually:
-pip3 install -r _core/requirements-cli.txt
+pip3 install -r packages/requirements-cli.txt
 ```
 
 **What gets installed:**
@@ -120,7 +120,7 @@ make test
 ## 📚 Documentation (Choose Your Path)
 
 **Quick navigation:**
-- 🔤 **Code & Implementation:** See [_core/README.md](_core/README.md)
+- 🔤 **Code & Implementation:** See [packages/README.md](packages/README.md)
 - 📖 **Specs & Documentation:** See [_spec/README.md](_spec/README.md)
 - 📋 **Full Index:** See [docs/INDEX.md](docs/INDEX.md)
 - 🧙 **Wizard Guide:** See [WIZARD_DOCUMENTATION_INDEX.md](WIZARD_DOCUMENTATION_INDEX.md)
@@ -142,7 +142,7 @@ Start here if you want to create a new project with the SDD Wizard:
 
 ### Testing
 
-**Run all tests from _core (82+ tests):**
+**Run all tests from packages (82+ tests):**
 ```bash
 make test          # Executa todos os testes das 7 camadas
 ```
@@ -156,9 +156,9 @@ make check         # Linting + Type Check + Governance + Tests
 
 ### CLI Commands
 
-**Navigate to _core first, then use CLI:**
+**Navigate to packages first, then use CLI:**
 ```bash
-cd _core
+cd packages
 
 # Load governance
 python3 -m cli governance load
@@ -288,16 +288,16 @@ Developer Push
 **Pre-commit validation (local):**
 ```bash
 # Health check (same as CI/CD)
-python3 _core/tools/health_check.py --verbose
+python3 packages/tools/health_check.py --verbose
 
 # Tests (same as CI/CD)
-cd _core && python3 tools/run-all-tests.py
+cd packages && python3 tools/run-all-tests.py
 
 # Lint (local pylint)
-python3 -m pylint _core/**/*.py
+python3 -m pylint packages/**/*.py
 
 # Governance (same as CI/CD)
-python3 _core/governance_compliance.py --verify
+python3 packages/governance_compliance.py --verify
 ```
 
 **Pre-push hook behavior:**
@@ -378,3 +378,20 @@ git push origin main
 **SDD Framework v3.0** — Production Ready  
 **Last Updated:** April 22, 2026  
 **License:** MIT
+
+
+## SDD CLi
+
+```
+sdd
+sdd version
+sdd setup run
+sdd test run
+sdd lint run
+sdd wizard run
+sdd governance load
+sdd governance validate
+sdd governance generate
+sdd doctor run
+sdd bootstrap run
+```

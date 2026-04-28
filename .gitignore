@@ -4,7 +4,6 @@ __pycache__/
 *$py.class
 *.so
 .Python
-build/
 develop-eggs/
 dist/
 downloads/
@@ -41,20 +40,24 @@ htmlcov/
 .tox/
 
 # Generated/Compiled Artifacts
-.sdd-runtime/*.bin
-.sdd-runtime/metadata.json
-!.sdd-runtime/.gitkeep
+sdd-runtime/*.bin
+sdd-runtime/metadata.json
+!sdd-runtime/.gitkeep
 
 # Build Artifacts (PHASE 1-3 compilation outputs)
-_core/.sdd-compiled/
-_core/build_scripts/source/
-_core/.sdd-wizard/.sdd-runtime/compiled/
-_core/.sdd-compiler/runtime/
+packages/sdd-compiled/
+packages/build_scripts/source/
+packages/sdd-wizard/.sdd-runtime/compiled/
+packages/sdd-compiler/runtime/
 *.compiled.msgpack
 *.compiled.json
 
 # Wizard Output (test/temporary)
 sdd-generated/
+
+# Linters
+.ruff_cache/
+.mypy_cache/
 
 # OS
 .DS_Store

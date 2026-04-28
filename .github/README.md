@@ -88,10 +88,10 @@ To simulate the GitHub Actions workflow locally:
 
 ```bash
 # Run all health checks
-python _core/health_check.py --json > health-report.json
-python _core/diagnostics_test.py --json > diagnostics-report.json
-python _core/agent_handshake.py --mode=compact --json > ahp-report.json
-python _core/agent_confidence.py --json > confidence-report.json
+python packages/health_check.py --json > health-report.json
+python packages/diagnostics_test.py --json > diagnostics-report.json
+python packages/agent_handshake.py --mode=compact --json > ahp-report.json
+python packages/agent_confidence.py --json > confidence-report.json
 
 # Parse results
 cat ahp-report.json | jq '.state, .confidence'
@@ -129,17 +129,17 @@ Access via: Actions → Health Check → Run details → Artifacts
 ## Documentation
 
 - **Full Workflow Details**: `workflows/health-check.yml` (in this directory)
-- **Health Check Engine**: `_core/health_check.py`
-- **AHP Details**: `_core/agent_handshake.py`
-- **Diagnostics**: `_core/diagnostics_test.py`
-- **Confidence Evaluation**: `_core/agent_confidence.py`
+- **Health Check Engine**: `packages/health_check.py`
+- **AHP Details**: `packages/agent_handshake.py`
+- **Diagnostics**: `packages/diagnostics_test.py`
+- **Confidence Evaluation**: `packages/agent_confidence.py`
 
 ## Troubleshooting
 
 ### Workflow Fails with "State: MISCONFIGURED"
 1. Check `.spec.config` syntax (JSON)
 2. Verify `.sdd/governance-core.json` exists
-3. Ensure `_core/` directory is present
+3. Ensure `packages/` directory is present
 
 ### Workflow Fails with "State: NOT_CONNECTED"
 1. Create `.spec.config` file

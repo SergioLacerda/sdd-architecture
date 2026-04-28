@@ -23,7 +23,7 @@ from pathlib import Path
 import sys
 
 # Load AHP
-sys.path.insert(0, str(Path.cwd() / "_core"))
+sys.path.insert(0, str(Path.cwd() / "packages"))
 from agent_handshake import AgentHandshakeProtocol
 
 # Check context
@@ -82,7 +82,7 @@ Response: "I can provide general guidance. To leverage full
 
 ```
 /home/sergio/dev/sdd-architecture/
-├── _core/                    # Core engines
+├── packages/                    # Core engines
 │   ├── health_check.py      # Explicit validation (10 checks)
 │   ├── agent_confidence.py  # Confidence scoring (5 metrics)
 │   ├── agent_handshake.py   # Implicit protocol (AHP, 4 layers)
@@ -172,16 +172,16 @@ Your project health: [from AHP]"
 
 ### Explicit Health Check
 ```bash
-python _core/health_check.py                    # 10-check report
-python _core/agent_confidence.py                # Confidence scoring
-python _core/diagnostics_test.py                # 14 diagnostic tests
+python packages/health_check.py                    # 10-check report
+python packages/agent_confidence.py                # Confidence scoring
+python packages/diagnostics_test.py                # 14 diagnostic tests
 ```
 
 ### Implicit Health Check (Recommended)
 ```bash
-python _core/agent_handshake.py --mode=compact  # Summary + checks
-python _core/agent_handshake.py --mode=verbose  # Detailed report
-python _core/agent_handshake.py --mode=silent   # Minimal output
+python packages/agent_handshake.py --mode=compact  # Summary + checks
+python packages/agent_handshake.py --mode=verbose  # Detailed report
+python packages/agent_handshake.py --mode=silent   # Minimal output
 ```
 
 ### Initialization
@@ -207,7 +207,7 @@ python EXECUTION/SCRIPTS/phase-0-agent-onboarding.py  # Setup wizard
 ## References
 
 - **Health Check Guide**: `docs/guides/HEALTH_CHECK_GUIDE.md`
-- **AHP Specification**: `_core/agent_handshake.py` (inline docs, 658 lines)
+- **AHP Specification**: `packages/agent_handshake.py` (inline docs, 658 lines)
 - **Architecture Index**: `context/INDEX.md`
 - **Phase Reference**: `context/phases/`
 - **Execution Guide**: `EXECUTION/README.md`

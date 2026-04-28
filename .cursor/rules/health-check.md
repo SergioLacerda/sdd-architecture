@@ -8,7 +8,7 @@
 name: "SDD Health Check"
 description: "Validates SDD Architecture project health before technical operations"
 trigger: "technical_context"
-handler: "_core/agent_handshake.py"
+handler: "packages/agent_handshake.py"
 ```
 
 ## Semantic Trigger Patterns
@@ -49,7 +49,7 @@ Activation threshold reached → Execute rule
 Cursor silently invokes AHP:
 
 ```bash
-python _core/agent_handshake.py --mode=silent
+python packages/agent_handshake.py --mode=silent
 ```
 
 ### Step 3: Response Adaptation
@@ -72,14 +72,14 @@ If NOT_CONNECTED ❌:
 
 ### File Location
 - **Rule File**: `.cursor/rules/health-check.md` (this file)
-- **Handler**: `_core/agent_handshake.py`
+- **Handler**: `packages/agent_handshake.py`
 - **State Cache**: `.ai/runtime/governance-state.json`
 - **Config**: `.spec.config` or `.sdd-core/spec.config`
 
 ### Handler Invocation
 ```python
 from pathlib import Path
-sys.path.insert(0, str(Path.cwd() / "_core"))
+sys.path.insert(0, str(Path.cwd() / "packages"))
 from agent_handshake import AgentHandshakeProtocol
 
 ahp = AgentHandshakeProtocol()
@@ -134,7 +134,7 @@ Cursor: "Hi! I'm doing well. How can I help?"
 ## Documentation & Reference
 
 - **Full AHP Guide**: `docs/guides/HEALTH_CHECK_GUIDE.md`
-- **AHP Source Code**: `_core/agent_handshake.py` (658 lines, fully documented)
+- **AHP Source Code**: `packages/agent_handshake.py` (658 lines, fully documented)
 - **Configuration**: `.spec.config`
 - **Architecture Reference**: `context/INDEX.md`
 
@@ -144,7 +144,7 @@ Cursor: "Hi! I'm doing well. How can I help?"
 - **Last Updated**: 2026-04-26
 - **Status**: ✅ Active
 - **Author**: SDD Architecture Team
-- **Dependencies**: Python 3.8+, `_core/agent_handshake.py`
+- **Dependencies**: Python 3.8+, `packages/agent_handshake.py`
 
 ---
 
