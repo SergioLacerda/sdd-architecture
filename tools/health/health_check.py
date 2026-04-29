@@ -26,13 +26,12 @@ class HealthCheckEngine:
         }
 
     def _find_project_root(self) -> Path:
-        """Find project root by looking for packages directory"""
+        """Find project root by looking for project markers."""
         current = Path(__file__).resolve().parent
-        # Search up the tree from tools/ location
         for parent in [current] + list(current.parents):
-            if (parent / "packages").exists() and (parent / "_spec").exists():
+            if (parent / "pyproject.toml").exists() and (parent / "packages").exists():
                 return parent
-        return current.parent.parent  # Fallback
+        raise RuntimeError("Could not locate project root from tools/health/health_check.py")
 
     def log(self, message: str, level: str = "info"):
         if self.verbose:
@@ -51,9 +50,9 @@ class HealthCheckEngine:
             return False, f"Git check failed: {str(e)}"
 
     def checkpackages_structure(self) -> Tuple[bool, str]:
-        required = ["core", "wizard", "compiler"]
-        core_dir = self.project_root / "packages"
-        missing = [s for s in required if not (core_dir / s).exists()]
+        required = ["core", "features", "interfaces"]
+        packages_dir = self.project_root / "packages"
+        missing = [s for s in required if not (packages_dir / s).exists()]
         if missing:
             return False, f"Missing subsystems: {', '.join(missing)}"
         return True, "Core structure is valid"

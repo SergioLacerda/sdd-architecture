@@ -50,8 +50,7 @@ jobs:
 
       - name: Run tests
         run: |
-          chmod +x scripts/run-all-tests.sh
-          ./scripts/run-all-tests.sh
+          python scripts/run_all_tests.py
 
   docs:
     name: Deploy Docs

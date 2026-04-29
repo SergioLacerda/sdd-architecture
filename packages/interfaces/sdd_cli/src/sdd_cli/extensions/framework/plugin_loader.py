@@ -10,12 +10,7 @@ import sys
 from pathlib import Path
 from typing import Any, Dict, List, Optional
 
-# Try relative import first, fall back to absolute
-try:
-    from .extension_framework import BaseExtension, ExtensionRegistry, get_registry
-except (ImportError, ValueError):
-    # Absolute import fallback
-    from sdd_cli.src.sdd_cli.extensions.framework.extension_framework import BaseExtension, ExtensionRegistry, get_registry
+from .extension_framework import BaseExtension, ExtensionRegistry, get_registry
 
 
 class PluginLoader:

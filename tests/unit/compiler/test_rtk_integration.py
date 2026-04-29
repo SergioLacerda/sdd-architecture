@@ -25,10 +25,10 @@ class TestRTKIntegration:
         """Test pattern registry loads 50+ patterns"""
         registry = PatternRegistry()
         assert registry.patterns is not None
-        assert len(registry.patterns) > 0
-        # Should have at least the basic patterns
+        assert len(registry.patterns) >= 50
+        # Extended catalog should include temporal and service-name patterns
         assert "TS001" in registry.patterns  # ISO timestamp
-        assert "SRV01" in registry.patterns  # Service header
+        assert "META002" in registry.patterns  # Service name
 
     def test_deduplicate_event_basic(self):
         """Test basic event deduplication"""

@@ -7,9 +7,22 @@ Run: pytest tests/spec_validation/test_generate_specializations.py -v
 
 import subprocess
 import sys
+import tempfile
 from pathlib import Path
 
 import pytest
+
+GENERATOR_PATH = Path("packages/core/sdd_core/src/sdd_core/tools/generate-specializations.py").resolve()
+
+
+def _run_generator(args: list[str], cwd: Path) -> subprocess.CompletedProcess[str]:
+    return subprocess.run(
+        [sys.executable, str(GENERATOR_PATH), *args],
+        capture_output=True,
+        text=True,
+        timeout=10,
+        cwd=cwd,
+    )
 
 
 class TestSpecializationsConfigValidation:
@@ -229,36 +242,49 @@ class TestSpecializationsCommandLine:
 
     def test_generate_command_basic(self):
         """Should generate specializations."""
-        generator_path = Path("docs/ia/SCRIPTS/generate-specializations.py")
-        if generator_path.exists():
-            result = subprocess.run([sys.executable, str(generator_path), "--help"], capture_output=True, text=True, timeout=5)
-            assert result.returncode == 0
+        assert GENERATOR_PATH.exists()
+        result = subprocess.run(
+            [sys.executable, str(GENERATOR_PATH), "--help"], capture_output=True, text=True, timeout=5
+        )
+        assert result.returncode == 0
 
     def test_generate_with_project_flag(self):
         """Should accept --project flag."""
-        generator_path = Path("docs/ia/SCRIPTS/generate-specializations.py")
-        if generator_path.exists():
-            result = subprocess.run(
-                [sys.executable, str(generator_path), "--project", "rpg-narrative-server"],
-                capture_output=True,
-                text=True,
-                timeout=10,
+        with tempfile.TemporaryDirectory() as tmpdir:
+            root = Path(tmpdir)
+            cfg = root / "docs" / "ia" / "custom" / "rpg-narrative-server" / "SPECIALIZATIONS_CONFIG.md"
+            cfg.parent.mkdir(parents=True, exist_ok=True)
+            cfg.write_text(
+                "\n".join(
+                    [
+                        "MAX_CONCURRENT_ENTITIES=50",
+                        "LANGUAGE=python",
+                        "ASYNC_FRAMEWORK=fastapi",
+                    ]
+                ),
+                encoding="utf-8",
             )
-            # Should complete without critical errors
-            assert result.returncode in [0, 1]
+            result = _run_generator(["--project", "rpg-narrative-server"], cwd=root)
+            assert result.returncode == 0
 
     def test_generate_with_force_flag(self):
         """Should accept --force flag to regenerate."""
-        generator_path = Path("docs/ia/SCRIPTS/generate-specializations.py")
-        if generator_path.exists():
-            result = subprocess.run(
-                [sys.executable, str(generator_path), "--project", "rpg-narrative-server", "--force"],
-                capture_output=True,
-                text=True,
-                timeout=10,
+        with tempfile.TemporaryDirectory() as tmpdir:
+            root = Path(tmpdir)
+            cfg = root / "docs" / "ia" / "custom" / "rpg-narrative-server" / "SPECIALIZATIONS_CONFIG.md"
+            cfg.parent.mkdir(parents=True, exist_ok=True)
+            cfg.write_text(
+                "\n".join(
+                    [
+                        "MAX_CONCURRENT_ENTITIES=50",
+                        "LANGUAGE=python",
+                        "ASYNC_FRAMEWORK=fastapi",
+                    ]
+                ),
+                encoding="utf-8",
             )
-            # Should complete without critical errors
-            assert result.returncode in [0, 1]
+            result = _run_generator(["--project", "rpg-narrative-server", "--force"], cwd=root)
+            assert result.returncode == 0
 
 
 class TestSpecializationsExitCodes:
@@ -422,27 +448,28 @@ class TestSpecializationsIntegration:
 
     def test_full_generation_workflow(self):
         """Full workflow: read config → generate → validate."""
-        generator_path = Path("docs/ia/SCRIPTS/generate-specializations.py")
-        if generator_path.exists():
-            result = subprocess.run(
-                [sys.executable, str(generator_path), "--project", "rpg-narrative-server"],
-                capture_output=True,
-                text=True,
-                timeout=10,
+        with tempfile.TemporaryDirectory() as tmpdir:
+            root = Path(tmpdir)
+            cfg = root / "docs" / "ia" / "custom" / "rpg-narrative-server" / "SPECIALIZATIONS_CONFIG.md"
+            cfg.parent.mkdir(parents=True, exist_ok=True)
+            cfg.write_text(
+                "\n".join(
+                    [
+                        "MAX_CONCURRENT_ENTITIES=50",
+                        "LANGUAGE=python",
+                        "ASYNC_FRAMEWORK=fastapi",
+                    ]
+                ),
+                encoding="utf-8",
             )
-
-            # Should complete successfully
-            assert result.returncode in [0, 1]
+            result = _run_generator(["--project", "rpg-narrative-server"], cwd=root)
+            assert result.returncode == 0
 
     def test_ci_cd_integration(self):
         """Should work in CI/CD pipeline."""
-        # Verify script can be run in subprocess (CI/CD context)
-        generator_path = Path("docs/ia/SCRIPTS/generate-specializations.py")
-        if generator_path.exists():
-            result = subprocess.run([sys.executable, str(generator_path)], capture_output=True, text=True, timeout=10)
-
-            # Should handle missing project gracefully
-            assert result.returncode in [0, 1, 3]
+        # Missing required --project should fail argparse with exit code 2.
+        result = subprocess.run([sys.executable, str(GENERATOR_PATH)], capture_output=True, text=True, timeout=10)
+        assert result.returncode == 2
 
 
 if __name__ == "__main__":

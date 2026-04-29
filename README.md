@@ -302,11 +302,17 @@ python3 packages/governance_compliance.py --verify
 
 **Pre-push hook behavior:**
 ```bash
+# Install hooks (cross-platform)
+python scripts/git_hooks.py install
+
 git push origin main
 # Runs .git/hooks/pre-push
 # Validates: Health (10 checks) + Governance (4 mandates)
 # If fails: Push is blocked
 # Skip: git push --no-verify (not recommended)
+
+# Uninstall hooks
+python scripts/git_hooks.py uninstall
 ```
 
 **View workflow logs:**

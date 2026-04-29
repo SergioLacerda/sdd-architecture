@@ -10,7 +10,7 @@ Evaluates AI agent confidence and safety:
 - Overall confidence score (0-100%)
 
 Usage:
-    python packages/agent_confidence.py [--model=<model>] [--temperature=<0-2>]
+    python tools/governance/agent_confidence.py [--model=<model>] [--temperature=<0-2>]
 """
 
 import json

@@ -12,6 +12,18 @@ from pathlib import Path
 
 import pytest
 
+VALIDATOR_PATH = Path("packages/interfaces/sdd_wizard/src/sdd_wizard/SCRIPTS/validate-ia-first.py").resolve()
+
+
+def _run_validator(args: list[str], cwd: Path | None = None) -> subprocess.CompletedProcess[str]:
+    return subprocess.run(
+        [sys.executable, str(VALIDATOR_PATH), *args],
+        capture_output=True,
+        text=True,
+        timeout=30,
+        cwd=cwd,
+    )
+
 
 class TestValidateIAFirstBasics:
     """Test basic validation rules."""
@@ -249,39 +261,33 @@ class TestValidateCommandLine:
 
     def test_validate_command_basic(self):
         """Should run basic validation."""
-        validator_path = Path("docs/ia/SCRIPTS/validate-ia-first.py")
-        if validator_path.exists():
-            result = subprocess.run([sys.executable, str(validator_path)], capture_output=True, text=True, timeout=10)
-            # Should not crash
-            assert result.returncode in [0, 1, 3]  # Possible exit codes
+        assert VALIDATOR_PATH.exists()
+        result = _run_validator(["--help"])
+        assert result.returncode == 0
 
     def test_validate_audit_mode(self):
         """Should support --audit mode."""
-        validator_path = Path("docs/ia/SCRIPTS/validate-ia-first.py")
-        if validator_path.exists():
-            result = subprocess.run(
-                [sys.executable, str(validator_path), "--audit", "docs/ia/"], capture_output=True, text=True, timeout=30
+        with tempfile.TemporaryDirectory() as tmpdir:
+            root = Path(tmpdir)
+            docs_dir = root / "docs"
+            docs_dir.mkdir(parents=True, exist_ok=True)
+            (docs_dir / "ok.md").write_text(
+                "# Title\n\n## ⚡ IA-FIRST DESIGN NOTICE\n\nStatus: Complete\nVersion: 1.0\n✅ marker\n",
+                encoding="utf-8",
             )
-            # Should run and produce output
-            assert len(result.stdout) > 0 or len(result.stderr) > 0
+            result = _run_validator(["--audit", str(docs_dir)], cwd=root)
+            assert result.returncode == 0
 
     def test_validate_fix_mode(self):
         """Should support --fix auto-fix mode."""
-        validator_path = Path("docs/ia/SCRIPTS/validate-ia-first.py")
-        if validator_path.exists():
-            # Create temp doc for testing
-            with tempfile.NamedTemporaryFile(mode="w", suffix=".md", delete=False) as f:
-                f.write("# Test\nContent without IA-FIRST\n")
-                temp_path = f.name
-
-            try:
-                result = subprocess.run(
-                    [sys.executable, str(validator_path), "--fix", temp_path], capture_output=True, text=True, timeout=5
-                )
-                # Should complete without error
-                assert result.returncode in [0, 1, 3]
-            finally:
-                Path(temp_path).unlink(missing_ok=True)
+        with tempfile.TemporaryDirectory() as tmpdir:
+            root = Path(tmpdir)
+            docs_dir = root / "docs"
+            docs_dir.mkdir(parents=True, exist_ok=True)
+            (docs_dir / "broken.md").write_text("# Test\nContent without IA-FIRST\n", encoding="utf-8")
+            result = _run_validator(["--fix", "--audit", str(docs_dir)], cwd=root)
+            # Missing Status still keeps file invalid, but command should execute deterministically.
+            assert result.returncode == 1
 
 
 class TestValidateExitCodes:
@@ -359,14 +365,16 @@ class TestValidateIntegration:
 
     def test_validate_docs_ia_folder(self):
         """Should validate entire docs/ia/ folder."""
-        validator_path = Path("docs/ia/SCRIPTS/validate-ia-first.py")
-        if validator_path.exists():
-            result = subprocess.run(
-                [sys.executable, str(validator_path), "--audit", "docs/ia/"], capture_output=True, text=True, timeout=30
+        with tempfile.TemporaryDirectory() as tmpdir:
+            root = Path(tmpdir)
+            docs_dir = root / "docs" / "ia"
+            docs_dir.mkdir(parents=True, exist_ok=True)
+            (docs_dir / "valid.md").write_text(
+                "# Title\n\n## ⚡ IA-FIRST DESIGN NOTICE\n\nStatus: Complete\nVersion: 1.0\n✅ marker\n",
+                encoding="utf-8",
             )
-
-            # Should complete without crashing
-            assert result.returncode in [0, 1, 3]
+            result = _run_validator(["--audit", str(docs_dir)], cwd=root)
+            assert result.returncode == 0
 
 
 if __name__ == "__main__":

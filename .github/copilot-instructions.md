@@ -168,7 +168,7 @@ If suggesting code that might impact these, recommend benchmarking first.
 1. **Pre-commit**: Ensure health + governance pass
 2. **Pre-push**: Ensure fresh health check passes
 3. **Post-merge**: Cache is cleared and warmed
-4. **Hooks**: Use `bash scripts/install-git-hooks.sh`
+4. **Hooks**: Use `python scripts/git_hooks.py install`
 
 ---
 
@@ -200,10 +200,10 @@ if not is_compliant:
 
 ### Agent Handshake
 ```python
-from packages.agent_handshake import AgentHandshake
+from agent_handshake import AgentHandshakeProtocol
 
-handshake = AgentHandshake()
-state = handshake.validate()  # Returns 5-state machine value
+handshake = AgentHandshakeProtocol()
+state, report = handshake.validate(output_mode="compact")
 # "ready" = proceed
 # "degraded" = warn but proceed
 # "blocked" = cannot proceed
@@ -303,7 +303,7 @@ When suggestions are vague, ask:
 
 ### Key Files
 - `packages/health_check.py` - 400 LOC, 10 checks
-- `packages/agent_handshake.py` - 658 LOC, 4-layer validation
+- `tools/governance/agent_handshake.py` - 658 LOC, 4-layer validation
 - `packages/tools/governance_compliance.py` - 400 LOC, policy validator
 - `packages/quiz_executor.py` - 450 LOC, knowledge validation
 - `tests/performance/benchmark.py` - 400 LOC, performance measurement

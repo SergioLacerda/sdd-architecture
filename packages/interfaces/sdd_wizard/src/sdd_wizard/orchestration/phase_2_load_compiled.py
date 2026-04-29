@@ -7,6 +7,26 @@ import msgpack
 """Phase 2: Load and deserialize compiled artifacts from runtime/"""
 
 
+def _resolve_runtime_compiled_dir(repo_root: Path) -> Path | None:
+    candidates = [
+        repo_root / "runtime" / "compiled",
+        repo_root / "compiler" / "compiled",
+        repo_root / "packages" / "interfaces" / "sdd_wizard" / "src" / "sdd_wizard" / "sdd_runtime" / "compiled",
+    ]
+    for candidate in candidates:
+        if candidate.exists():
+            return candidate
+    return None
+
+
+def _resolve_first_existing(base_dir: Path, file_names: List[str]) -> Path | None:
+    for name in file_names:
+        candidate = base_dir / name
+        if candidate.exists():
+            return candidate
+    return None
+
+
 def _reconstruct_guideline(guide_dict: Dict, string_pool: List[str]) -> Dict:
     """Reconstruct guideline handling None indices gracefully"""
     title = ""
@@ -120,37 +140,61 @@ def phase_2_load_compiled(repo_root: Path | None = None) -> Tuple[bool, Dict]:  
         "_artifacts": {},
     }
 
-    runtime_compiled = repo_root / "runtime" / "compiled"
-    if not runtime_compiled.exists():
-        report["errors"].append(f"runtime/compiled directory not found at {runtime_compiled}")
+    runtime_compiled = _resolve_runtime_compiled_dir(repo_root)
+    if runtime_compiled is None:
+        report["errors"].append(
+            "Compiled artifacts directory not found. Checked: runtime/compiled, compiler/compiled, "
+            "packages/interfaces/sdd_wizard/src/sdd_wizard/sdd_runtime/compiled"
+        )
         report["status"] = "FAILED"
         return (False, report)
 
     # Check for compiled msgpack files
-    mandate_msgpack = runtime_compiled / "governance-core.compiled.msgpack"
-    guidelines_msgpack = runtime_compiled / "governance-client-template.compiled.msgpack"
-    metadata_json = runtime_compiled / "metadata-governance-core.json"
+    mandate_msgpack = _resolve_first_existing(
+        runtime_compiled, ["governance-core.compiled.msgpack", "governance-core.msgpack"]
+    )
+    guidelines_msgpack = _resolve_first_existing(
+        runtime_compiled,
+        [
+            "governance-client-template.compiled.msgpack",
+            "governance-client.compiled.msgpack",
+            "governance-client-template.msgpack",
+            "governance-client.msgpack",
+        ],
+    )
+    metadata_json = _resolve_first_existing(
+        runtime_compiled,
+        [
+            "metadata-core.json",
+            "metadata-governance-core.json",
+            "metadata-client-template.json",
+            "metadata-governance-client-template.json",
+        ],
+    )
 
-    if not mandate_msgpack.exists():
+    if mandate_msgpack is None:
         report["warnings"].append("governance-core.compiled.msgpack not found (optional)")
     else:
         report["checks"]["mandate_bin_exists"] = True
 
-    if not guidelines_msgpack.exists():
-        report["errors"].append("governance-client-template.compiled.msgpack not found")
+    if guidelines_msgpack is None:
+        report["errors"].append(
+            "Client governance artifact not found. Tried: governance-client-template.compiled.msgpack, "
+            "governance-client.compiled.msgpack, governance-client-template.msgpack, governance-client.msgpack"
+        )
         report["status"] = "FAILED"
         return (False, report)
 
     report["checks"]["guidelines_bin_exists"] = True
 
-    if not metadata_json.exists():
+    if metadata_json is None:
         report["warnings"].append("metadata.json not found (optional)")
     else:
         report["checks"]["metadata_exists"] = True
 
     try:
         mandate_compiled = {}
-        if mandate_msgpack.exists():
+        if mandate_msgpack is not None:
             with open(mandate_msgpack, "rb") as f:
                 mandate_compiled = msgpack.unpackb(f.read(), raw=False)
 

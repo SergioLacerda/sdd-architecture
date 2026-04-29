@@ -1,18 +1,10 @@
-"""
-Tests for SDD Extension Framework
+"""Tests for SDD Extension Framework."""
 
-Tests extension creation, validation, loading, and registration.
-"""
-
-import sys
 from pathlib import Path
 
 import pytest
 
-# Add framework to path
-sys.path.insert(0, str(Path(__file__).parent.parent / "framework"))
-
-from extension_framework import (
+from sdd_cli.extensions.framework.extension_framework import (
     BaseExtension,
     Category,
     CustomGuideline,
@@ -21,7 +13,7 @@ from extension_framework import (
     ExtensionRegistry,
     get_registry,
 )
-from plugin_loader import PluginLoader
+from sdd_cli.extensions.framework.plugin_loader import PluginLoader
 
 
 class TestCustomMandate:

@@ -6,6 +6,9 @@ Tests the actual INTEGRATION flow by simulating a new project setup.
 This is a "fake" test that follows all 5 steps without modifying the framework.
 """
 
+# This file is a standalone functional script (run via __main__), not a pytest module.
+__test__ = False
+
 import os
 import shutil
 import tempfile

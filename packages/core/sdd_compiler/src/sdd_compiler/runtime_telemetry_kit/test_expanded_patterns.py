@@ -1,19 +1,9 @@
-"""
-Tests for RTK Pattern Expansion (Week 4)
-
-Validates 50+ patterns coverage and compression performance.
-"""
-
-import sys
-from pathlib import Path
+"""Tests for RTK Pattern Expansion (Week 4)."""
 
 import pytest
 
-# Add RTK to path
-sys.path.insert(0, str(Path(__file__).parent))
-
-from engine import DeduplicationEngine, PatternRegistry
-from patterns import ExtendedPatterns
+from sdd_compiler.runtime_telemetry_kit.engine import DeduplicationEngine, PatternRegistry
+from sdd_compiler.runtime_telemetry_kit.patterns import ExtendedPatterns
 
 
 class TestExtendedPatterns:

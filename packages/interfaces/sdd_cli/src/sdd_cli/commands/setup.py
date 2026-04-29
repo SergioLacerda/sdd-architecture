@@ -1,36 +1,11 @@
 import subprocess
 import sys
-from pathlib import Path
 
 import typer
+from sdd_cli.utils.environment import detect_repo_root, resolve_venv_python, resolve_venv_sdd
 
 app = typer.Typer()
-
-
-def _is_repo_root(path: Path) -> bool:
-    required = [
-        path / "pyproject.toml",
-        path / "packages" / "core" / "sdd_core" / "pyproject.toml",
-        path / "packages" / "interfaces" / "sdd_cli" / "pyproject.toml",
-    ]
-    return all(p.exists() for p in required)
-
-
-def _detect_repo_root() -> Path:
-    cwd = Path.cwd().resolve()
-    for candidate in (cwd, *cwd.parents):
-        if _is_repo_root(candidate):
-            return candidate
-
-    file_path = Path(__file__).resolve()
-    for candidate in file_path.parents:
-        if _is_repo_root(candidate):
-            return candidate
-
-    raise RuntimeError("Could not locate sdd-architecture repository root")
-
-
-_REPO_ROOT = _detect_repo_root()
+_REPO_ROOT = detect_repo_root()
 
 
 def _run(cmd: list[str]) -> None:
@@ -42,7 +17,7 @@ def _run(cmd: list[str]) -> None:
 
 @app.command(name="run")
 def run_setup() -> None:  # noqa: C901
-    """Setup SDD workspace (cross-platform replacement for setup.sh)"""
+    """Setup SDD workspace."""
 
     typer.echo("🚀 SDD Workspace Setup")
     typer.echo("======================")
@@ -57,10 +32,9 @@ def run_setup() -> None:  # noqa: C901
         _run([python, "-m", "venv", str(venv_dir)])
 
     # Locate venv python (Linux/Mac or Windows)
-    venv_python = venv_dir / "bin" / "python"
-    if not venv_python.exists():
-        venv_python = venv_dir / "Scripts" / "python.exe"
-    if not venv_python.exists():
+    try:
+        venv_python = resolve_venv_python(venv_dir)
+    except RuntimeError:
         typer.echo("❌ Could not find venv python")
         raise typer.Exit(1)
 
@@ -115,10 +89,9 @@ def run_setup() -> None:  # noqa: C901
 
     # Validate CLI
     typer.echo("\n🔍 Validating CLI...")
-    venv_sdd = venv_dir / "bin" / "sdd"
-    if not venv_sdd.exists():
-        venv_sdd = venv_dir / "Scripts" / "sdd.exe"
-    if not venv_sdd.exists():
+    try:
+        venv_sdd = resolve_venv_sdd(venv_dir)
+    except RuntimeError:
         typer.echo("  ❌ sdd CLI not found in venv")
         raise typer.Exit(1)
     typer.echo("  ✓ sdd command available")

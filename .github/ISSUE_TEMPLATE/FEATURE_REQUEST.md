@@ -53,4 +53,4 @@ Link to relevant docs:
 2. Maintain compliance (100% governance compliance)
 3. Follow code patterns in `docs/ARCHITECTURE.md`
 4. Include tests in `tests/`
-5. Pass: `bash scripts/install-git-hooks.sh` (local validation)
+5. Pass: `python scripts/git_hooks.py install` (local validation)

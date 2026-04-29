@@ -9,6 +9,9 @@ Tests the EXECUTION flow by validating:
 - AI-first design
 """
 
+# This file is a standalone functional script (run via __main__), not a pytest module.
+__test__ = False
+
 from pathlib import Path
 
 

@@ -10,9 +10,10 @@ Runs critical diagnostic tests:
 - Quick runtime checks
 
 Usage:
-    python packages/diagnostics_test.py [--verbose]
+    python tools/testing/diagnostics.py [--verbose]
 """
 
+import importlib
 import json
 import subprocess
 import sys
@@ -95,7 +96,7 @@ class DiagnosticTestSuite:
 
     def testpackages_subsystems(self) -> Tuple[bool, str]:
         """Test: All core subsystems exist"""
-        subsystems = ["core", "cli", "wizard", "compiler", "migration"]
+        subsystems = ["core", "features", "interfaces"]
 
         core_dir = self.project_root / "packages"
         missing = []
@@ -149,15 +150,19 @@ class DiagnosticTestSuite:
     # ========== CONFIGURATION TESTS ==========
 
     def test_makefile_exists(self) -> Tuple[bool, str]:
-        """Test: Makefile.tests exists"""
-        makefile = self.project_root / "packages" / "Makefile.tests"
-        if makefile.exists():
-            return True, f"Found at {makefile}"
-        return False, "Not found"
+        """Test: cross-platform test runner exists."""
+        runner = self.project_root / "scripts" / "run_all_tests.py"
+        if runner.exists():
+            return True, f"Found at {runner}"
+        return False, "scripts/run_all_tests.py not found"
 
     def test_python_scripts_exist(self) -> Tuple[bool, str]:
         """Test: Key Python scripts exist"""
-        scripts = ["packages/health_check.py", "packages/agent_confidence.py", "packages/diagnostics_test.py"]
+        scripts = [
+            "tools/health/health_check.py",
+            "tools/governance/agent_confidence.py",
+            "tools/testing/diagnostics.py",
+        ]
 
         missing = []
         for script in scripts:
@@ -188,27 +193,24 @@ class DiagnosticTestSuite:
     def test_python_import_health_check(self) -> Tuple[bool, str]:
         """Test: health_check.py can be imported"""
         try:
-            sys.path.insert(0, str(self.project_root / "packages"))
-            sys.path.pop(0)
-            return True, "Module imports successfully"
+            importlib.import_module("tools.health.health_check")
+            return True, "tools.health.health_check imports successfully"
         except Exception as e:
             return False, f"Import error: {str(e)}"
 
     def test_python_import_agent_confidence(self) -> Tuple[bool, str]:
         """Test: agent_confidence.py can be imported"""
         try:
-            sys.path.insert(0, str(self.project_root / "packages"))
-            sys.path.pop(0)
-            return True, "Module imports successfully"
+            importlib.import_module("tools.governance.agent_confidence")
+            return True, "tools.governance.agent_confidence imports successfully"
         except Exception as e:
             return False, f"Import error: {str(e)}"
 
     def test_python_import_diagnostics(self) -> Tuple[bool, str]:
-        """Test: diagnostics_test.py can be imported"""
+        """Test: diagnostics.py can be imported"""
         try:
-            sys.path.insert(0, str(self.project_root / "packages"))
-            sys.path.pop(0)
-            return True, "Module imports successfully"
+            importlib.import_module("tools.testing.diagnostics")
+            return True, "tools.testing.diagnostics imports successfully"
         except Exception as e:
             return False, f"Import error: {str(e)}"
 

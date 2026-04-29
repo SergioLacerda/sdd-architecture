@@ -39,7 +39,7 @@ python3 packages/health_check.py --verbose
 python3 packages/tools/governance_compliance.py --verify
 
 # Agent handshake
-python3 packages/agent_handshake.py --verbose
+python3 tools/governance/agent_handshake.py --verbose
 
 # Python version
 python3 --version

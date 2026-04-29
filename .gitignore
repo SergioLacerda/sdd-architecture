@@ -54,6 +54,13 @@ packages/sdd-compiler/runtime/
 
 # Wizard Output (test/temporary)
 sdd-generated/
+packages/interfaces/sdd_wizard/src/sdd_wizard/sdd_runtime/
+packages/interfaces/sdd_wizard/src/sdd_wizard/sdd_runtime/**
+runtime/compiled/
+
+# Local compiler workspace outputs
+compiler/
+compiler/**
 
 # Linters
 .ruff_cache/

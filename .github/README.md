@@ -90,7 +90,7 @@ To simulate the GitHub Actions workflow locally:
 # Run all health checks
 python packages/health_check.py --json > health-report.json
 python packages/diagnostics_test.py --json > diagnostics-report.json
-python packages/agent_handshake.py --mode=compact --json > ahp-report.json
+python tools/governance/agent_handshake.py --mode=compact --json > ahp-report.json
 python packages/agent_confidence.py --json > confidence-report.json
 
 # Parse results
@@ -130,7 +130,7 @@ Access via: Actions → Health Check → Run details → Artifacts
 
 - **Full Workflow Details**: `workflows/health-check.yml` (in this directory)
 - **Health Check Engine**: `packages/health_check.py`
-- **AHP Details**: `packages/agent_handshake.py`
+- **AHP Details**: `tools/governance/agent_handshake.py`
 - **Diagnostics**: `packages/diagnostics_test.py`
 - **Confidence Evaluation**: `packages/agent_confidence.py`
 

@@ -63,9 +63,8 @@ class TestLoadCommand:
 
     def test_load_with_valid_path(self):
         """Test load with valid wizard path."""
-        result = runner.invoke(app, ["governance", "load", "--path", "wizard"])
-        # Should succeed if wizard exists, or fail gracefully if not
-        assert result.exit_code in [0, 1]
+        result = runner.invoke(app, ["governance", "load", "--path", "runtime"])
+        assert result.exit_code == 0
 
     def test_load_with_invalid_path(self):
         """Test load with invalid path."""
@@ -79,9 +78,8 @@ class TestValidateCommand:
 
     def test_validate_with_valid_path(self):
         """Test validate with valid wizard path."""
-        result = runner.invoke(app, ["governance", "validate", "--path", "wizard"])
-        # Should succeed if wizard is valid, or fail gracefully if not
-        assert result.exit_code in [0, 1]
+        result = runner.invoke(app, ["governance", "validate", "--path", "runtime"])
+        assert result.exit_code == 0
 
     def test_validate_with_invalid_path(self):
         """Test validate with invalid path."""
@@ -94,9 +92,8 @@ class TestGenerateCommand:
 
     def test_generate_with_valid_path(self):
         """Test generate with valid wizard path."""
-        result = runner.invoke(app, ["governance", "generate", "--path", "wizard"])
-        # Should succeed if wizard is valid, or fail gracefully if not
-        assert result.exit_code in [0, 1]
+        result = runner.invoke(app, ["governance", "generate", "--path", "runtime"])
+        assert result.exit_code == 0
 
     def test_generate_with_invalid_path(self):
         """Test generate with invalid path."""
@@ -116,13 +113,10 @@ class TestLoaderIntegration:
         assert hasattr(loader, "get_governance_summary")
 
     def test_loader_imports_runtime(self):
-        """Test that loader imports wizard runtime modules."""
-        # This test checks that the import path is correct
-        # but doesn't require wizard to be fully functional
-        from pathlib import Path
+        """Test that runtime governance path is valid for loader."""
+        from sdd_cli.utils.loader import validate_governance_path
 
-        wizard_path = Path(__file__).parent.parent / "wizard"
-        assert wizard_path.exists() or True  # Pass if doesn't exist (import will fail gracefully)
+        assert validate_governance_path("runtime")
 
 
 class TestAgentSeedsGenerator:
@@ -177,20 +171,17 @@ class TestCommandExecutions:
     def test_load_execution(self):
         """Test load command execution."""
         result = runner.invoke(app, ["governance", "load"])
-        # Should complete (success or expected failure)
-        assert result.exit_code in [0, 1]
+        assert result.exit_code == 0
 
     def test_validate_execution(self):
         """Test validate command execution."""
         result = runner.invoke(app, ["governance", "validate"])
-        # Should complete (success or expected failure)
-        assert result.exit_code in [0, 1]
+        assert result.exit_code == 0
 
     def test_generate_execution(self):
         """Test generate command execution."""
         result = runner.invoke(app, ["governance", "generate"])
-        # Should complete (success or expected failure)
-        assert result.exit_code in [0, 1]
+        assert result.exit_code == 0
 
     def test_invalid_subcommand(self):
         """Test invalid subcommand."""
@@ -203,5 +194,5 @@ class TestPathErrorHandling:
 
     def test_missing_governance_path(self):
         """Test handling of missing governance path."""
-        result = runner.invoke(app, ["governance", "load", "--path", "/dev/null/nonexistent"])
+        result = runner.invoke(app, ["governance", "load", "--path", "path/that/does/not/exist"])
         assert result.exit_code == 1

@@ -50,14 +50,18 @@ class PatternRegistry:
 
     def _load_patterns(self) -> None:
         """Load v3.1 patterns (50+ for 90% coverage)"""
-        # Import extended patterns
+        # Prefer package-relative import; keep absolute fallback for direct script execution.
         try:
-            from patterns import ExtendedPatterns
-
-            all_patterns = ExtendedPatterns.get_all_patterns()
+            from .patterns import ExtendedPatterns
         except ImportError:
-            # Fallback to basic patterns if patterns.py not available
-            all_patterns = self._get_basic_patterns()
+            try:
+                from patterns import ExtendedPatterns
+
+                all_patterns = ExtendedPatterns.get_all_patterns()
+            except ImportError:
+                all_patterns = self._get_basic_patterns()
+        else:
+            all_patterns = ExtendedPatterns.get_all_patterns()
 
         # Load all patterns
         for pattern_id, pattern_info in all_patterns.items():

@@ -241,7 +241,7 @@ class AgentHandshakeProtocol:
         results.append(
             ValidationResult(
                 name=".sdd/ directory",
-                passed=exists or True,  # Optional
+                passed=exists,
                 message="Found" if exists else "Not initialized (optional)",
                 layer="DISCOVERY",
             )
@@ -253,7 +253,7 @@ class AgentHandshakeProtocol:
         results.append(
             ValidationResult(
                 name="governance files",
-                passed=governance_exists or True,  # Optional
+                passed=governance_exists,
                 message="Found" if governance_exists else "Not compiled (optional)",
                 layer="DISCOVERY",
             )
@@ -323,7 +323,7 @@ class AgentHandshakeProtocol:
         results.append(
             ValidationResult(
                 name="packages framework",
-                passed=core_accessible or True,  # Optional
+                passed=core_accessible,
                 message="Framework accessible" if core_accessible else "Not found (optional)",
                 layer="LINK_VALIDATION",
             )
@@ -358,7 +358,7 @@ class AgentHandshakeProtocol:
         results.append(
             ValidationResult(
                 name=".ai/runtime/",
-                passed=runtime_exists or True,  # Optional
+                passed=runtime_exists,
                 message="Initialized" if runtime_exists else "Not initialized",
                 layer="RUNTIME_VALIDATION",
             )
@@ -370,7 +370,7 @@ class AgentHandshakeProtocol:
         results.append(
             ValidationResult(
                 name="state cache",
-                passed=state_file_exists or True,  # Optional
+                passed=bool(state_file_exists),
                 message="Cache initialized" if state_file_exists else "Cache not created",
                 layer="RUNTIME_VALIDATION",
             )
@@ -382,7 +382,7 @@ class AgentHandshakeProtocol:
         results.append(
             ValidationResult(
                 name="PHASE 0 setup",
-                passed=phase_0_done or True,  # Optional
+                passed=bool(phase_0_done),
                 message="Completed" if phase_0_done else "Not run yet",
                 layer="RUNTIME_VALIDATION",
             )
@@ -412,7 +412,11 @@ class AgentHandshakeProtocol:
         results = []
 
         # Check governance-core.json integrity
-        governance_path = self.project_root / "packages" / "compiler" / "compiled" / "governance-core.json"
+        governance_candidates = [
+            self.project_root / "compiler" / "compiled" / "governance-core.json",
+            self.project_root / "runtime" / "compiled" / "governance-core.json",
+        ]
+        governance_path = next((p for p in governance_candidates if p.exists()), governance_candidates[0])
         governance_valid = False
         governance_items = 0
 
@@ -428,14 +432,19 @@ class AgentHandshakeProtocol:
         results.append(
             ValidationResult(
                 name="governance integrity",
-                passed=governance_valid or True,  # Optional
+                passed=governance_valid,
                 message=f"Valid ({governance_items} items)" if governance_valid else "Not compiled",
                 layer="GOVERNANCE_HEALTH",
             )
         )
 
         # Check for critical files
-        critical_files = ["packages/core", "packages/cli", "packages/wizard", "packages/compiler"]
+        critical_files = [
+            "packages/core/sdd_core",
+            "packages/core/sdd_compiler",
+            "packages/interfaces/sdd_cli",
+            "packages/interfaces/sdd_wizard",
+        ]
 
         critical_present = 0
         for cfile in critical_files:
@@ -451,7 +460,7 @@ class AgentHandshakeProtocol:
         results.append(
             ValidationResult(
                 name="critical subsystems",
-                passed=critical_ok or True,  # Optional
+                passed=critical_ok,
                 message=critical_msg,
                 layer="GOVERNANCE_HEALTH",
             )

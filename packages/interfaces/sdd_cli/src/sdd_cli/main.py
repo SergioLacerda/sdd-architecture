@@ -1,6 +1,6 @@
 import typer
 
-from sdd_cli.commands import bootstrap, doctor, governance, lint, setup, test, wizard
+from sdd_cli.commands import doctor, governance, lint, setup, test, wizard
 
 app = typer.Typer(help="SDD CLI - Spec Driven Development Toolkit")
 
@@ -11,7 +11,6 @@ app.add_typer(lint.app, name="lint", help="Run lint checks")
 app.add_typer(wizard.app, name="wizard", help="Run wizard")
 app.add_typer(governance.app, name="governance", help="Governance operations")
 app.add_typer(doctor.app, name="doctor")
-app.add_typer(bootstrap.app, name="bootstrap")
 
 
 @app.command()
