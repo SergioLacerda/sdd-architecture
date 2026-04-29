@@ -32,6 +32,18 @@ def _resolve_compiled_dir(path: str) -> Optional[Path]:
     if all(f.exists() for f in nested_required):
         return compiled_dir
 
+    # Fallback for workspace repositories where compiled artifacts may live in compiler/compiled.
+    if path_obj.name == "runtime":
+        alt_compiled = path_obj.parent / "compiler" / "compiled"
+        alt_required = [
+            alt_compiled / "governance-core.compiled.msgpack",
+            alt_compiled / "governance-client-template.compiled.msgpack",
+            alt_compiled / "metadata-core.json",
+            alt_compiled / "metadata-client-template.json",
+        ]
+        if all(f.exists() for f in alt_required):
+            return alt_compiled
+
     return None
 
 

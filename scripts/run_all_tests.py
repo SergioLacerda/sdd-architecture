@@ -15,6 +15,28 @@ def detect_repo_root() -> Path:
     raise RuntimeError("Project root not found")
 
 
+def ensure_governance_artifacts(repo_root: Path) -> None:
+    """Ensure compiled and deployed governance artifacts exist before tests."""
+    compiled_dir = repo_root / "compiler" / "compiled"
+    runtime_dir = repo_root / "runtime" / "compiled"
+    required = [
+        compiled_dir / "governance-core.compiled.msgpack",
+        compiled_dir / "governance-client-template.compiled.msgpack",
+        runtime_dir / "governance-core.compiled.msgpack",
+        runtime_dir / "governance-client-template.compiled.msgpack",
+    ]
+    if all(path.exists() for path in required):
+        return
+
+    print("🔧 Preparing governance compiled artifacts...")
+    from sdd_compiler.governance_compiler import GovernanceCompiler
+    from sdd_core.deployment_manager import DeploymentManager
+
+    compiler = GovernanceCompiler(str(compiled_dir))
+    compiler.compile(str(compiled_dir))
+    DeploymentManager(str(repo_root)).deploy()
+
+
 def run_pytest(repo_root: Path, verbose: bool, fail_fast: bool) -> int:
     cmd = [
         sys.executable,
@@ -47,6 +69,7 @@ def main() -> int:
     args = parser.parse_args()
 
     repo_root = detect_repo_root()
+    ensure_governance_artifacts(repo_root)
     return run_pytest(repo_root, verbose=args.verbose, fail_fast=args.fail_fast)
 
 
