@@ -44,23 +44,13 @@ jobs:
         run: echo "Using Git Bash"
 
       - name: Install SDD CLI bootstrap
-        run: |
-          python -m pip install --upgrade pip
-          python -m pip install -e packages/interfaces/sdd_cli --no-deps
+        uses: ./.github/actions/bootstrap-sdd-cli
 
       - name: Setup environment
-        run: |
-          sdd setup run
+        run: sdd setup run
 
       - name: Run tests
-        run: |
-          if [ -x .venv/bin/python ]; then
-            .venv/bin/python scripts/run_all_tests.py
-          elif [ -x .venv/Scripts/python.exe ]; then
-            .venv/Scripts/python.exe scripts/run_all_tests.py
-          else
-            python scripts/run_all_tests.py
-          fi
+        run: sdd test run
 
   docs:
     name: Deploy Docs
@@ -82,9 +72,7 @@ jobs:
         run: pip install mkdocs mkdocs-material
 
       - name: Install SDD CLI bootstrap
-        run: |
-          python -m pip install --upgrade pip
-          python -m pip install -e packages/interfaces/sdd_cli --no-deps
+        uses: ./.github/actions/bootstrap-sdd-cli
 
       - name: Deploy docs
         run: sdd docs deploy
@@ -110,9 +98,7 @@ jobs:
           pip install build
 
       - name: Install SDD CLI bootstrap
-        run: |
-          python -m pip install --upgrade pip
-          python -m pip install -e packages/interfaces/sdd_cli --no-deps
+        uses: ./.github/actions/bootstrap-sdd-cli
 
       - name: Build package
         run: sdd release build

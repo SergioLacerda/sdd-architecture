@@ -25,9 +25,10 @@ class TestCommand:
 
         typer.echo(f"▶ Running tests from: {script}")
 
-        result = subprocess.run(cmd, cwd=root)
-        if result.returncode != 0:
-            raise typer.Exit(result.returncode)
+        try:
+            subprocess.run(cmd, cwd=root, check=True)
+        except subprocess.CalledProcessError as err:
+            raise typer.Exit(err.returncode) from err
 
 
 @app.command()
