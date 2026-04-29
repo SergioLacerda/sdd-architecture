@@ -50,7 +50,13 @@ jobs:
 
       - name: Run tests
         run: |
-          python scripts/run_all_tests.py
+          if [ -x .venv/bin/python ]; then
+            .venv/bin/python scripts/run_all_tests.py
+          elif [ -x .venv/Scripts/python.exe ]; then
+            .venv/Scripts/python.exe scripts/run_all_tests.py
+          else
+            python scripts/run_all_tests.py
+          fi
 
   docs:
     name: Deploy Docs
