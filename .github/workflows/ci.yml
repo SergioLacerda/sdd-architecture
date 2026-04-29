@@ -46,7 +46,7 @@ jobs:
       - name: Install SDD CLI bootstrap
         run: |
           python -m pip install --upgrade pip
-          python -m pip install -e packages/interfaces/sdd_cli
+          python -m pip install -e packages/interfaces/sdd_cli --no-deps
 
       - name: Setup environment
         run: |
@@ -84,7 +84,7 @@ jobs:
       - name: Install SDD CLI bootstrap
         run: |
           python -m pip install --upgrade pip
-          python -m pip install -e packages/interfaces/sdd_cli
+          python -m pip install -e packages/interfaces/sdd_cli --no-deps
 
       - name: Deploy docs
         run: sdd docs deploy
@@ -112,7 +112,7 @@ jobs:
       - name: Install SDD CLI bootstrap
         run: |
           python -m pip install --upgrade pip
-          python -m pip install -e packages/interfaces/sdd_cli
+          python -m pip install -e packages/interfaces/sdd_cli --no-deps
 
       - name: Build package
         run: sdd release build
